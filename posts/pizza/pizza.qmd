@@ -1,0 +1,18 @@
+---
+title: pizza
+description: "Post"
+author: "sungil_park"
+date: "3/14/2023"
+category: 'pizza'
+#draft: true
+---
+
+#### Let the radius of the pizza be 'z' and the depth be 'a'.
+
+#### The volume of the pizza is π \* z\*\*2 \* a.
+
+pi z z a
+
+delicious pizza
+
+![](pizza.jpg)

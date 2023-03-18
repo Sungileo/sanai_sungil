@@ -1,0 +1,39 @@
+---
+title: Stress is water soluble
+description: "Swimming"
+author: "sungil_park"
+date: "3/01/2023"
+date-modified: "18/03/2023"
+image: "swimming.jpg"
+categories:
+  - Athletics
+---
+
+
+#### Updates at weekend
+#### Record with Galaxy Watch 4
+#### Gears
+ * SPEEDO Allover V-cut Jammer
+ * NIKE have a Nike day Swimming cap
+ * NIKE Vapor Mirrored Performance Goggle
+ 
+
+|Date|Distance(m)|Time|Pace(/100m)|Review|
+|---|---|---|---|---|
+|2023/03/18|1600|29:31|1'50|50m Dash PR 42sec|
+|2023/03/16|1800|35:42|1'58|good|
+|2023/03/14|700|13:52|1'58|DNF 40m Success|
+|2023/03/13|1300|26:25|2'01||
+|2023/03/12|1050|27:28|1'44||
+|2023/03/10|1500|30:00|1'59|1500m/30min Success|
+|2023/03/07|2000|41:52|2'05||
+|2023/03/06|1350|27:28|2'00||
+|2023/03/04|450|9:42|2'06|Recovery day|
+|2023/03/03|1950|50:13|2'16||
+|2023/03/01|3100|65:00|2'05|3.1 to 3.1km|
+
+
+
+
+
+
