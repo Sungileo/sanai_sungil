@@ -2,22 +2,27 @@
 title: Running
 description: "Running"
 author: "sungil_park"
-date: "3/01/2023"
-date-modified: "18/03/2023"
+date: "2023/03/01"
+date-modified: "2023/03/26"
 image: "running.jpg"
 categories:
   - Athletics
 ---
 
 #### Updates at weekend
-#### Record with Galaxy Watch 4
-#### Gears
- * NIKE  Air Zoom Tempo NEXT% Flyknit
- * NIKE Epic React Flyknit 1
- 
 
-|Date|Distance(km)|Time|Pace(/1km)|
-|---|---|---|---|
-|2023/03/17|3.03|17:55|5'54|
-|2023/03/15|3.38|23:21|6'54|
-|2023/03/05|4.14|30:30|7'20|
+#### Record with Galaxy Watch 4
+
+#### Gears
+
+-   NIKE Air Zoom Tempo NEXT% Flyknit
+-   NIKE Epic React Flyknit 1
+
+| Date       | Distance(km) | Time  | Pace(/1km) |
+|------------|--------------|-------|------------|
+| 2023/03/25 | 4.2          | 30:16 | Treadmil   |
+| 2023/03/24 | 3.54         | 23:25 | 6'36       |
+| 2023/03/19 | 3.01         | 15:36 | 5'10       |
+| 2023/03/17 | 3.03         | 17:55 | 5'54       |
+| 2023/03/15 | 3.38         | 23:21 | 6'54       |
+| 2023/03/05 | 4.14         | 30:30 | 7'20       |

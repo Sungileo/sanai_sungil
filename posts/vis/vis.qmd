@@ -2,6 +2,8 @@
 title: "training markdown & GGplot"
 author: "sungil_park"
 date: "2023/03/15"
+date-modified: "2023/03/20"
+description: "Data Visualization"
 image: "vis.png"
 categories: Rstudio
 ---
@@ -43,3 +45,232 @@ ggplot(data_use, aes(x=displ, y=hwy)) +
   geom_point() +
   geom_smooth()
 ```
+
+#### 2023/03/20
+load data
+```{r}
+data_file <- read.csv("ncdc_normals.csv")
+```
+
+```{r}
+dim(data_file)
+data_file %>% head()
+```
+```{r}
+data_file %>% sapply(class)
+```
+
+```{r}
+data_file$date <- data_file$date %>% as.Date("%Y-%m-%d")
+```
+
+```{r}
+data_file %>% sapply(class)
+```
+```{r}
+data_file$station_id %>% unique() %>% length()
+```
+4개 역만 정해서 `join()` 사용
+```{r}
+station_loc <- data.frame(station_id = c("USW00014819","USC00042319","USW00093107","USW00012918"),
+                          location = c("Chicago","Death valley","San diego","Houston"))
+```
+
+```{r}
+temps_long <- data_file %>% inner_join(station_loc,by="station_id")
+temps_long %>% head()
+```
+```{r}
+ggplot(temps_long, aes(x=date,y=temperature,color=location))+geom_line()
+```
+
+
+
+#x축에 표시할 눈금
+```{r}
+date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
+date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
+break_date <- seq.Date(date_s, date_e, by = "3 month")
+```
+
+
+```{r}
+ggplot(temps_long, aes(x=date, y=temperature, color=location))+
+  geom_line()+
+  scale_x_date(name="month", 
+               breaks = break_date,
+               labels = c("jan", "apr", "jul", "oct", "jan"))+
+  theme_light()
+```
+
+```{r}
+ggplot(temps_long, aes(x=date, y=temperature, color=location))+
+  geom_line()+
+  scale_y_continuous(name = "temp",
+                     limits = c(0,100))+
+  theme_light()
+```
+
+```{r}
+ggplot(temps_long, aes(x=date, y=temperature, color=location))+
+  geom_line()+
+  scale_x_date(name="month", 
+               breaks = break_date,
+               labels = c("jan", "apr", "jul", "oct", "jan"))+
+  theme_light()+
+  labs(title = "Fig 2.3", subtitle = "www", caption = "eee", tag = "rrr")
+```
+
+
+
+
+
+
+
+
+
+
+### 2021년 서울, 대전, 세종, 제주 기온 데이터
+#### read csv from github ex)
+```{r}
+data_2021 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20220308125952.csv", fileEncoding = "euc-kr")
+```
+자료형 확인
+```{r}
+data_2021 %>% dim()
+data_2021 %>% head()
+data_2021 %>% sapply(class)
+```
+일시 자료형을 `date`형태로 바꾸기
+```{r}
+data_2021$일시 <-data_2021$일시 %>% as.Date("%Y-%m-%d")
+data_2021 %>% sapply(class)
+```
+기초통계량 확인
+```{r}
+data_2021 %>% summary()
+```
+breaks 설정
+```{r}
+date_21s <- "2021-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
+date_21e <- "2022-01-01" %>% as.Date("%Y-%m-%d")
+break_date_21 <- seq.Date(date_21s, date_21e, by = "3 month")
+```
+ploting
+```{r}
+#data_2021 %>% names()
+ggplot(data_2021,aes(x = 일시,y = 평균기온..C., color = 지점명))+
+  geom_line(linewidth = 1) +
+  scale_x_date(name ="월", 
+               breaks = break_date_21,
+               labels = c("1월","4월","7월","10월","1월")) +
+  scale_y_continuous(name = "평균기온")+
+  theme_light()
+```
+
+
+### 2022년
+
+
+```{r}
+data_2022 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20230322080932.csv", fileEncoding = "euc-kr")
+```
+자료형 확인
+```{r}
+data_2022 %>% dim()
+data_2022 %>% head()
+data_2022 %>% sapply(class)
+```
+일시 자료형을 `date`형태로 바꾸기
+```{r}
+data_2022$일시 <-data_2022$일시 %>% as.Date("%Y-%m-%d")
+data_2022 %>% sapply(class)
+```
+기초통계량 확인
+```{r}
+data_2022 %>% summary()
+```
+breaks 설정
+```{r}
+date_22s <- "2022-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
+date_22e <- "2023-01-01" %>% as.Date("%Y-%m-%d")
+break_date_22 <- seq.Date(date_22s, date_22e, by = "3 month")
+```
+ploting
+```{r}
+#data_2021 %>% names()
+ggplot(data_2022,aes(x = 일시,y = 평균기온..C., color = 지점명))+
+  geom_line(linewidth = 1) +
+  scale_x_date(name ="월", 
+               breaks = break_date_22,
+               labels = c("1월","4월","7월","10월","1월")) +
+  scale_y_continuous(name = "평균기온")+
+  theme_light()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+mean_temps <- temps_long %>% 
+  group_by(location,month) %>% 
+  summarize(mean = mean(temperature)) %>% 
+  ungroup() %>% 
+  mutate(month = factor(month %>% paste(),
+                        levels = 1:12 %>% paste()))
+```
+```{r}
+ggplot(mean_temps,aes(x = month, y = location, fill = mean))+
+  geom_tile(width = .95,height = 0.95)+
+  scale_fill_viridis_c(option = "B",begin = 0.15, end = 0.98,
+                       name = "temperature")+
+  coord_fixed(expand = FALSE)+
+  ylab(NULL)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
