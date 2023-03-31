@@ -196,8 +196,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#년-서울-대전-세종-제주-기온-데이터" id="toc-년-서울-대전-세종-제주-기온-데이터" class="nav-link active" data-scroll-target="#년-서울-대전-세종-제주-기온-데이터">2021년 서울, 대전, 세종, 제주 기온 데이터</a></li>
-  <li><a href="#년" id="toc-년" class="nav-link" data-scroll-target="#년">2022년</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023/03/15</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2023/03/20</a>
+  <ul class="collapse">
+  <li><a href="#년-서울-대전-세종-제주-기온-데이터" id="toc-년-서울-대전-세종-제주-기온-데이터" class="nav-link" data-scroll-target="#년-서울-대전-세종-제주-기온-데이터">2021년 서울, 대전, 세종, 제주 기온 데이터</a></li>
+  <li><a href="#년-서울-대전-세종-제주-기온-데이터-1" id="toc-년-서울-대전-세종-제주-기온-데이터-1" class="nav-link" data-scroll-target="#년-서울-대전-세종-제주-기온-데이터-1">2022년 서울, 대전, 세종, 제주 기온 데이터</a></li>
+  </ul></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">2023/03/27</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">2023/03/29</a></li>
   </ul>
 </nav>
     </div>
@@ -250,10 +256,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section">2023/03/15</h2>
 <p>train markdown, ggplot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 다음의 패키지를 부착합니다: 'dplyr'</code></pre>
@@ -349,8 +358,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="vis_files/figure-html/scatter_and_smooth_line-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="section" class="level4">
-<h4 class="anchored" data-anchor-id="section">2023/03/20</h4>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1">2023/03/20</h2>
 <p>load data</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"ncdc_normals.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -370,9 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5 AQW00061705     1   5        82.4    C 0000-01-05
 6 AQW00061705     1   6        82.4    C 0000-01-06</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class) <span class="co"># 날짜 형식 변경</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> station_id       month         day temperature        flag        date 
 "character"   "integer"   "integer"   "numeric" "character" "character" </code></pre>
@@ -382,26 +390,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data_file<span class="sc">$</span>date <span class="ot">&lt;-</span> data_file<span class="sc">$</span>date <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> station_id       month         day temperature        flag        date 
-"character"   "integer"   "integer"   "numeric" "character"      "Date" </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data_file<span class="sc">$</span>station_id <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">length</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_file<span class="sc">$</span>station_id <span class="sc">%&gt;%</span> <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">length</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7501</code></pre>
 </div>
 </div>
 <p>4개 역만 정해서 <code>join()</code> 사용</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>station_loc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">station_id =</span> <span class="fu">c</span>(<span class="st">"USW00014819"</span>,<span class="st">"USC00042319"</span>,<span class="st">"USW00093107"</span>,<span class="st">"USW00012918"</span>),</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">location =</span> <span class="fu">c</span>(<span class="st">"Chicago"</span>,<span class="st">"Death valley"</span>,<span class="st">"San diego"</span>,<span class="st">"Houston"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>station_loc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">station_id =</span> <span class="fu">c</span>(<span class="st">"USW00014819"</span>,<span class="st">"USC00042319"</span>,<span class="st">"USW00093107"</span>,<span class="st">"USW00012918"</span>),</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">location =</span> <span class="fu">c</span>(<span class="st">"Chicago"</span>,<span class="st">"Death valley"</span>,<span class="st">"San diego"</span>,<span class="st">"Houston"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>temps_long <span class="ot">&lt;-</span> data_file <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(station_loc,<span class="at">by=</span><span class="st">"station_id"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>temps_long <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>temps_long <span class="ot">&lt;-</span> data_file <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(station_loc,<span class="at">by=</span><span class="st">"station_id"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>temps_long <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   station_id month day temperature flag       date     location
 1 USC00042319     1   1        51.0    S 0000-01-01 Death valley
@@ -413,16 +414,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>temperature,<span class="at">color=</span>location))<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>temperature,<span class="at">color=</span>location))<span class="sc">+</span><span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="vis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="vis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>#x축에 표시할 눈금</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>date_s <span class="ot">&lt;-</span> <span class="st">"0000-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>date_e <span class="ot">&lt;-</span> <span class="st">"0001-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>break_date <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_s, date_e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>date_s <span class="ot">&lt;-</span> <span class="st">"0000-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>date_e <span class="ot">&lt;-</span> <span class="st">"0001-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>break_date <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_s, date_e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name=</span><span class="st">"month"</span>, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"jan"</span>, <span class="st">"apr"</span>, <span class="st">"jul"</span>, <span class="st">"oct"</span>, <span class="st">"jan"</span>))<span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"temp"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
@@ -430,48 +452,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name=</span><span class="st">"month"</span>, </span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date,</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"jan"</span>, <span class="st">"apr"</span>, <span class="st">"jul"</span>, <span class="st">"oct"</span>, <span class="st">"jan"</span>))<span class="sc">+</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Fig 2.3"</span>, <span class="at">subtitle =</span> <span class="st">"www"</span>, <span class="at">caption =</span> <span class="st">"eee"</span>, <span class="at">tag =</span> <span class="st">"rrr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="vis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"temp"</span>,</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))<span class="sc">+</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="vis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name=</span><span class="st">"month"</span>, </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"jan"</span>, <span class="st">"apr"</span>, <span class="st">"jul"</span>, <span class="st">"oct"</span>, <span class="st">"jan"</span>))<span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Fig 2.3"</span>, <span class="at">subtitle =</span> <span class="st">"www"</span>, <span class="at">caption =</span> <span class="st">"eee"</span>, <span class="at">tag =</span> <span class="st">"rrr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="vis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
 <section id="년-서울-대전-세종-제주-기온-데이터" class="level3">
 <h3 class="anchored" data-anchor-id="년-서울-대전-세종-제주-기온-데이터">2021년 서울, 대전, 세종, 제주 기온 데이터</h3>
-<section id="read-csv-from-github-ex" class="level4">
-<h4 class="anchored" data-anchor-id="read-csv-from-github-ex">read csv from github ex)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20220308125952.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"euc-kr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20220308125952.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"euc-kr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>자료형 확인</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1460    6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  지점 지점명       일시 평균기온..C. 최저기온..C. 최고기온..C.
 1  108   서울 2021-01-01         -4.2         -9.8          1.6
@@ -481,7 +479,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5  108   서울 2021-01-05         -5.5         -9.9         -2.1
 6  108   서울 2021-01-06         -7.4        -12.0         -1.9</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        지점       지점명         일시 평균기온..C. 최저기온..C. 최고기온..C. 
    "integer"  "character"  "character"    "numeric"    "numeric"    "numeric" </code></pre>
@@ -489,8 +487,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>일시 자료형을 <code>date</code>형태로 바꾸기</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data_2021<span class="sc">$</span>일시 <span class="ot">&lt;-</span>data_2021<span class="sc">$</span>일시 <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>data_2021<span class="sc">$</span>일시 <span class="ot">&lt;-</span>data_2021<span class="sc">$</span>일시 <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        지점       지점명         일시 평균기온..C. 최저기온..C. 최고기온..C. 
    "integer"  "character"       "Date"    "numeric"    "numeric"    "numeric" </code></pre>
@@ -498,7 +496,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>기초통계량 확인</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      지점          지점명               일시             평균기온..C.   
  Min.   :108.0   Length:1460        Min.   :2021-01-01   Min.   :-14.90  
@@ -518,38 +516,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>breaks 설정</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>date_21s <span class="ot">&lt;-</span> <span class="st">"2021-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>date_21e <span class="ot">&lt;-</span> <span class="st">"2022-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>break_date_21 <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_21s, date_21e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>date_21s <span class="ot">&lt;-</span> <span class="st">"2021-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>date_21e <span class="ot">&lt;-</span> <span class="st">"2022-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>break_date_21 <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_21s, date_21e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ploting</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data_2021 %&gt;% names()</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2021,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name =</span><span class="st">"월"</span>, </span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date_21,</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1월"</span>,<span class="st">"4월"</span>,<span class="st">"7월"</span>,<span class="st">"10월"</span>,<span class="st">"1월"</span>)) <span class="sc">+</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"평균기온"</span>)<span class="sc">+</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data_2021 %&gt;% names()</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2021,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name =</span><span class="st">"월"</span>, </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date_21,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1월"</span>,<span class="st">"4월"</span>,<span class="st">"7월"</span>,<span class="st">"10월"</span>,<span class="st">"1월"</span>)) <span class="sc">+</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"평균기온"</span>)<span class="sc">+</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="vis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="vis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-</section>
-<section id="년" class="level3">
-<h3 class="anchored" data-anchor-id="년">2022년</h3>
+<section id="년-서울-대전-세종-제주-기온-데이터-1" class="level3">
+<h3 class="anchored" data-anchor-id="년-서울-대전-세종-제주-기온-데이터-1">2022년 서울, 대전, 세종, 제주 기온 데이터</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20230322080932.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"euc-kr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20230322080932.csv"</span>, <span class="at">fileEncoding =</span> <span class="st">"euc-kr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>자료형 확인</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">dim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2555    6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  지점 지점명       일시 평균기온..C. 최저기온..C. 최고기온..C.
 1  108   서울 2022-01-01         -4.3        -10.2          2.3
@@ -559,7 +556,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5  108   서울 2022-01-05         -2.8         -7.8          1.9
 6  108   서울 2022-01-06         -2.2         -5.9          3.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        지점       지점명         일시 평균기온..C. 최저기온..C. 최고기온..C. 
    "integer"  "character"  "character"    "numeric"    "numeric"    "numeric" </code></pre>
@@ -567,8 +564,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>일시 자료형을 <code>date</code>형태로 바꾸기</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>data_2022<span class="sc">$</span>일시 <span class="ot">&lt;-</span>data_2022<span class="sc">$</span>일시 <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>data_2022<span class="sc">$</span>일시 <span class="ot">&lt;-</span>data_2022<span class="sc">$</span>일시 <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">sapply</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        지점       지점명         일시 평균기온..C. 최저기온..C. 최고기온..C. 
    "integer"  "character"       "Date"    "numeric"    "numeric"    "numeric" </code></pre>
@@ -576,7 +573,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>기초통계량 확인</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      지점          지점명               일시             평균기온..C.   
  Min.   :108.0   Length:2555        Min.   :2022-01-01   Min.   :-11.80  
@@ -598,45 +595,436 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>breaks 설정</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>date_22s <span class="ot">&lt;-</span> <span class="st">"2022-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>date_22e <span class="ot">&lt;-</span> <span class="st">"2023-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>break_date_22 <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_22s, date_22e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>date_22s <span class="ot">&lt;-</span> <span class="st">"2022-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>date_22e <span class="ot">&lt;-</span> <span class="st">"2023-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>break_date_22 <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_22s, date_22e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ploting</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data_2021 %&gt;% names()</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2022,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name =</span><span class="st">"월"</span>, </span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date_22,</span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1월"</span>,<span class="st">"4월"</span>,<span class="st">"7월"</span>,<span class="st">"10월"</span>,<span class="st">"1월"</span>)) <span class="sc">+</span></span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"평균기온"</span>)<span class="sc">+</span></span>
-<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data_2021 %&gt;% names()</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2022,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name =</span><span class="st">"월"</span>, </span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date_22,</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1월"</span>,<span class="st">"4월"</span>,<span class="st">"7월"</span>,<span class="st">"10월"</span>,<span class="st">"1월"</span>)) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"평균기온"</span>)<span class="sc">+</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>mean_temps <span class="ot">&lt;-</span> temps_long <span class="sc">%&gt;%</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month,location) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(temperature)) <span class="sc">%&gt;%</span> </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">factor</span>(month <span class="sc">%&gt;%</span> <span class="fu">paste</span>(),</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span> <span class="sc">%&gt;%</span> <span class="fu">paste</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'month'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2">2023/03/27</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mean_temps,<span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> location, <span class="at">fill =</span> mean))<span class="sc">+</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">width =</span> .<span class="dv">95</span>,<span class="at">height =</span> <span class="fl">0.95</span>)<span class="sc">+</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"B"</span>,<span class="at">begin =</span> <span class="fl">0.15</span>, <span class="at">end =</span> <span class="fl">0.98</span>,</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"temperature"</span>)<span class="sc">+</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">expand =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="vis_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3">2023/03/29</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>mean_temps <span class="ot">&lt;-</span> temps_long <span class="sc">%&gt;%</span> </span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(location,month) <span class="sc">%&gt;%</span> </span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(temperature)) <span class="sc">%&gt;%</span> </span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">factor</span>(month <span class="sc">%&gt;%</span> <span class="fu">paste</span>(),</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span> <span class="sc">%&gt;%</span> <span class="fu">paste</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"ncdc_normals.csv"</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>data_file<span class="sc">$</span>date <span class="ot">&lt;-</span> data_file<span class="sc">$</span>date <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>houston <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">station_id =</span> <span class="fu">c</span>(<span class="st">"USW00012918"</span>), <span class="at">location =</span> <span class="fu">c</span>(<span class="st">"Houston"</span>))</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>houston_temps <span class="ot">&lt;-</span> data_file <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(houston,<span class="at">by=</span><span class="st">"station_id"</span>)</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>houston_temps <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   station_id month day temperature flag       date location
+1 USW00012918     1   1        53.9    S 0000-01-01  Houston
+2 USW00012918     1   2        53.8    S 0000-01-02  Houston
+3 USW00012918     1   3        53.8    S 0000-01-03  Houston
+4 USW00012918     1   4        53.8    S 0000-01-04  Houston
+5 USW00012918     1   5        53.8    S 0000-01-05  Houston
+6 USW00012918     1   6        53.7    S 0000-01-06  Houston</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>date_s <span class="ot">&lt;-</span> <span class="st">"0000-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>date_e <span class="ot">&lt;-</span> <span class="st">"0001-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>break_date <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_s, date_e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(houston_temps, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature,<span class="at">color =</span> location))<span class="sc">+</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">"royalblue"</span>)<span class="sc">+</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name=</span><span class="st">"month"</span>, </span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date,</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"jan"</span>, <span class="st">"apr"</span>, <span class="st">"jul"</span>, <span class="st">"oct"</span>, <span class="st">"jan"</span>))<span class="sc">+</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Temperature(℉)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'location'. You can override using the
-`.groups` argument.</code></pre>
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mean_temps,<span class="fu">aes</span>(<span class="at">x =</span> month, <span class="at">y =</span> location, <span class="at">fill =</span> mean))<span class="sc">+</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">width =</span> .<span class="dv">95</span>,<span class="at">height =</span> <span class="fl">0.95</span>)<span class="sc">+</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"B"</span>,<span class="at">begin =</span> <span class="fl">0.15</span>, <span class="at">end =</span> <span class="fl">0.98</span>,</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"temperature"</span>)<span class="sc">+</span></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">expand =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("cowplot")</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 패키지 'cowplot'는 R 버전 4.2.3에서 작성되었습니다</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>houston_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(houston_temps, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature,<span class="at">color =</span> location))<span class="sc">+</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">"royalblue"</span>)<span class="sc">+</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">name=</span><span class="st">"month"</span>, </span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">breaks =</span> break_date,</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"jan"</span>, <span class="st">"apr"</span>, <span class="st">"jul"</span>, <span class="st">"oct"</span>, <span class="st">"jan"</span>))<span class="sc">+</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Temperature(℉)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>arrange multiple plots into a grid</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>plot_ab <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(houston_plot,houston_plot,</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nrow =</span> <span class="dv">1</span>,</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">rel_widths =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>))</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>plot_abc <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(plot_ab, houston_plot,</span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">2</span>),</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>,<span class="st">"c"</span>))</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>plot_abc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="vis_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+<p><img src="vis_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>texas_cnt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/christianmendoza/texas-counties/main/data/texas-counties.csv"</span>)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>tx_counties <span class="ot">&lt;-</span> texas_cnt <span class="sc">%&gt;%</span> </span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county,population) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">county =</span> <span class="fu">gsub</span>(<span class="st">"county"</span>,<span class="st">""</span>,county),</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">popratio =</span> population<span class="sc">/</span><span class="fu">median</span>(population)) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(popratio)) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">index =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="fu">ifelse</span>(index<span class="sc">&lt;=</span><span class="dv">3</span><span class="sc">|</span>index<span class="sc">&gt;</span><span class="fu">n</span>()<span class="sc">-</span><span class="dv">3</span><span class="sc">|</span><span class="fu">runif</span>(<span class="fu">n</span>())<span class="sc">&lt;</span>.<span class="dv">04</span>, county, <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>runif(x)</code> x 0~1 사이의 난수</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>tx_counties</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           county population     popratio index         label
+1          Harris    4728030 2.564286e+02     1        Harris
+2          Dallas    2586050 1.402565e+02     2        Dallas
+3         Tarrant    2126477 1.153312e+02     3       Tarrant
+4           Bexar    2028236 1.100030e+02     4              
+5          Travis    1305154 7.078609e+01     5        Travis
+6          Collin    1109462 6.017258e+01     6              
+7          Denton     941647 5.107099e+01     7              
+8         Hidalgo     880356 4.774683e+01     8              
+9         El Paso     867947 4.707381e+01     9              
+10      Fort Bend     858527 4.656291e+01    10     Fort Bend
+11     Montgomery     648886 3.519286e+01    11              
+12     Williamson     643026 3.487504e+01    12              
+13        Cameron     423029 2.294332e+01    13              
+14       Brazoria     379689 2.059274e+01    14              
+15           Bell     379617 2.058884e+01    15              
+16      Galveston     355062 1.925708e+01    16              
+17         Nueces     353079 1.914953e+01    17              
+18        Lubbock     314451 1.705451e+01    18              
+19           Webb     267945 1.453222e+01    19              
+20       McLennan     263115 1.427026e+01    20              
+21           Hays     255397 1.385167e+01    21              
+22      Jefferson     253704 1.375984e+01    22              
+23          Smith     237186 1.286398e+01    23              
+24         Brazos     237032 1.285562e+01    24              
+25          Ellis     202678 1.099241e+01    25              
+26        Johnson     187280 1.015728e+01    26              
+27      Guadalupe     177036 9.601692e+00    27              
+28          Comal     174986 9.490509e+00    28              
+29        Midland     167969 9.109936e+00    29              
+30          Ector     161091 8.736902e+00    30              
+31        Kaufman     157768 8.556676e+00    31              
+32         Parker     156764 8.502224e+00    32              
+33        Randall     143854 7.802039e+00    33              
+34         Taylor     143326 7.773403e+00    34              
+35        Grayson     139336 7.557002e+00    35              
+36        Wichita     130069 7.054399e+00    36              
+37          Gregg     124201 6.736143e+00    37              
+38      Tom Green     119411 6.476353e+00    38              
+39         Potter     116547 6.321022e+00    39              
+40       Rockwall     116381 6.312019e+00    40              
+41           Hunt     103394 5.607658e+00    41              
+42        Bastrop     102058 5.535199e+00    42       Bastrop
+43        Liberty      97621 5.294555e+00    43              
+44          Bowie      92581 5.021206e+00    44              
+45       Victoria      90964 4.933507e+00    45              
+46       Angelina      86506 4.691724e+00    46              
+47         Orange      84742 4.596052e+00    47              
+48        Coryell      84232 4.568391e+00    48              
+49      Henderson      83667 4.537748e+00    49              
+50         Walker      77977 4.229146e+00    50        Walker
+51           Wise      71714 3.889467e+00    51              
+52   San Patricio      69699 3.780182e+00    52              
+53       Harrison      69150 3.750407e+00    53              
+54          Starr      66049 3.582221e+00    54              
+55    Nacogdoches      64668 3.507322e+00    55              
+56           Hood      64222 3.483133e+00    56              
+57      Van Zandt      61275 3.323300e+00    57              
+58         Waller      59781 3.242271e+00    58              
+59       Anderson      58402 3.167480e+00    59              
+60       Maverick      58056 3.148715e+00    60              
+61         Hardin      56973 3.089977e+00    61              
+62        Navarro      53591 2.906552e+00    62              
+63           Kerr      53161 2.883230e+00    63              
+64           Rusk      52743 2.860560e+00    64              
+65         Medina      51981 2.819232e+00    65              
+66           Polk      51899 2.814785e+00    66              
+67         Wilson      51257 2.779965e+00    67              
+68       Cherokee      51097 2.771288e+00    68              
+69         Burnet      50954 2.763532e+00    69              
+70          Lamar      50098 2.717106e+00    70              
+71       Atascosa      49939 2.708482e+00    71              
+72       Chambers      48865 2.650233e+00    72              
+73      Val Verde      47564 2.579672e+00    73              
+74       Caldwell      46791 2.537748e+00    74              
+75        Kendall      46788 2.537585e+00    75              
+76           Wood      45875 2.488068e+00    76              
+77          Erath      43378 2.352641e+00    77         Erath
+78          Cooke      42244 2.291138e+00    78              
+79         Upshur      41774 2.265647e+00    79              
+80        Wharton      41721 2.262773e+00    80              
+81      Jim Wells      38847 2.106899e+00    81              
+82          Brown      38192 2.071374e+00    82              
+83        Hopkins      37211 2.018169e+00    83              
+84         Fannin      36569 1.983350e+00    84              
+85           Hill      36471 1.978034e+00    85              
+86      Matagorda      36344 1.971147e+00    86              
+87     Washington      35891 1.946578e+00    87              
+88         Howard      34128 1.850960e+00    88              
+89         Jasper      32975 1.788426e+00    89              
+90           Hale      32220 1.747478e+00    90              
+91          Titus      31183 1.691235e+00    91              
+92            Bee      30924 1.677188e+00    92              
+93        Kleberg      30635 1.661514e+00    93              
+94         Austin      30380 1.647684e+00    94              
+95         Grimes      30287 1.642640e+00    95              
+96     Palo Pinto      28686 1.555809e+00    96              
+97           Cass      28560 1.548975e+00    97              
+98    San Jacinto      27878 1.511986e+00    98              
+99      Gillespie      27297 1.480475e+00    99              
+100         Milam      25106 1.361644e+00   100              
+101        Uvalde      24729 1.341198e+00   101              
+102       Fayette      24687 1.338920e+00   102              
+103       Aransas      24510 1.329320e+00   103              
+104        Shelby      23939 1.298351e+00   104              
+105        Panola      22675 1.229797e+00   105              
+106      Lampasas      22252 1.206855e+00   106              
+107       Houston      22241 1.206259e+00   107              
+108     Limestone      22119 1.199642e+00   108              
+109         Llano      21978 1.191995e+00   109              
+110        Gaines      21895 1.187493e+00   110              
+111       Bandera      21565 1.169595e+00   111              
+112       Hockley      21363 1.158640e+00   112              
+113         Moore      21118 1.145352e+00   113              
+114          Gray      21030 1.140579e+00   114              
+115      Colorado      20630 1.118885e+00   115              
+116        Lavaca      20544 1.114221e+00   116              
+117    Hutchinson      20495 1.111563e+00   117              
+118      Montague      20409 1.106899e+00   118              
+119       Willacy      20316 1.101855e+00   119              
+120         Tyler      20077 1.088893e+00   120              
+121        DeWitt      19918 1.080269e+00   121              
+122         Jones      19873 1.077828e+00   122              
+123     Freestone      19774 1.072459e+00   123              
+124       Calhoun      19727 1.069910e+00   124              
+125      Gonzales      19641 1.065246e+00   125              
+126        Bosque      18503 1.003525e+00   126              
+127       Andrews      18440 1.000108e+00   127              
+128          Frio      18436 9.998915e-01   128              
+129    Deaf Smith      18329 9.940883e-01   129              
+130      Burleson      18051 9.790107e-01   130              
+131         Young      17977 9.749973e-01   131              
+132      Eastland      17864 9.688686e-01   132              
+133           Lee      17706 9.602994e-01   133              
+134         Falls      17313 9.389847e-01   134              
+135     Robertson      16958 9.197310e-01   135              
+136        Scurry      16824 9.124634e-01   136              
+137          Leon      15959 8.655494e-01   137              
+138       Jackson      15121 8.200998e-01   138              
+139         Pecos      15118 8.199371e-01   139              
+140        Karnes      14754 8.001952e-01   140              
+141         Nolan      14597 7.916802e-01   141              
+142        Reeves      14487 7.857143e-01   142              
+143      Callahan      14115 7.655386e-01   143              
+144        Zapata      13908 7.543117e-01   144              
+145       Trinity      13827 7.499186e-01   145              
+146      Comanche      13775 7.470984e-01   146              
+147       Madison      13718 7.440069e-01   147              
+148          Lamb      12898 6.995336e-01   148              
+149     Wilbarger      12731 6.904762e-01   149              
+150          Camp      12616 6.842391e-01   150              
+151         Rains      12509 6.784358e-01   151              
+152        Dawson      12413 6.732292e-01   152              
+153        Newton      12241 6.639006e-01   153              
+154        Morris      12030 6.524569e-01   154              
+155        Blanco      11886 6.446469e-01   155              
+156         Terry      11754 6.374878e-01   156              
+157     Red River      11555 6.266949e-01   157              
+158      Live Oak      11377 6.170409e-01   158              
+159          Ward      11194 6.071157e-01   159              
+160      Franklin      10464 5.675236e-01   160              
+161          Clay      10263 5.566222e-01   161              
+162        Sabine      10039 5.444734e-01   162              
+163       Runnels       9943 5.392667e-01   163              
+164        Parmer       9813 5.322161e-01   164              
+165     Ochiltree       9782 5.305348e-01   165              
+166         Duval       9756 5.291246e-01   166              
+167        Marion       9645 5.231045e-01   167              
+168        Zavala       9534 5.170843e-01   168              
+169     Somervell       9469 5.135590e-01   169              
+170      Brewster       9450 5.125285e-01   170      Brewster
+171      Stephens       9173 4.975052e-01   171              
+172      Mitchell       9070 4.919189e-01   172              
+173          Jack       8712 4.725024e-01   173              
+174        Archer       8681 4.708211e-01   174              
+175        Dimmit       8473 4.595401e-01   175              
+176      Hamilton       8229 4.463065e-01   176              
+177 San Augustine       7922 4.296561e-01   177 San Augustine
+178       Coleman       7735 4.195140e-01   178       Coleman
+179        Yoakum       7607 4.125719e-01   179              
+180     McCulloch       7533 4.085584e-01   180              
+181       Winkler       7415 4.021586e-01   181              
+182        Castro       7374 3.999349e-01   182              
+183        Dallam       7172 3.889793e-01   183              
+184        Goliad       7163 3.884912e-01   184              
+185       Swisher       7008 3.800846e-01   185              
+186        Brooks       6994 3.793253e-01   186              
+187        Bailey       6835 3.707018e-01   187              
+188       Refugio       6756 3.664172e-01   188              
+189     Childress       6736 3.653325e-01   189              
+190      La Salle       6670 3.617529e-01   190              
+191      Presidio       6140 3.330079e-01   191              
+192         Garza       5863 3.179846e-01   192              
+193      San Saba       5827 3.160321e-01   193      San Saba
+194        Carson       5746 3.116390e-01   194              
+195          Lynn       5688 3.084933e-01   195          Lynn
+196       Haskell       5411 2.934700e-01   196              
+197       Hartley       5397 2.927107e-01   197              
+198         Delta       5392 2.924395e-01   198              
+199         Floyd       5350 2.901616e-01   199              
+200        Martin       5211 2.826228e-01   200              
+201      Hansford       5159 2.798026e-01   201              
+202        Crosby       5106 2.769281e-01   202              
+203       Wheeler       4927 2.672199e-01   203              
+204      Jim Hogg       4801 2.603862e-01   204      Jim Hogg
+205         Crane       4680 2.538236e-01   205              
+206         Mills       4480 2.429765e-01   206              
+207        Kimble       4365 2.367393e-01   207              
+208         Mason       3943 2.138518e-01   208              
+209        Fisher       3706 2.009979e-01   209              
+210      Hardeman       3552 1.926456e-01   210              
+211        Baylor       3477 1.885779e-01   211              
+212          Knox       3351 1.817442e-01   212              
+213        Concho       3341 1.812019e-01   213              
+214          Coke       3321 1.801171e-01   214              
+215        Sutton       3319 1.800087e-01   215              
+216      Hudspeth       3287 1.782731e-01   216              
+217      Hemphill       3271 1.774054e-01   217              
+218        Donley       3268 1.772427e-01   218              
+219         Upton       3265 1.770799e-01   219              
+220        Reagan       3253 1.764291e-01   220              
+221   Shackelford       3212 1.742054e-01   221              
+222        Kinney       3130 1.697581e-01   222              
+223      Crockett       3068 1.663955e-01   223              
+224      Lipscomb       2931 1.589652e-01   224              
+225          Hall       2845 1.543009e-01   225              
+226          Real       2826 1.532704e-01   226              
+227       Sherman       2798 1.517518e-01   227              
+228 Collingsworth       2615 1.418267e-01   228              
+229       Cochran       2516 1.364573e-01   229              
+230    Schleicher       2429 1.317388e-01   230              
+231     Culberson       2193 1.189391e-01   231              
+232        Menard       1982 1.074954e-01   232              
+233    Jeff Davis       1949 1.057056e-01   233              
+234     Armstrong       1839 9.973967e-02   234              
+235       Dickens       1740 9.437032e-02   235              
+236        Oldham       1717 9.312290e-02   236              
+237         Irion       1552 8.417399e-02   237              
+238  Throckmorton       1495 8.108255e-02   238              
+239       Edwards       1438 7.799111e-02   239              
+240       Briscoe       1403 7.609285e-02   240              
+241        Cottle       1381 7.489966e-02   241              
+242      Sterling       1381 7.489966e-02   242              
+243     Stonewall       1217 6.600499e-02   243              
+244     Glasscock       1149 6.231695e-02   244              
+245         Foard       1080 5.857468e-02   245              
+246        Motley       1067 5.786962e-02   246              
+247       Roberts        797 4.322595e-02   247              
+248          Kent        749 4.062263e-02   248              
+249       Terrell        724 3.926673e-02   249              
+250        Borden        617 3.346350e-02   250              
+251      McMullen        608 3.297538e-02   251              
+252        Kenedy        340 1.844018e-02   252        Kenedy
+253          King        258 1.399284e-02   253          King
+254        Loving         57 3.091442e-03   254        Loving</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("ggrepel")</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 패키지 'ggrepel'는 R 버전 4.2.3에서 작성되었습니다</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tx_counties,<span class="fu">aes</span>(<span class="at">x=</span>index,<span class="at">y=</span>popratio))<span class="sc">+</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"royalblue"</span>)<span class="sc">+</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> label),</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">min.segment.length =</span> <span class="dv">0</span>,</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">max.overlaps =</span> <span class="dv">100</span>)<span class="sc">+</span></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>label_log10 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">2</span>,<span class="cf">function</span>(i) <span class="fu">as.expression</span>(<span class="fu">bquote</span>(<span class="dv">10</span><span class="sc">^</span> .(i))))</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tx_counties,<span class="fu">aes</span>(<span class="at">x=</span>index,<span class="at">y=</span>popratio))<span class="sc">+</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"royalblue"</span>)<span class="sc">+</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> label),</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">min.segment.length =</span> <span class="dv">0</span>,</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">max.overlaps =</span> <span class="dv">100</span>)<span class="sc">+</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">name =</span> <span class="st">"popnum / med"</span>,</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">breaks =</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">2</span>),</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">labels =</span> label_log10)<span class="sc">+</span></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

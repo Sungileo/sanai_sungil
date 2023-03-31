@@ -2,6 +2,9 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/datamining/datamining.html",
+      "/posts/py-test/py-test.html",
+      "/posts/penguin/penguin.html",
       "/posts/detect_line/detect_line.html",
       "/posts/vis/vis.html",
       "/posts/pizza/pizza.html",

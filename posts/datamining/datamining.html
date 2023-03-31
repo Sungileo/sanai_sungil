@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="sungil_park">
-<meta name="dcterms.date" content="2023-03-01">
-<meta name="description" content="Swimming">
+<meta name="dcterms.date" content="2023-03-28">
+<meta name="description" content="Datamining Basics">
 
-<title>Sungil_Park - Stress is water soluble</title>
+<title>Sungil_Park - Datamining</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,88 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -63,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -73,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Sungil_Park</span>
     </a>
   </div>
@@ -83,15 +146,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">
+    <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../projects.html">
+    <a class="nav-link" href="../../projects.html">
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../recordings.html">
+    <a class="nav-link" href="../../recordings.html">
  <span class="menu-text">Recordings</span></a>
   </li>  
 </ul>
@@ -136,15 +199,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stress is water soluble</h1>
+<h1 class="title">Datamining</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Athletics</div>
+    <div class="quarto-category">Python</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Swimming
+    Datamining Basics
   </div>
 </div>
 
@@ -161,170 +224,56 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 1, 2023</p>
+      <p class="date">March 28, 2023</p>
     </div>
   </div>
   
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 26, 2023</p>
-    </div>
-  </div>
     
   </div>
   
 
 </header>
 
-<section id="updates-at-weekend" class="level4">
-<h4 class="anchored" data-anchor-id="updates-at-weekend">Updates at weekend</h4>
-</section>
-<section id="record-with-galaxy-watch-4" class="level4">
-<h4 class="anchored" data-anchor-id="record-with-galaxy-watch-4">Record with Galaxy Watch 4</h4>
-</section>
-<section id="gears" class="level4">
-<h4 class="anchored" data-anchor-id="gears">Gears</h4>
-<ul>
-<li>SPEEDO Allover V-cut Jammer</li>
-<li>NIKE have a Nike day Swimming cap</li>
-<li>NIKE Vapor Mirrored Performance Goggle</li>
-</ul>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Distance(m)</th>
-<th>Time</th>
-<th>Pace(/100m)</th>
-<th>Review</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2023/03/30</td>
-<td>700</td>
-<td>15:52</td>
-<td>2’07</td>
-<td>Recovery day</td>
-</tr>
-<tr class="even">
-<td>2023/03/29</td>
-<td>2800</td>
-<td>51:31</td>
-<td>1’07</td>
-<td>Openwater week6</td>
-</tr>
-<tr class="odd">
-<td>2023/03/23</td>
-<td>600</td>
-<td>28:59</td>
-<td>1’52</td>
-<td>Recovery day</td>
-</tr>
-<tr class="even">
-<td>2023/03/22</td>
-<td>3050</td>
-<td>56:50</td>
-<td>1’38</td>
-<td>Openwater Week5</td>
-</tr>
-<tr class="odd">
-<td>2023/03/21</td>
-<td>900</td>
-<td>18:53</td>
-<td>1’59</td>
-<td>Recovery day</td>
-</tr>
-<tr class="even">
-<td>2023/03/20</td>
-<td>2100</td>
-<td>42:57</td>
-<td>2’02</td>
-<td>1800m</td>
-</tr>
-<tr class="odd">
-<td>2023/03/18</td>
-<td>1600</td>
-<td>29:31</td>
-<td>1’50</td>
-<td>50m Dash PR 42sec</td>
-</tr>
-<tr class="even">
-<td>2023/03/16</td>
-<td>1800</td>
-<td>35:42</td>
-<td>1’58</td>
-<td>good</td>
-</tr>
-<tr class="odd">
-<td>2023/03/14</td>
-<td>700</td>
-<td>13:52</td>
-<td>1’58</td>
-<td>DNF 40m Success</td>
-</tr>
-<tr class="even">
-<td>2023/03/13</td>
-<td>1300</td>
-<td>26:25</td>
-<td>2’01</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>2023/03/12</td>
-<td>1050</td>
-<td>27:28</td>
-<td>1’44</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>2023/03/10</td>
-<td>1500</td>
-<td>30:00</td>
-<td>1’59</td>
-<td>1500m/30min Success</td>
-</tr>
-<tr class="odd">
-<td>2023/03/07</td>
-<td>2000</td>
-<td>41:52</td>
-<td>2’05</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>2023/03/06</td>
-<td>1350</td>
-<td>27:28</td>
-<td>2’00</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>2023/03/04</td>
-<td>450</td>
-<td>9:42</td>
-<td>2’06</td>
-<td>Recovery day</td>
-</tr>
-<tr class="even">
-<td>2023/03/03</td>
-<td>1950</td>
-<td>50:13</td>
-<td>2’16</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>2023/03/01</td>
-<td>3100</td>
-<td>65:00</td>
-<td>2’05</td>
-<td>3.1 to 3.1km</td>
-</tr>
-</tbody>
-</table>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pd.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'1.5.3'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>s2 <span class="op">=</span> pd.Series([<span class="dv">68</span>, <span class="dv">83</span>, <span class="dv">112</span>, <span class="dv">68</span>], index<span class="op">=</span>[<span class="st">"alice"</span>, <span class="st">"bob"</span>, <span class="st">"charles"</span>, <span class="st">"darwin"</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>alice       68
+bob         83
+charles    112
+darwin      68
+dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>s2[<span class="st">'bob'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>83</code></pre>
+</div>
+</div>
+<p>pandas can draw plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>temperatures <span class="op">=</span> [<span class="fl">4.4</span>,<span class="fl">5.1</span>,<span class="fl">6.1</span>,<span class="fl">6.2</span>,<span class="fl">6.1</span>,<span class="fl">6.1</span>,<span class="fl">5.7</span>,<span class="fl">5.2</span>,<span class="fl">4.7</span>,<span class="fl">4.1</span>,<span class="fl">3.9</span>,<span class="fl">3.5</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>s7 <span class="op">=</span> pd.Series(temperatures, name<span class="op">=</span><span class="st">"Temperature"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>s7.plot()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="datamining_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
