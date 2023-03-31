@@ -1,0 +1,87 @@
+---
+title: "Tensorflow ex"
+author: "sungil_park"
+date: "2023/03/21"
+date-modified: "2023/03/21"
+description: "Datamining Basics"
+categories: Python
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+```
+
+```{python}
+import seaborn as sns
+
+peng = sns.load_dataset("penguins")          # data 불러오기
+peng = peng.dropna()     
+peng
+```
+
+```{python}
+peng.info()
+```
+
+```{python}
+peng.groupby('species').mean()
+```
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+```
+
+```{python}
+#!pip install tensorflow
+import tensorflow as tf
+
+from tensorflow import keras
+from tensorflow.keras import layers
+```
+
+```{python}
+peng_dum = pd.get_dummies(peng,columns=['species','island','sex'])
+peng_dum
+```
+
+```{python}
+train_set = peng_dum.sample(frac=0.8, random_state=0)
+test_set = peng_dum.drop(train_set.index)
+```
+
+```{python}
+len(train_set),len(test_set)
+```
+
+```{python}
+X_train = train_set.drop(['body_mass_g'],axis = 1)
+y_train = train_set['body_mass_g']
+X_test = test_set.drop(['body_mass_g'],axis = 1)
+y_test = test_set['body_mass_g']
+```
+
+```{python}
+X_train
+```
+
+```{python}
+normalizer = tf.keras.layers.Normalization(axis=-1)
+
+normalizer.adapt(np.array(X_train))
+
+print(normalizer.mean.numpy())
+
+```
+
+```{python}
+first = np.array(X_train[:1])
+
+with np.printoptions(precision=2, suppress=True):
+    print('First example:', first)
+    print()
+    print('Normalized:', normalizer(first).numpy())
+
+```

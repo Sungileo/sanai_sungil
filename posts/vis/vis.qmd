@@ -12,10 +12,11 @@ categories: Rstudio
 #| warning: false
 #| message: false
 ```
-
+## 2023/03/15
 train markdown, ggplot
 
 ```{r test}
+rm(list = ls())
 library(ggplot2)
 library(dplyr)
 ```
@@ -46,8 +47,10 @@ ggplot(data_use, aes(x=displ, y=hwy)) +
   geom_smooth()
 ```
 
-#### 2023/03/20
+## 2023/03/20
+
 load data
+
 ```{r}
 data_file <- read.csv("ncdc_normals.csv")
 ```
@@ -55,9 +58,7 @@ data_file <- read.csv("ncdc_normals.csv")
 ```{r}
 dim(data_file)
 data_file %>% head()
-```
-```{r}
-data_file %>% sapply(class)
+data_file %>% sapply(class) # 날짜 형식 변경
 ```
 
 ```{r}
@@ -65,12 +66,11 @@ data_file$date <- data_file$date %>% as.Date("%Y-%m-%d")
 ```
 
 ```{r}
-data_file %>% sapply(class)
-```
-```{r}
 data_file$station_id %>% unique() %>% length()
 ```
+
 4개 역만 정해서 `join()` 사용
+
 ```{r}
 station_loc <- data.frame(station_id = c("USW00014819","USC00042319","USW00093107","USW00012918"),
                           location = c("Chicago","Death valley","San diego","Houston"))
@@ -80,19 +80,18 @@ station_loc <- data.frame(station_id = c("USW00014819","USC00042319","USW0009310
 temps_long <- data_file %>% inner_join(station_loc,by="station_id")
 temps_long %>% head()
 ```
+
 ```{r}
 ggplot(temps_long, aes(x=date,y=temperature,color=location))+geom_line()
 ```
 
-
-
 #x축에 표시할 눈금
+
 ```{r}
 date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
 date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
 break_date <- seq.Date(date_s, date_e, by = "3 month")
 ```
-
 
 ```{r}
 ggplot(temps_long, aes(x=date, y=temperature, color=location))+
@@ -121,42 +120,43 @@ ggplot(temps_long, aes(x=date, y=temperature, color=location))+
   labs(title = "Fig 2.3", subtitle = "www", caption = "eee", tag = "rrr")
 ```
 
-
-
-
-
-
-
-
-
-
 ### 2021년 서울, 대전, 세종, 제주 기온 데이터
-#### read csv from github ex)
+
 ```{r}
 data_2021 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20220308125952.csv", fileEncoding = "euc-kr")
 ```
+
 자료형 확인
+
 ```{r}
 data_2021 %>% dim()
 data_2021 %>% head()
 data_2021 %>% sapply(class)
 ```
+
 일시 자료형을 `date`형태로 바꾸기
+
 ```{r}
 data_2021$일시 <-data_2021$일시 %>% as.Date("%Y-%m-%d")
 data_2021 %>% sapply(class)
 ```
+
 기초통계량 확인
+
 ```{r}
 data_2021 %>% summary()
 ```
+
 breaks 설정
+
 ```{r}
 date_21s <- "2021-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
 date_21e <- "2022-01-01" %>% as.Date("%Y-%m-%d")
 break_date_21 <- seq.Date(date_21s, date_21e, by = "3 month")
 ```
+
 ploting
+
 ```{r}
 #data_2021 %>% names()
 ggplot(data_2021,aes(x = 일시,y = 평균기온..C., color = 지점명))+
@@ -168,35 +168,43 @@ ggplot(data_2021,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   theme_light()
 ```
 
-
-### 2022년
-
+### 2022년 서울, 대전, 세종, 제주 기온 데이터
 
 ```{r}
 data_2022 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/OBS_ASOS_DD_20230322080932.csv", fileEncoding = "euc-kr")
 ```
+
 자료형 확인
+
 ```{r}
 data_2022 %>% dim()
 data_2022 %>% head()
 data_2022 %>% sapply(class)
 ```
+
 일시 자료형을 `date`형태로 바꾸기
+
 ```{r}
 data_2022$일시 <-data_2022$일시 %>% as.Date("%Y-%m-%d")
 data_2022 %>% sapply(class)
 ```
+
 기초통계량 확인
+
 ```{r}
 data_2022 %>% summary()
 ```
+
 breaks 설정
+
 ```{r}
 date_22s <- "2022-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
 date_22e <- "2023-01-01" %>% as.Date("%Y-%m-%d")
 break_date_22 <- seq.Date(date_22s, date_22e, by = "3 month")
 ```
+
 ploting
+
 ```{r}
 #data_2021 %>% names()
 ggplot(data_2022,aes(x = 일시,y = 평균기온..C., color = 지점명))+
@@ -208,46 +216,16 @@ ggplot(data_2022,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   theme_light()
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```{r}
 mean_temps <- temps_long %>% 
-  group_by(location,month) %>% 
-  summarize(mean = mean(temperature)) %>% 
+  group_by(month,location) %>% 
+  summarise(mean = mean(temperature)) %>% 
   ungroup() %>% 
   mutate(month = factor(month %>% paste(),
                         levels = 1:12 %>% paste()))
 ```
+
+## 2023/03/27
 ```{r}
 ggplot(mean_temps,aes(x = month, y = location, fill = mean))+
   geom_tile(width = .95,height = 0.95)+
@@ -257,16 +235,118 @@ ggplot(mean_temps,aes(x = month, y = location, fill = mean))+
   ylab(NULL)
 ```
 
+## 2023/03/29
+```{r}
+library(dplyr)
+library(ggplot2)
+```
 
 
+```{r}
+data_file <- read.csv("ncdc_normals.csv")
+data_file$date <- data_file$date %>% as.Date("%Y-%m-%d")
+
+houston <- data.frame(station_id = c("USW00012918"), location = c("Houston"))
+
+houston_temps <- data_file %>% inner_join(houston,by="station_id")
+houston_temps %>% head()
+```
 
 
+```{r}
+date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
+date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
+break_date <- seq.Date(date_s, date_e, by = "3 month")
+```
 
 
+```{r}
+ggplot(houston_temps, aes(x=date, y=temperature,color = location))+
+  geom_line(size = 1,color = "royalblue")+
+  scale_x_date(name="month", 
+               breaks = break_date,
+               labels = c("jan", "apr", "jul", "oct", "jan"))+
+  theme_light()+
+  ylab("Temperature(℉)")
+```
+
+```{r}
+#install.packages("cowplot")
+library(cowplot)
+```
+
+```{r}
+houston_plot <- ggplot(houston_temps, aes(x=date, y=temperature,color = location))+
+  geom_line(size = 1,color = "royalblue")+
+  scale_x_date(name="month", 
+               breaks = break_date,
+               labels = c("jan", "apr", "jul", "oct", "jan"))+
+  theme_light()+
+  ylab("Temperature(℉)")
+```
+
+arrange multiple plots into a grid
+```{r}
+plot_ab <- plot_grid(houston_plot,houston_plot,
+                    nrow = 1,
+                    rel_widths = c(1,2),
+                    labels = c("a","b"))
+
+plot_abc <- plot_grid(plot_ab, houston_plot,
+                      ncol = 1,
+                      rel_heights = c(1.5,2),
+                      labels = c("","c"))
+
+plot_abc
+```
+
+```{r}
+texas_cnt <- read.csv("https://raw.githubusercontent.com/christianmendoza/texas-counties/main/data/texas-counties.csv")
+
+tx_counties <- texas_cnt %>% 
+  select(county,population) %>% 
+  mutate(county = gsub("county","",county),
+         popratio = population/median(population)) %>% 
+  arrange(desc(popratio)) %>% 
+  mutate(index = 1:n(),
+         label = ifelse(index<=3|index>n()-3|runif(n())<.04, county, ""))
+```
+`runif(x)` x 0~1 사이의 난수 
+```{r}
+tx_counties
+```
+
+```{r}
+#install.packages("ggrepel")
+library(ggrepel)
+```
 
 
+```{r}
+ggplot(tx_counties,aes(x=index,y=popratio))+
+  geom_point(size = 1, color = "royalblue")+
+  geom_text_repel(aes(label = label),
+                  min.segment.length = 0,
+                  max.overlaps = 100)+
+  theme_light()+
+  theme(panel.border = element_blank())
+  
+```
 
+```{r}
+label_log10 <- sapply(-2:2,function(i) as.expression(bquote(10^ .(i))))
 
+ggplot(tx_counties,aes(x=index,y=popratio))+
+  geom_point(size = 1, color = "royalblue")+
+  geom_text_repel(aes(label = label),
+                  min.segment.length = 0,
+                  max.overlaps = 100)+
+  scale_y_log10(name = "popnum / med",
+                breaks = 10^(-2:2),
+                labels = label_log10)+
+  theme_light()+
+  theme(panel.border = element_blank())
+```
 
 
 
