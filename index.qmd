@@ -4,8 +4,8 @@ title: "Sungil_Park"
 
 ![](./img/shark_left.jpg)
 
-#### 안녕하세요 박성일 입니다.
+#### Hello, I am Park Sung-il, majoring in Big-data application and Statistics at Hannam University in South Korea.
 
-#### Rstudio를 사용한 Quarto website & blog 만들기 입니다.
+#### This is a quarto blog created with Rstudio.
 
-![](./img/gif_test.gif)
+#### Created for publishing my project and records about me.

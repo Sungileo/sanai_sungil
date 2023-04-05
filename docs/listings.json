@@ -3,7 +3,7 @@
     "listing": "/projects.html",
     "items": [
       "/posts/datamining/datamining.html",
-      "/posts/py-test/py-test.html",
+      "/posts/tests/Issue_report.html",
       "/posts/penguin/penguin.html",
       "/posts/detect_line/detect_line.html",
       "/posts/vis/vis.html",
@@ -15,7 +15,8 @@
     "listing": "/recordings.html",
     "items": [
       "/records/running.html",
-      "/records/Swimming.html"
+      "/records/Swimming.html",
+      "/records/gallery.html"
     ]
   }
 ]

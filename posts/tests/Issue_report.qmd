@@ -1,0 +1,36 @@
+---
+title: "Issue Report"
+author: "sungil_park"
+date: "2023/03/27"
+date-modified: "2023/03/27"
+description: "에잇!"
+categories: "Issue Report"
+---
+
+```{r}
+```
+
+## 2023/03/27
+
+Quarto markdown의 코드 청크가 전부 파이썬으로 구성되면 같은 디렉토리에 `.ipynb`가 생성된다.
+
+Rstudio ipykernel에는 `.ipynb`를 렌더링 할 수 없기에 에러가 발생한다.
+
+이에 Quarto markdown 에 비어있는 R코드청크를 넣어두면 `.ipynb`가 생성되지 않고 렌더링 할 수 있다.
+
+## 2023/04/04
+
+`.ipynb` 파일 위에 `--- title ---` 생성해보기
+
+```{python}
+#!pip install matplotlib
+```
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.arange(-1,1,0.01)
+b = a**2
+plt.plot(a,b)
+```

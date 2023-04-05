@@ -7,8 +7,6 @@ website:
   navbar:
     background: '#7fcdff'
     left:
-      - href: index.qmd
-        text: Home
       - projects.qmd
       - recordings.qmd
     
