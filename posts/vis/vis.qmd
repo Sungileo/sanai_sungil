@@ -326,7 +326,7 @@ tx_counties <- texas_cnt %>%
 ```
 `runif(x)` x 0~1 사이의 난수 
 ```{r}
-tx_counties
+tx_counties %>% head()
 ```
 
 ```{r}
@@ -409,7 +409,7 @@ d <- data_202302 %>%
 
 
 ```{r}
-d
+d %>% head()
 ```
 
 ```{r}

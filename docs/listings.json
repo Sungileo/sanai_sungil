@@ -2,13 +2,14 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/week_1a_numpy/week_1a_numpy.html",
+      "/posts/week_1b_pandas/week_1b_pandas.html",
       "/posts/datamining/datamining.html",
       "/posts/tests/Issue_report.html",
       "/posts/penguin/penguin.html",
       "/posts/detect_line/detect_line.html",
       "/posts/vis/vis.html",
-      "/posts/pizza/pizza.html",
-      "/posts/post-with-code/post_with_code.html"
+      "/posts/pizza/pizza.html"
     ]
   },
   {
