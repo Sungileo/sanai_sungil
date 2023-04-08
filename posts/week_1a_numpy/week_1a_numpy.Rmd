@@ -5,7 +5,9 @@ date: "2023/04/06"
 date-modified: "2023/04/06"
 description: "Python Basics"
 categories: ["Python","Lecture"]
+image: "../../img/numpy.png"
 ---
+
 ```{r}
 
 ```
@@ -18,14 +20,14 @@ categories: ["Python","Lecture"]
 -   branch: master
 -   badges: true
 -   comments: true
--   categories: [jupyter, python]
+-   categories: \[jupyter, python\]
 
 **도구 - 넘파이(NumPy)**
 
 \*넘파이(NumPy)는 파이썬의 과학 컴퓨팅을 위한 기본 라이브러리입니다. 넘파이의 핵심은 강력한 N-차원 배열 객체입니다. 또한 선형 대수, 푸리에(Fourier) 변환, 유사 난수 생성과 같은 유용한 함수들도 제공합니다."
 
 |                                                                                                                                                                                   |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------------------------------------------------------|
 | [![](https://www.tensorflow.org/images/colab_logo_32px.png)구글 코랩에서 실행하기](https://colab.research.google.com/github/rickiepark/handson-ml2/blob/master/tools_numpy.ipynb) |
 
 # 배열 생성
@@ -160,8 +162,8 @@ for loops를 사용하지 않고 전체 array에 대한 연산 수행이 가능�
 평균적으로 Numpy-based 알고리즘은 10\~100배정도 속도가 더 빠르고 적은 메모리를 사용합니다.
 
 ```{python}
-#my_arr = np.arange(1000000)
-#my_list = list(range(1000000))
+my_arr = np.arange(1000000)
+my_list = list(range(1000000))
 
 #%time for _ in range(10): my_arr2 = my_arr * 2
 #%time for _ in range(10): my_list2 = [x * 2 for x in my_list]
@@ -1477,23 +1479,23 @@ a
 ```
 
 ```{python}
-np.save("my_array", a)
+# np.save("my_array", a)
 ```
 
 끝입니다! 파일 이름의 확장자를 지정하지 않았기 때문에 넘파이는 자동으로 `.npy`를 붙입니다. 파일 내용을 확인해 보겠습니다:
 
 ```{python}
-with open("my_array.npy", "rb") as f:
-    content = f.read()
+#with open("my_array.npy", "rb") as f:
+#    content = f.read()
 
-content
+#content
 ```
 
 이 파일을 넘파이 배열로 로드하려면 `load` 함수를 사용합니다:
 
 ```{python}
-a_loaded = np.load("my_array.npy")
-a_loaded
+#a_loaded = np.load("my_array.npy")
+#a_loaded
 ```
 
 ## 텍스트 포맷
@@ -1501,27 +1503,27 @@ a_loaded
 배열을 텍스트 포맷으로 저장해 보죠:
 
 ```{python}
-np.savetxt("my_array.csv", a)
+#np.savetxt("my_array.csv", a)
 ```
 
 파일 내용을 확인해 보겠습니다:
 
 ```{python}
-with open("my_array.csv", "rt") as f:
-    print(f.read())
+#with open("my_array.csv", "rt") as f:
+#    print(f.read())
 ```
 
 이 파일은 탭으로 구분된 CSV 파일입니다. 다른 구분자를 지정할 수도 있습니다:
 
 ```{python}
-np.savetxt("my_array.csv", a, delimiter=",")
+#np.savetxt("my_array.csv", a, delimiter=",")
 ```
 
 이 파일을 로드하려면 `loadtxt` 함수를 사용합니다:
 
 ```{python}
-a_loaded = np.loadtxt("my_array.csv", delimiter=",")
-a_loaded
+#a_loaded = np.loadtxt("my_array.csv", delimiter=",")
+#a_loaded
 ```
 
 ## 압축된 `.npz` 포맷
@@ -1534,33 +1536,33 @@ b
 ```
 
 ```{python}
-np.savez("my_arrays", my_a=a, my_b=b)
+#np.savez("my_arrays", my_a=a, my_b=b)
 ```
 
 파일 내용을 확인해 보죠. `.npz` 파일 확장자가 자동으로 추가되었습니다.
 
 ```{python}
-with open("my_arrays.npz", "rb") as f:
-    content = f.read()
+#with open("my_arrays.npz", "rb") as f:
+#    content = f.read()
 
-repr(content)[:180] + "[...]"
+#repr(content)[:180] + "[...]"
 ```
 
 다음과 같이 이 파일을 로드할 수 있습니다:
 
 ```{python}
-my_arrays = np.load("my_arrays.npz")
-my_arrays
+#my_arrays = np.load("my_arrays.npz")
+#my_arrays
 ```
 
 게으른 로딩을 수행하는 딕셔너리와 유사한 객체입니다:
 
 ```{python}
-list(my_arrays.keys())
+#list(my_arrays.keys())
 ```
 
 ```{python}
-my_arrays["my_a"]
+#my_arrays["my_a"]
 ```
 
 # 그 다음은?

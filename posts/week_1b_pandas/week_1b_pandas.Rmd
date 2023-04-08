@@ -5,6 +5,7 @@ date: "2023/04/06"
 date-modified: "2023/04/06"
 description: "Python Basics"
 categories: ["Python","Lecture"]
+image: "../../img/pandas.png"
 ---
 
 ```{r}
@@ -20,7 +21,7 @@ categories: ["Python","Lecture"]
 -   badges: true
 -   comments: true
 -   author: Jiho Yeo
--   categories: [jupyter, python]
+-   categories: \[jupyter, python\]
 
 **도구 - 판다스(pandas)**
 
@@ -1451,19 +1452,19 @@ my_df
 CSV, HTML, JSON로 저장해 보죠:
 
 ```{python}
-my_df.to_csv("my_df.csv")
-my_df.to_html("my_df.html")
-my_df.to_json("my_df.json")
+#my_df.to_csv("my_df.csv")
+#my_df.to_html("my_df.html")
+#my_df.to_json("my_df.json")
 ```
 
 저장된 내용을 확인해 보죠:
 
 ```{python}
-for filename in ("my_df.csv", "my_df.html", "my_df.json"):
-    print("#", filename)
-    with open(filename, "rt") as f:
-        print(f.read())
-        print()
+#for filename in ("my_df.csv", "my_df.html", "my_df.json"):
+#    print("#", filename)
+#    with open(filename, "rt") as f:
+#        print(f.read())
+#
 ```
 
 인덱스는 (이름 없이) CSV 파일의 첫 번째 열에 저장되었습니다. HTML에서는 `<th>` 태그와 JSON에서는 키로 저장되었습니다.

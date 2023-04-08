@@ -536,8 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>for loops를 사용하지 않고 전체 array에 대한 연산 수행이 가능합니다.<br>
 평균적으로 Numpy-based 알고리즘은 10~100배정도 속도가 더 빠르고 적은 메모리를 사용합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#my_arr = np.arange(1000000)</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#my_list = list(range(1000000))</span></span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>my_arr <span class="op">=</span> np.arange(<span class="dv">1000000</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1000000</span>))</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#%time for _ in range(10): my_arr2 = my_arr * 2</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#%time for _ in range(10): my_list2 = [x * 2 for x in my_list]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -592,21 +592,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>np.random.rand(<span class="dv">3</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>array([[0.60719921, 0.16764781, 0.79758055, 0.72870698],
-       [0.28986202, 0.56142801, 0.3209475 , 0.37876838],
-       [0.84846706, 0.83030234, 0.85294957, 0.56134473]])</code></pre>
+<pre><code>array([[0.75211489, 0.76578698, 0.87532208, 0.61185694],
+       [0.67397933, 0.04339965, 0.04454605, 0.65516448],
+       [0.19219236, 0.79762232, 0.30442719, 0.40989395]])</code></pre>
 </div>
 </div>
 <p>다음은 평균이 0이고 분산이 1인 일변량 <a href="https://ko.wikipedia.org/wiki/%EC%A0%95%EA%B7%9C_%EB%B6%84%ED%8F%AC">정규 분포</a>(가우시안 분포)에서 샘플링한 랜덤한 부동 소수를 담은 <span class="math inline">\(3 \times 4\)</span> 행렬입니다:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>np.random.randn(<span class="dv">3</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>array([[ 5.32149895e-01, -1.48134699e+00, -2.44074696e+00,
-        -3.18202380e-01],
-       [ 8.69575710e-01,  2.31644456e-04,  5.74503646e-01,
-         3.19407353e-01],
-       [ 2.07104833e-01,  1.70904981e+00, -4.76732538e-01,
-        -1.51083353e+00]])</code></pre>
+<pre><code>array([[-0.13016423, -0.42754947, -1.66022039, -1.05691081],
+       [ 0.94596379, -0.10419907,  0.31942206,  1.87019081],
+       [-0.02177622, -0.33526031, -0.09287115,  0.59166342]])</code></pre>
 </div>
 </div>
 <p>이 분포의 모양을 알려면 맷플롯립을 사용해 그려보는 것이 좋습니다(더 자세한 것은 <a href="tools_matplotlib.ipynb">맷플롯립 튜토리얼</a>을 참고하세요):</p>
@@ -617,99 +614,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>plt.hist(np.random.rand(<span class="dv">100000</span>), density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, histtype<span class="op">=</span><span class="st">"step"</span>, color<span class="op">=</span><span class="st">"blue"</span>, label<span class="op">=</span><span class="st">"rand"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(array([1.04002172, 0.97302032, 0.99902086, 1.02102132, 0.99302074,
-       1.00702103, 1.00202093, 0.99402076, 0.97502036, 0.94701978,
-       0.99902086, 0.99802084, 1.00502099, 0.98302053, 1.00402097,
-       1.03502162, 0.97702041, 0.98102049, 0.98702061, 0.93401951,
-       1.04902191, 0.98102049, 0.95902003, 1.05102195, 0.98502057,
-       1.03802168, 0.98702061, 1.00302095, 1.00502099, 1.00802105,
-       1.02602143, 1.00802105, 1.04502183, 1.01002109, 0.96502015,
-       1.05002193, 0.98902066, 0.98902066, 0.99402076, 0.96802022,
-       1.05602206, 0.96502015, 1.02302137, 1.02702145, 0.92001921,
-       1.03602164, 0.98002047, 0.99702082, 1.03102153, 0.98802063,
-       1.02102132, 1.00602101, 1.02302137, 1.00202093, 1.02802147,
-       1.00902107, 0.97702041, 0.97802043, 1.00702103, 1.05302199,
-       0.95201988, 1.0200213 , 1.02402139, 0.98502057, 0.99402076,
-       1.01902128, 1.04202176, 0.97002026, 1.02302137, 1.03102153,
-       0.98502057, 1.0630222 , 1.00802105, 0.96002005, 1.00702103,
-       1.00802105, 1.01602122, 0.95501995, 1.01702124, 1.02202135,
-       1.0150212 , 0.99502078, 0.93001942, 0.96402013, 0.97302032,
-       1.02102132, 0.9720203 , 1.00402097, 1.00702103, 0.97602038,
-       1.04602185, 1.03302157, 0.94101965, 0.99002068, 0.96902024,
-       0.97402034, 1.03702166, 0.93001942, 1.02302137, 1.00802105]), array([5.25364662e-06, 1.00050448e-02, 2.00048359e-02, 3.00046271e-02,
-       4.00044182e-02, 5.00042094e-02, 6.00040005e-02, 7.00037917e-02,
-       8.00035828e-02, 9.00033740e-02, 1.00003165e-01, 1.10002956e-01,
-       1.20002747e-01, 1.30002539e-01, 1.40002330e-01, 1.50002121e-01,
-       1.60001912e-01, 1.70001703e-01, 1.80001494e-01, 1.90001285e-01,
-       2.00001077e-01, 2.10000868e-01, 2.20000659e-01, 2.30000450e-01,
-       2.40000241e-01, 2.50000032e-01, 2.59999824e-01, 2.69999615e-01,
-       2.79999406e-01, 2.89999197e-01, 2.99998988e-01, 3.09998779e-01,
-       3.19998570e-01, 3.29998362e-01, 3.39998153e-01, 3.49997944e-01,
-       3.59997735e-01, 3.69997526e-01, 3.79997317e-01, 3.89997108e-01,
-       3.99996900e-01, 4.09996691e-01, 4.19996482e-01, 4.29996273e-01,
-       4.39996064e-01, 4.49995855e-01, 4.59995646e-01, 4.69995438e-01,
-       4.79995229e-01, 4.89995020e-01, 4.99994811e-01, 5.09994602e-01,
-       5.19994393e-01, 5.29994185e-01, 5.39993976e-01, 5.49993767e-01,
-       5.59993558e-01, 5.69993349e-01, 5.79993140e-01, 5.89992931e-01,
-       5.99992723e-01, 6.09992514e-01, 6.19992305e-01, 6.29992096e-01,
-       6.39991887e-01, 6.49991678e-01, 6.59991469e-01, 6.69991261e-01,
-       6.79991052e-01, 6.89990843e-01, 6.99990634e-01, 7.09990425e-01,
-       7.19990216e-01, 7.29990008e-01, 7.39989799e-01, 7.49989590e-01,
-       7.59989381e-01, 7.69989172e-01, 7.79988963e-01, 7.89988754e-01,
-       7.99988546e-01, 8.09988337e-01, 8.19988128e-01, 8.29987919e-01,
-       8.39987710e-01, 8.49987501e-01, 8.59987292e-01, 8.69987084e-01,
-       8.79986875e-01, 8.89986666e-01, 8.99986457e-01, 9.09986248e-01,
-       9.19986039e-01, 9.29985830e-01, 9.39985622e-01, 9.49985413e-01,
-       9.59985204e-01, 9.69984995e-01, 9.79984786e-01, 9.89984577e-01,
-       9.99984369e-01]), [&lt;matplotlib.patches.Polygon object at 0x000001AE24EAEC50&gt;])</code></pre>
+<pre><code>(array([0.96400809, 0.99800837, 1.03500868, 0.98400826, 0.98800829,
+       0.98600827, 0.9890083 , 1.04100874, 1.02900863, 1.00300842,
+       0.99600836, 1.08200908, 0.9650081 , 1.04400876, 0.91500768,
+       1.03400868, 1.02400859, 1.01800854, 0.99800837, 1.04000873,
+       0.99400834, 1.02900863, 1.03000864, 0.98100823, 0.99500835,
+       0.96200807, 1.04600878, 1.03000864, 0.94400792, 1.01800854,
+       0.98800829, 1.00200841, 0.98200824, 0.9650081 , 0.96000806,
+       1.01500852, 0.98300825, 0.97800821, 0.97400817, 0.97900822,
+       0.97300816, 1.01700853, 1.02000856, 1.0130085 , 1.00200841,
+       1.03000864, 1.01900855, 1.0250086 , 0.99700837, 1.02100857,
+       0.98200824, 1.0370087 , 1.05500885, 0.95800804, 1.04800879,
+       0.95100798, 1.00900847, 0.98700828, 1.01100848, 1.01000848,
+       0.89900754, 0.98000822, 1.04300875, 0.9420079 , 0.99400834,
+       1.00500843, 1.00500843, 0.99500835, 1.00900847, 0.953008  ,
+       0.96100806, 1.02000856, 1.04200874, 1.02400859, 1.02200858,
+       0.97400817, 0.97200816, 1.01200849, 0.94900796, 0.9410079 ,
+       0.99100832, 0.99600836, 1.03800871, 1.07000898, 0.98700828,
+       0.96700811, 1.00200841, 1.00900847, 0.96400809, 1.01000848,
+       1.01200849, 0.99700837, 1.01600853, 0.9890083 , 1.01400851,
+       0.9650081 , 1.01400851, 1.04100874, 1.01800854, 1.00500843]), array([5.83009071e-06, 1.00057462e-02, 2.00056623e-02, 3.00055784e-02,
+       4.00054944e-02, 5.00054105e-02, 6.00053266e-02, 7.00052427e-02,
+       8.00051588e-02, 9.00050749e-02, 1.00004991e-01, 1.10004907e-01,
+       1.20004823e-01, 1.30004739e-01, 1.40004655e-01, 1.50004571e-01,
+       1.60004488e-01, 1.70004404e-01, 1.80004320e-01, 1.90004236e-01,
+       2.00004152e-01, 2.10004068e-01, 2.20003984e-01, 2.30003900e-01,
+       2.40003816e-01, 2.50003732e-01, 2.60003648e-01, 2.70003564e-01,
+       2.80003481e-01, 2.90003397e-01, 3.00003313e-01, 3.10003229e-01,
+       3.20003145e-01, 3.30003061e-01, 3.40002977e-01, 3.50002893e-01,
+       3.60002809e-01, 3.70002725e-01, 3.80002641e-01, 3.90002558e-01,
+       4.00002474e-01, 4.10002390e-01, 4.20002306e-01, 4.30002222e-01,
+       4.40002138e-01, 4.50002054e-01, 4.60001970e-01, 4.70001886e-01,
+       4.80001802e-01, 4.90001718e-01, 5.00001635e-01, 5.10001551e-01,
+       5.20001467e-01, 5.30001383e-01, 5.40001299e-01, 5.50001215e-01,
+       5.60001131e-01, 5.70001047e-01, 5.80000963e-01, 5.90000879e-01,
+       6.00000795e-01, 6.10000711e-01, 6.20000628e-01, 6.30000544e-01,
+       6.40000460e-01, 6.50000376e-01, 6.60000292e-01, 6.70000208e-01,
+       6.80000124e-01, 6.90000040e-01, 6.99999956e-01, 7.09999872e-01,
+       7.19999788e-01, 7.29999705e-01, 7.39999621e-01, 7.49999537e-01,
+       7.59999453e-01, 7.69999369e-01, 7.79999285e-01, 7.89999201e-01,
+       7.99999117e-01, 8.09999033e-01, 8.19998949e-01, 8.29998865e-01,
+       8.39998782e-01, 8.49998698e-01, 8.59998614e-01, 8.69998530e-01,
+       8.79998446e-01, 8.89998362e-01, 8.99998278e-01, 9.09998194e-01,
+       9.19998110e-01, 9.29998026e-01, 9.39997942e-01, 9.49997858e-01,
+       9.59997775e-01, 9.69997691e-01, 9.79997607e-01, 9.89997523e-01,
+       9.99997439e-01]), [&lt;matplotlib.patches.Polygon object at 0x00000203DEAAF750&gt;])</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>plt.hist(np.random.randn(<span class="dv">100000</span>), density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, histtype<span class="op">=</span><span class="st">"step"</span>, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"randn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(array([1.08413233e-04, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
-       0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
-       2.16826466e-04, 1.08413233e-04, 1.08413233e-04, 0.00000000e+00,
-       4.33652933e-04, 3.25239700e-04, 1.40937203e-03, 9.75719099e-04,
-       1.19254557e-03, 1.62619850e-03, 3.25239700e-03, 4.22811610e-03,
-       5.42066166e-03, 5.96272783e-03, 8.99829836e-03, 1.10581498e-02,
-       1.23591086e-02, 1.90807290e-02, 2.14658202e-02, 2.63444157e-02,
-       3.21987303e-02, 4.34737065e-02, 5.04121534e-02, 5.85431459e-02,
-       7.06854281e-02, 8.34781896e-02, 1.02016852e-01, 1.15243267e-01,
-       1.38335286e-01, 1.50152328e-01, 1.60017932e-01, 1.87663307e-01,
-       2.16067574e-01, 2.29727641e-01, 2.61709545e-01, 2.75586439e-01,
-       2.92173664e-01, 3.21878889e-01, 3.46163454e-01, 3.55270165e-01,
-       3.59389868e-01, 3.86818416e-01, 3.88553028e-01, 4.07525344e-01,
-       4.02213095e-01, 3.93648450e-01, 4.05140253e-01, 3.83891259e-01,
-       3.72724696e-01, 3.65352596e-01, 3.49741090e-01, 3.30335122e-01,
-       2.99112110e-01, 2.91523184e-01, 2.65504008e-01, 2.31462253e-01,
-       2.18235838e-01, 2.00672895e-01, 1.79207075e-01, 1.46357865e-01,
-       1.41804509e-01, 1.24458392e-01, 1.00390654e-01, 8.83567851e-02,
-       7.39378251e-02, 5.99525180e-02, 5.45318563e-02, 4.13054419e-02,
-       3.61016067e-02, 2.78622009e-02, 2.15742334e-02, 1.72377041e-02,
-       1.44189600e-02, 1.06244969e-02, 7.48051309e-03, 6.93844693e-03,
-       6.39638076e-03, 3.68604993e-03, 3.57763670e-03, 2.05985143e-03,
-       1.30095880e-03, 1.08413233e-03, 8.67305866e-04, 8.67305866e-04,
-       5.42066166e-04, 2.16826466e-04, 3.25239700e-04, 1.08413233e-04,
-       1.08413233e-04, 1.08413233e-04, 1.08413233e-04, 1.08413233e-04]), array([-4.85438064, -4.76214098, -4.66990132, -4.57766166, -4.485422  ,
-       -4.39318233, -4.30094267, -4.20870301, -4.11646335, -4.02422369,
-       -3.93198402, -3.83974436, -3.7475047 , -3.65526504, -3.56302538,
-       -3.47078571, -3.37854605, -3.28630639, -3.19406673, -3.10182706,
-       -3.0095874 , -2.91734774, -2.82510808, -2.73286842, -2.64062875,
-       -2.54838909, -2.45614943, -2.36390977, -2.27167011, -2.17943044,
-       -2.08719078, -1.99495112, -1.90271146, -1.8104718 , -1.71823213,
-       -1.62599247, -1.53375281, -1.44151315, -1.34927348, -1.25703382,
-       -1.16479416, -1.0725545 , -0.98031484, -0.88807517, -0.79583551,
-       -0.70359585, -0.61135619, -0.51911653, -0.42687686, -0.3346372 ,
-       -0.24239754, -0.15015788, -0.05791822,  0.03432145,  0.12656111,
-        0.21880077,  0.31104043,  0.4032801 ,  0.49551976,  0.58775942,
-        0.67999908,  0.77223874,  0.86447841,  0.95671807,  1.04895773,
-        1.14119739,  1.23343705,  1.32567672,  1.41791638,  1.51015604,
-        1.6023957 ,  1.69463536,  1.78687503,  1.87911469,  1.97135435,
-        2.06359401,  2.15583368,  2.24807334,  2.340313  ,  2.43255266,
-        2.52479232,  2.61703199,  2.70927165,  2.80151131,  2.89375097,
-        2.98599063,  3.0782303 ,  3.17046996,  3.26270962,  3.35494928,
-        3.44718894,  3.53942861,  3.63166827,  3.72390793,  3.81614759,
-        3.90838726,  4.00062692,  4.09286658,  4.18510624,  4.2773459 ,
-        4.36958557]), [&lt;matplotlib.patches.Polygon object at 0x000001AE24EBE6D0&gt;])</code></pre>
+<pre><code>(array([1.07918602e-04, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+       0.00000000e+00, 0.00000000e+00, 1.07918602e-04, 0.00000000e+00,
+       1.07918602e-04, 0.00000000e+00, 0.00000000e+00, 3.23755806e-04,
+       3.23755806e-04, 3.23755806e-04, 4.31674408e-04, 7.55430214e-04,
+       8.63348816e-04, 1.61877903e-03, 1.83461623e-03, 2.69796505e-03,
+       2.91380225e-03, 4.64049989e-03, 8.09389515e-03, 6.58303472e-03,
+       1.02522672e-02, 1.18710462e-02, 1.59719531e-02, 2.02886972e-02,
+       2.44975227e-02, 3.01092900e-02, 3.69081619e-02, 4.46783012e-02,
+       5.96789869e-02, 6.71253704e-02, 7.88884981e-02, 9.51842070e-02,
+       1.09105707e-01, 1.24969741e-01, 1.49683101e-01, 1.66194647e-01,
+       1.92634705e-01, 2.08606658e-01, 2.29866622e-01, 2.45730657e-01,
+       2.79293342e-01, 2.96236562e-01, 3.11561004e-01, 3.39727759e-01,
+       3.61527317e-01, 3.64764875e-01, 3.87427781e-01, 3.92715793e-01,
+       3.89154479e-01, 4.00270095e-01, 3.88399049e-01, 3.90449502e-01,
+       3.93363304e-01, 3.74477549e-01, 3.56886817e-01, 3.50087945e-01,
+       3.28935899e-01, 3.11668923e-01, 2.90624795e-01, 2.56522517e-01,
+       2.48644459e-01, 2.17132227e-01, 2.06772041e-01, 1.78821124e-01,
+       1.60259124e-01, 1.30905264e-01, 1.21084671e-01, 1.04357288e-01,
+       9.29179163e-02, 8.20181375e-02, 6.85283123e-02, 4.81316965e-02,
+       4.41387082e-02, 3.70160805e-02, 2.79509179e-02, 2.28787436e-02,
+       1.85619995e-02, 1.32739880e-02, 1.05760230e-02, 8.84932536e-03,
+       6.04344171e-03, 6.15136031e-03, 5.07217429e-03, 3.77715107e-03,
+       3.34547666e-03, 1.94253484e-03, 1.18710462e-03, 1.18710462e-03,
+       6.47511612e-04, 5.39593010e-04, 4.31674408e-04, 3.23755806e-04,
+       0.00000000e+00, 1.07918602e-04, 0.00000000e+00, 2.15837204e-04]), array([-4.98492512, -4.89226269, -4.79960026, -4.70693783, -4.61427539,
+       -4.52161296, -4.42895053, -4.3362881 , -4.24362567, -4.15096324,
+       -4.05830081, -3.96563838, -3.87297595, -3.78031352, -3.68765109,
+       -3.59498865, -3.50232622, -3.40966379, -3.31700136, -3.22433893,
+       -3.1316765 , -3.03901407, -2.94635164, -2.85368921, -2.76102678,
+       -2.66836435, -2.57570191, -2.48303948, -2.39037705, -2.29771462,
+       -2.20505219, -2.11238976, -2.01972733, -1.9270649 , -1.83440247,
+       -1.74174004, -1.64907761, -1.55641518, -1.46375274, -1.37109031,
+       -1.27842788, -1.18576545, -1.09310302, -1.00044059, -0.90777816,
+       -0.81511573, -0.7224533 , -0.62979087, -0.53712844, -0.444466  ,
+       -0.35180357, -0.25914114, -0.16647871, -0.07381628,  0.01884615,
+        0.11150858,  0.20417101,  0.29683344,  0.38949587,  0.4821583 ,
+        0.57482074,  0.66748317,  0.7601456 ,  0.85280803,  0.94547046,
+        1.03813289,  1.13079532,  1.22345775,  1.31612018,  1.40878261,
+        1.50144504,  1.59410748,  1.68676991,  1.77943234,  1.87209477,
+        1.9647572 ,  2.05741963,  2.15008206,  2.24274449,  2.33540692,
+        2.42806935,  2.52073178,  2.61339422,  2.70605665,  2.79871908,
+        2.89138151,  2.98404394,  3.07670637,  3.1693688 ,  3.26203123,
+        3.35469366,  3.44735609,  3.54001852,  3.63268095,  3.72534339,
+        3.81800582,  3.91066825,  4.00333068,  4.09599311,  4.18865554,
+        4.28131797]), [&lt;matplotlib.patches.Polygon object at 0x00000203E05FF750&gt;])</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>plt.axis([<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="fl">1.1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -803,7 +800,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>],[<span class="dv">1000</span>, <span class="dv">2000</span>]], dtype<span class="op">=</span>np.int32)</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>f.data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;memory at 0x000001AE24EFA330&gt;</code></pre>
+<pre><code>&lt;memory at 0x00000203E0626DC0&gt;</code></pre>
 </div>
 </div>
 <p>파이썬 2에서는 <code>f.data</code>가 버퍼이고 파이썬 3에서는 memoryview입니다.</p>
@@ -1897,7 +1894,7 @@ var = 25.855555555555554</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb309"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb309-1"><a href="#cb309-1" aria-hidden="true" tabindex="-1"></a>c.flat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;numpy.flatiter object at 0x000001AE0CDCB710&gt;</code></pre>
+<pre><code>&lt;numpy.flatiter object at 0x00000203DC97B6A0&gt;</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2675,68 +2672,53 @@ var = 25.855555555555554</code></pre>
 <div class="sourceCode cell-code" id="cb454"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb454-1"><a href="#cb454-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.rand(<span class="dv">2</span>,<span class="dv">3</span>)</span>
 <span id="cb454-2"><a href="#cb454-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>array([[0.7636787 , 0.88664385, 0.0377544 ],
-       [0.67477778, 0.8823095 , 0.50687986]])</code></pre>
+<pre><code>array([[0.55580482, 0.27612781, 0.1040896 ],
+       [0.44779769, 0.54759201, 0.3775282 ]])</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb456"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb456-1"><a href="#cb456-1" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">"my_array"</span>, a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb456"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb456-1"><a href="#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="co"># np.save("my_array", a)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>끝입니다! 파일 이름의 확장자를 지정하지 않았기 때문에 넘파이는 자동으로 <code>.npy</code>를 붙입니다. 파일 내용을 확인해 보겠습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb457"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb457-1"><a href="#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"my_array.npy"</span>, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
-<span id="cb457-2"><a href="#cb457-2" aria-hidden="true" tabindex="-1"></a>    content <span class="op">=</span> f.read()</span>
+<div class="sourceCode cell-code" id="cb457"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb457-1"><a href="#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with open("my_array.npy", "rb") as f:</span></span>
+<span id="cb457-2"><a href="#cb457-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    content = f.read()</span></span>
 <span id="cb457-3"><a href="#cb457-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb457-4"><a href="#cb457-4" aria-hidden="true" tabindex="-1"></a>content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>b"\x93NUMPY\x01\x00v\x00{'descr': '&lt;f8', 'fortran_order': False, 'shape': (2, 3), }                                                          \n\xa3\xa61Q\x0ep\xe8?+\xeaq\xedb_\xec? \x07\xcfv\x8bT\xa3?\xd7\x17\x14\x91\xc7\x97\xe5?0c\xca#\xe1;\xec?\xd7\xb0\x01\x1b\\8\xe0?"</code></pre>
-</div>
+<span id="cb457-4"><a href="#cb457-4" aria-hidden="true" tabindex="-1"></a><span class="co">#content</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이 파일을 넘파이 배열로 로드하려면 <code>load</code> 함수를 사용합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb459"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb459-1"><a href="#cb459-1" aria-hidden="true" tabindex="-1"></a>a_loaded <span class="op">=</span> np.load(<span class="st">"my_array.npy"</span>)</span>
-<span id="cb459-2"><a href="#cb459-2" aria-hidden="true" tabindex="-1"></a>a_loaded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>array([[0.7636787 , 0.88664385, 0.0377544 ],
-       [0.67477778, 0.8823095 , 0.50687986]])</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb458"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb458-1"><a href="#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="co">#a_loaded = np.load("my_array.npy")</span></span>
+<span id="cb458-2"><a href="#cb458-2" aria-hidden="true" tabindex="-1"></a><span class="co">#a_loaded</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="텍스트-포맷" class="level2">
 <h2 class="anchored" data-anchor-id="텍스트-포맷">텍스트 포맷</h2>
 <p>배열을 텍스트 포맷으로 저장해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb461"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb461-1"><a href="#cb461-1" aria-hidden="true" tabindex="-1"></a>np.savetxt(<span class="st">"my_array.csv"</span>, a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb459"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb459-1"><a href="#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="co">#np.savetxt("my_array.csv", a)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>파일 내용을 확인해 보겠습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb462"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb462-1"><a href="#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"my_array.csv"</span>, <span class="st">"rt"</span>) <span class="im">as</span> f:</span>
-<span id="cb462-2"><a href="#cb462-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(f.read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>7.636787019557299550e-01 8.866438520047429384e-01 3.775440049459022340e-02
-6.747777780117257818e-01 8.823095034632384426e-01 5.068798568222757650e-01</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb460"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb460-1"><a href="#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with open("my_array.csv", "rt") as f:</span></span>
+<span id="cb460-2"><a href="#cb460-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    print(f.read())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이 파일은 탭으로 구분된 CSV 파일입니다. 다른 구분자를 지정할 수도 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb464"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb464-1"><a href="#cb464-1" aria-hidden="true" tabindex="-1"></a>np.savetxt(<span class="st">"my_array.csv"</span>, a, delimiter<span class="op">=</span><span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb461"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb461-1"><a href="#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="co">#np.savetxt("my_array.csv", a, delimiter=",")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이 파일을 로드하려면 <code>loadtxt</code> 함수를 사용합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb465"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb465-1"><a href="#cb465-1" aria-hidden="true" tabindex="-1"></a>a_loaded <span class="op">=</span> np.loadtxt(<span class="st">"my_array.csv"</span>, delimiter<span class="op">=</span><span class="st">","</span>)</span>
-<span id="cb465-2"><a href="#cb465-2" aria-hidden="true" tabindex="-1"></a>a_loaded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>array([[0.7636787 , 0.88664385, 0.0377544 ],
-       [0.67477778, 0.8823095 , 0.50687986]])</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb462"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb462-1"><a href="#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="co">#a_loaded = np.loadtxt("my_array.csv", delimiter=",")</span></span>
+<span id="cb462-2"><a href="#cb462-2" aria-hidden="true" tabindex="-1"></a><span class="co">#a_loaded</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="압축된-.npz-포맷" class="level2">
 <h2 class="anchored" data-anchor-id="압축된-.npz-포맷">압축된 <code>.npz</code> 포맷</h2>
 <p>여러 개의 배열을 압축된 한 파일로 저장하는 것도 가능합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb467"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb467-1"><a href="#cb467-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.arange(<span class="dv">24</span>, dtype<span class="op">=</span>np.uint8).reshape(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb467-2"><a href="#cb467-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb463"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb463-1"><a href="#cb463-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.arange(<span class="dv">24</span>, dtype<span class="op">=</span>np.uint8).reshape(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb463-2"><a href="#cb463-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>array([[[ 0,  1,  2,  3],
         [ 4,  5,  6,  7],
@@ -2748,39 +2730,26 @@ var = 25.855555555555554</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb469"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb469-1"><a href="#cb469-1" aria-hidden="true" tabindex="-1"></a>np.savez(<span class="st">"my_arrays"</span>, my_a<span class="op">=</span>a, my_b<span class="op">=</span>b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb465"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb465-1"><a href="#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="co">#np.savez("my_arrays", my_a=a, my_b=b)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>파일 내용을 확인해 보죠. <code>.npz</code> 파일 확장자가 자동으로 추가되었습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb470"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb470-1"><a href="#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"my_arrays.npz"</span>, <span class="st">"rb"</span>) <span class="im">as</span> f:</span>
-<span id="cb470-2"><a href="#cb470-2" aria-hidden="true" tabindex="-1"></a>    content <span class="op">=</span> f.read()</span>
-<span id="cb470-3"><a href="#cb470-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb470-4"><a href="#cb470-4" aria-hidden="true" tabindex="-1"></a><span class="bu">repr</span>(content)[:<span class="dv">180</span>] <span class="op">+</span> <span class="st">"[...]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'b"PK\\x03\\x04\\x14\\x00\\x00\\x00\\x00\\x00\\x00\\x00!\\x00\\x0f\\xd9\\xa0\\x9e\\xb0\\x00\\x00\\x00\\xb0\\x00\\x00\\x00\\x08\\x00\\x14\\x00my_a.npy\\x01\\x00\\x10\\x00\\xb0\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xb0\\x00\\x0[...]'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb466"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb466-1"><a href="#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with open("my_arrays.npz", "rb") as f:</span></span>
+<span id="cb466-2"><a href="#cb466-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    content = f.read()</span></span>
+<span id="cb466-3"><a href="#cb466-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb466-4"><a href="#cb466-4" aria-hidden="true" tabindex="-1"></a><span class="co">#repr(content)[:180] + "[...]"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>다음과 같이 이 파일을 로드할 수 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb472"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb472-1"><a href="#cb472-1" aria-hidden="true" tabindex="-1"></a>my_arrays <span class="op">=</span> np.load(<span class="st">"my_arrays.npz"</span>)</span>
-<span id="cb472-2"><a href="#cb472-2" aria-hidden="true" tabindex="-1"></a>my_arrays</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;numpy.lib.npyio.NpzFile object at 0x000001AE231ACB90&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb467"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb467-1"><a href="#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="co">#my_arrays = np.load("my_arrays.npz")</span></span>
+<span id="cb467-2"><a href="#cb467-2" aria-hidden="true" tabindex="-1"></a><span class="co">#my_arrays</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>게으른 로딩을 수행하는 딕셔너리와 유사한 객체입니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb474"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb474-1"><a href="#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(my_arrays.keys())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>['my_a', 'my_b']</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb468"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb468-1"><a href="#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="co">#list(my_arrays.keys())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb476"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb476-1"><a href="#cb476-1" aria-hidden="true" tabindex="-1"></a>my_arrays[<span class="st">"my_a"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>array([[0.7636787 , 0.88664385, 0.0377544 ],
-       [0.67477778, 0.8823095 , 0.50687986]])</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb469"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb469-1"><a href="#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="co">#my_arrays["my_a"]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>

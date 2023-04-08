@@ -9,3 +9,21 @@ title: "Sungil_Park"
 #### This is a quarto blog created with Rstudio.
 
 #### Created for publishing my project and records about me.
+
+#### Software Environments
+
+-   R 4.2.3
+
+-   Python 3.11.2
+
+#### Hardware Environments
+
+-   Samsung Galaxybook 2 pro 360 i7
+
+-   Desktop
+
+    -   Ryzen 5600X
+
+    -   Radeon RX570
+
+    -   G.SKILL DDR4 8G 25600 CL16 \*2
