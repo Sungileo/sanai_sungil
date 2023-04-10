@@ -1,0 +1,33 @@
+---
+title: "SQL"
+author: "sungil_park"
+date: "2023/04/10"
+date-modified: "2023/04/10"
+description: "SQL Basics"
+categories: SQL
+editor_options: 
+  chunk_output_type: console
+image: ../../img/SQL.jpeg
+---
+
+```{r}
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+library(dbplyr)
+```
+
+```{r}
+con <- DBI::dbConnect(RSQLite::SQLite(), 
+                      dbname = "testsqlite")
+copy_to(dest = con, 
+        df = mtcars, 
+        name = "mtcars")
+
+dbListTables(con)
+```
+
+```{sql, connection=con}
+SELECT *
+FROM mtcars
+```

@@ -6,6 +6,8 @@ date-modified: "2023/03/20"
 description: "Data Visualization"
 image: "vis.png"
 categories: R
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r}
@@ -23,6 +25,7 @@ library(ggplot2)
 library(dplyr)
 library(ggrepel)
 library(cowplot)
+library(colorspace)
 ```
 
 ## mpg datasets
@@ -548,15 +551,13 @@ popgrowth_df <- US_census %>% left_join(US_regions) %>%
 ```{r}
 popgrowth_df %>% head()
 ```
-
+### Plot with color
 Set Colorspace
 ```{r}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
 state_colors <- region_colors[as.numeric(popgrowth_df$region)]
 state_colors_dark = colorspace::darken(state_colors,0.4)
-```
-### Plot with color
-```{r}
+
 ggplot(popgrowth_df,aes(x = state, y = 100*popgrowth, fill = region))+
   geom_col()+
   scale_y_continuous(name = "population growth, 2000 to 2010",
@@ -570,9 +571,41 @@ ggplot(popgrowth_df,aes(x = state, y = 100*popgrowth, fill = region))+
         axis.title.y = element_blank(),
         axis.ticks.length = unit(0,"pt"),
         axis.text.y = element_text(size=10,color = state_colors),
+        legend.position = c(.6,.5),
+        legend.background = element_rect(fill="#FFFFFFb0"))
+```
+
+
+### Plot lighten
+```{r}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
+  lighten(0.4) %>% desaturate(0.8)
+
+popgrowth_df_2 <- popgrowth_df %>% 
+  mutate(region_highlight = ifelse(state %in% c("Texas","Louisiana"), NA, region %>% paste()))
+popgrowth_df_2 %>% head()
+
+ggplot(popgrowth_df_2, aes(x = state, y= 100*popgrowth, fill = region_highlight))+
+  geom_col()+
+  scale_y_continuous(name = "Population growth, 2000to 2010",
+                     labels = scales::percent_format(scale=1),
+                     expand = c(0,0))+
+  scale_fill_manual(values = region_colors,
+                    breaks = c("West","South","Midwest","Northwest"),
+                    na.value = "#56B4E9")+
+  coord_flip()+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size=10),
         legend.position = c(.58,.68),
         legend.background = element_rect(fill="#FFFFFFb0"))
 ```
+
+
+
 ## 2022 02 주민등록인구 및 세대 현황
 Load & change type
 ```{r}
@@ -580,7 +613,7 @@ kor_202202 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/mai
 
 kor_202202 %>% head()
 kor_202202 %>% sapply(class)
-kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format()
+kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format() #numeric to string
 ```
 filter 서울, 대전 ,대구, 부산
 ```{r}

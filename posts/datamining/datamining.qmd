@@ -8,10 +8,10 @@ categories: Python
 editor_options: 
   chunk_output_type: console
 ---
+
 ```{r}
 
 ```
-
 
 ```{python}
 import pandas as pd

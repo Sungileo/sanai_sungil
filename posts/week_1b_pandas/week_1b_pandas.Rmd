@@ -1,6 +1,6 @@
 ---
 title: "week_1b_pandas"
-author: "_"
+author: "Jiho Yeo"
 date: "2023/04/06"
 date-modified: "2023/04/06"
 description: "Python Basics"
@@ -1452,7 +1452,7 @@ my_df
 CSV, HTML, JSON로 저장해 보죠:
 
 ```{python}
-#my_df.to_csv("my_df.csv")
+my_df.to_csv("my_df.csv")
 #my_df.to_html("my_df.html")
 #my_df.to_json("my_df.json")
 ```

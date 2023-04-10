@@ -1,6 +1,6 @@
 ---
 title: "week_1a_numpy"
-author: "_"
+author: "Jiho Yeo"
 date: "2023/04/06"
 date-modified: "2023/04/06"
 description: "Python Basics"
