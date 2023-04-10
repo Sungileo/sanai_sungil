@@ -43,7 +43,7 @@ data_use <- data_raw %>% select(-1)
 data_use %>% head()
 ```
 
-#### scatter plot
+### scatter plot
 
 Use displ and hwy
 
@@ -55,13 +55,13 @@ hwy : Highway fuel economy
 ggplot(data_use, aes(x=displ, y=hwy)) + geom_point()
 ```
 
-#### smooth line
+### smooth line
 
 ```{r smooth_line}
 ggplot(data_use, aes(x=displ, y=hwy)) + geom_smooth()
 ```
 
-#### scatter & smooth line
+### scatter & smooth line
 
 ```{r scatter_and_smooth_line}
 ggplot(data_use, aes(x=displ, y=hwy)) + 
@@ -111,7 +111,7 @@ temps_long <- data_file %>% inner_join(station_loc,by="station_id")
 temps_long %>% head()
 ```
 
-#### Line plot by location
+### Line plot by location
 
 ```{r}
 ggplot(temps_long, aes(x=date,y=temperature,color=location))+
@@ -126,7 +126,7 @@ date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
 break_date <- seq.Date(date_s, date_e, by = "3 month")
 ```
 
-#### Line plot, date x scale
+### Line plot, date x scale
 
 ```{r}
 ggplot(temps_long, aes(x=date, y=temperature, color=location))+
@@ -137,7 +137,7 @@ ggplot(temps_long, aes(x=date, y=temperature, color=location))+
   theme_light()
 ```
 
-#### Line plot, date x scale, y limits, labs variable
+### Line plot, date x scale, y limits, labs variable
 
 ```{r}
 ggplot(temps_long, aes(x=date, y=temperature, color=location))+
@@ -151,7 +151,7 @@ ggplot(temps_long, aes(x=date, y=temperature, color=location))+
   labs(title = "title", subtitle = "subtitle", caption = "caption", tag = "tag")
 ```
 
-#### Tile plot, mean temperature by month, location
+### Tile plot, mean temperature by month, location
 
 ```{r}
 mean_temps <- temps_long %>% 
@@ -172,7 +172,7 @@ ggplot(mean_temps,aes(x = month, y = location, fill = mean))+
   coord_fixed(expand = FALSE)+
   ylab(NULL)
 ```
-#### Pie chart, Polar coordinates
+### Pie chart, Polar coordinates
 The polar coordinate system is most commonly used for pie charts, which are a stacked bar chart in polar coordinates.
 
 `format(x,"%B")` Outputs unabbreviated month
@@ -236,7 +236,7 @@ date_21e <- "2022-01-01" %>% as.Date("%Y-%m-%d")
 break_date_21 <- seq.Date(date_21s, date_21e, by = "3 month")
 ```
 
-#### Ploting
+### Ploting
 
 ```{r}
 ggplot(data_2021,aes(x = 일시,y = 평균기온..C., color = 지점명))+
@@ -278,7 +278,7 @@ data_2022_2 <- data_2022 %>% filter(data_2022$지점명 %in% c("서울","대전"
 data_2022_2$지점명 %>% unique()
 ```
 
-#### ploting
+### ploting
 
 ```{r}
 ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
@@ -289,7 +289,7 @@ ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   scale_y_continuous(name = "평균기온")+
   theme_light()
 ```
-#### Tile plot, mean temperature by month, location
+### Tile plot, mean temperature by month, location
 
 ```{r}
 d <- data_2022_2 %>% 
@@ -307,7 +307,7 @@ ggplot(d,aes(x = month, y = 지점명, fill = mean))+
   ylab(NULL)
 ```
 
-#### Pie chart, Polar coordinates
+### Pie chart, Polar coordinates
 ```{r}
 ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   geom_line(linewidth = 1) +
@@ -336,7 +336,7 @@ houston_temps <- data_file %>% inner_join(houston,by="station_id")
 houston_temps %>% head()
 ```
 
-#### Set X scale breaks, Plot
+### Set X scale breaks, Plot
 
 ```{r}
 date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")  #Y는 대문자
@@ -370,7 +370,7 @@ houston_plot <- ggplot(houston_temps, aes(x=date, y=temperature,color = location
   ylab("Temperature(℉)")
 ```
 
-#### arrange multiple plots into a grid
+### arrange multiple plots into a grid
 
 ```{r}
 plot_ab <- plot_grid(houston_plot,houston_plot,
@@ -425,7 +425,7 @@ ggrepel provides geoms for ggplot2 to repel overlapping text labels
 library(ggrepel)
 ```
 
-#### point plot, overlapped text label
+### point plot, overlapped text label
 
 ```{r}
 ggplot(tx_counties,aes(x=index,y=popratio))+
@@ -439,7 +439,7 @@ ggplot(tx_counties,aes(x=index,y=popratio))+
   
 ```
 
-#### Point plot, y log scale
+### Point plot, y log scale
 
 There are two main reasons to use logarithmic scales in charts and graphs. The first is to respond to skewness towards large values; i.e., cases in which one or a few points are much larger than the bulk of the data. The second is to show percent change or multiplicative factors.
 
@@ -482,7 +482,7 @@ data_202302 <- data_pop %>%
 ```{r}
 data_202302 %>% head()
 ```
-#### Point plot
+### Point plot
 ```{r}
 ggplot(data_202302,aes(x=index,y=popratio))+
   geom_point(size = 1, color = "royalblue")+
@@ -492,7 +492,7 @@ ggplot(data_202302,aes(x=index,y=popratio))+
   theme_light()+
   theme(panel.border = element_blank())
 ```
-#### Point plot, y log scale
+### Point plot, y log scale
 ```{r}
 label_log10 <- sapply(-2:2,function(i) as.expression(bquote(10^ .(i))))
 
@@ -555,7 +555,7 @@ region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
 state_colors <- region_colors[as.numeric(popgrowth_df$region)]
 state_colors_dark = colorspace::darken(state_colors,0.4)
 ```
-#### Plot with color
+### Plot with color
 ```{r}
 ggplot(popgrowth_df,aes(x = state, y = 100*popgrowth, fill = region))+
   geom_col()+
@@ -607,7 +607,7 @@ kor_202202_use %>% summary()
 state_colors <- region_colors[as.numeric(kor_202202_use$시도)]
 state_colors_dark <- colorspace::darken(state_colors,0.4)
 ```
-#### Plot with colors, Korea
+### Plot with colors, Korea
 ```{r}
 ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y= 총인구수, fill = 시도))+
   geom_col()+

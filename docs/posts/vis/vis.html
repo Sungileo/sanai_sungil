@@ -193,16 +193,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#library-packages" id="toc-library-packages" class="nav-link active" data-scroll-target="#library-packages">library packages</a></li>
-  <li><a href="#mpg-datasets" id="toc-mpg-datasets" class="nav-link" data-scroll-target="#mpg-datasets">mpg datasets</a></li>
-  <li><a href="#ncdc_normals" id="toc-ncdc_normals" class="nav-link" data-scroll-target="#ncdc_normals">ncdc_normals</a></li>
-  <li><a href="#obs-asos-2021-korea" id="toc-obs-asos-2021-korea" class="nav-link" data-scroll-target="#obs-asos-2021-korea">OBS ASOS 2021 Korea</a></li>
-  <li><a href="#obs-asos-2022-korea" id="toc-obs-asos-2022-korea" class="nav-link" data-scroll-target="#obs-asos-2022-korea">OBS ASOS 2022 Korea</a></li>
-  <li><a href="#ncdc-normals-houston" id="toc-ncdc-normals-houston" class="nav-link" data-scroll-target="#ncdc-normals-houston">ncdc normals Houston</a></li>
-  <li><a href="#texas-counties" id="toc-texas-counties" class="nav-link" data-scroll-target="#texas-counties">Texas counties</a></li>
-  <li><a href="#시군구-인구수-2023년-2월" id="toc-시군구-인구수-2023년-2월" class="nav-link" data-scroll-target="#시군구-인구수-2023년-2월">시군구 인구수 2023년 2월</a></li>
+  <li><a href="#mpg-datasets" id="toc-mpg-datasets" class="nav-link" data-scroll-target="#mpg-datasets">mpg datasets</a>
+  <ul class="collapse">
+  <li><a href="#scatter-plot" id="toc-scatter-plot" class="nav-link" data-scroll-target="#scatter-plot">scatter plot</a></li>
+  <li><a href="#smooth-line" id="toc-smooth-line" class="nav-link" data-scroll-target="#smooth-line">smooth line</a></li>
+  <li><a href="#scatter-smooth-line" id="toc-scatter-smooth-line" class="nav-link" data-scroll-target="#scatter-smooth-line">scatter &amp; smooth line</a></li>
+  </ul></li>
+  <li><a href="#ncdc_normals" id="toc-ncdc_normals" class="nav-link" data-scroll-target="#ncdc_normals">ncdc_normals</a>
+  <ul class="collapse">
+  <li><a href="#line-plot-by-location" id="toc-line-plot-by-location" class="nav-link" data-scroll-target="#line-plot-by-location">Line plot by location</a></li>
+  <li><a href="#line-plot-date-x-scale" id="toc-line-plot-date-x-scale" class="nav-link" data-scroll-target="#line-plot-date-x-scale">Line plot, date x scale</a></li>
+  <li><a href="#line-plot-date-x-scale-y-limits-labs-variable" id="toc-line-plot-date-x-scale-y-limits-labs-variable" class="nav-link" data-scroll-target="#line-plot-date-x-scale-y-limits-labs-variable">Line plot, date x scale, y limits, labs variable</a></li>
+  <li><a href="#tile-plot-mean-temperature-by-month-location" id="toc-tile-plot-mean-temperature-by-month-location" class="nav-link" data-scroll-target="#tile-plot-mean-temperature-by-month-location">Tile plot, mean temperature by month, location</a></li>
+  <li><a href="#pie-chart-polar-coordinates" id="toc-pie-chart-polar-coordinates" class="nav-link" data-scroll-target="#pie-chart-polar-coordinates">Pie chart, Polar coordinates</a></li>
+  </ul></li>
+  <li><a href="#obs-asos-2021-korea" id="toc-obs-asos-2021-korea" class="nav-link" data-scroll-target="#obs-asos-2021-korea">OBS ASOS 2021 Korea</a>
+  <ul class="collapse">
+  <li><a href="#ploting" id="toc-ploting" class="nav-link" data-scroll-target="#ploting">Ploting</a></li>
+  </ul></li>
+  <li><a href="#obs-asos-2022-korea" id="toc-obs-asos-2022-korea" class="nav-link" data-scroll-target="#obs-asos-2022-korea">OBS ASOS 2022 Korea</a>
+  <ul class="collapse">
+  <li><a href="#ploting-1" id="toc-ploting-1" class="nav-link" data-scroll-target="#ploting-1">ploting</a></li>
+  <li><a href="#tile-plot-mean-temperature-by-month-location-1" id="toc-tile-plot-mean-temperature-by-month-location-1" class="nav-link" data-scroll-target="#tile-plot-mean-temperature-by-month-location-1">Tile plot, mean temperature by month, location</a></li>
+  <li><a href="#pie-chart-polar-coordinates-1" id="toc-pie-chart-polar-coordinates-1" class="nav-link" data-scroll-target="#pie-chart-polar-coordinates-1">Pie chart, Polar coordinates</a></li>
+  </ul></li>
+  <li><a href="#ncdc-normals-houston" id="toc-ncdc-normals-houston" class="nav-link" data-scroll-target="#ncdc-normals-houston">ncdc normals Houston</a>
+  <ul class="collapse">
+  <li><a href="#set-x-scale-breaks-plot" id="toc-set-x-scale-breaks-plot" class="nav-link" data-scroll-target="#set-x-scale-breaks-plot">Set X scale breaks, Plot</a></li>
+  <li><a href="#arrange-multiple-plots-into-a-grid" id="toc-arrange-multiple-plots-into-a-grid" class="nav-link" data-scroll-target="#arrange-multiple-plots-into-a-grid">arrange multiple plots into a grid</a></li>
+  </ul></li>
+  <li><a href="#texas-counties" id="toc-texas-counties" class="nav-link" data-scroll-target="#texas-counties">Texas counties</a>
+  <ul class="collapse">
+  <li><a href="#point-plot-overlapped-text-label" id="toc-point-plot-overlapped-text-label" class="nav-link" data-scroll-target="#point-plot-overlapped-text-label">point plot, overlapped text label</a></li>
+  <li><a href="#point-plot-y-log-scale" id="toc-point-plot-y-log-scale" class="nav-link" data-scroll-target="#point-plot-y-log-scale">Point plot, y log scale</a></li>
+  </ul></li>
+  <li><a href="#시군구-인구수-2023년-2월" id="toc-시군구-인구수-2023년-2월" class="nav-link" data-scroll-target="#시군구-인구수-2023년-2월">시군구 인구수 2023년 2월</a>
+  <ul class="collapse">
+  <li><a href="#point-plot" id="toc-point-plot" class="nav-link" data-scroll-target="#point-plot">Point plot</a></li>
+  <li><a href="#point-plot-y-log-scale-1" id="toc-point-plot-y-log-scale-1" class="nav-link" data-scroll-target="#point-plot-y-log-scale-1">Point plot, y log scale</a></li>
+  </ul></li>
   <li><a href="#rcolorbrewer" id="toc-rcolorbrewer" class="nav-link" data-scroll-target="#rcolorbrewer">RColorBrewer</a></li>
-  <li><a href="#us-census-us-regions" id="toc-us-census-us-regions" class="nav-link" data-scroll-target="#us-census-us-regions">US census , US regions</a></li>
-  <li><a href="#주민등록인구-및-세대-현황" id="toc-주민등록인구-및-세대-현황" class="nav-link" data-scroll-target="#주민등록인구-및-세대-현황">2022 02 주민등록인구 및 세대 현황</a></li>
+  <li><a href="#us-census-us-regions" id="toc-us-census-us-regions" class="nav-link" data-scroll-target="#us-census-us-regions">US census , US regions</a>
+  <ul class="collapse">
+  <li><a href="#plot-with-color" id="toc-plot-with-color" class="nav-link" data-scroll-target="#plot-with-color">Plot with color</a></li>
+  </ul></li>
+  <li><a href="#주민등록인구-및-세대-현황" id="toc-주민등록인구-및-세대-현황" class="nav-link" data-scroll-target="#주민등록인구-및-세대-현황">2022 02 주민등록인구 및 세대 현황</a>
+  <ul class="collapse">
+  <li><a href="#plot-with-colors-korea" id="toc-plot-with-colors-korea" class="nav-link" data-scroll-target="#plot-with-colors-korea">Plot with colors, Korea</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -338,8 +376,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6         audi    a4   2.8 1999   6 manual(m5)   f  18  26  p compact</code></pre>
 </div>
 </div>
-<section id="scatter-plot" class="level4">
-<h4 class="anchored" data-anchor-id="scatter-plot">scatter plot</h4>
+<section id="scatter-plot" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-plot">scatter plot</h3>
 <p>Use displ and hwy</p>
 <p>displ : Displacement</p>
 <p>hwy : Highway fuel economy</p>
@@ -350,8 +388,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="smooth-line" class="level4">
-<h4 class="anchored" data-anchor-id="smooth-line">smooth line</h4>
+<section id="smooth-line" class="level3">
+<h3 class="anchored" data-anchor-id="smooth-line">smooth line</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_use, <span class="fu">aes</span>(<span class="at">x=</span>displ, <span class="at">y=</span>hwy)) <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -362,8 +400,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="scatter-smooth-line" class="level4">
-<h4 class="anchored" data-anchor-id="scatter-smooth-line">scatter &amp; smooth line</h4>
+<section id="scatter-smooth-line" class="level3">
+<h3 class="anchored" data-anchor-id="scatter-smooth-line">scatter &amp; smooth line</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_use, <span class="fu">aes</span>(<span class="at">x=</span>displ, <span class="at">y=</span>hwy)) <span class="sc">+</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -435,8 +473,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6 USC00042319     1   6        51.7    S 0000-01-06 Death valley</code></pre>
 </div>
 </div>
-<section id="line-plot-by-location" class="level4">
-<h4 class="anchored" data-anchor-id="line-plot-by-location">Line plot by location</h4>
+<section id="line-plot-by-location" class="level3">
+<h3 class="anchored" data-anchor-id="line-plot-by-location">Line plot by location</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date,<span class="at">y=</span>temperature,<span class="at">color=</span>location))<span class="sc">+</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -451,8 +489,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>break_date <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_s, date_e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="line-plot-date-x-scale" class="level4">
-<h4 class="anchored" data-anchor-id="line-plot-date-x-scale">Line plot, date x scale</h4>
+<section id="line-plot-date-x-scale" class="level3">
+<h3 class="anchored" data-anchor-id="line-plot-date-x-scale">Line plot, date x scale</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
@@ -465,8 +503,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="line-plot-date-x-scale-y-limits-labs-variable" class="level4">
-<h4 class="anchored" data-anchor-id="line-plot-date-x-scale-y-limits-labs-variable">Line plot, date x scale, y limits, labs variable</h4>
+<section id="line-plot-date-x-scale-y-limits-labs-variable" class="level3">
+<h3 class="anchored" data-anchor-id="line-plot-date-x-scale-y-limits-labs-variable">Line plot, date x scale, y limits, labs variable</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temps_long, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>temperature, <span class="at">color=</span>location))<span class="sc">+</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
@@ -482,8 +520,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="tile-plot-mean-temperature-by-month-location" class="level4">
-<h4 class="anchored" data-anchor-id="tile-plot-mean-temperature-by-month-location">Tile plot, mean temperature by month, location</h4>
+<section id="tile-plot-mean-temperature-by-month-location" class="level3">
+<h3 class="anchored" data-anchor-id="tile-plot-mean-temperature-by-month-location">Tile plot, mean temperature by month, location</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mean_temps <span class="ot">&lt;-</span> temps_long <span class="sc">%&gt;%</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month,location) <span class="sc">%&gt;%</span> </span>
@@ -509,8 +547,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="pie-chart-polar-coordinates" class="level4">
-<h4 class="anchored" data-anchor-id="pie-chart-polar-coordinates">Pie chart, Polar coordinates</h4>
+<section id="pie-chart-polar-coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="pie-chart-polar-coordinates">Pie chart, Polar coordinates</h3>
 <p>The polar coordinate system is most commonly used for pie charts, which are a stacked bar chart in polar coordinates.</p>
 <p><code>format(x,"%B")</code> Outputs unabbreviated month</p>
 <div class="cell">
@@ -604,8 +642,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>date_21e <span class="ot">&lt;-</span> <span class="st">"2022-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>break_date_21 <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(date_21s, date_21e, <span class="at">by =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="ploting" class="level4">
-<h4 class="anchored" data-anchor-id="ploting">Ploting</h4>
+<section id="ploting" class="level3">
+<h3 class="anchored" data-anchor-id="ploting">Ploting</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2021,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -667,8 +705,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] "서울" "대전" "제주" "세종"</code></pre>
 </div>
 </div>
-<section id="ploting-1" class="level4">
-<h4 class="anchored" data-anchor-id="ploting-1">ploting</h4>
+<section id="ploting-1" class="level3">
+<h3 class="anchored" data-anchor-id="ploting-1">ploting</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2022_2,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -682,8 +720,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="tile-plot-mean-temperature-by-month-location-1" class="level4">
-<h4 class="anchored" data-anchor-id="tile-plot-mean-temperature-by-month-location-1">Tile plot, mean temperature by month, location</h4>
+<section id="tile-plot-mean-temperature-by-month-location-1" class="level3">
+<h3 class="anchored" data-anchor-id="tile-plot-mean-temperature-by-month-location-1">Tile plot, mean temperature by month, location</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> data_2022_2 <span class="sc">%&gt;%</span> </span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> 일시 <span class="sc">%&gt;%</span> <span class="fu">format</span>(<span class="st">"%B"</span>)) <span class="sc">%&gt;%</span> </span>
@@ -705,8 +743,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="pie-chart-polar-coordinates-1" class="level4">
-<h4 class="anchored" data-anchor-id="pie-chart-polar-coordinates-1">Pie chart, Polar coordinates</h4>
+<section id="pie-chart-polar-coordinates-1" class="level3">
+<h3 class="anchored" data-anchor-id="pie-chart-polar-coordinates-1">Pie chart, Polar coordinates</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_2022_2,<span class="fu">aes</span>(<span class="at">x =</span> 일시,<span class="at">y =</span> 평균기온..C., <span class="at">color =</span> 지점명))<span class="sc">+</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -747,8 +785,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6 USW00012918     1   6        53.7    S 0000-01-06  Houston</code></pre>
 </div>
 </div>
-<section id="set-x-scale-breaks-plot" class="level4">
-<h4 class="anchored" data-anchor-id="set-x-scale-breaks-plot">Set X scale breaks, Plot</h4>
+<section id="set-x-scale-breaks-plot" class="level3">
+<h3 class="anchored" data-anchor-id="set-x-scale-breaks-plot">Set X scale breaks, Plot</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>date_s <span class="ot">&lt;-</span> <span class="st">"0000-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)  <span class="co">#Y는 대문자</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>date_e <span class="ot">&lt;-</span> <span class="st">"0001-01-01"</span> <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
@@ -780,8 +818,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Temperature(℉)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="arrange-multiple-plots-into-a-grid" class="level4">
-<h4 class="anchored" data-anchor-id="arrange-multiple-plots-into-a-grid">arrange multiple plots into a grid</h4>
+<section id="arrange-multiple-plots-into-a-grid" class="level3">
+<h3 class="anchored" data-anchor-id="arrange-multiple-plots-into-a-grid">arrange multiple plots into a grid</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>plot_ab <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(houston_plot,houston_plot,</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nrow =</span> <span class="dv">1</span>,</span>
@@ -846,8 +884,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="point-plot-overlapped-text-label" class="level4">
-<h4 class="anchored" data-anchor-id="point-plot-overlapped-text-label">point plot, overlapped text label</h4>
+<section id="point-plot-overlapped-text-label" class="level3">
+<h3 class="anchored" data-anchor-id="point-plot-overlapped-text-label">point plot, overlapped text label</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tx_counties,<span class="fu">aes</span>(<span class="at">x=</span>index,<span class="at">y=</span>popratio))<span class="sc">+</span></span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"grey40"</span>)<span class="sc">+</span></span>
@@ -862,8 +900,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="point-plot-y-log-scale" class="level4">
-<h4 class="anchored" data-anchor-id="point-plot-y-log-scale">Point plot, y log scale</h4>
+<section id="point-plot-y-log-scale" class="level3">
+<h3 class="anchored" data-anchor-id="point-plot-y-log-scale">Point plot, y log scale</h3>
 <p>There are two main reasons to use logarithmic scales in charts and graphs. The first is to respond to skewness towards large values; i.e., cases in which one or a few points are much larger than the bulk of the data. The second is to show percent change or multiplicative factors.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>label_log10 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">2</span>,<span class="cf">function</span>(i) <span class="fu">as.expression</span>(<span class="fu">bquote</span>(<span class="dv">10</span><span class="sc">^</span> .(i))))</span>
@@ -924,8 +962,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6             청주시   394735 4.497175     6       </code></pre>
 </div>
 </div>
-<section id="point-plot" class="level4">
-<h4 class="anchored" data-anchor-id="point-plot">Point plot</h4>
+<section id="point-plot" class="level3">
+<h3 class="anchored" data-anchor-id="point-plot">Point plot</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_202302,<span class="fu">aes</span>(<span class="at">x=</span>index,<span class="at">y=</span>popratio))<span class="sc">+</span></span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"royalblue"</span>)<span class="sc">+</span></span>
@@ -939,8 +977,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="point-plot-y-log-scale-1" class="level4">
-<h4 class="anchored" data-anchor-id="point-plot-y-log-scale-1">Point plot, y log scale</h4>
+<section id="point-plot-y-log-scale-1" class="level3">
+<h3 class="anchored" data-anchor-id="point-plot-y-log-scale-1">Point plot, y log scale</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>label_log10 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">2</span>,<span class="cf">function</span>(i) <span class="fu">as.expression</span>(<span class="fu">bquote</span>(<span class="dv">10</span><span class="sc">^</span> .(i))))</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1022,8 +1060,8 @@ using the `.groups` argument.</code></pre>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>state_colors <span class="ot">&lt;-</span> region_colors[<span class="fu">as.numeric</span>(popgrowth_df<span class="sc">$</span>region)]</span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>state_colors_dark <span class="ot">=</span> colorspace<span class="sc">::</span><span class="fu">darken</span>(state_colors,<span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="plot-with-color" class="level4">
-<h4 class="anchored" data-anchor-id="plot-with-color">Plot with color</h4>
+<section id="plot-with-color" class="level3">
+<h3 class="anchored" data-anchor-id="plot-with-color">Plot with color</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(popgrowth_df,<span class="fu">aes</span>(<span class="at">x =</span> state, <span class="at">y =</span> <span class="dv">100</span><span class="sc">*</span>popgrowth, <span class="at">fill =</span> region))<span class="sc">+</span></span>
 <span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
@@ -1122,8 +1160,8 @@ using the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>state_colors <span class="ot">&lt;-</span> region_colors[<span class="fu">as.numeric</span>(kor_202202_use<span class="sc">$</span>시도)]</span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>state_colors_dark <span class="ot">&lt;-</span> colorspace<span class="sc">::</span><span class="fu">darken</span>(state_colors,<span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="plot-with-colors-korea" class="level4">
-<h4 class="anchored" data-anchor-id="plot-with-colors-korea">Plot with colors, Korea</h4>
+<section id="plot-with-colors-korea" class="level3">
+<h3 class="anchored" data-anchor-id="plot-with-colors-korea">Plot with colors, Korea</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kor_202202_use,<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(행정구역, 총인구수),<span class="at">y=</span> 총인구수, <span class="at">fill =</span> 시도))<span class="sc">+</span></span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
