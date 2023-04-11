@@ -4,7 +4,7 @@ author: "Sungil Park"
 date: "2023/04/11"
 description: "R basics"
 category: R
-image: "../../img/kid_11"
+image: "../../img/kid_11.png"
 ---
 
 R basics
