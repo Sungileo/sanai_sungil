@@ -1,0 +1,211 @@
+---
+title: "R basics"
+author: "Sungil Park"
+date: "2023/04/11"
+description: "R basics"
+category: R
+image: "../../img/kid_11"
+---
+
+R basics
+
+## 데이터 로드
+
+```{r}
+employtable <- read.csv("https://gist.githubusercontent.com/kevin336/acbb2271e66c10a5b73aacf82ca82784/raw/e38afe62e088394d61ed30884dd50a6826eee0a8/employees.csv")
+
+head(employtable)
+```
+
+## 차원 확인 `dim()`
+
+```{r}
+dim(employtable)
+```
+
+## 행 개수 `nrow()`
+
+```{r}
+nrow(employtable)
+```
+
+## 열 개수 `ncol()`
+
+```{r}
+ncol(employtable)
+```
+
+## 기초통계량
+
+```{r}
+summary(employtable)
+```
+
+## 원하는 컬럼(열) 뽑기 `$` 기호 사용
+
+```{r}
+employtable$EMAIL
+```
+
+## 인덱싱 `df[행,열]`
+
+R에서 데이터의 일부분을 선택/선별하는 작업을 Indexing 한다고 합니다.
+
+R로 데이터 전처리, 분석을 하다보면 R Indexing을 부지기수로 사용하게 되니 R Indexing은 제대로 알고 넘어가야할 매우 중요한 부분입니다.
+
+특히, R에서는 벡터 Indexing 후 연산하는게 매우 큰 강점이고 유용한 기능이랍니다. \### 파이썬과 달리 1부터 시작 \### 행 인덱싱
+
+```{r}
+employtable[1,]
+```
+
+```{r}
+employtable[1:5,]
+```
+
+### 열 인덱싱
+
+```{r}
+employtable[,2]
+```
+
+```{r}
+employtable[,1:5]
+```
+
+### 벡터 넣어도 됨
+
+```{r}
+employtable[,c(2,3,5)]
+```
+
+### 행, 열 인덱싱
+
+```{r}
+employtable[1:5,c(2,3,5)]
+```
+
+## Employtable의 JOB_ID 종류 확인 `unique()`
+
+```{r}
+unique(employtable$JOB_ID)
+```
+
+## 기존 데이터로 새로운 열 만들기
+
+### 문자열
+
+first_name, last_name 를 합치기
+
+문자열을 합칠때는 `paste()` 사용
+
+```{r}
+employtable_2 = employtable
+
+employtable_2$FULL_NAME <- paste(employtable_2$FIRST_NAME,employtable_2$LAST_NAME)
+head(employtable_2)
+```
+
+### 숫자
+
+예시 데이터
+
+```{r}
+name <- c("david","johns","yoon","michael")
+math <- c(90,85,70,80)
+art <- c(60,70,80,90)
+
+ex <- data.frame(name,math,art)
+ex
+```
+
+```{r}
+ex$Total <- ex$math + ex$art
+ex
+```
+
+## 조건에 맞는 데이터 추출
+
+JOB_ID가 ST_CLERK인 행 추출
+
+1.  조건을 치면 불리언 타입으로 추출됨
+
+```{r}
+employtable$JOB_ID == "ST_CLERK"
+```
+
+2.  인덱싱
+
+```{r}
+employtable[employtable$JOB_ID == "ST_CLERK",]
+```
+
+SALARY가 5000 이상인 행 추출
+
+```{r}
+employtable[employtable$SALARY > 5000,]
+```
+
+## 조건에 맞는 데이터 추출(2)
+
+# dplyr 패키지 사용
+
+R의 기본적인 data.frame에서 자료를 조건에 따라 선택하고, 배열하고, 결합하고, 요약하는데 편리한 함수을 제공하는 패키지이다.
+
+### 설치, 적용
+
+```{r}
+#install.packages("dplyr")   설치는 한번만
+library(dplyr)
+```
+
+## 파이프 연산자
+
+파이프 연산자는 이름 그대로 어떤 값들이 파이프를 통과하는 것처럼 함수와 함수들을 타고다닐 수 있게 해줍니다.
+
+가독성이 좋음
+
+단축키 `ctrl + shift + M`
+
+```{r}
+#head(employtable) 과 동일
+employtable %>% head()
+```
+
+## 조건에 맞는 열 추출
+
+`filter()` 사용
+
+```{r}
+head(filter(employtable,JOB_ID == "ST_CLERK"))
+
+employtable %>% filter(JOB_ID == "ST_CLERK") %>% head()
+```
+
+```{r}
+filter(employtable,SALARY > 5000) %>% head()
+```
+
+## 정렬
+
+`arrange()` 사용
+
+SALARY 순으로 정렬
+
+```{r}
+head(arrange(employtable,SALARY))
+
+employtable %>% arrange(SALARY) %>% head()
+```
+
+역순으로 할때는 `desc()` 사용
+
+```{r}
+head(arrange(employtable,desc(SALARY)))
+
+employtable %>% arrange(desc(SALARY)) %>% head()
+```
+
+1.  인덱싱
+2.  조건에 맞는 데이터 추출
+3.  파이프 연산자에 익숙해지기 \## Cpt1 끝

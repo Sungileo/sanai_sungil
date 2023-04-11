@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sungil Park">
+<meta name="dcterms.date" content="2023-04-11">
+<meta name="description" content="R basics">
+
+<title>Sungil_Park - R basics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Sungil_Park</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../recordings.html">
+ <span class="menu-text">Recordings</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Contact</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-contact">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/Sungileo"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="dropdown-text">Linkedin</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil"><i class="bi bi-instagram" role="img">
+</i> 
+ <span class="dropdown-text">Instagram</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#데이터-로드" id="toc-데이터-로드" class="nav-link active" data-scroll-target="#데이터-로드">데이터 로드</a></li>
+  <li><a href="#차원-확인-dim" id="toc-차원-확인-dim" class="nav-link" data-scroll-target="#차원-확인-dim">차원 확인 <code>dim()</code></a></li>
+  <li><a href="#행-개수-nrow" id="toc-행-개수-nrow" class="nav-link" data-scroll-target="#행-개수-nrow">행 개수 <code>nrow()</code></a></li>
+  <li><a href="#열-개수-ncol" id="toc-열-개수-ncol" class="nav-link" data-scroll-target="#열-개수-ncol">열 개수 <code>ncol()</code></a></li>
+  <li><a href="#기초통계량" id="toc-기초통계량" class="nav-link" data-scroll-target="#기초통계량">기초통계량</a></li>
+  <li><a href="#원하는-컬럼열-뽑기-기호-사용" id="toc-원하는-컬럼열-뽑기-기호-사용" class="nav-link" data-scroll-target="#원하는-컬럼열-뽑기-기호-사용">원하는 컬럼(열) 뽑기 <code>$</code> 기호 사용</a></li>
+  <li><a href="#인덱싱-df행열" id="toc-인덱싱-df행열" class="nav-link" data-scroll-target="#인덱싱-df행열">인덱싱 <code>df[행,열]</code></a>
+  <ul class="collapse">
+  <li><a href="#열-인덱싱" id="toc-열-인덱싱" class="nav-link" data-scroll-target="#열-인덱싱">열 인덱싱</a></li>
+  <li><a href="#벡터-넣어도-됨" id="toc-벡터-넣어도-됨" class="nav-link" data-scroll-target="#벡터-넣어도-됨">벡터 넣어도 됨</a></li>
+  <li><a href="#행-열-인덱싱" id="toc-행-열-인덱싱" class="nav-link" data-scroll-target="#행-열-인덱싱">행, 열 인덱싱</a></li>
+  </ul></li>
+  <li><a href="#employtable의-job_id-종류-확인-unique" id="toc-employtable의-job_id-종류-확인-unique" class="nav-link" data-scroll-target="#employtable의-job_id-종류-확인-unique">Employtable의 JOB_ID 종류 확인 <code>unique()</code></a></li>
+  <li><a href="#기존-데이터로-새로운-열-만들기" id="toc-기존-데이터로-새로운-열-만들기" class="nav-link" data-scroll-target="#기존-데이터로-새로운-열-만들기">기존 데이터로 새로운 열 만들기</a>
+  <ul class="collapse">
+  <li><a href="#문자열" id="toc-문자열" class="nav-link" data-scroll-target="#문자열">문자열</a></li>
+  <li><a href="#숫자" id="toc-숫자" class="nav-link" data-scroll-target="#숫자">숫자</a></li>
+  </ul></li>
+  <li><a href="#조건에-맞는-데이터-추출" id="toc-조건에-맞는-데이터-추출" class="nav-link" data-scroll-target="#조건에-맞는-데이터-추출">조건에 맞는 데이터 추출</a></li>
+  <li><a href="#조건에-맞는-데이터-추출2" id="toc-조건에-맞는-데이터-추출2" class="nav-link" data-scroll-target="#조건에-맞는-데이터-추출2">조건에 맞는 데이터 추출(2)</a></li>
+  <li><a href="#dplyr-패키지-사용" id="toc-dplyr-패키지-사용" class="nav-link" data-scroll-target="#dplyr-패키지-사용">dplyr 패키지 사용</a>
+  <ul class="collapse">
+  <li><a href="#설치-적용" id="toc-설치-적용" class="nav-link" data-scroll-target="#설치-적용">설치, 적용</a></li>
+  <li><a href="#파이프-연산자" id="toc-파이프-연산자" class="nav-link" data-scroll-target="#파이프-연산자">파이프 연산자</a></li>
+  <li><a href="#조건에-맞는-열-추출" id="toc-조건에-맞는-열-추출" class="nav-link" data-scroll-target="#조건에-맞는-열-추출">조건에 맞는 열 추출</a></li>
+  <li><a href="#정렬" id="toc-정렬" class="nav-link" data-scroll-target="#정렬">정렬</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">R basics</h1>
+</div>
+
+<div>
+  <div class="description">
+    R basics
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sungil Park </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 11, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>R basics</p>
+<section id="데이터-로드" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-로드">데이터 로드</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>employtable <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://gist.githubusercontent.com/kevin336/acbb2271e66c10a5b73aacf82ca82784/raw/e38afe62e088394d61ed30884dd50a6826eee0a8/employees.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(employtable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         198     Donald  OConnell DOCONNEL 650.507.9833 21-JUN-07 SH_CLERK
+2         199    Douglas     Grant   DGRANT 650.507.9844 13-JAN-08 SH_CLERK
+3         200   Jennifer    Whalen  JWHALEN 515.123.4444 17-SEP-03  AD_ASST
+4         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04   MK_MAN
+5         202        Pat       Fay     PFAY 603.123.6666 17-AUG-05   MK_REP
+6         203      Susan    Mavris  SMAVRIS 515.123.7777 07-JUN-02   HR_REP
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   2600             -         124            50
+2   2600             -         124            50
+3   4400             -         101            10
+4  13000             -         100            20
+5   6000             -         201            20
+6   6500             -         101            40</code></pre>
+</div>
+</div>
+</section>
+<section id="차원-확인-dim" class="level2">
+<h2 class="anchored" data-anchor-id="차원-확인-dim">차원 확인 <code>dim()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(employtable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50 11</code></pre>
+</div>
+</div>
+</section>
+<section id="행-개수-nrow" class="level2">
+<h2 class="anchored" data-anchor-id="행-개수-nrow">행 개수 <code>nrow()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(employtable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+</div>
+</section>
+<section id="열-개수-ncol" class="level2">
+<h2 class="anchored" data-anchor-id="열-개수-ncol">열 개수 <code>ncol()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(employtable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div>
+</section>
+<section id="기초통계량" class="level2">
+<h2 class="anchored" data-anchor-id="기초통계량">기초통계량</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(employtable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID     FIRST_NAME         LAST_NAME            EMAIL          
+ Min.   :100.0   Length:50          Length:50          Length:50         
+ 1st Qu.:112.2   Class :character   Class :character   Class :character  
+ Median :124.5   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :134.8                                                           
+ 3rd Qu.:136.8                                                           
+ Max.   :206.0                                                           
+ PHONE_NUMBER        HIRE_DATE            JOB_ID              SALARY     
+ Length:50          Length:50          Length:50          Min.   : 2100  
+ Class :character   Class :character   Class :character   1st Qu.: 2725  
+ Mode  :character   Mode  :character   Mode  :character   Median : 4600  
+                                                          Mean   : 6182  
+                                                          3rd Qu.: 8150  
+                                                          Max.   :24000  
+ COMMISSION_PCT      MANAGER_ID        DEPARTMENT_ID  
+ Length:50          Length:50          Min.   : 10.0  
+ Class :character   Class :character   1st Qu.: 50.0  
+ Mode  :character   Mode  :character   Median : 50.0  
+                                       Mean   : 57.6  
+                                       3rd Qu.: 60.0  
+                                       Max.   :110.0  </code></pre>
+</div>
+</div>
+</section>
+<section id="원하는-컬럼열-뽑기-기호-사용" class="level2">
+<h2 class="anchored" data-anchor-id="원하는-컬럼열-뽑기-기호-사용">원하는 컬럼(열) 뽑기 <code>$</code> 기호 사용</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>employtable<span class="sc">$</span>EMAIL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "DOCONNEL" "DGRANT"   "JWHALEN"  "MHARTSTE" "PFAY"     "SMAVRIS" 
+ [7] "HBAER"    "SHIGGINS" "WGIETZ"   "SKING"    "NKOCHHAR" "LDEHAAN" 
+[13] "AHUNOLD"  "BERNST"   "DAUSTIN"  "VPATABAL" "DLORENTZ" "NGREENBE"
+[19] "DFAVIET"  "JCHEN"    "ISCIARRA" "JMURMAN"  "LPOPP"    "DRAPHEAL"
+[25] "AKHOO"    "SBAIDA"   "STOBIAS"  "GHIMURO"  "KCOLMENA" "MWEISS"  
+[31] "AFRIPP"   "PKAUFLIN" "SVOLLMAN" "KMOURGOS" "JNAYER"   "IMIKKILI"
+[37] "JLANDRY"  "SMARKLE"  "LBISSOT"  "MATKINSO" "JAMRLOW"  "TJOLSON" 
+[43] "JMALLIN"  "MROGERS"  "KGEE"     "HPHILTAN" "RLADWIG"  "SSTILES" 
+[49] "JSEO"     "JPATEL"  </code></pre>
+</div>
+</div>
+</section>
+<section id="인덱싱-df행열" class="level2">
+<h2 class="anchored" data-anchor-id="인덱싱-df행열">인덱싱 <code>df[행,열]</code></h2>
+<p>R에서 데이터의 일부분을 선택/선별하는 작업을 Indexing 한다고 합니다.</p>
+<p>R로 데이터 전처리, 분석을 하다보면 R Indexing을 부지기수로 사용하게 되니 R Indexing은 제대로 알고 넘어가야할 매우 중요한 부분입니다.</p>
+<p>특히, R에서는 벡터 Indexing 후 연산하는게 매우 큰 강점이고 유용한 기능이랍니다. ### 파이썬과 달리 1부터 시작 ### 행 인덱싱</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>employtable[<span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         198     Donald  OConnell DOCONNEL 650.507.9833 21-JUN-07 SH_CLERK
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   2600             -         124            50</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>employtable[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         198     Donald  OConnell DOCONNEL 650.507.9833 21-JUN-07 SH_CLERK
+2         199    Douglas     Grant   DGRANT 650.507.9844 13-JAN-08 SH_CLERK
+3         200   Jennifer    Whalen  JWHALEN 515.123.4444 17-SEP-03  AD_ASST
+4         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04   MK_MAN
+5         202        Pat       Fay     PFAY 603.123.6666 17-AUG-05   MK_REP
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   2600             -         124            50
+2   2600             -         124            50
+3   4400             -         101            10
+4  13000             -         100            20
+5   6000             -         201            20</code></pre>
+</div>
+</div>
+<section id="열-인덱싱" class="level3">
+<h3 class="anchored" data-anchor-id="열-인덱싱">열 인덱싱</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>employtable[,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Donald"      "Douglas"     "Jennifer"    "Michael"     "Pat"        
+ [6] "Susan"       "Hermann"     "Shelley"     "William"     "Steven"     
+[11] "Neena"       "Lex"         "Alexander"   "Bruce"       "David"      
+[16] "Valli"       "Diana"       "Nancy"       "Daniel"      "John"       
+[21] "Ismael"      "Jose Manuel" "Luis"        "Den"         "Alexander"  
+[26] "Shelli"      "Sigal"       "Guy"         "Karen"       "Matthew"    
+[31] "Adam"        "Payam"       "Shanta"      "Kevin"       "Julia"      
+[36] "Irene"       "James"       "Steven"      "Laura"       "Mozhe"      
+[41] "James"       "TJ"          "Jason"       "Michael"     "Ki"         
+[46] "Hazel"       "Renske"      "Stephen"     "John"        "Joshua"     </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>employtable[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   EMPLOYEE_ID  FIRST_NAME   LAST_NAME    EMAIL PHONE_NUMBER
+1          198      Donald    OConnell DOCONNEL 650.507.9833
+2          199     Douglas       Grant   DGRANT 650.507.9844
+3          200    Jennifer      Whalen  JWHALEN 515.123.4444
+4          201     Michael   Hartstein MHARTSTE 515.123.5555
+5          202         Pat         Fay     PFAY 603.123.6666
+6          203       Susan      Mavris  SMAVRIS 515.123.7777
+7          204     Hermann        Baer    HBAER 515.123.8888
+8          205     Shelley     Higgins SHIGGINS 515.123.8080
+9          206     William       Gietz   WGIETZ 515.123.8181
+10         100      Steven        King    SKING 515.123.4567
+11         101       Neena     Kochhar NKOCHHAR 515.123.4568
+12         102         Lex     De Haan  LDEHAAN 515.123.4569
+13         103   Alexander      Hunold  AHUNOLD 590.423.4567
+14         104       Bruce       Ernst   BERNST 590.423.4568
+15         105       David      Austin  DAUSTIN 590.423.4569
+16         106       Valli   Pataballa VPATABAL 590.423.4560
+17         107       Diana     Lorentz DLORENTZ 590.423.5567
+18         108       Nancy   Greenberg NGREENBE 515.124.4569
+19         109      Daniel      Faviet  DFAVIET 515.124.4169
+20         110        John        Chen    JCHEN 515.124.4269
+21         111      Ismael     Sciarra ISCIARRA 515.124.4369
+22         112 Jose Manuel       Urman  JMURMAN 515.124.4469
+23         113        Luis        Popp    LPOPP 515.124.4567
+24         114         Den    Raphaely DRAPHEAL 515.127.4561
+25         115   Alexander        Khoo    AKHOO 515.127.4562
+26         116      Shelli       Baida   SBAIDA 515.127.4563
+27         117       Sigal      Tobias  STOBIAS 515.127.4564
+28         118         Guy      Himuro  GHIMURO 515.127.4565
+29         119       Karen  Colmenares KCOLMENA 515.127.4566
+30         120     Matthew       Weiss   MWEISS 650.123.1234
+31         121        Adam       Fripp   AFRIPP 650.123.2234
+32         122       Payam    Kaufling PKAUFLIN 650.123.3234
+33         123      Shanta     Vollman SVOLLMAN 650.123.4234
+34         124       Kevin     Mourgos KMOURGOS 650.123.5234
+35         125       Julia       Nayer   JNAYER 650.124.1214
+36         126       Irene Mikkilineni IMIKKILI 650.124.1224
+37         127       James      Landry  JLANDRY 650.124.1334
+38         128      Steven      Markle  SMARKLE 650.124.1434
+39         129       Laura      Bissot  LBISSOT 650.124.5234
+40         130       Mozhe    Atkinson MATKINSO 650.124.6234
+41         131       James      Marlow  JAMRLOW 650.124.7234
+42         132          TJ       Olson  TJOLSON 650.124.8234
+43         133       Jason      Mallin  JMALLIN 650.127.1934
+44         134     Michael      Rogers  MROGERS 650.127.1834
+45         135          Ki         Gee     KGEE 650.127.1734
+46         136       Hazel  Philtanker HPHILTAN 650.127.1634
+47         137      Renske      Ladwig  RLADWIG 650.121.1234
+48         138     Stephen      Stiles  SSTILES 650.121.2034
+49         139        John         Seo     JSEO 650.121.2019
+50         140      Joshua       Patel   JPATEL 650.121.1834</code></pre>
+</div>
+</div>
+</section>
+<section id="벡터-넣어도-됨" class="level3">
+<h3 class="anchored" data-anchor-id="벡터-넣어도-됨">벡터 넣어도 됨</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>employtable[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    FIRST_NAME   LAST_NAME PHONE_NUMBER
+1       Donald    OConnell 650.507.9833
+2      Douglas       Grant 650.507.9844
+3     Jennifer      Whalen 515.123.4444
+4      Michael   Hartstein 515.123.5555
+5          Pat         Fay 603.123.6666
+6        Susan      Mavris 515.123.7777
+7      Hermann        Baer 515.123.8888
+8      Shelley     Higgins 515.123.8080
+9      William       Gietz 515.123.8181
+10      Steven        King 515.123.4567
+11       Neena     Kochhar 515.123.4568
+12         Lex     De Haan 515.123.4569
+13   Alexander      Hunold 590.423.4567
+14       Bruce       Ernst 590.423.4568
+15       David      Austin 590.423.4569
+16       Valli   Pataballa 590.423.4560
+17       Diana     Lorentz 590.423.5567
+18       Nancy   Greenberg 515.124.4569
+19      Daniel      Faviet 515.124.4169
+20        John        Chen 515.124.4269
+21      Ismael     Sciarra 515.124.4369
+22 Jose Manuel       Urman 515.124.4469
+23        Luis        Popp 515.124.4567
+24         Den    Raphaely 515.127.4561
+25   Alexander        Khoo 515.127.4562
+26      Shelli       Baida 515.127.4563
+27       Sigal      Tobias 515.127.4564
+28         Guy      Himuro 515.127.4565
+29       Karen  Colmenares 515.127.4566
+30     Matthew       Weiss 650.123.1234
+31        Adam       Fripp 650.123.2234
+32       Payam    Kaufling 650.123.3234
+33      Shanta     Vollman 650.123.4234
+34       Kevin     Mourgos 650.123.5234
+35       Julia       Nayer 650.124.1214
+36       Irene Mikkilineni 650.124.1224
+37       James      Landry 650.124.1334
+38      Steven      Markle 650.124.1434
+39       Laura      Bissot 650.124.5234
+40       Mozhe    Atkinson 650.124.6234
+41       James      Marlow 650.124.7234
+42          TJ       Olson 650.124.8234
+43       Jason      Mallin 650.127.1934
+44     Michael      Rogers 650.127.1834
+45          Ki         Gee 650.127.1734
+46       Hazel  Philtanker 650.127.1634
+47      Renske      Ladwig 650.121.1234
+48     Stephen      Stiles 650.121.2034
+49        John         Seo 650.121.2019
+50      Joshua       Patel 650.121.1834</code></pre>
+</div>
+</div>
+</section>
+<section id="행-열-인덱싱" class="level3">
+<h3 class="anchored" data-anchor-id="행-열-인덱싱">행, 열 인덱싱</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>employtable[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  FIRST_NAME LAST_NAME PHONE_NUMBER
+1     Donald  OConnell 650.507.9833
+2    Douglas     Grant 650.507.9844
+3   Jennifer    Whalen 515.123.4444
+4    Michael Hartstein 515.123.5555
+5        Pat       Fay 603.123.6666</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="employtable의-job_id-종류-확인-unique" class="level2">
+<h2 class="anchored" data-anchor-id="employtable의-job_id-종류-확인-unique">Employtable의 JOB_ID 종류 확인 <code>unique()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(employtable<span class="sc">$</span>JOB_ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "SH_CLERK"   "AD_ASST"    "MK_MAN"     "MK_REP"     "HR_REP"    
+ [6] "PR_REP"     "AC_MGR"     "AC_ACCOUNT" "AD_PRES"    "AD_VP"     
+[11] "IT_PROG"    "FI_MGR"     "FI_ACCOUNT" "PU_MAN"     "PU_CLERK"  
+[16] "ST_MAN"     "ST_CLERK"  </code></pre>
+</div>
+</div>
+</section>
+<section id="기존-데이터로-새로운-열-만들기" class="level2">
+<h2 class="anchored" data-anchor-id="기존-데이터로-새로운-열-만들기">기존 데이터로 새로운 열 만들기</h2>
+<section id="문자열" class="level3">
+<h3 class="anchored" data-anchor-id="문자열">문자열</h3>
+<p>first_name, last_name 를 합치기</p>
+<p>문자열을 합칠때는 <code>paste()</code> 사용</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>employtable_2 <span class="ot">=</span> employtable</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>employtable_2<span class="sc">$</span>FULL_NAME <span class="ot">&lt;-</span> <span class="fu">paste</span>(employtable_2<span class="sc">$</span>FIRST_NAME,employtable_2<span class="sc">$</span>LAST_NAME)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(employtable_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         198     Donald  OConnell DOCONNEL 650.507.9833 21-JUN-07 SH_CLERK
+2         199    Douglas     Grant   DGRANT 650.507.9844 13-JAN-08 SH_CLERK
+3         200   Jennifer    Whalen  JWHALEN 515.123.4444 17-SEP-03  AD_ASST
+4         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04   MK_MAN
+5         202        Pat       Fay     PFAY 603.123.6666 17-AUG-05   MK_REP
+6         203      Susan    Mavris  SMAVRIS 515.123.7777 07-JUN-02   HR_REP
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID         FULL_NAME
+1   2600             -         124            50   Donald OConnell
+2   2600             -         124            50     Douglas Grant
+3   4400             -         101            10   Jennifer Whalen
+4  13000             -         100            20 Michael Hartstein
+5   6000             -         201            20           Pat Fay
+6   6500             -         101            40      Susan Mavris</code></pre>
+</div>
+</div>
+</section>
+<section id="숫자" class="level3">
+<h3 class="anchored" data-anchor-id="숫자">숫자</h3>
+<p>예시 데이터</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"david"</span>,<span class="st">"johns"</span>,<span class="st">"yoon"</span>,<span class="st">"michael"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>math <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">90</span>,<span class="dv">85</span>,<span class="dv">70</span>,<span class="dv">80</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>art <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>,<span class="dv">90</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name,math,art)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>ex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name math art
+1   david   90  60
+2   johns   85  70
+3    yoon   70  80
+4 michael   80  90</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ex<span class="sc">$</span>Total <span class="ot">&lt;-</span> ex<span class="sc">$</span>math <span class="sc">+</span> ex<span class="sc">$</span>art</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     name math art Total
+1   david   90  60   150
+2   johns   85  70   155
+3    yoon   70  80   150
+4 michael   80  90   170</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="조건에-맞는-데이터-추출" class="level2">
+<h2 class="anchored" data-anchor-id="조건에-맞는-데이터-추출">조건에 맞는 데이터 추출</h2>
+<p>JOB_ID가 ST_CLERK인 행 추출</p>
+<ol type="1">
+<li>조건을 치면 불리언 타입으로 추출됨</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>employtable<span class="sc">$</span>JOB_ID <span class="sc">==</span> <span class="st">"ST_CLERK"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+[37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[49]  TRUE  TRUE</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>인덱싱</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>employtable[employtable<span class="sc">$</span>JOB_ID <span class="sc">==</span> <span class="st">"ST_CLERK"</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   EMPLOYEE_ID FIRST_NAME   LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+35         125      Julia       Nayer   JNAYER 650.124.1214 16-JUL-05 ST_CLERK
+36         126      Irene Mikkilineni IMIKKILI 650.124.1224 28-SEP-06 ST_CLERK
+37         127      James      Landry  JLANDRY 650.124.1334 14-JAN-07 ST_CLERK
+38         128     Steven      Markle  SMARKLE 650.124.1434 08-MAR-08 ST_CLERK
+39         129      Laura      Bissot  LBISSOT 650.124.5234 20-AUG-05 ST_CLERK
+40         130      Mozhe    Atkinson MATKINSO 650.124.6234 30-OCT-05 ST_CLERK
+41         131      James      Marlow  JAMRLOW 650.124.7234 16-FEB-05 ST_CLERK
+42         132         TJ       Olson  TJOLSON 650.124.8234 10-APR-07 ST_CLERK
+43         133      Jason      Mallin  JMALLIN 650.127.1934 14-JUN-04 ST_CLERK
+44         134    Michael      Rogers  MROGERS 650.127.1834 26-AUG-06 ST_CLERK
+45         135         Ki         Gee     KGEE 650.127.1734 12-DEC-07 ST_CLERK
+46         136      Hazel  Philtanker HPHILTAN 650.127.1634 06-FEB-08 ST_CLERK
+47         137     Renske      Ladwig  RLADWIG 650.121.1234 14-JUL-03 ST_CLERK
+48         138    Stephen      Stiles  SSTILES 650.121.2034 26-OCT-05 ST_CLERK
+49         139       John         Seo     JSEO 650.121.2019 12-FEB-06 ST_CLERK
+50         140     Joshua       Patel   JPATEL 650.121.1834 06-APR-06 ST_CLERK
+   SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+35   3200             -         120            50
+36   2700             -         120            50
+37   2400             -         120            50
+38   2200             -         120            50
+39   3300             -         121            50
+40   2800             -         121            50
+41   2500             -         121            50
+42   2100             -         121            50
+43   3300             -         122            50
+44   2900             -         122            50
+45   2400             -         122            50
+46   2200             -         122            50
+47   3600             -         123            50
+48   3200             -         123            50
+49   2700             -         123            50
+50   2500             -         123            50</code></pre>
+</div>
+</div>
+<p>SALARY가 5000 이상인 행 추출</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>employtable[employtable<span class="sc">$</span>SALARY <span class="sc">&gt;</span> <span class="dv">5000</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   EMPLOYEE_ID  FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE     JOB_ID
+4          201     Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04     MK_MAN
+5          202         Pat       Fay     PFAY 603.123.6666 17-AUG-05     MK_REP
+6          203       Susan    Mavris  SMAVRIS 515.123.7777 07-JUN-02     HR_REP
+7          204     Hermann      Baer    HBAER 515.123.8888 07-JUN-02     PR_REP
+8          205     Shelley   Higgins SHIGGINS 515.123.8080 07-JUN-02     AC_MGR
+9          206     William     Gietz   WGIETZ 515.123.8181 07-JUN-02 AC_ACCOUNT
+10         100      Steven      King    SKING 515.123.4567 17-JUN-03    AD_PRES
+11         101       Neena   Kochhar NKOCHHAR 515.123.4568 21-SEP-05      AD_VP
+12         102         Lex   De Haan  LDEHAAN 515.123.4569 13-JAN-01      AD_VP
+13         103   Alexander    Hunold  AHUNOLD 590.423.4567 03-JAN-06    IT_PROG
+14         104       Bruce     Ernst   BERNST 590.423.4568 21-MAY-07    IT_PROG
+18         108       Nancy Greenberg NGREENBE 515.124.4569 17-AUG-02     FI_MGR
+19         109      Daniel    Faviet  DFAVIET 515.124.4169 16-AUG-02 FI_ACCOUNT
+20         110        John      Chen    JCHEN 515.124.4269 28-SEP-05 FI_ACCOUNT
+21         111      Ismael   Sciarra ISCIARRA 515.124.4369 30-SEP-05 FI_ACCOUNT
+22         112 Jose Manuel     Urman  JMURMAN 515.124.4469 07-MAR-06 FI_ACCOUNT
+23         113        Luis      Popp    LPOPP 515.124.4567 07-DEC-07 FI_ACCOUNT
+24         114         Den  Raphaely DRAPHEAL 515.127.4561 07-DEC-02     PU_MAN
+30         120     Matthew     Weiss   MWEISS 650.123.1234 18-JUL-04     ST_MAN
+31         121        Adam     Fripp   AFRIPP 650.123.2234 10-APR-05     ST_MAN
+32         122       Payam  Kaufling PKAUFLIN 650.123.3234 01-MAY-03     ST_MAN
+33         123      Shanta   Vollman SVOLLMAN 650.123.4234 10-OCT-05     ST_MAN
+34         124       Kevin   Mourgos KMOURGOS 650.123.5234 16-NOV-07     ST_MAN
+   SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+4   13000             -         100            20
+5    6000             -         201            20
+6    6500             -         101            40
+7   10000             -         101            70
+8   12008             -         101           110
+9    8300             -         205           110
+10  24000             -          -             90
+11  17000             -         100            90
+12  17000             -         100            90
+13   9000             -         102            60
+14   6000             -         103            60
+18  12008             -         101           100
+19   9000             -         108           100
+20   8200             -         108           100
+21   7700             -         108           100
+22   7800             -         108           100
+23   6900             -         108           100
+24  11000             -         100            30
+30   8000             -         100            50
+31   8200             -         100            50
+32   7900             -         100            50
+33   6500             -         100            50
+34   5800             -         100            50</code></pre>
+</div>
+</div>
+</section>
+<section id="조건에-맞는-데이터-추출2" class="level2">
+<h2 class="anchored" data-anchor-id="조건에-맞는-데이터-추출2">조건에 맞는 데이터 추출(2)</h2>
+</section>
+<section id="dplyr-패키지-사용" class="level1">
+<h1>dplyr 패키지 사용</h1>
+<p>R의 기본적인 data.frame에서 자료를 조건에 따라 선택하고, 배열하고, 결합하고, 요약하는데 편리한 함수을 제공하는 패키지이다.</p>
+<section id="설치-적용" class="level3">
+<h3 class="anchored" data-anchor-id="설치-적용">설치, 적용</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("dplyr")   설치는 한번만</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+다음의 패키지를 부착합니다: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+</section>
+<section id="파이프-연산자" class="level2">
+<h2 class="anchored" data-anchor-id="파이프-연산자">파이프 연산자</h2>
+<p>파이프 연산자는 이름 그대로 어떤 값들이 파이프를 통과하는 것처럼 함수와 함수들을 타고다닐 수 있게 해줍니다.</p>
+<p>가독성이 좋음</p>
+<p>단축키 <code>ctrl + shift + M</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#head(employtable) 과 동일</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>employtable <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         198     Donald  OConnell DOCONNEL 650.507.9833 21-JUN-07 SH_CLERK
+2         199    Douglas     Grant   DGRANT 650.507.9844 13-JAN-08 SH_CLERK
+3         200   Jennifer    Whalen  JWHALEN 515.123.4444 17-SEP-03  AD_ASST
+4         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04   MK_MAN
+5         202        Pat       Fay     PFAY 603.123.6666 17-AUG-05   MK_REP
+6         203      Susan    Mavris  SMAVRIS 515.123.7777 07-JUN-02   HR_REP
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   2600             -         124            50
+2   2600             -         124            50
+3   4400             -         101            10
+4  13000             -         100            20
+5   6000             -         201            20
+6   6500             -         101            40</code></pre>
+</div>
+</div>
+</section>
+<section id="조건에-맞는-열-추출" class="level2">
+<h2 class="anchored" data-anchor-id="조건에-맞는-열-추출">조건에 맞는 열 추출</h2>
+<p><code>filter()</code> 사용</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">filter</span>(employtable,JOB_ID <span class="sc">==</span> <span class="st">"ST_CLERK"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME   LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         125      Julia       Nayer   JNAYER 650.124.1214 16-JUL-05 ST_CLERK
+2         126      Irene Mikkilineni IMIKKILI 650.124.1224 28-SEP-06 ST_CLERK
+3         127      James      Landry  JLANDRY 650.124.1334 14-JAN-07 ST_CLERK
+4         128     Steven      Markle  SMARKLE 650.124.1434 08-MAR-08 ST_CLERK
+5         129      Laura      Bissot  LBISSOT 650.124.5234 20-AUG-05 ST_CLERK
+6         130      Mozhe    Atkinson MATKINSO 650.124.6234 30-OCT-05 ST_CLERK
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   3200             -         120            50
+2   2700             -         120            50
+3   2400             -         120            50
+4   2200             -         120            50
+5   3300             -         121            50
+6   2800             -         121            50</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>employtable <span class="sc">%&gt;%</span> <span class="fu">filter</span>(JOB_ID <span class="sc">==</span> <span class="st">"ST_CLERK"</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME   LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         125      Julia       Nayer   JNAYER 650.124.1214 16-JUL-05 ST_CLERK
+2         126      Irene Mikkilineni IMIKKILI 650.124.1224 28-SEP-06 ST_CLERK
+3         127      James      Landry  JLANDRY 650.124.1334 14-JAN-07 ST_CLERK
+4         128     Steven      Markle  SMARKLE 650.124.1434 08-MAR-08 ST_CLERK
+5         129      Laura      Bissot  LBISSOT 650.124.5234 20-AUG-05 ST_CLERK
+6         130      Mozhe    Atkinson MATKINSO 650.124.6234 30-OCT-05 ST_CLERK
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   3200             -         120            50
+2   2700             -         120            50
+3   2400             -         120            50
+4   2200             -         120            50
+5   3300             -         121            50
+6   2800             -         121            50</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(employtable,SALARY <span class="sc">&gt;</span> <span class="dv">5000</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE     JOB_ID
+1         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04     MK_MAN
+2         202        Pat       Fay     PFAY 603.123.6666 17-AUG-05     MK_REP
+3         203      Susan    Mavris  SMAVRIS 515.123.7777 07-JUN-02     HR_REP
+4         204    Hermann      Baer    HBAER 515.123.8888 07-JUN-02     PR_REP
+5         205    Shelley   Higgins SHIGGINS 515.123.8080 07-JUN-02     AC_MGR
+6         206    William     Gietz   WGIETZ 515.123.8181 07-JUN-02 AC_ACCOUNT
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1  13000             -         100            20
+2   6000             -         201            20
+3   6500             -         101            40
+4  10000             -         101            70
+5  12008             -         101           110
+6   8300             -         205           110</code></pre>
+</div>
+</div>
+</section>
+<section id="정렬" class="level2">
+<h2 class="anchored" data-anchor-id="정렬">정렬</h2>
+<p><code>arrange()</code> 사용</p>
+<p>SALARY 순으로 정렬</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">arrange</span>(employtable,SALARY))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME  LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         132         TJ      Olson  TJOLSON 650.124.8234 10-APR-07 ST_CLERK
+2         128     Steven     Markle  SMARKLE 650.124.1434 08-MAR-08 ST_CLERK
+3         136      Hazel Philtanker HPHILTAN 650.127.1634 06-FEB-08 ST_CLERK
+4         127      James     Landry  JLANDRY 650.124.1334 14-JAN-07 ST_CLERK
+5         135         Ki        Gee     KGEE 650.127.1734 12-DEC-07 ST_CLERK
+6         119      Karen Colmenares KCOLMENA 515.127.4566 10-AUG-07 PU_CLERK
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   2100             -         121            50
+2   2200             -         120            50
+3   2200             -         122            50
+4   2400             -         120            50
+5   2400             -         122            50
+6   2500             -         114            30</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>employtable <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(SALARY) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME  LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE   JOB_ID
+1         132         TJ      Olson  TJOLSON 650.124.8234 10-APR-07 ST_CLERK
+2         128     Steven     Markle  SMARKLE 650.124.1434 08-MAR-08 ST_CLERK
+3         136      Hazel Philtanker HPHILTAN 650.127.1634 06-FEB-08 ST_CLERK
+4         127      James     Landry  JLANDRY 650.124.1334 14-JAN-07 ST_CLERK
+5         135         Ki        Gee     KGEE 650.127.1734 12-DEC-07 ST_CLERK
+6         119      Karen Colmenares KCOLMENA 515.127.4566 10-AUG-07 PU_CLERK
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1   2100             -         121            50
+2   2200             -         120            50
+3   2200             -         122            50
+4   2400             -         120            50
+5   2400             -         122            50
+6   2500             -         114            30</code></pre>
+</div>
+</div>
+<p>역순으로 할때는 <code>desc()</code> 사용</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">arrange</span>(employtable,<span class="fu">desc</span>(SALARY)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE  JOB_ID
+1         100     Steven      King    SKING 515.123.4567 17-JUN-03 AD_PRES
+2         101      Neena   Kochhar NKOCHHAR 515.123.4568 21-SEP-05   AD_VP
+3         102        Lex   De Haan  LDEHAAN 515.123.4569 13-JAN-01   AD_VP
+4         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04  MK_MAN
+5         205    Shelley   Higgins SHIGGINS 515.123.8080 07-JUN-02  AC_MGR
+6         108      Nancy Greenberg NGREENBE 515.124.4569 17-AUG-02  FI_MGR
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1  24000             -          -             90
+2  17000             -         100            90
+3  17000             -         100            90
+4  13000             -         100            20
+5  12008             -         101           110
+6  12008             -         101           100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>employtable <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(SALARY)) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  EMPLOYEE_ID FIRST_NAME LAST_NAME    EMAIL PHONE_NUMBER HIRE_DATE  JOB_ID
+1         100     Steven      King    SKING 515.123.4567 17-JUN-03 AD_PRES
+2         101      Neena   Kochhar NKOCHHAR 515.123.4568 21-SEP-05   AD_VP
+3         102        Lex   De Haan  LDEHAAN 515.123.4569 13-JAN-01   AD_VP
+4         201    Michael Hartstein MHARTSTE 515.123.5555 17-FEB-04  MK_MAN
+5         205    Shelley   Higgins SHIGGINS 515.123.8080 07-JUN-02  AC_MGR
+6         108      Nancy Greenberg NGREENBE 515.124.4569 17-AUG-02  FI_MGR
+  SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID
+1  24000             -          -             90
+2  17000             -         100            90
+3  17000             -         100            90
+4  13000             -         100            20
+5  12008             -         101           110
+6  12008             -         101           100</code></pre>
+</div>
+</div>
+<ol type="1">
+<li>인덱싱</li>
+<li>조건에 맞는 데이터 추출</li>
+<li>파이프 연산자에 익숙해지기 ## Cpt1 끝</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

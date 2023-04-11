@@ -5,8 +5,6 @@ date: "2023/03/28"
 date-modified: "2023/04/04"
 description: "Datamining Basics"
 categories: Python
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r}
@@ -82,3 +80,22 @@ plt.legend()
 plt.show()
 plt.clf()
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

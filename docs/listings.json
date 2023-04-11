@@ -2,6 +2,7 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/R basic/R basic.html",
       "/posts/SQL/SQL.html",
       "/posts/week_1a_numpy/week_1a_numpy.html",
       "/posts/week_1b_pandas/week_1b_pandas.html",
