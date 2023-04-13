@@ -7,7 +7,7 @@ description: "Data Visualization"
 image: "vis.png"
 categories: R
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -26,6 +26,7 @@ library(dplyr)
 library(ggrepel)
 library(cowplot)
 library(colorspace)
+library(stringr)
 ```
 
 ## mpg datasets
@@ -55,13 +56,15 @@ displ : Displacement
 hwy : Highway fuel economy
 
 ```{r scatter_plot}
-ggplot(data_use, aes(x=displ, y=hwy)) + geom_point()
+ggplot(data_use, aes(x=displ, y=hwy)) +
+  geom_point()
 ```
 
 ### smooth line
 
 ```{r smooth_line}
-ggplot(data_use, aes(x=displ, y=hwy)) + geom_smooth()
+ggplot(data_use, aes(x=displ, y=hwy)) +
+  geom_smooth()
 ```
 
 ### scatter & smooth line
@@ -71,7 +74,26 @@ ggplot(data_use, aes(x=displ, y=hwy)) +
   geom_point() +
   geom_smooth()
 ```
+### Boxplot example
+hwy average per class
+```{r}
+mpg %>% 
+  ggplot(mapping = aes(x=class, y=hwy, fill=class))+
+  geom_boxplot()
+```
 
+### Group_by, errorbar example
+```{r}
+mpg %>% 
+  group_by(class) %>%
+  summarize(mean = mean(hwy), sd = sd(hwy)) %>% 
+  ggplot(aes(x=class, y=mean, fill=class))+
+  geom_bar(stat = "identity")+ 
+  geom_errorbar(
+    aes(ymin=mean-sd, ymax=mean+sd),
+                width = 0.5,
+                position = position_dodge(width = 0.9))
+```
 ## ncdc_normals
 
 The U.S. Climate Normals are a large suite of data products that provide information about typical climate conditions for thousands of locations across the United States.
@@ -79,7 +101,7 @@ The U.S. Climate Normals are a large suite of data products that provide informa
 Load data
 
 ```{r}
-data_file <- read.csv("ncdc_normals.csv")
+data_file <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/ncdc_normals.csv")
 ```
 
 Check data information
@@ -175,10 +197,13 @@ ggplot(mean_temps,aes(x = month, y = location, fill = mean))+
   coord_fixed(expand = FALSE)+
   ylab(NULL)
 ```
+
 ### Pie chart, Polar coordinates
+
 The polar coordinate system is most commonly used for pie charts, which are a stacked bar chart in polar coordinates.
 
 `format(x,"%B")` Outputs unabbreviated month
+
 ```{r}
 date_lab <- format(break_date,"%B")
 date_lab
@@ -198,6 +223,7 @@ ggplot(temps_long, aes(x=date,y=temperature,color=location))+
   theme_light()+
   theme(panel.border = element_blank())
 ```
+
 ## OBS ASOS 2021 Korea
 
 Observations Automated Surface Observing System
@@ -292,6 +318,7 @@ ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   scale_y_continuous(name = "평균기온")+
   theme_light()
 ```
+
 ### Tile plot, mean temperature by month, location
 
 ```{r}
@@ -311,6 +338,7 @@ ggplot(d,aes(x = month, y = 지점명, fill = mean))+
 ```
 
 ### Pie chart, Polar coordinates
+
 ```{r}
 ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   geom_line(linewidth = 1) +
@@ -325,12 +353,13 @@ ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
   theme_light()+
   theme(panel.border = element_blank())
 ```
+
 ## ncdc normals Houston
 
 Load & filter only Houston temperature
 
 ```{r}
-data_file <- read.csv("ncdc_normals.csv")
+data_file <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/ncdc_normals.csv")
 data_file$date <- data_file$date %>% as.Date("%Y-%m-%d")
 
 houston <- data.frame(station_id = c("USW00012918"), location = c("Houston"))
@@ -463,6 +492,7 @@ ggplot(tx_counties,aes(x=index,y=popratio))+
   theme_light()+
   theme(panel.border = element_blank())
 ```
+
 ## 시군구 인구수 2023년 2월
 
 ```{r}
@@ -473,6 +503,7 @@ data_pop %>% head()
 ```
 
 Same process
+
 ```{r}
 data_202302 <- data_pop %>% 
   filter(X2023.02>0) %>%  
@@ -485,7 +516,9 @@ data_202302 <- data_pop %>%
 ```{r}
 data_202302 %>% head()
 ```
+
 ### Point plot
+
 ```{r}
 ggplot(data_202302,aes(x=index,y=popratio))+
   geom_point(size = 1, color = "royalblue")+
@@ -495,7 +528,9 @@ ggplot(data_202302,aes(x=index,y=popratio))+
   theme_light()+
   theme(panel.border = element_blank())
 ```
+
 ### Point plot, y log scale
+
 ```{r}
 label_log10 <- sapply(-2:2,function(i) as.expression(bquote(10^ .(i))))
 
@@ -520,12 +555,15 @@ ggplot(data_202302,aes(x=index,y=popratio))+
 library(colorspace)
 RColorBrewer::display.brewer.all()
 ```
+
 ## US census , US regions
+
 US_census is dataset of population per region, age, human race
 
 US_region is dataset of State informations
 
 Load data
+
 ```{r}
 US_census <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/drive-download-20230405T011215Z-001/US_census.csv")
 
@@ -535,6 +573,7 @@ US_regions <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/mai
 Join & group by State
 
 summaise 2000 population, 2010 population, population growth, total area size
+
 ```{r}
 popgrowth_df <- US_census %>% left_join(US_regions) %>% 
   group_by(region,division,state) %>% 
@@ -545,14 +584,17 @@ popgrowth_df <- US_census %>% left_join(US_regions) %>%
   arrange(popgrowth) %>% 
   ungroup() %>%
   mutate(state = factor(state,levels = state),
-         region = factor(region, levels = c("West","South","Midwest","Northwest")))
+         region = factor(region, levels = c("West","South","Midwest","Northeast")))
 ```
 
 ```{r}
 popgrowth_df %>% head()
 ```
+
 ### Plot with color
+
 Set Colorspace
+
 ```{r}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
 state_colors <- region_colors[as.numeric(popgrowth_df$region)]
@@ -575,8 +617,9 @@ ggplot(popgrowth_df,aes(x = state, y = 100*popgrowth, fill = region))+
         legend.background = element_rect(fill="#FFFFFFb0"))
 ```
 
-
 ### Plot lighten
+highlightinh Texas, Louisiana, NA
+
 ```{r}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
   lighten(0.4) %>% desaturate(0.8)
@@ -591,7 +634,7 @@ ggplot(popgrowth_df_2, aes(x = state, y= 100*popgrowth, fill = region_highlight)
                      labels = scales::percent_format(scale=1),
                      expand = c(0,0))+
   scale_fill_manual(values = region_colors,
-                    breaks = c("West","South","Midwest","Northwest"),
+                    breaks = c("West","South","Midwest","Northeast"),
                     na.value = "#56B4E9")+
   coord_flip()+
   theme_light()+
@@ -604,10 +647,10 @@ ggplot(popgrowth_df_2, aes(x = state, y= 100*popgrowth, fill = region_highlight)
         legend.background = element_rect(fill="#FFFFFFb0"))
 ```
 
-
-
 ## 2022 02 주민등록인구 및 세대 현황
+
 Load & change type
+
 ```{r}
 kor_202202 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202202_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9.csv")
 
@@ -615,7 +658,9 @@ kor_202202 %>% head()
 kor_202202 %>% sapply(class)
 kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format() #numeric to string
 ```
+
 filter 서울, 대전 ,대구, 부산
+
 ```{r}
 kor_202202_use <- kor_202202 %>% 
   filter(substr(행정구역,1,2) %in% c("서울","대전","대구","부산")) %>% 
@@ -637,18 +682,39 @@ kor_202202_use %>% summary()
 ```
 
 ```{r}
-state_colors <- region_colors[as.numeric(kor_202202_use$시도)]
-state_colors_dark <- colorspace::darken(state_colors,0.4)
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
+region_colors_2 <- RColorBrewer::brewer.pal(4,"Set2")
 ```
+
 ### Plot with colors, Korea
+
 ```{r}
 ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y= 총인구수, fill = 시도))+
   geom_col()+
   scale_y_continuous(name = "총인구수, 2022년 2월",
                      expand = c(0,0),
                      labels = scales::comma)+
-  scale_x_discrete(aes(color=state_colors))+
-  scale_color_manual(values = state_colors)+
+  scale_fill_manual(values = region_colors_2)+
+  coord_flip()+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.y = element_blank())+
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
+```
+### Highlight Daejeon (1)
+```{r}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
+  lighten(0.4) %>% desaturate(0.8)
+region_colors[2] <- "#56b4e9" %>% darken(0.3)
+
+ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y= 총인구수, fill = 시도))+
+  geom_col()+
+  scale_y_continuous(name = "총인구수, 2022년 2월",
+                     expand = c(0,0),
+                     labels = scales::comma)+
   scale_fill_manual(values = region_colors)+
   coord_flip()+
   theme_light()+
@@ -657,5 +723,166 @@ ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y= 총인구�
   theme(axis.title.y = element_blank(),
         axis.line.y = element_blank(),
         axis.ticks.length = unit(0,"pt"),
-        axis.text.y = element_text(size = 6,color = state_colors_dark),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
+        axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
 ```
+
+
+### Highlight Daejeon (2)
+```{r}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
+  lighten(0.4) %>% desaturate(0.8)
+
+kor_202202_use_2 <- kor_202202_use %>% mutate(region_highlight = ifelse(시도 %in% c("대전광역시"),NA,시도 %>% paste()))
+
+
+
+ggplot(kor_202202_use_2,aes(x = reorder(행정구역,총인구수),y= 총인구수, fill = region_highlight))+
+  geom_col()+
+  scale_y_continuous(name = "총인구수, 2022년 2월",
+                     expand = c(0,0),
+                     labels = scales::comma)+
+  scale_fill_manual(values = region_colors,
+                    breaks = c("서울특별시","대전광역시","대구광역시","부산광역시"),
+                    na.value = "#56B4E9")+
+  coord_flip()+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.y = element_blank())+
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0")
+        )
+```
+
+
+
+## Map Korea
+### library packages, load `.json`
+```{r}
+#install.packages("geojsonsf")
+library(geojsonsf)
+library(sf)
+
+kor_sido <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIDO.json")
+kor_sigu <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json")
+```
+### Merge data by 행정구역_코드
+```{r}
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
+use_map <- use_map %>% merge(kor_202202,by = "행정구역_코드", all.x=T)
+```
+
+### Plot
+```{r}
+use_map %>% ggplot(aes(fill=총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+### Plot Daejeon
+```{r}
+daejeon_map <-  use_map %>% filter(행정구역 %>% substr(1,5) == "대전광역시")
+
+daejeon_map %>% ggplot(aes(fill=총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+### Plot Gender_ratio
+```{r}
+use_map %>% ggplot(aes(fill = 남여_비율))+
+  geom_sf()+
+  scale_fill_continuous_diverging(
+    name = "남자/여자",
+    palette = "BLue-Red",
+    mid=1,
+  limits = 1 + c(-1,+1)*0.35,
+  rev = T)+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+
+## 2023년 3월 시군구 인구수
+시군구 지도 데이터, 행정구역 코드 10자리로 만들기
+```{r}
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
+```
+
+2023년 3월 주민등록 인구통계 데이터, 행정안전부
+```{r}
+data_pop <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "utf-8")
+data_pop %>% head() 
+```
+
+전처리, 인구수0명 출장소 제외, 행정구역 코드 10자리 추출, 인구수 숫자형으로 변환, 시 단위 제외, 정렬
+```{r}
+data_202303 <- data_pop %>% 
+  filter(X2023년03월_총인구수>0) %>%  
+  select(행정구역,X2023년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2023년03월_총인구수 = gsub(",","",X2023년03월_총인구수) %>% as.numeric()) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2023년03월_총인구수))
+
+data_202303 %>% head()
+```
+
+병합
+```{r}
+use_map <- use_map %>% merge(data_202303,by = "행정구역_코드", all.x=T)
+```
+### Plot
+```{r}
+use_map %>% ggplot(aes(fill=X2023년03월_총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "2023년 3월 인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2))+
+  labs(title = "2023년 3월")
+```
+
+
+
+
+
+
+
+
