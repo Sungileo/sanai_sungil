@@ -221,6 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#사망사고-데이터" id="toc-사망사고-데이터" class="nav-link" data-scroll-target="#사망사고-데이터">사망사고 데이터</a>
   <ul class="collapse">
+  <li><a href="#가-작업경로-확인-및-불러오기" id="toc-가-작업경로-확인-및-불러오기" class="nav-link" data-scroll-target="#가-작업경로-확인-및-불러오기">가) 작업경로 확인 및 불러오기</a></li>
   <li><a href="#나-데이터-확인" id="toc-나-데이터-확인" class="nav-link" data-scroll-target="#나-데이터-확인">나) 데이터 확인</a>
   <ul class="collapse">
   <li><a href="#a.-데이터의-상위6개-하위-6개-관측치를-미리보기-하시오" id="toc-a.-데이터의-상위6개-하위-6개-관측치를-미리보기-하시오" class="nav-link" data-scroll-target="#a.-데이터의-상위6개-하위-6개-관측치를-미리보기-하시오">a. 데이터의 상위6개, 하위 6개 관측치를 미리보기 하시오</a></li>
@@ -951,7 +952,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="사망사고-데이터" class="level1">
 <h1>사망사고 데이터</h1>
-<p>다음은 2021년 일년동안 전국에서 사망사고가 발생한 교통사고 데이터입니다. ## 가) 작업경로 확인 및 불러오기</p>
+<p>다음은 2021년 일년동안 전국에서 사망사고가 발생한 교통사고 데이터입니다.</p>
+<section id="가-작업경로-확인-및-불러오기" class="level2">
+<h2 class="anchored" data-anchor-id="가-작업경로-확인-및-불러오기">가) 작업경로 확인 및 불러오기</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>acc_death <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/acc_death.csv"</span>)</span>
@@ -987,6 +990,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6            보행자         1001659         1662376 127.5182 34.95624</code></pre>
 </div>
 </div>
+</section>
 <section id="나-데이터-확인" class="level2">
 <h2 class="anchored" data-anchor-id="나-데이터-확인">나) 데이터 확인</h2>
 <section id="a.-데이터의-상위6개-하위-6개-관측치를-미리보기-하시오" class="level3">
