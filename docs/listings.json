@@ -2,6 +2,8 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/Statistic/Statistic.html",
+      "/posts/Data_tyding/data_tyding.html",
       "/posts/R basic/R basic.html",
       "/posts/SQL/SQL.html",
       "/posts/week_1a_numpy/week_1a_numpy.html",
@@ -9,9 +11,9 @@
       "/posts/datamining/datamining.html",
       "/posts/tests/Issue_report.html",
       "/posts/penguin/penguin.html",
-      "/posts/detect_line/detect_line.html",
       "/posts/vis/vis.html",
-      "/posts/pizza/pizza.html"
+      "/posts/pizza/pizza.html",
+      "/posts/detect_line/detect_line.html"
     ]
   },
   {

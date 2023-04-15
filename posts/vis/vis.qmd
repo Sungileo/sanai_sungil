@@ -5,7 +5,7 @@ date: "2023/03/15"
 date-modified: "2023/03/20"
 description: "Data Visualization"
 image: "vis.png"
-categories: R
+categories: "R"
 editor_options: 
   chunk_output_type: console
 ---
@@ -74,8 +74,11 @@ ggplot(data_use, aes(x=displ, y=hwy)) +
   geom_point() +
   geom_smooth()
 ```
+
 ### Boxplot example
+
 hwy average per class
+
 ```{r}
 mpg %>% 
   ggplot(mapping = aes(x=class, y=hwy, fill=class))+
@@ -83,6 +86,7 @@ mpg %>%
 ```
 
 ### Group_by, errorbar example
+
 ```{r}
 mpg %>% 
   group_by(class) %>%
@@ -94,6 +98,7 @@ mpg %>%
                 width = 0.5,
                 position = position_dodge(width = 0.9))
 ```
+
 ## ncdc_normals
 
 The U.S. Climate Normals are a large suite of data products that provide information about typical climate conditions for thousands of locations across the United States.
@@ -101,7 +106,7 @@ The U.S. Climate Normals are a large suite of data products that provide informa
 Load data
 
 ```{r}
-data_file <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/ncdc_normals.csv")
+data_file <- read.csv("C:/sanai_sungil/posts/vis/ncdc_normals.csv")
 ```
 
 Check data information
@@ -359,7 +364,7 @@ ggplot(data_2022_2,aes(x = 일시,y = 평균기온..C., color = 지점명))+
 Load & filter only Houston temperature
 
 ```{r}
-data_file <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/ncdc_normals.csv")
+data_file <- read.csv("C:/sanai_sungil/posts/vis/ncdc_normals.csv")
 data_file$date <- data_file$date %>% as.Date("%Y-%m-%d")
 
 houston <- data.frame(station_id = c("USW00012918"), location = c("Houston"))
@@ -618,6 +623,7 @@ ggplot(popgrowth_df,aes(x = state, y = 100*popgrowth, fill = region))+
 ```
 
 ### Plot lighten
+
 highlightinh Texas, Louisiana, NA
 
 ```{r}
@@ -704,7 +710,9 @@ ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y= 총인구�
         axis.ticks.length = unit(0,"pt"),
         axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
 ```
+
 ### Highlight Daejeon (1)
+
 ```{r}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
   lighten(0.4) %>% desaturate(0.8)
@@ -726,8 +734,8 @@ ggplot(kor_202202_use,aes(x = reorder(행정구역, 총인구수),y= 총인구�
         axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
 ```
 
-
 ### Highlight Daejeon (2)
+
 ```{r}
 region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442") %>% 
   lighten(0.4) %>% desaturate(0.8)
@@ -755,10 +763,10 @@ ggplot(kor_202202_use_2,aes(x = reorder(행정구역,총인구수),y= 총인구�
         )
 ```
 
-
-
 ## Map Korea
+
 ### library packages, load `.json`
+
 ```{r}
 #install.packages("geojsonsf")
 library(geojsonsf)
@@ -767,7 +775,9 @@ library(sf)
 kor_sido <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIDO.json")
 kor_sigu <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json")
 ```
+
 ### Merge data by 행정구역_코드
+
 ```{r}
 use_map <- kor_sigu
 use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
@@ -775,6 +785,7 @@ use_map <- use_map %>% merge(kor_202202,by = "행정구역_코드", all.x=T)
 ```
 
 ### Plot
+
 ```{r}
 use_map %>% ggplot(aes(fill=총인구수))+
   geom_sf(color = "grey90")+
@@ -792,7 +803,9 @@ use_map %>% ggplot(aes(fill=총인구수))+
     legend.position = c(0.85,0.2)
   )
 ```
+
 ### Plot Daejeon
+
 ```{r}
 daejeon_map <-  use_map %>% filter(행정구역 %>% substr(1,5) == "대전광역시")
 
@@ -812,7 +825,9 @@ daejeon_map %>% ggplot(aes(fill=총인구수))+
     legend.position = c(0.85,0.2)
   )
 ```
+
 ### Plot Gender_ratio
+
 ```{r}
 use_map %>% ggplot(aes(fill = 남여_비율))+
   geom_sf()+
@@ -831,19 +846,33 @@ use_map %>% ggplot(aes(fill = 남여_비율))+
 ```
 
 ## 2023년 3월 시군구 인구수
+
 시군구 지도 데이터, 행정구역 코드 10자리로 만들기
+
 ```{r}
 use_map <- kor_sigu
 use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
 ```
 
+### 데이터 로드
+
 2023년 3월 주민등록 인구통계 데이터, 행정안전부
+
 ```{r}
 data_pop <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "utf-8")
 data_pop %>% head() 
 ```
 
-전처리, 인구수0명 출장소 제외, 행정구역 코드 10자리 추출, 인구수 숫자형으로 변환, 시 단위 제외, 정렬
+### 전처리
+
+1.  인구수0명 출장소 제외
+
+2.  행정구역 코드 10자리 추출
+
+3.  인구수 숫자형으로 변환
+
+4.  시 단위 제외, 정렬
+
 ```{r}
 data_202303 <- data_pop %>% 
   filter(X2023년03월_총인구수>0) %>%  
@@ -856,11 +885,14 @@ data_202303 <- data_pop %>%
 data_202303 %>% head()
 ```
 
-병합
+### 지도 데이터와 병합
+
 ```{r}
 use_map <- use_map %>% merge(data_202303,by = "행정구역_코드", all.x=T)
 ```
+
 ### Plot
+
 ```{r}
 use_map %>% ggplot(aes(fill=X2023년03월_총인구수))+
   geom_sf(color = "grey90")+
@@ -878,11 +910,3 @@ use_map %>% ggplot(aes(fill=X2023년03월_총인구수))+
     legend.position = c(0.85,0.2))+
   labs(title = "2023년 3월")
 ```
-
-
-
-
-
-
-
-

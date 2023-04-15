@@ -7,12 +7,12 @@ description: "SQL Basics"
 categories: SQL
 editor_options: 
   chunk_output_type: inline
-image: ../../img/SQL.jpeg
+image: "../../img/sql.png"
 ---
+
 ```{r}
 rm(list=ls())
 ```
-
 
 ```{r}
 library(tidyverse)
@@ -20,11 +20,11 @@ library(DBI)
 library(RSQLite)
 library(dbplyr)
 ```
+
 ```{r}
 us_census<-read_csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/drive-download-20230405T011215Z-001/US_census.csv")
 #us_census %>% View()
 ```
-
 
 ```{r}
 con <- DBI::dbConnect(RSQLite::SQLite(), 
@@ -48,4 +48,3 @@ SELECT * FROM us_census
 ```{sql, connection = con}
 select * from mtcars
 ```
-

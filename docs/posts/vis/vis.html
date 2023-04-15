@@ -256,6 +256,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#년-3월-시군구-인구수" id="toc-년-3월-시군구-인구수" class="nav-link" data-scroll-target="#년-3월-시군구-인구수">2023년 3월 시군구 인구수</a>
   <ul class="collapse">
+  <li><a href="#데이터-로드" id="toc-데이터-로드" class="nav-link" data-scroll-target="#데이터-로드">데이터 로드</a></li>
+  <li><a href="#전처리" id="toc-전처리" class="nav-link" data-scroll-target="#전처리">전처리</a></li>
+  <li><a href="#지도-데이터와-병합" id="toc-지도-데이터와-병합" class="nav-link" data-scroll-target="#지도-데이터와-병합">지도 데이터와 병합</a></li>
   <li><a href="#plot-1" id="toc-plot-1" class="nav-link" data-scroll-target="#plot-1">Plot</a></li>
   </ul></li>
   </ul>
@@ -470,7 +473,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The U.S. Climate Normals are a large suite of data products that provide information about typical climate conditions for thousands of locations across the United States.</p>
 <p>Load data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/ncdc_normals.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"C:/sanai_sungil/posts/vis/ncdc_normals.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Check data information</p>
 <div class="cell">
@@ -818,7 +821,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="ncdc-normals-houston">ncdc normals Houston</h2>
 <p>Load &amp; filter only Houston temperature</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/ncdc_normals.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>data_file <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"C:/sanai_sungil/posts/vis/ncdc_normals.csv"</span>)</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>data_file<span class="sc">$</span>date <span class="ot">&lt;-</span> data_file<span class="sc">$</span>date <span class="sc">%&gt;%</span> <span class="fu">as.Date</span>(<span class="st">"%Y-%m-%d"</span>)</span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>houston <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">station_id =</span> <span class="fu">c</span>(<span class="st">"USW00012918"</span>), <span class="at">location =</span> <span class="fu">c</span>(<span class="st">"Houston"</span>))</span>
@@ -1440,6 +1443,8 @@ using the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>use_map <span class="ot">&lt;-</span> kor_sigu</span>
 <span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>use_map<span class="sc">$</span>행정구역_코드 <span class="ot">&lt;-</span> <span class="fu">paste</span>(use_map<span class="sc">$</span>SIG_CD,<span class="st">"00000"</span>,<span class="at">sep =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="데이터-로드" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-로드">데이터 로드</h3>
 <p>2023년 3월 주민등록 인구통계 데이터, 행정안전부</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>data_pop <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv"</span>,<span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span>
@@ -1468,7 +1473,15 @@ using the `.groups` argument.</code></pre>
 6                  0.93</code></pre>
 </div>
 </div>
-<p>전처리, 인구수0명 출장소 제외, 행정구역 코드 10자리 추출, 인구수 숫자형으로 변환, 시 단위 제외, 정렬</p>
+</section>
+<section id="전처리" class="level3">
+<h3 class="anchored" data-anchor-id="전처리">전처리</h3>
+<ol type="1">
+<li><p>인구수0명 출장소 제외</p></li>
+<li><p>행정구역 코드 10자리 추출</p></li>
+<li><p>인구수 숫자형으로 변환</p></li>
+<li><p>시 단위 제외, 정렬</p></li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>data_202303 <span class="ot">&lt;-</span> data_pop <span class="sc">%&gt;%</span> </span>
 <span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X2023년03월_총인구수<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span>  </span>
@@ -1489,10 +1502,13 @@ using the `.groups` argument.</code></pre>
 6   경기도 화성시 (4159000000)               922231    4159000000</code></pre>
 </div>
 </div>
-<p>병합</p>
+</section>
+<section id="지도-데이터와-병합" class="level3">
+<h3 class="anchored" data-anchor-id="지도-데이터와-병합">지도 데이터와 병합</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>use_map <span class="ot">&lt;-</span> use_map <span class="sc">%&gt;%</span> <span class="fu">merge</span>(data_202303,<span class="at">by =</span> <span class="st">"행정구역_코드"</span>, <span class="at">all.x=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="plot-1" class="level3">
 <h3 class="anchored" data-anchor-id="plot-1">Plot</h3>
 <div class="cell">

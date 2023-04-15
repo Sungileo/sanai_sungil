@@ -1,7 +1,7 @@
 ---
 title: "Traffic line detection using CV2"
 author: "sungil_park"
-date: "2023/03/18"
+date: "2022/10/18"
 image: "result_1.png"
 description: Python, cv2
 categories: Python

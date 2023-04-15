@@ -1,10 +1,12 @@
 ---
-title: "Datamining"
+title: "Python playground"
 author: "sungil_park"
 date: "2023/03/28"
 date-modified: "2023/04/04"
 description: "Datamining Basics"
 categories: Python
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r}
@@ -81,15 +83,110 @@ plt.show()
 plt.clf()
 ```
 
+## 파이썬 심화
+
+```{python}
+fruit = ["apple","banana", "cherry"]
+
+upper_fruit = []
+
+# for 루프를 사용하여 리스트의 각 요소를 대문자로 변환하여 빈 리스트에 추가
+for x in fruit:
+  upper_fruit.append(x.upper())
 
 
+print(upper_fruit)
+```
 
+```{python}
+total = []
+for i in range(1, 1000):
+    if i % 5 == 0 or i % 7 == 0:
+        total.append(i)
 
+print("list:", total)
+```
 
+### 죄수의 딜레마
 
+나와 공범이 체포되었다.
 
+서로 협조를 하면 각자 5년의 형량을 받는다.
 
+한명만 협조를 하게 되면 협조한 자는 석방, 협조하지 않은 자는 10년의 형량을 받는다.
 
+내가 협조를 하였을떄 상대방이 협조할 확률이 50%라면 내 형량의 기댓값은 얼마인가?
+
+(1000번 반복한다.)
+
+```{python}
+me_decision=[]
+me_term=[]
+you_decision=[]
+you_term=[]
+
+import random
+
+for k in range(1,1001):
+  me=['협조']
+  you=random.sample(['묵비권','협조'],1)
+  me_decision.append(me)
+  you_decision.append(you)
+  
+  if you==me:
+    me_term.append(5)
+    you_term.append(5)
+    
+  else:
+    me_term.append(0)
+    you_term.append(10)
+
+    
+print(me_decision, me_term, you_decision, you_term)
+print('내형량',sum(me_term)/1000,'공범형량',sum(you_term)/1000)
+```
+
+```{python}
+fruit = ["apple","banana", "cherry"]
+age = [1,2,3]
+
+for x in range(3):
+  print("i'm",fruit[x],", my age",age[x])
+```
+
+```{python}
+import pandas as pd
+mpg = pd.read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/ggplot2/mpg.csv")
+```
+
+```{python}
+mpg['hwy+displ'] = mpg.apply(lambda x: x["displ"]+x["hwy"],axis=1)
+```
+
+```{python}
+mpg['hwy+displ']
+```
+
+## img
+
+```{python}
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+```
+
+```{python}
+img_raw = cv2.imread("lena_color.png")
+```
+
+```{python}
+img_gray = cv2.cvtColor(img_raw,cv2.COLOR_BGR2GRAY)
+```
+
+```{python}
+plt.imshow(img_gray,"gray")
+plt.show()
+```
 
 
 

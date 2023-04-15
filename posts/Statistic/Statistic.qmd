@@ -1,0 +1,34 @@
+---
+title: "R Statistics"
+author: "Sungil Park"
+date: "2023/04/14"
+description: "R basics"
+category: R
+image: "../../img/rguy.png"
+---
+
+```{r}
+library(dplyr)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
