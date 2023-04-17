@@ -261,6 +261,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#지도-데이터와-병합" id="toc-지도-데이터와-병합" class="nav-link" data-scroll-target="#지도-데이터와-병합">지도 데이터와 병합</a></li>
   <li><a href="#plot-1" id="toc-plot-1" class="nav-link" data-scroll-target="#plot-1">Plot</a></li>
   </ul></li>
+  <li><a href="#인구수-증가율" id="toc-인구수-증가율" class="nav-link" data-scroll-target="#인구수-증가율">인구수 증가율</a>
+  <ul class="collapse">
+  <li><a href="#전처리-1" id="toc-전처리-1" class="nav-link" data-scroll-target="#전처리-1">전처리</a></li>
+  <li><a href="#병합" id="toc-병합" class="nav-link" data-scroll-target="#병합">병합</a></li>
+  <li><a href="#plot-2" id="toc-plot-2" class="nav-link" data-scroll-target="#plot-2">Plot</a></li>
+  <li><a href="#map-plot" id="toc-map-plot" class="nav-link" data-scroll-target="#map-plot">Map plot</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1010,7 +1017,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 1             수원시   530462 6.043498     1 수원시
 2             고양시   462873 5.273464     2 고양시
 3             창원시   456357 5.199228     3 창원시
-4             용인시   432476 4.927154     4 용인시
+4             용인시   432476 4.927154     4       
 5             성남시   409466 4.665003     5       
 6             청주시   394735 4.497175     6       </code></pre>
 </div>
@@ -1228,7 +1235,9 @@ using the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>kor_202202_use<span class="sc">$</span>시도 <span class="ot">=</span> <span class="fu">sapply</span>(kor_202202_use<span class="sc">$</span>행정구역,</span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>                           <span class="cf">function</span>(x) <span class="fu">strsplit</span>(x, <span class="st">" "</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])</span>
 <span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>kor_202202_use<span class="sc">$</span>시도 <span class="ot">=</span> <span class="fu">factor</span>(kor_202202_use<span class="sc">$</span>시도,</span>
-<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"서울특별시"</span>,<span class="st">"대전광역시"</span>,<span class="st">"대구광역시"</span>,<span class="st">"부산광역시"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"서울특별시"</span>,<span class="st">"대전광역시"</span>,<span class="st">"대구광역시"</span>,<span class="st">"부산광역시"</span>))</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co">#kor_202202_use %&gt;% View()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>kor_202202_use <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1529,6 +1538,134 @@ using the `.groups` argument.</code></pre>
 <span id="cb130-15"><a href="#cb130-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"2023년 3월"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="vis_files/figure-html/unnamed-chunk-71-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="인구수-증가율" class="level2">
+<h2 class="anchored" data-anchor-id="인구수-증가율">인구수 증가율</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>file_2023 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv"</span>,<span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a>file_2013 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/201303_201303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv"</span>,<span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="전처리-1" class="level3">
+<h3 class="anchored" data-anchor-id="전처리-1">전처리</h3>
+<ol type="1">
+<li><p>인구수 0명 이상 필터</p></li>
+<li><p>행정구역(지역코드), 총인구수 열만 선택</p></li>
+<li><p>행정구역(지역코드)에서 지역코드와 행정구역 분리</p></li>
+<li><p>시 단위 제외, 인구수 기준 정렬</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>data_2023 <span class="ot">&lt;-</span> file_2023 <span class="sc">%&gt;%</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X2023년03월_총인구수<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(행정구역,X2023년03월_총인구수) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(행정구역_코드 <span class="ot">=</span> <span class="fu">str_sub</span>(행정구역,<span class="sc">-</span><span class="dv">11</span>,<span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>         X2023년03월_총인구수 <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">","</span>,<span class="st">""</span>,X2023년03월_총인구수) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>(),</span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>         행정구역 <span class="ot">=</span>  <span class="fu">sapply</span>(행정구역, <span class="cf">function</span>(x) <span class="fu">strsplit</span>(x, <span class="st">"("</span>, <span class="at">fixed=</span>T)[[<span class="dv">1</span>]][<span class="dv">1</span>]),</span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a>         행정구역 <span class="ot">=</span> <span class="fu">sapply</span>(행정구역, <span class="cf">function</span>(x) <span class="fu">gsub</span>(<span class="st">"( *)$"</span>, <span class="st">""</span>, x) <span class="sc">%&gt;%</span> <span class="fu">paste</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">substr</span>(행정구역_코드,<span class="dv">3</span>,<span class="dv">4</span>)<span class="sc">!=</span><span class="st">"00"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(X2023년03월_총인구수))</span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-11"><a href="#cb132-11" aria-hidden="true" tabindex="-1"></a>data_2013 <span class="ot">&lt;-</span> file_2013 <span class="sc">%&gt;%</span> </span>
+<span id="cb132-12"><a href="#cb132-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X2013년03월_총인구수<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb132-13"><a href="#cb132-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(행정구역,X2013년03월_총인구수) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-14"><a href="#cb132-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(행정구역_코드 <span class="ot">=</span> <span class="fu">str_sub</span>(행정구역,<span class="sc">-</span><span class="dv">11</span>,<span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="cb132-15"><a href="#cb132-15" aria-hidden="true" tabindex="-1"></a>         X2013년03월_총인구수 <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">","</span>,<span class="st">""</span>,X2013년03월_총인구수) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>(),</span>
+<span id="cb132-16"><a href="#cb132-16" aria-hidden="true" tabindex="-1"></a>         행정구역 <span class="ot">=</span>  <span class="fu">sapply</span>(행정구역, <span class="cf">function</span>(x) <span class="fu">strsplit</span>(x, <span class="st">"("</span>, <span class="at">fixed=</span>T)[[<span class="dv">1</span>]][<span class="dv">1</span>]),</span>
+<span id="cb132-17"><a href="#cb132-17" aria-hidden="true" tabindex="-1"></a>         행정구역 <span class="ot">=</span> <span class="fu">sapply</span>(행정구역, <span class="cf">function</span>(x) <span class="fu">gsub</span>(<span class="st">"( *)$"</span>, <span class="st">""</span>, x) <span class="sc">%&gt;%</span> <span class="fu">paste</span>())) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-18"><a href="#cb132-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">substr</span>(행정구역_코드,<span class="dv">3</span>,<span class="dv">4</span>)<span class="sc">!=</span><span class="st">"00"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb132-19"><a href="#cb132-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(X2013년03월_총인구수))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="병합" class="level3">
+<h3 class="anchored" data-anchor-id="병합">병합</h3>
+<ol type="1">
+<li><p>지역코드 기준 병합</p></li>
+<li><p>인구성장률 열 추가</p></li>
+<li><p>중복 열 제거, 인구성장률 기준 정렬</p></li>
+<li><p>서울, 대전, 대구, 부산지역만 필터</p></li>
+<li><p>시도 추출, factor 변환</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>kor_census <span class="ot">&lt;-</span> data_2013 <span class="sc">%&gt;%</span> </span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(data_2023,<span class="at">by =</span> <span class="st">"행정구역_코드"</span>, <span class="at">all.x=</span>T) <span class="sc">%&gt;%</span>  </span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(성장률 <span class="ot">=</span> (X2023년03월_총인구수 <span class="sc">-</span> X2013년03월_총인구수) <span class="sc">/</span> X2013년03월_총인구수) <span class="sc">%&gt;%</span> </span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(행정구역.x,X2013년03월_총인구수,X2023년03월_총인구수, 성장률, 행정구역_코드) <span class="sc">%&gt;%</span> </span>
+<span id="cb133-5"><a href="#cb133-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">substr</span>(행정구역.x,<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"서울"</span>,<span class="st">"대전"</span>,<span class="st">"대구"</span>,<span class="st">"부산"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb133-6"><a href="#cb133-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(성장률))</span>
+<span id="cb133-7"><a href="#cb133-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-8"><a href="#cb133-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(kor_census) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"행정구역"</span>, <span class="st">"X2013인구수"</span>,<span class="st">"X2023인구수"</span>,<span class="st">"성장률"</span>,<span class="st">"행정구역_코드"</span>)</span>
+<span id="cb133-9"><a href="#cb133-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-10"><a href="#cb133-10" aria-hidden="true" tabindex="-1"></a>kor_census<span class="sc">$</span>시도 <span class="ot">=</span> <span class="fu">sapply</span>(kor_census<span class="sc">$</span>행정구역,</span>
+<span id="cb133-11"><a href="#cb133-11" aria-hidden="true" tabindex="-1"></a>                           <span class="cf">function</span>(x) <span class="fu">strsplit</span>(x, <span class="st">" "</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])</span>
+<span id="cb133-12"><a href="#cb133-12" aria-hidden="true" tabindex="-1"></a>kor_census<span class="sc">$</span>시도 <span class="ot">=</span> <span class="fu">factor</span>(kor_census<span class="sc">$</span>시도,</span>
+<span id="cb133-13"><a href="#cb133-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"서울특별시"</span>,<span class="st">"대전광역시"</span>,<span class="st">"대구광역시"</span>,<span class="st">"부산광역시"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plot-2" class="level3">
+<h3 class="anchored" data-anchor-id="plot-2">Plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>region_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#E69F00"</span>,<span class="st">"#56B4E9"</span>,<span class="st">"#009E73"</span>,<span class="st">"#F0E442"</span>)</span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kor_census,<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(행정구역, 성장률),<span class="at">y=</span> 성장률, <span class="at">fill =</span> 시도))<span class="sc">+</span></span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"인구성장률"</span>,</span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> region_colors)<span class="sc">+</span></span>
+<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb134-11"><a href="#cb134-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb134-12"><a href="#cb134-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb134-13"><a href="#cb134-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb134-14"><a href="#cb134-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb134-15"><a href="#cb134-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb134-16"><a href="#cb134-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(<span class="dv">0</span>,<span class="st">"pt"</span>),</span>
+<span id="cb134-17"><a href="#cb134-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">78</span>,.<span class="dv">28</span>),<span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFFFFFB0"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-75-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="map-plot" class="level3">
+<h3 class="anchored" data-anchor-id="map-plot">Map plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>kor_sigu <span class="ot">&lt;-</span> <span class="fu">geojson_sf</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(con):
+'https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json'에서
+불완전한 마지막 행이 발견되었습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>kor_map <span class="ot">&lt;-</span> kor_sigu</span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>kor_map<span class="sc">$</span>행정구역_코드 <span class="ot">&lt;-</span> <span class="fu">paste</span>(kor_map<span class="sc">$</span>SIG_CD,<span class="st">"00000"</span>,<span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>kor_census_2 <span class="ot">&lt;-</span> data_2013 <span class="sc">%&gt;%</span> </span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(data_2023,<span class="at">by =</span> <span class="st">"행정구역_코드"</span>, <span class="at">all.x=</span>T) <span class="sc">%&gt;%</span>  </span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(성장률 <span class="ot">=</span> (X2023년03월_총인구수 <span class="sc">-</span> X2013년03월_총인구수) <span class="sc">/</span> X2013년03월_총인구수) <span class="sc">%&gt;%</span> </span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(행정구역.x,X2013년03월_총인구수,X2023년03월_총인구수, 성장률, 행정구역_코드) <span class="sc">%&gt;%</span> </span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(성장률))</span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(kor_census_2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"행정구역"</span>, <span class="st">"X2013인구수"</span>,<span class="st">"X2023인구수"</span>,<span class="st">"성장률"</span>,<span class="st">"행정구역_코드"</span>)</span>
+<span id="cb138-8"><a href="#cb138-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-9"><a href="#cb138-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-10"><a href="#cb138-10" aria-hidden="true" tabindex="-1"></a>kor_map <span class="ot">&lt;-</span> kor_map <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(kor_census_2, <span class="at">by=</span><span class="st">"행정구역_코드"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>kor_map <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>성장률))<span class="sc">+</span></span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()<span class="sc">+</span></span>
+<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous_diverging</span>(</span>
+<span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"인구성장률"</span>,</span>
+<span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">"BLue-Red"</span>,</span>
+<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>,<span class="fl">2.4</span>))<span class="sc">+</span></span>
+<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb139-8"><a href="#cb139-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title.align =</span> <span class="fl">0.5</span>,</span>
+<span id="cb139-9"><a href="#cb139-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text.align =</span> <span class="fl">1.0</span>,</span>
+<span id="cb139-10"><a href="#cb139-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>,<span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-78-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
