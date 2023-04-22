@@ -1017,7 +1017,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 1             수원시   530462 6.043498     1 수원시
 2             고양시   462873 5.273464     2 고양시
 3             창원시   456357 5.199228     3 창원시
-4             용인시   432476 4.927154     4 용인시
+4             용인시   432476 4.927154     4       
 5             성남시   409466 4.665003     5       
 6             청주시   394735 4.497175     6       </code></pre>
 </div>
@@ -1610,7 +1610,7 @@ using the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>region_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#E69F00"</span>,<span class="st">"#56B4E9"</span>,<span class="st">"#009E73"</span>,<span class="st">"#F0E442"</span>)</span>
 <span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kor_census,<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(행정구역, 성장률),<span class="at">y=</span> 성장률, <span class="at">fill =</span> 시도))<span class="sc">+</span></span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kor_census,<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(행정구역,성장률),<span class="at">y=</span> 성장률, <span class="at">fill =</span> 시도))<span class="sc">+</span></span>
 <span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
 <span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"인구성장률"</span>,</span>
 <span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
