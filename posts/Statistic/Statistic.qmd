@@ -3,32 +3,10 @@ title: "R Statistics"
 author: "Sungil Park"
 date: "2023/04/14"
 description: "R basics"
-category: R
+categories: R
 image: "../../img/rguy.png"
 ---
 
 ```{r}
 library(dplyr)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -12,6 +12,7 @@ editor_options:
 ```{r}
 summary(cars)
 ```
+
 ```{r}
 library(tidyverse)
 ```

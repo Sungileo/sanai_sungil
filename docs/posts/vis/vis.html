@@ -268,6 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#plot-2" id="toc-plot-2" class="nav-link" data-scroll-target="#plot-2">Plot</a></li>
   <li><a href="#map-plot" id="toc-map-plot" class="nav-link" data-scroll-target="#map-plot">Map plot</a></li>
   </ul></li>
+  <li><a href="#인구증감" id="toc-인구증감" class="nav-link" data-scroll-target="#인구증감">인구증감</a></li>
+  <li><a href="#random-p-value" id="toc-random-p-value" class="nav-link" data-scroll-target="#random-p-value">Random p-value</a></li>
   </ul>
 </nav>
     </div>
@@ -936,7 +938,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 2  Dallas    2586050 140.25654     2  Dallas
 3 Tarrant    2126477 115.33122     3 Tarrant
 4   Bexar    2028236 110.00304     4        
-5  Travis    1305154  70.78609     5        
+5  Travis    1305154  70.78609     5  Travis
 6  Collin    1109462  60.17258     6        </code></pre>
 </div>
 </div>
@@ -1668,9 +1670,76 @@ using the `.groups` argument.</code></pre>
 <p><img src="vis_files/figure-html/unnamed-chunk-78-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="인구증감" class="level2">
+<h2 class="anchored" data-anchor-id="인구증감">인구증감</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>kor_sigu <span class="ot">&lt;-</span> <span class="fu">geojson_sf</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in readLines(con):
+'https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json'에서
+불완전한 마지막 행이 발견되었습니다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets/main/kor_census_2013_2023.csv"</span>,<span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(인구증감 <span class="ot">=</span> 총인구수_2023<span class="sc">-</span>총인구수_2013)</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>use_map <span class="ot">&lt;-</span> kor_sigu</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>use_map<span class="sc">$</span>행정구역_코드 <span class="ot">&lt;-</span> <span class="fu">paste</span>(use_map<span class="sc">$</span>SIG_CD,<span class="st">"00000"</span>,<span class="at">sep =</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>use_map <span class="ot">&lt;-</span> use_map <span class="sc">%&gt;%</span> <span class="fu">merge</span>(data,<span class="at">by =</span> <span class="st">"행정구역_코드"</span>)</span>
+<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>use_map <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> 인구증감))<span class="sc">+</span></span>
+<span id="cb142-10"><a href="#cb142-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>()<span class="sc">+</span></span>
+<span id="cb142-11"><a href="#cb142-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb142-12"><a href="#cb142-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous_diverging</span>(</span>
+<span id="cb142-13"><a href="#cb142-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"인구증감"</span>,</span>
+<span id="cb142-14"><a href="#cb142-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">palette =</span> <span class="st">"BLue-Red"</span>,</span>
+<span id="cb142-15"><a href="#cb142-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey40"</span>,</span>
+<span id="cb142-16"><a href="#cb142-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">mid=</span><span class="dv">0</span>,</span>
+<span id="cb142-17"><a href="#cb142-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">rev =</span> T,</span>
+<span id="cb142-18"><a href="#cb142-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>)<span class="sc">*</span><span class="dv">100000</span>,</span>
+<span id="cb142-19"><a href="#cb142-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">format</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>) <span class="sc">*</span> <span class="fl">1e+5</span>, <span class="at">big.mark =</span> <span class="st">","</span>,<span class="at">scientific =</span> <span class="cn">FALSE</span>))<span class="sc">+</span></span>
+<span id="cb142-20"><a href="#cb142-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb142-21"><a href="#cb142-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>,<span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-79-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="random-p-value" class="level2">
+<h2 class="anchored" data-anchor-id="random-p-value">Random p-value</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">p =</span> <span class="fu">runif</span>(<span class="dv">1000</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idx =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb143-4"><a href="#cb143-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">p_log10 =</span> <span class="sc">-</span><span class="fu">log10</span>(p))</span>
+<span id="cb143-5"><a href="#cb143-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-6"><a href="#cb143-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb143-7"><a href="#cb143-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p) <span class="sc">%&gt;%</span></span>
+<span id="cb143-8"><a href="#cb143-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idx_2 =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
+<span id="cb143-9"><a href="#cb143-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="fu">ifelse</span>(idx_2<span class="sc">&lt;=</span><span class="dv">3</span>,p,<span class="st">""</span>))</span>
+<span id="cb143-10"><a href="#cb143-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-11"><a href="#cb143-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-12"><a href="#cb143-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>idx, <span class="at">y=</span>p_log10)) <span class="sc">+</span></span>
+<span id="cb143-13"><a href="#cb143-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb143-14"><a href="#cb143-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>),</span>
+<span id="cb143-15"><a href="#cb143-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="dv">2</span>,</span>
+<span id="cb143-16"><a href="#cb143-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="fl">0.8</span>,</span>
+<span id="cb143-17"><a href="#cb143-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb143-18"><a href="#cb143-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="fu">expression</span>(<span class="sc">-</span>log[<span class="dv">10</span>](<span class="fu">italic</span>(p)))) <span class="sc">+</span></span>
+<span id="cb143-19"><a href="#cb143-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">""</span>,</span>
+<span id="cb143-20"><a href="#cb143-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb143-21"><a href="#cb143-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb143-22"><a href="#cb143-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> label),</span>
+<span id="cb143-23"><a href="#cb143-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">min.segment.length =</span> <span class="dv">0</span>,</span>
+<span id="cb143-24"><a href="#cb143-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">max.overlaps =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-80-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -3,7 +3,7 @@ title: "R basics"
 author: "Sungil Park"
 date: "2023/04/11"
 description: "R basics"
-category: R
+categories: R
 image: "../../img/rkid.png"
 ---
 

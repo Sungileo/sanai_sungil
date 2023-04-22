@@ -451,13 +451,13 @@ _________________________________________________________________</code></pre>
 </section>
 <section id="학습" class="level3">
 <h3 class="anchored" data-anchor-id="학습">학습</h3>
-<p>EPOCH = 학습횟수수</p>
+<p>EPOCH = 학습횟수</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PrintDot(keras.callbacks.Callback):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_epoch_end(<span class="va">self</span>, epoch, logs):</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>: <span class="bu">print</span>(<span class="st">''</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'.'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> dnn_model.fit(</span>
@@ -488,11 +488,11 @@ _________________________________________________________________</code></pre>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>hist.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           loss         mae           mse  ...     val_mae        val_mse  epoch
-995  186.333038  186.333038  67055.460938  ...  263.196228  106234.312500    995
-996  184.828186  184.828186  66109.921875  ...  264.497467  107971.898438    996
-997  185.551865  185.551865  66974.335938  ...  263.246033  107348.500000    997
-998  184.590164  184.590164  65825.695312  ...  271.707672  110238.492188    998
-999  185.306610  185.306610  66235.757812  ...  262.807465  105291.851562    999
+995  186.711578  186.711578  67265.304688  ...  262.045227  105106.585938    995
+996  187.072830  187.072830  67346.687500  ...  260.709686  104907.984375    996
+997  187.205643  187.205643  67642.273438  ...  265.043335  107003.757812    997
+998  186.422028  186.422028  67227.765625  ...  263.695801  106338.812500    998
+999  186.716064  186.716064  67250.562500  ...  260.626678  104751.250000    999
 
 [5 rows x 7 columns]</code></pre>
 </div>
@@ -532,7 +532,7 @@ _________________________________________________________________</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ....................................................................................................
-....................</code></pre>
+........</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plot_history(history)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

@@ -129,13 +129,13 @@ dnn_model = build_and_compile_model(normalizer)
 dnn_model.summary()
 ```
 ### 학습
-EPOCH = 학습횟수수
+EPOCH = 학습횟수
 ```{python}
 class PrintDot(keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs):
         if epoch % 100 == 0: print('')
         print('.', end='')
-
+  
 EPOCHS = 1000
 
 history = dnn_model.fit(
