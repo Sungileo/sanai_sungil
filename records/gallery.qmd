@@ -29,3 +29,5 @@ categories:
 **兵1255期 박성일**
 
 ## 전역
+
+![](/img/rokmc_airborne.mp4){fig-align="center"}
