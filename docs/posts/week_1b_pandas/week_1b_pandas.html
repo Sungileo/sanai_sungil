@@ -760,7 +760,7 @@ Freq: H, dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>temp_series_freq_2H <span class="op">=</span> temp_series.resample(<span class="st">"2H"</span>)</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>temp_series_freq_2H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x0000023CB21EE4D0&gt;</code></pre>
+<pre><code>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x000001A2CE16F810&gt;</code></pre>
 </div>
 </div>
 <p>리샘플링 연산은 사실 지연된 연산입니다. (<a href="https://ko.wikipedia.org/wiki/%EB%8A%90%EA%B8%8B%ED%95%9C_%EA%B3%84%EC%82%B0%EB%B2%95" class="uri">https://ko.wikipedia.org/wiki/%EB%8A%90%EA%B8%8B%ED%95%9C_%EA%B3%84%EC%82%B0%EB%B2%95</a>) 그래서 <code>Series</code> 객체 대신 <code>DatetimeIndexResampler</code> 객체가 반환됩니다. 실제 리샘플링 연산을 수행하려면 <code>mean()</code> 같은 메서드를 호출할 수 있습니다. 이 메서드는 연속적인 시간 쌍에 대해 평균을 계산합니다:</p>
@@ -1536,18 +1536,18 @@ Data Reshaping!</p>
 <div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value
-0  2000-01-03        A  0.562041
-1  2000-01-04        A  0.028027
-2  2000-01-05        A -1.012555
-3  2000-01-03        B  0.307149
-4  2000-01-04        B -1.161061
-5  2000-01-05        B -0.689178
-6  2000-01-03        C -1.694202
-7  2000-01-04        C -0.073202
-8  2000-01-05        C  0.489268
-9  2000-01-03        D -2.144769
-10 2000-01-04        D  0.166176
-11 2000-01-05        D -0.292159</code></pre>
+0  2000-01-03        A -0.448392
+1  2000-01-04        A  0.628813
+2  2000-01-05        A -0.950064
+3  2000-01-03        B -0.622104
+4  2000-01-04        B  1.434373
+5  2000-01-05        B  0.973659
+6  2000-01-03        C -0.032176
+7  2000-01-04        C -0.249227
+8  2000-01-05        C  1.448644
+9  2000-01-03        D -1.856688
+10 2000-01-04        D -0.092567
+11 2000-01-05        D  0.183442</code></pre>
 </div>
 </div>
 <p>To select out everything for variable A we could do:</p>
@@ -1556,9 +1556,9 @@ Data Reshaping!</p>
 <span id="cb185-2"><a href="#cb185-2" aria-hidden="true" tabindex="-1"></a>filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        date variable     value
-0 2000-01-03        A  0.562041
-1 2000-01-04        A  0.028027
-2 2000-01-05        A -1.012555</code></pre>
+0 2000-01-03        A -0.448392
+1 2000-01-04        A  0.628813
+2 2000-01-05        A -0.950064</code></pre>
 </div>
 </div>
 <p>But suppose we wish to do time series operations with the variables. A better representation would be where the columns are the unique variables and an index of dates identifies individual observations. To reshape the data into this form, we use the DataFrame.pivot() method (also implemented as a top level function pivot()):</p>
@@ -1569,9 +1569,9 @@ Data Reshaping!</p>
 <div class="cell-output cell-output-stdout">
 <pre><code>variable           A         B         C         D
 date                                              
-2000-01-03  0.562041  0.307149 -1.694202 -2.144769
-2000-01-04  0.028027 -1.161061 -0.073202  0.166176
-2000-01-05 -1.012555 -0.689178  0.489268 -0.292159</code></pre>
+2000-01-03 -0.448392 -0.622104 -0.032176 -1.856688
+2000-01-04  0.628813  1.434373 -0.249227 -0.092567
+2000-01-05 -0.950064  0.973659  1.448644  0.183442</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1594,18 +1594,18 @@ date
 <div class="sourceCode cell-code" id="cb194"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value    value2
-0  2000-01-03        A  0.562041  1.124081
-1  2000-01-04        A  0.028027  0.056053
-2  2000-01-05        A -1.012555 -2.025111
-3  2000-01-03        B  0.307149  0.614298
-4  2000-01-04        B -1.161061 -2.322122
-5  2000-01-05        B -0.689178 -1.378356
-6  2000-01-03        C -1.694202 -3.388404
-7  2000-01-04        C -0.073202 -0.146404
-8  2000-01-05        C  0.489268  0.978536
-9  2000-01-03        D -2.144769 -4.289537
-10 2000-01-04        D  0.166176  0.332353
-11 2000-01-05        D -0.292159 -0.584319</code></pre>
+0  2000-01-03        A -0.448392 -0.896784
+1  2000-01-04        A  0.628813  1.257626
+2  2000-01-05        A -0.950064 -1.900127
+3  2000-01-03        B -0.622104 -1.244208
+4  2000-01-04        B  1.434373  2.868747
+5  2000-01-05        B  0.973659  1.947317
+6  2000-01-03        C -0.032176 -0.064353
+7  2000-01-04        C -0.249227 -0.498454
+8  2000-01-05        C  1.448644  2.897289
+9  2000-01-03        D -1.856688 -3.713376
+10 2000-01-04        D -0.092567 -0.185135
+11 2000-01-05        D  0.183442  0.366884</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1616,9 +1616,9 @@ date
 <pre><code>               value                      ...    value2                    
 variable           A         B         C  ...         B         C         D
 date                                      ...                              
-2000-01-03  0.562041  0.307149 -1.694202  ...  0.614298 -3.388404 -4.289537
-2000-01-04  0.028027 -1.161061 -0.073202  ... -2.322122 -0.146404  0.332353
-2000-01-05 -1.012555 -0.689178  0.489268  ... -1.378356  0.978536 -0.584319
+2000-01-03 -0.448392 -0.622104 -0.032176  ... -1.244208 -0.064353 -3.713376
+2000-01-04  0.628813  1.434373 -0.249227  ...  2.868747 -0.498454 -0.185135
+2000-01-05 -0.950064  0.973659  1.448644  ...  1.947317  2.897289  0.366884
 
 [3 rows x 8 columns]</code></pre>
 </div>
@@ -1642,9 +1642,9 @@ date                                      ...
 <div class="cell-output cell-output-stdout">
 <pre><code>variable           A         B         C         D
 date                                              
-2000-01-03  0.562041  0.307149 -1.694202 -2.144769
-2000-01-04  0.028027 -1.161061 -0.073202  0.166176
-2000-01-05 -1.012555 -0.689178  0.489268 -0.292159</code></pre>
+2000-01-03 -0.448392 -0.622104 -0.032176 -1.856688
+2000-01-04  0.628813  1.434373 -0.249227 -0.092567
+2000-01-05 -0.950064  0.973659  1.448644  0.183442</code></pre>
 </div>
 </div>
 </section>
@@ -2137,17 +2137,17 @@ bob       38        25.335002     181  ...      False   0.0      83
 <div class="sourceCode cell-code" id="cb291"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb291-1"><a href="#cb291-1" aria-hidden="true" tabindex="-1"></a>df4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            a         b         c
-0    1.093209 -0.352827 -1.303496
-1    0.743035 -0.057969 -1.039238
-2    0.515228  1.323437 -2.040510
-3    2.348792 -0.211385 -1.873605
-4   -0.645403  1.312552 -1.270966
+0    1.450544 -0.807591 -1.267551
+1    2.771896  1.042958 -0.829004
+2    2.841868 -0.278342 -2.090135
+3   -0.576779  1.190662 -1.691205
+4    3.317554  1.145341  0.017085
 ..        ...       ...       ...
-995  0.156689  0.445817 -2.189495
-996  1.841199  1.197520 -0.592263
-997  0.784336 -0.157647 -0.096703
-998 -1.122480 -0.650190 -2.205119
-999  1.304267  0.518208 -0.446575
+995  0.018299 -1.095784 -0.690920
+996  0.728861 -0.167739 -2.205912
+997  0.522637  0.365844 -0.495172
+998  0.503396 -0.250821 -0.285780
+999  1.159828  0.821476 -1.354300
 
 [1000 rows x 3 columns]</code></pre>
 </div>
@@ -2173,18 +2173,18 @@ bob       38        25.335002     181  ...      False   0.0      83
 <div class="sourceCode cell-code" id="cb295"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb295-1"><a href="#cb295-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value    value2
-0  2000-01-03        A  0.562041  1.124081
-1  2000-01-04        A  0.028027  0.056053
-2  2000-01-05        A -1.012555 -2.025111
-3  2000-01-03        B  0.307149  0.614298
-4  2000-01-04        B -1.161061 -2.322122
-5  2000-01-05        B -0.689178 -1.378356
-6  2000-01-03        C -1.694202 -3.388404
-7  2000-01-04        C -0.073202 -0.146404
-8  2000-01-05        C  0.489268  0.978536
-9  2000-01-03        D -2.144769 -4.289537
-10 2000-01-04        D  0.166176  0.332353
-11 2000-01-05        D -0.292159 -0.584319</code></pre>
+0  2000-01-03        A -0.448392 -0.896784
+1  2000-01-04        A  0.628813  1.257626
+2  2000-01-05        A -0.950064 -1.900127
+3  2000-01-03        B -0.622104 -1.244208
+4  2000-01-04        B  1.434373  2.868747
+5  2000-01-05        B  0.973659  1.947317
+6  2000-01-03        C -0.032176 -0.064353
+7  2000-01-04        C -0.249227 -0.498454
+8  2000-01-05        C  1.448644  2.897289
+9  2000-01-03        D -1.856688 -3.713376
+10 2000-01-04        D -0.092567 -0.185135
+11 2000-01-05        D  0.183442  0.366884</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2200,16 +2200,16 @@ bob       38        25.335002     181  ...      False   0.0      83
 <span id="cb298-5"><a href="#cb298-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Col1      Col2  X
-0  0.062594  0.501982  A
-1  0.219849  0.633902  A
-2  0.636869  0.777541  A
-3  0.380034  0.612287  A
-4  0.803967  0.714127  A
-5  0.720298  0.822416  B
-6  0.138564  0.154537  B
-7  0.200600  0.286251  B
-8  0.938438  0.234138  B
-9  0.676451  0.435470  B</code></pre>
+0  0.830383  0.313761  A
+1  0.405579  0.266501  A
+2  0.186538  0.228446  A
+3  0.949329  0.223337  A
+4  0.858201  0.416907  A
+5  0.894255  0.592349  B
+6  0.062254  0.386898  B
+7  0.140404  0.915621  B
+8  0.378196  0.149441  B
+9  0.122166  0.925914  B</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2579,7 +2579,7 @@ darwin    9.0  10.0  11.0  NaN   Biking</code></pre>
 <div class="sourceCode cell-code" id="cb361"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb361-1"><a href="#cb361-1" aria-hidden="true" tabindex="-1"></a>grouped_grades <span class="op">=</span> final_grades.groupby(<span class="st">"hobby"</span>)</span>
 <span id="cb361-2"><a href="#cb361-2" aria-hidden="true" tabindex="-1"></a>grouped_grades</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x0000023CC9617BD0&gt;</code></pre>
+<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x000001A2E3D71A90&gt;</code></pre>
 </div>
 </div>
 <p>이제 hobby마다 평균 점수를 계산할 수 있습니다:</p>

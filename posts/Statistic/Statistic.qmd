@@ -7,6 +7,93 @@ categories: R
 image: "../../img/rguy.png"
 ---
 
+## Simple Linear Regression
+
+example with mtcars dataset
+
 ```{r}
-library(dplyr)
+rm(list = ls())
+library(tidyverse)
 ```
+
+### Load dataset
+
+```{r}
+mtcars <- mtcars
+mtcars %>% head()
+```
+
+## Calculate Linear Regression
+
+To perform linear regression, we use the `lm()` function.
+
+In this case, the model is predicting `mpg(fuel efficiency)` using `wt(weight)`.
+
+```{r}
+model <- lm(mpg ~ wt, data = mtcars)
+```
+
+## Summary of the Regression model
+
+you can get a summary of the model by using the `summary()` function.
+
+The summary includes information on the `residuals`, `coefficients`, `R-squared value`, `F-statistic` and `p-value`.
+
+```{r}
+summary(model)
+```
+
+## Interpret the Linear Regression Results
+
+-   The output shows that the coefficient for wt (weight) coefficient is -5.34447, and the intercept is 37.28536.
+
+-   The p-value is less than 0.05, indicating that the relationship between weight and fuel efficiency is statistically significant.
+
+-   The R-squared value, which measures the proportion of the variation in the response variable explained by the predictor variable, is 0.7528. This means that the car's weight can explain 75.28% of the variation in fuel efficiency.
+
+
+## Plot the Regression Line in a Graph
+
+```{r}
+ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point() +
+  geom_smooth(method='lm', se=FALSE) +
+  ggtitle("Linear Regression of mpg ~ wt")
+```
+
+```{r}
+ggplot(model, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)+
+  labs(title='Residual vs. Fitted Values Plot', x='Fitted Values', y='Residuals')
+```
+
+## Prediction
+
+```{r}
+newdata <- data.frame(wt=c(3,4))
+
+predictions <- predict(model, newdata=newdata)
+predictions
+```
+
+### Compare with calculated value
+
+```{r}
+beta0 <- model$coefficients[[1]][1]
+beta1 <- model$coefficients[[2]][1]
+
+beta0 + beta1*3
+beta0 + beta1*4
+
+```
+
+ref : https://uedufy.com/simple-example-of-linear-regression-in-r/
+
+
+
+
+
+
+
+
