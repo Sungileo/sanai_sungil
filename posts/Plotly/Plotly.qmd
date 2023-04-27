@@ -1,0 +1,129 @@
+---
+title: "Plotly"
+author: "Sungil Park"
+date: "2023/04/27"
+description: "Interactive Plot Basic"
+categories: R
+image: "../../img/plotly_boy.png"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r}
+library(tidyverse)
+library(knitr)
+library(plotly)
+library(readxl)
+library(scales)
+```
+
+```{r}
+mtcars <- mtcars
+mtcars %>% head()
+```
+
+
+```{r}
+
+vehicles <- c("Four Cylinders","Six Cylinders","Eight Cylinders")
+cylinders <- mtcars %>% group_by(cyl) %>% summarize(cnt = n())
+veh_cyl <- tibble(vehicles, cylinders$cnt)
+
+
+
+
+
+plot_ly(data = veh_cyl, x = vehicles, y = cylinders$cnt, type = "bar",
+        text = cylinders, textposition = "auto") %>% 
+  layout(title = "Number of Vehicles in mtcars with 4, 6, and 8 Cylinders",
+         titlefont = list(size = 28, color = "orange", family = "Calibri"),
+    yaxis = list(title = "Number of Vehicles",
+                 font = list(color = "black", family = "Arial", size = 26),
+                 tickfont = list(color = "black", family = "Arial", size = 20)),
+    xaxis = list(title = "Number of Cylinders",
+                 titlefont = list(color = "red", family = "Times New Roman", size = 22),
+                 tickfont = list(color = "green", family = "Cambria", size = 18)))%>% 
+  layout(margin = list( 
+                l = 10,
+                r = 10,
+                b = 0,
+                t = 40))
+```
+
+```{r}
+veh <- mtcars %>% 
+  group_by(cyl) %>% 
+  summarize(cnt =n()) %>% 
+  mutate(cyl = factor(cyl))
+
+
+plot_ly(data = veh,x=~cyl,y=~cnt,type="bar",text = ~cyl,textposition = "auto") %>% 
+  layout(title = "Numberof Vehicles per cylinders", 
+         titlefont = list(size=28, color="orange", family= "Calibri"))
+
+
+
+
+```
+
+```{r}
+library(nycflights13)
+
+dep.delay.by.day <- flights %>% 
+  group_by(day) %>%
+  summarise (mean_dep_delay=mean(dep_delay,na.rm=T))
+
+
+plot_ly( data = dep.delay.by.day, 
+         x = ~day, 
+         y =~mean_dep_delay) %>% 
+  add_trace(type = "scatter" ,mode = "lines+markers")
+```
+
+
+```{r}
+library(gapminder)
+
+
+df <- gapminder 
+
+# No animation
+fig <- df %>%
+  plot_ly(
+    x = ~gdpPercap, 
+    y = ~lifeExp, 
+    size = ~pop, 
+    color = ~continent, 
+    text = ~country, 
+    hoverinfo = "text",
+    type = 'scatter',
+    mode = 'markers',
+    fill = ~''
+  ) %>% layout(
+    xaxis = list(type = "log"))
+
+fig
+```
+
+
+```{r}
+fig <- df %>%
+  plot_ly(
+    x = ~gdpPercap, 
+    y = ~lifeExp, 
+    size = ~pop, 
+    color = ~continent, 
+    frame = ~year, 
+    text = ~country, 
+    hoverinfo = "text",
+    type = 'scatter',
+    mode = 'markers',
+    fill = ~''
+  ) %>% layout(
+    xaxis = list(type = "log"))
+
+fig
+```
+

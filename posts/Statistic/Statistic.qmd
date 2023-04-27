@@ -51,7 +51,6 @@ summary(model)
 
 -   The R-squared value, which measures the proportion of the variation in the response variable explained by the predictor variable, is 0.7528. This means that the car's weight can explain 75.28% of the variation in fuel efficiency.
 
-
 ## Plot the Regression Line in a Graph
 
 ```{r}
@@ -83,17 +82,38 @@ predictions
 beta0 <- model$coefficients[[1]][1]
 beta1 <- model$coefficients[[2]][1]
 
-beta0 + beta1*3
-beta0 + beta1*4
-
+newdata_mpg <- data.frame(mpg = c(beta0 + beta1*3, beta0 + beta1*4))
+newdata <- cbind(newdata,newdata_mpg)
+newdata
 ```
 
-ref : https://uedufy.com/simple-example-of-linear-regression-in-r/
 
 
+# Multiple Linear Regerssion
+
+```{r}
+mtcars %>% head()
+```
+
+```{r}
+model_2 <- lm(mpg ~ cyl+disp+hp+drat+wt+qsec+factor(vs)+factor(am)+factor(gear)+factor(carb), data=mtcars)
+```
+
+```{r}
+summary(model_2)
+```
+
+```{r}
+model_3 <- step(model_2,direction = "backward")
+summary(model_3)
+```
 
 
+```{r}
+model_3 %>% summary
+```
 
 
-
-
+```{r}
+anova(model_2,model_3)
+```

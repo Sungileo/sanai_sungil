@@ -1,5 +1,5 @@
 ---
-title: "training markdown & GGplot"
+title: "ggplot, ggplot"
 author: "sungil_park"
 date: "2023/03/15"
 date-modified: "2023/03/20"
@@ -27,6 +27,9 @@ library(ggrepel)
 library(cowplot)
 library(colorspace)
 library(stringr)
+library(geojsonsf)
+library(sf)
+library(forcats)
 ```
 
 ## mpg datasets
@@ -1093,4 +1096,100 @@ ggplot(df, aes(x=idx, y=p_log10)) +
   geom_text_repel(aes(label = label),
                   min.segment.length = 0,
                   max.overlaps = 100)
+```
+
+## Visualizing amounts: 수량 데이터의 시각화
+
+```{r}
+boxoffice <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/boxoffice.csv")
+
+boxoffice %>% ggplot(aes(x=fct_reorder(title,rank),y=amount))+
+  geom_col(fill="#56b4e9",width = 0.6,alpha = 0.9)+
+  scale_y_continuous(expand = c(0,0),
+                     breaks = c(0,2e7,4e7,6e7),
+                     labels = c(0,20,40,60),
+                     name = "Weekend gross(million USD)")+
+  xlab("")+
+  theme_minimal()+
+  theme(
+    axis.ticks.y = element_blank(),
+    panel.grid.major.y = element_blank(),
+    axis.text.x = element_text(angle=45,hjust = 1)
+  )+
+  coord_flip()
+```
+
+```{r}
+kobis <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/KOBIS_%EC%8B%A4%EC%8B%9C%EA%B0%84_%EC%98%88%EB%A7%A4%EC%9C%A8_2023-04-26.csv")
+
+kobis %>% filter(누적매출액>0) %>% head(5) %>% 
+  ggplot(aes(x=reorder(영화명,-예매매출액),y=예매매출액))+
+  geom_col(fill="#56b4e9",width = 0.6,alpha = 0.9)+
+  scale_y_continuous(expand = c(0,0),
+                     breaks = c(0,5e8,1e9,1.5e9),
+                     labels = c(0,5,10,15),
+                     name = "에매매출액(억원)")+
+  xlab("")+
+  theme_minimal()+
+  theme(
+    axis.ticks.x = element_blank(),
+    panel.grid.major.x = element_blank())
+```
+
+```{r}
+income_by_age <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/income_by_age.csv")
+
+income_by_age <- income_by_age %>% 
+  mutate(age = age %>% factor(levels = c("15 to 24",
+                                         "25 to 34",
+                                         "35 to 44",
+                                         "45 to 54",
+                                         "55 to 64",
+                                         "65 to 74",
+                                         "> 74")))
+income_df <- income_by_age %>% 
+  filter(race %in% c("white","asian","black","hispanic")) %>% 
+  mutate(race = fct_relevel(race,c("asian","white","hispanic","black")),
+         race = fct_recode(race,"Asian"="asian","Hispanic"="hispanic"),
+         age = fct_recode(age,">= 75" = "> 74"))
+
+colors_four <- RColorBrewer::brewer.pal(5,"PuBu")[5:2]
+
+income_df %>% ggplot(aes(x=age,y=median_income,fill=race))+
+  geom_col(position = "dodge",alpha = 0.9)+
+  scale_fill_manual(values = colors_four,name=NULL)+
+  xlab("age (years)")+
+  scale_y_continuous(expand = c(0,0),
+                     name = "Median income (USD)",
+                     breaks = c(seq(0,100,20)*1000),
+                     labels = c(seq(0,100,20)*1000) %>% paste())+
+  theme_minimal()
+```
+
+```{r}
+colors_seven <- RColorBrewer::brewer.pal(8,"PuBu")[2:8]
+
+income_df %>% ggplot(aes(x=race,y=median_income,fill=age))+
+  geom_col(position = "dodge",alpha=0.9)+
+  scale_fill_manual(values = colors_seven,name=NULL)+
+  xlab(NULL)+
+  scale_y_continuous(expand = c(0,0),
+                     name = "Median income (USD)",
+                     breaks = c(seq(0,100,20)*1000),
+                     labels = c(seq(0,100,20)*1000) %>% paste())+
+  theme_minimal()
+```
+
+```{r}
+income_df %>% ggplot(aes(x=age,y=median_income))+
+  geom_col(fill = "#56b4e9",alpha = 0.9)+
+  xlab("age (years)")+
+  scale_y_continuous(expand = c(0,0),
+                     name = "Median income (USD)",
+                     breaks = c(seq(0,100,20)*1000),
+                     labels = c(seq(0,100,20)*1000) %>% paste())+
+  theme_minimal()+
+  theme(panel.grid.major.x = element_blank(),
+        axis.ticks.x = element_blank())+
+  facet_wrap(~race, scales ="free_x")
 ```

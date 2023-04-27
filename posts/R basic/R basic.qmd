@@ -5,6 +5,8 @@ date: "2023/04/11"
 description: "R basics"
 categories: R
 image: "../../img/rkid.png"
+editor_options: 
+  chunk_output_type: console
 ---
 
 R basics
@@ -417,3 +419,20 @@ d %>% ggplot(aes(month,n))+
   theme_light()+
   theme(panel.grid = element_blank())
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

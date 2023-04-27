@@ -204,6 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#compare-with-calculated-value" id="toc-compare-with-calculated-value" class="nav-link" data-scroll-target="#compare-with-calculated-value">Compare with calculated value</a></li>
   </ul></li>
+  <li><a href="#multiple-linear-regerssion" id="toc-multiple-linear-regerssion" class="nav-link" data-scroll-target="#multiple-linear-regerssion">Multiple Linear Regerssion</a></li>
   </ul>
 </nav>
     </div>
@@ -369,19 +370,241 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> model<span class="sc">$</span>coefficients[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> model<span class="sc">$</span>coefficients[[<span class="dv">2</span>]][<span class="dv">1</span>]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>beta0 <span class="sc">+</span> beta1<span class="sc">*</span><span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>newdata_mpg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">mpg =</span> <span class="fu">c</span>(beta0 <span class="sc">+</span> beta1<span class="sc">*</span><span class="dv">3</span>, beta0 <span class="sc">+</span> beta1<span class="sc">*</span><span class="dv">4</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">cbind</span>(newdata,newdata_mpg)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>newdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 21.25171</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>beta0 <span class="sc">+</span> beta1<span class="sc">*</span><span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 15.90724</code></pre>
+<pre><code>  wt      mpg
+1  3 21.25171
+2  4 15.90724</code></pre>
 </div>
 </div>
-<p>ref : https://uedufy.com/simple-example-of-linear-regression-in-r/</p>
-
-
 </section>
+</section>
+<section id="multiple-linear-regerssion" class="level1">
+<h1>Multiple Linear Regerssion</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl<span class="sc">+</span>disp<span class="sc">+</span>hp<span class="sc">+</span>drat<span class="sc">+</span>wt<span class="sc">+</span>qsec<span class="sc">+</span><span class="fu">factor</span>(vs)<span class="sc">+</span><span class="fu">factor</span>(am)<span class="sc">+</span><span class="fu">factor</span>(gear)<span class="sc">+</span><span class="fu">factor</span>(carb), <span class="at">data=</span>mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ cyl + disp + hp + drat + wt + qsec + factor(vs) + 
+    factor(am) + factor(gear) + factor(carb), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6533 -1.3325 -0.5166  0.7643  4.7284 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)   25.31994   23.88164   1.060   0.3048  
+cyl           -1.02343    1.48131  -0.691   0.4995  
+disp           0.04377    0.03058   1.431   0.1716  
+hp            -0.04881    0.03189  -1.531   0.1454  
+drat           1.82084    2.38101   0.765   0.4556  
+wt            -4.63540    2.52737  -1.834   0.0853 .
+qsec           0.26967    0.92631   0.291   0.7747  
+factor(vs)1    1.04908    2.70495   0.388   0.7032  
+factor(am)1    0.96265    3.19138   0.302   0.7668  
+factor(gear)4  1.75360    3.72534   0.471   0.6442  
+factor(gear)5  1.87899    3.65935   0.513   0.6146  
+factor(carb)2 -0.93427    2.30934  -0.405   0.6912  
+factor(carb)3  3.42169    4.25513   0.804   0.4331  
+factor(carb)4 -0.99364    3.84683  -0.258   0.7995  
+factor(carb)6  1.94389    5.76983   0.337   0.7406  
+factor(carb)8  4.36998    7.75434   0.564   0.5809  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.823 on 16 degrees of freedom
+Multiple R-squared:  0.8867,    Adjusted R-squared:  0.7806 
+F-statistic: 8.352 on 15 and 16 DF,  p-value: 6.044e-05</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> <span class="fu">step</span>(model_2,<span class="at">direction =</span> <span class="st">"backward"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=76.24
+mpg ~ cyl + disp + hp + drat + wt + qsec + factor(vs) + factor(am) + 
+    factor(gear) + factor(carb)
+
+               Df Sum of Sq    RSS    AIC
+- factor(carb)  5   19.0251 146.56 70.693
+- factor(gear)  2    2.2878 129.82 72.813
+- qsec          1    0.6755 128.21 74.413
+- factor(am)    1    0.7252 128.25 74.425
+- factor(vs)    1    1.1989 128.73 74.543
+- cyl           1    3.8047 131.33 75.184
+- drat          1    4.6614 132.19 75.392
+&lt;none&gt;                      127.53 76.244
+- disp          1   16.3306 143.86 78.099
+- hp            1   18.6718 146.20 78.616
+- wt            1   26.8119 154.34 80.350
+
+Step:  AIC=70.69
+mpg ~ cyl + disp + hp + drat + wt + qsec + factor(vs) + factor(am) + 
+    factor(gear)
+
+               Df Sum of Sq    RSS    AIC
+- factor(gear)  2     2.318 148.87 67.195
+- cyl           1     0.011 146.57 68.696
+- factor(vs)    1     0.676 147.23 68.840
+- drat          1     2.654 149.21 69.267
+- disp          1     6.233 152.79 70.026
+&lt;none&gt;                      146.56 70.693
+- qsec          1    11.682 158.24 71.147
+- factor(am)    1    12.102 158.66 71.232
+- hp            1    13.334 159.89 71.480
+- wt            1    37.870 184.42 76.048
+
+Step:  AIC=67.2
+mpg ~ cyl + disp + hp + drat + wt + qsec + factor(vs) + factor(am)
+
+             Df Sum of Sq    RSS    AIC
+- factor(vs)  1     0.217 149.09 65.242
+- cyl         1     0.575 149.45 65.319
+- drat        1     1.886 150.76 65.598
+&lt;none&gt;                    148.87 67.195
+- disp        1     9.678 158.55 67.211
+- qsec        1     9.782 158.65 67.232
+- hp          1    11.296 160.17 67.536
+- factor(am)  1    14.474 163.35 68.165
+- wt          1    60.737 209.61 76.144
+
+Step:  AIC=65.24
+mpg ~ cyl + disp + hp + drat + wt + qsec + factor(am)
+
+             Df Sum of Sq    RSS    AIC
+- cyl         1     1.003 150.09 63.457
+- drat        1     1.901 150.99 63.648
+- disp        1     9.548 158.64 65.228
+&lt;none&gt;                    149.09 65.242
+- hp          1    11.366 160.46 65.593
+- qsec        1    13.344 162.43 65.985
+- factor(am)  1    14.387 163.48 66.190
+- wt          1    65.175 214.26 74.847
+
+Step:  AIC=63.46
+mpg ~ disp + hp + drat + wt + qsec + factor(am)
+
+             Df Sum of Sq    RSS    AIC
+- drat        1     3.345 153.44 62.162
+- disp        1     8.545 158.64 63.229
+&lt;none&gt;                    150.09 63.457
+- hp          1    13.285 163.38 64.171
+- factor(am)  1    20.036 170.13 65.466
+- qsec        1    25.574 175.67 66.491
+- wt          1    67.572 217.66 73.351
+
+Step:  AIC=62.16
+mpg ~ disp + hp + wt + qsec + factor(am)
+
+             Df Sum of Sq    RSS    AIC
+- disp        1     6.629 160.07 61.515
+&lt;none&gt;                    153.44 62.162
+- hp          1    12.572 166.01 62.682
+- qsec        1    26.470 179.91 65.255
+- factor(am)  1    32.198 185.63 66.258
+- wt          1    69.043 222.48 72.051
+
+Step:  AIC=61.52
+mpg ~ hp + wt + qsec + factor(am)
+
+             Df Sum of Sq    RSS    AIC
+- hp          1     9.219 169.29 61.307
+&lt;none&gt;                    160.07 61.515
+- qsec        1    20.225 180.29 63.323
+- factor(am)  1    25.993 186.06 64.331
+- wt          1    78.494 238.56 72.284
+
+Step:  AIC=61.31
+mpg ~ wt + qsec + factor(am)
+
+             Df Sum of Sq    RSS    AIC
+&lt;none&gt;                    169.29 61.307
+- factor(am)  1    26.178 195.46 63.908
+- qsec        1   109.034 278.32 75.217
+- wt          1   183.347 352.63 82.790</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt + qsec + factor(am), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4811 -1.5555 -0.7257  1.4110  4.6610 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   9.6178     6.9596   1.382 0.177915    
+wt           -3.9165     0.7112  -5.507 6.95e-06 ***
+qsec          1.2259     0.2887   4.247 0.000216 ***
+factor(am)1   2.9358     1.4109   2.081 0.046716 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.459 on 28 degrees of freedom
+Multiple R-squared:  0.8497,    Adjusted R-squared:  0.8336 
+F-statistic: 52.75 on 3 and 28 DF,  p-value: 1.21e-11</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>model_3 <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt + qsec + factor(am), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4811 -1.5555 -0.7257  1.4110  4.6610 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   9.6178     6.9596   1.382 0.177915    
+wt           -3.9165     0.7112  -5.507 6.95e-06 ***
+qsec          1.2259     0.2887   4.247 0.000216 ***
+factor(am)1   2.9358     1.4109   2.081 0.046716 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.459 on 28 degrees of freedom
+Multiple R-squared:  0.8497,    Adjusted R-squared:  0.8336 
+F-statistic: 52.75 on 3 and 28 DF,  p-value: 1.21e-11</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_2,model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: mpg ~ cyl + disp + hp + drat + wt + qsec + factor(vs) + factor(am) + 
+    factor(gear) + factor(carb)
+Model 2: mpg ~ wt + qsec + factor(am)
+  Res.Df    RSS  Df Sum of Sq      F Pr(&gt;F)
+1     16 127.53                            
+2     28 169.29 -12   -41.757 0.4366 0.9242</code></pre>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
