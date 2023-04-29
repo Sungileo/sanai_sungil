@@ -61,10 +61,7 @@ ggplot(mtcars, aes(x=wt, y=mpg)) +
 ```
 
 ```{r}
-ggplot(model, aes(x = .fitted, y = .resid)) +
-  geom_point() +
-  geom_hline(yintercept = 0)+
-  labs(title='Residual vs. Fitted Values Plot', x='Fitted Values', y='Residuals')
+plot(model)
 ```
 
 ## Prediction
@@ -87,8 +84,6 @@ newdata <- cbind(newdata,newdata_mpg)
 newdata
 ```
 
-
-
 # Multiple Linear Regerssion
 
 ```{r}
@@ -108,11 +103,9 @@ model_3 <- step(model_2,direction = "backward")
 summary(model_3)
 ```
 
-
 ```{r}
 model_3 %>% summary
 ```
-
 
 ```{r}
 anova(model_2,model_3)

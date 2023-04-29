@@ -9,8 +9,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-
 ```{r}
 library(tidyverse)
 library(knitr)
@@ -23,7 +21,6 @@ library(scales)
 mtcars <- mtcars
 mtcars %>% head()
 ```
-
 
 ```{r}
 
@@ -82,7 +79,6 @@ plot_ly( data = dep.delay.by.day,
   add_trace(type = "scatter" ,mode = "lines+markers")
 ```
 
-
 ```{r}
 library(gapminder)
 
@@ -107,7 +103,6 @@ fig <- df %>%
 fig
 ```
 
-
 ```{r}
 fig <- df %>%
   plot_ly(
@@ -125,5 +120,12 @@ fig <- df %>%
     xaxis = list(type = "log"))
 
 fig
+```
+
+```{r}
+p1 <- diamonds %>% ggplot(aes(x = cut, fill = clarity))+
+  geom_bar(position = "dodge")
+
+ggplotly(p1)
 ```
 

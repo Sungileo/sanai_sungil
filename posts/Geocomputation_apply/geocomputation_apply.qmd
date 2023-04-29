@@ -1,0 +1,84 @@
+---
+title: "Geocomputation Apply"
+author: "sungil_park"
+date: "2023/04/29"
+date-modified: "2023/04/29"
+description: "Geocomputation"
+categories: R
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Library packages
+
+```{r}
+library(sf)
+library(tidyverse)
+library(rgdal)
+library(sp)
+```
+
+## Load data
+
+Following data is geographic data for Chungcheongnam-do.
+
+http://data.nsdi.go.kr/dataset/15145
+
+| EMD_CD      | EMD_NM      | SGG_OID     | COL_ADM_SE | GID | geometry |
+|-------------|-------------|-------------|------------|-----|----------|
+| 읍면동 코드 | 읍면동 이름 | 시군구 코드 | 시 코드    | GID | 지리정보 |
+
+Convert data type (`sp` -\> `sf`)
+
+```{r}
+data_sp <- readOGR("C:/trainsets_2/LSMD_ADM_SECT_UMD_충남/LSMD_ADM_SECT_UMD_44.shp",encoding = "euc-kr")
+
+data_sf = st_as_sf(data_sp)
+data_sf %>% head()
+```
+
+```{r}
+data_sf %>% ggplot(aes(fill = COL_ADM_SE))+
+  geom_sf()+
+  theme_minimal()+
+  labs(title = "충청남도")
+```
+
+## Filter Place of Interest
+
+```{r}
+cheonan <- data_sf %>% filter(COL_ADM_SE=="44130")
+
+cheonan_seobuk <- cheonan %>%  
+  filter(substr(EMD_CD,1,5)=="44133")
+
+cheonan_dongnam <- cheonan %>%  
+  filter(substr(EMD_CD,1,5)=="44131")
+```
+
+```{r}
+cheonan %>% ggplot(aes(fill=substr(EMD_CD,1,5)))+
+  geom_sf()+
+  theme_minimal()+
+  labs(title = "천안시 (구별)")+
+  scale_fill_discrete(name = "구",
+                      labels = c("동남구","서북구"))
+```
+
+```{r}
+cheonan_seobuk %>% ggplot(aes(fill=EMD_NM))+
+  geom_sf()+
+  geom_sf_text(mapping = aes(label = EMD_NM))+
+  labs(title = "천안시 서북구 (읍면동)")+
+  theme_minimal()+
+  scale_fill_discrete(name = "읍면동")
+```
+
+```{r}
+cheonan_dongnam %>% ggplot(aes(fill=EMD_NM))+
+  geom_sf()+
+  geom_sf_text(mapping = aes(label = EMD_NM))+
+  labs(title = "천안시 동남구 (읍면동)")+
+  theme_minimal()+
+  scale_fill_discrete(name = "읍면동")
+```

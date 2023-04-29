@@ -1,0 +1,49 @@
+---
+title: "Linear model"
+author: "Sungil Park"
+date: "2023/04/27"
+description: "Statistics basics"
+categories: R
+image: "../../img/linear_model.png"
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+library(tidyverse)
+library(corrplot)
+library(readxl)
+```
+
+```{r}
+data <- read_excel("C:/linear_model_dataset_R.xlsx")
+data <- data %>% select(-c(Latitude,Longitude))
+names(data) <- c("year_built","floor","station_m","pop","dong_area","foreign_ratio","school_m","market_m","price_per_pyeong")
+```
+
+```{r}
+data %>% head()
+```
+
+```{r}
+data_cor <- cor(data %>% select(-c(price_per_pyeong)))
+corrplot(data_cor, method = "shade",addCoef.col="black")
+```
+
+```{r}
+model <- lm(price_per_pyeong ~ year_built+floor+station_m+pop+dong_area+foreign_ratio+school_m + market_m, 
+            data = data)
+summary(model)
+```
+
+```{r}
+plot(model)
+```
+
+```{r}
+model_2 <- step(model,direction = "backward")
+```
+
+```{r}
+model_2 %>% summary
+```

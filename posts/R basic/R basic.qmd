@@ -419,20 +419,3 @@ d %>% ggplot(aes(month,n))+
   theme_light()+
   theme(panel.grid = element_blank())
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

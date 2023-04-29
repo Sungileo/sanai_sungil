@@ -2,6 +2,8 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/Geocomputation_apply/geocomputation_apply.html",
+      "/posts/Linear_model/Linear_model.html",
       "/posts/Plotly/Plotly.html",
       "/posts/Statistic/Statistic.html",
       "/posts/R basic/R basic.html",
@@ -9,11 +11,11 @@
       "/posts/week_1a_numpy/week_1a_numpy.html",
       "/posts/week_1b_pandas/week_1b_pandas.html",
       "/posts/python_playground/pyhton_playground.html",
-      "/posts/tests/Issue_report.html",
       "/posts/Geocomputation_with_R/Geocomputation.html",
       "/posts/penguin/penguin.html",
       "/posts/vis/vis.html",
       "/posts/pizza/pizza.html",
+      "/posts/tests/Issue_report.html",
       "/posts/detect_line/detect_line.html"
     ]
   },

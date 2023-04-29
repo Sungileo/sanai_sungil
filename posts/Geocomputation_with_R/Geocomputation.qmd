@@ -22,7 +22,7 @@ library(spDataLarge)
 
 # 벡터 데이터
 
-R class츼 벡터 데이터와 다른 의미의, 공간 위치데이터의 점,선,면을 나타내는 데이터
+R class의 벡터 데이터와 다른 의미의, 공간 위치데이터의 점,선,면을 나타내는 데이터
 
 ```{r}
 vignette(package = "sf") 
@@ -507,9 +507,10 @@ factorValues(grain, grain[c(1, 11, 35)])
 
 ## 공간 부분 집합
 
-`st_disjoint`는 sf 패키지에 포함된 함수로, 스페이스 객체끼리 겹치지 않는 부분을 반환하는 함수. 
+`st_disjoint`는 sf 패키지에 포함된 함수로, 스페이스 객체끼리 겹치지 않는 부분을 반환하는 함수.
 
 따라서, `canterbury`와 공간적으로 겹치지 않는 부분에 대해서만 `nz_height` 객체에서 값을 선택
+
 ```{r}
 canterbury  <-  nz %>% filter(Name == "Canterbury")
 canterbury_height <-  nz_height[canterbury, ]
@@ -517,7 +518,9 @@ canterbury_height <-  nz_height[canterbury, ]
 nz_height[canterbury, 2, op = st_disjoint]
 plot(nz_height[canterbury, 2, op = st_disjoint])
 ```
+
 `st_intersects()` 를 활용한 공간 부분 집합 추출
+
 ```{r}
 sel_sgbp <-  st_intersects(x = nz_height, y = canterbury)
 
@@ -532,7 +535,6 @@ class(sel_sgbp)
 
 st_intersects(x = nz_height, y = canterbury)
 ```
-
 
 ### 위상관계
 
@@ -558,10 +560,10 @@ axis(side = 2, at = seq(-1, 1, 0.5), tck = 0.02, las=1)
 text(p_matrix,pos=1)
 ```
 
-
 polygon과 point의 겹치는 부분을 반환
 
 `st_intersects()` 겹치는 부분
+
 ```{r}
 st_intersects(p, a)
 
@@ -585,23 +587,3 @@ st_touches(p, a, sparse = FALSE)[, 1]
 ```{r}
 st_is_within_distance(p, a, dist = 0.9,sparse = F)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,11 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="sungil_park">
-<meta name="dcterms.date" content="2023-03-03">
-<meta name="description" content="에잇!">
+<meta name="author" content="Sungil Park">
+<meta name="dcterms.date" content="2023-04-27">
+<meta name="description" content="Statistics basics">
 
-<title>Sungil_Park - Issue Report</title>
+<title>Sungil_Park - Linear model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -188,29 +188,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023/03/27</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2023/04/04</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Issue Report</h1>
+<h1 class="title">Linear model</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Issue Report</div>
+    <div class="quarto-category">R</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    에잇!
+    Statistics basics
   </div>
 </div>
 
@@ -220,23 +213,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>sungil_park </p>
+             <p>Sungil Park </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 3, 2023</p>
+      <p class="date">April 27, 2023</p>
     </div>
   </div>
   
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 27, 2023</p>
-    </div>
-  </div>
     
   </div>
   
@@ -244,34 +231,178 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.0     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">2023/03/27</h2>
-<p>Quarto markdown의 코드 청크가 전부 파이썬으로 구성되면 같은 디렉토리에 <code>.ipynb</code>가 생성된다.</p>
-<p>Rstudio ipykernel에는 <code>.ipynb</code>를 렌더링 할 수 없기에 에러가 발생한다.</p>
-<p>이에 Quarto markdown 에 비어있는 R코드청크를 넣어두면 <code>.ipynb</code>가 생성되지 않고 렌더링 할 수 있다.</p>
-</section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">2023/04/04</h2>
-<p><code>.ipynb</code> 파일 위에 <code>--- title ---</code> 생성해보기</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install matplotlib</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>corrplot 0.92 loaded</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">0.01</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.plot(a,b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"C:/linear_model_dataset_R.xlsx"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Latitude,Longitude))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"year_built"</span>,<span class="st">"floor"</span>,<span class="st">"station_m"</span>,<span class="st">"pop"</span>,<span class="st">"dong_area"</span>,<span class="st">"foreign_ratio"</span>,<span class="st">"school_m"</span>,<span class="st">"market_m"</span>,<span class="st">"price_per_pyeong"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  year_built floor station_m   pop dong_area foreign_r…¹ schoo…² marke…³ price…⁴
+       &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1       2015     9      324.  8191      0.61      0.0603    478.    1198    923.
+2       2015     9      324.  8191      0.61      0.0603    478.    1198    938.
+3       2015     9      324.  8191      0.61      0.0603    478.    1198    923.
+4       2022    20      451.  8191      0.61      0.0603    460.    1149   1361.
+5       2022    12      451.  8191      0.61      0.0603    460.    1149   1361.
+6       2022    11      451.  8191      0.61      0.0603    460.    1149   1295.
+# … with abbreviated variable names ¹​foreign_ratio, ²​school_m, ³​market_m,
+#   ⁴​price_per_pyeong</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(price_per_pyeong)))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(data_cor, <span class="at">method =</span> <span class="st">"shade"</span>,<span class="at">addCoef.col=</span><span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Issue_report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price_per_pyeong <span class="sc">~</span> year_built<span class="sc">+</span>floor<span class="sc">+</span>station_m<span class="sc">+</span>pop<span class="sc">+</span>dong_area<span class="sc">+</span>foreign_ratio<span class="sc">+</span>school_m <span class="sc">+</span> market_m, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> data)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price_per_pyeong ~ year_built + floor + station_m + 
+    pop + dong_area + foreign_ratio + school_m + market_m, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-846.41 -177.59   -1.48  137.05 1399.25 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   -6.404e+04  2.324e+03 -27.555  &lt; 2e-16 ***
+year_built     3.225e+01  1.166e+00  27.652  &lt; 2e-16 ***
+floor          9.110e+00  1.327e+00   6.866 1.13e-11 ***
+station_m     -8.977e-03  5.920e-03  -1.516 0.129720    
+pop            9.438e-03  6.397e-04  14.754  &lt; 2e-16 ***
+dong_area     -5.106e+00  8.185e-01  -6.238 6.41e-10 ***
+foreign_ratio -2.985e+02  3.057e+02  -0.977 0.329008    
+school_m      -3.629e-02  2.370e-02  -1.531 0.126009    
+market_m       2.995e-02  8.922e-03   3.356 0.000818 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 285.9 on 1050 degrees of freedom
+Multiple R-squared:  0.7504,    Adjusted R-squared:  0.7485 
+F-statistic: 394.5 on 8 and 1050 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">step</span>(model,<span class="at">direction =</span> <span class="st">"backward"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=11987.65
+price_per_pyeong ~ year_built + floor + station_m + pop + dong_area + 
+    foreign_ratio + school_m + market_m
+
+                Df Sum of Sq       RSS   AIC
+- foreign_ratio  1     77956  85906426 11987
+&lt;none&gt;                        85828470 11988
+- station_m      1    187961  86016431 11988
+- school_m       1    191661  86020131 11988
+- market_m       1    920800  86749270 11997
+- dong_area      1   3180881  89009351 12024
+- floor          1   3853265  89681735 12032
+- pop            1  17792408 103620878 12185
+- year_built     1  62501062 148329532 12565
+
+Step:  AIC=11986.61
+price_per_pyeong ~ year_built + floor + station_m + pop + dong_area + 
+    school_m + market_m
+
+             Df Sum of Sq       RSS   AIC
+- station_m   1    151136  86057562 11986
+&lt;none&gt;                     85906426 11987
+- school_m    1    296692  86203118 11988
+- market_m    1    873033  86779458 11995
+- dong_area   1   3398846  89305272 12026
+- floor       1   3843713  89750139 12031
+- pop         1  20606383 106512809 12212
+- year_built  1  63903206 149809632 12574
+
+Step:  AIC=11986.47
+price_per_pyeong ~ year_built + floor + pop + dong_area + school_m + 
+    market_m
+
+             Df Sum of Sq       RSS   AIC
+&lt;none&gt;                     86057562 11986
+- school_m    1    290963  86348524 11988
+- market_m    1    721900  86779462 11993
+- floor       1   3858576  89916138 12031
+- dong_area   1   4146877  90204439 12034
+- pop         1  20481223 106538785 12211
+- year_built  1  64152329 150209891 12574</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price_per_pyeong ~ year_built + floor + pop + dong_area + 
+    school_m + market_m, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-840.97 -171.39   -1.21  136.01 1398.31 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -6.324e+04  2.268e+03 -27.878  &lt; 2e-16 ***
+year_built   3.184e+01  1.137e+00  28.004  &lt; 2e-16 ***
+floor        9.115e+00  1.327e+00   6.868 1.11e-11 ***
+pop          9.536e-03  6.026e-04  15.823  &lt; 2e-16 ***
+dong_area   -5.533e+00  7.771e-01  -7.120 2.00e-12 ***
+school_m    -4.271e-02  2.264e-02  -1.886  0.05958 .  
+market_m     2.398e-02  8.074e-03   2.971  0.00304 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 286 on 1052 degrees of freedom
+Multiple R-squared:  0.7497,    Adjusted R-squared:  0.7483 
+F-statistic: 525.1 on 6 and 1052 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
