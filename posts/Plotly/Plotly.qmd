@@ -129,3 +129,49 @@ p1 <- diamonds %>% ggplot(aes(x = cut, fill = clarity))+
 ggplotly(p1)
 ```
 
+```{r}
+range
+```
+
+
+```{r}
+axx <- list(nticks = 4,
+            range = c(-25,75))
+
+axy <- list(nticks = 4,
+            range = c(-25,75))
+
+axz <- list(nticks = 4,
+            range = c(0,50))
+
+x <- 70*(runif(70, 0, 1))
+y <- 55*(runif(70, 0, 1))
+z <- 40*(runif(70, 0, 1))
+
+fig <- plot_ly(x = ~x, 
+               y = ~y, 
+               z = ~z, 
+               type = 'mesh3d') 
+fig <- fig %>% 
+  layout(scene = list(xaxis=axx,yaxis=axy,zaxis=axz))
+
+fig
+
+```
+
+```{r}
+library(sf)
+cheonan <- readRDS("C:/cheonan_geo.rds")
+
+fig_2 <- plot_ly(cheonan)
+fig_2
+```
+
+
+
+
+
+
+
+
+

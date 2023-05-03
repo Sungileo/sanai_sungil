@@ -64,6 +64,30 @@ ggplot(mtcars, aes(x=wt, y=mpg)) +
 plot(model)
 ```
 
+```{r}
+model_2 <- lm(mpg~wt+disp,data = mtcars)
+
+summary(model_2)
+
+
+resid <- resid(model_2)
+
+hist(resid)
+
+qqnorm(resid)
+qqline(resid)
+
+
+plot(fitted(model_2),resid)
+
+
+
+plot(mtcars$wt,resid)
+
+```
+
+
+
 ## Prediction
 
 ```{r}

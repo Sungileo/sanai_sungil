@@ -9,11 +9,21 @@ editor_options:
   chunk_output_type: inline
 ---
 
+
+## 패키지 로드
+
 ```{r}
-library(tidyverse)
-library(corrplot)
 library(readxl)
+library(tidyverse)
+library(car)
+library(corrplot)
 ```
+
+## 데이터
+
+-   위도, 경도 데이터 제거
+
+-   컬럼명 영문 변환
 
 ```{r}
 data <- read_excel("C:/linear_model_dataset_R.xlsx")
@@ -21,29 +31,63 @@ data <- data %>% select(-c(Latitude,Longitude))
 names(data) <- c("year_built","floor","station_m","pop","dong_area","foreign_ratio","school_m","market_m","price_per_pyeong")
 ```
 
+|            한            |        영        |
+|:------------------------:|:----------------:|
+|         건축년도         |    year_built    |
+|            층            |      floor       |
+|    근처 역까지의 거리    |    station_m     |
+|      법정동 인구수       |       pop        |
+|        법정동크기        |    dong_area     |
+|       외국인 비율        |  foreign_ratio   |
+| 근처 초등학교까지의 거리 |     school_m     |
+|   근처 마트까지의 거리   |     market_m     |
+|        평당 금액         | price_per_pyeong |
+
 ```{r}
 data %>% head()
 ```
 
+## 상관행렬
+
 ```{r}
-data_cor <- cor(data %>% select(-c(price_per_pyeong)))
-corrplot(data_cor, method = "shade",addCoef.col="black")
+data_cor <- cor(data)
+data_cor
+
+corrplot(data_cor,
+         method = "shade",
+         addCoef.col="black",
+         tl.col = "black")
 ```
+
+## 선형회귀 모델
 
 ```{r}
 model <- lm(price_per_pyeong ~ year_built+floor+station_m+pop+dong_area+foreign_ratio+school_m + market_m, 
             data = data)
+
 summary(model)
 ```
-
+## 회귀진단
 ```{r}
 plot(model)
 ```
+
+## 변수선택
+
+### 후진제거법
 
 ```{r}
 model_2 <- step(model,direction = "backward")
 ```
 
+### 후진 제거법을 적용한 모델델
+
 ```{r}
 model_2 %>% summary
+```
+
+### 회귀진단
+
+```{r}
+plot(model_2)
 ```

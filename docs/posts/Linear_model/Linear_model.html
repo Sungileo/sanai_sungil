@@ -188,7 +188,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#패키지-로드" id="toc-패키지-로드" class="nav-link active" data-scroll-target="#패키지-로드">패키지 로드</a></li>
+  <li><a href="#데이터" id="toc-데이터" class="nav-link" data-scroll-target="#데이터">데이터</a></li>
+  <li><a href="#상관행렬" id="toc-상관행렬" class="nav-link" data-scroll-target="#상관행렬">상관행렬</a></li>
+  <li><a href="#선형회귀-모델" id="toc-선형회귀-모델" class="nav-link" data-scroll-target="#선형회귀-모델">선형회귀 모델</a></li>
+  <li><a href="#회귀진단" id="toc-회귀진단" class="nav-link" data-scroll-target="#회귀진단">회귀진단</a></li>
+  <li><a href="#변수선택" id="toc-변수선택" class="nav-link" data-scroll-target="#변수선택">변수선택</a>
+  <ul class="collapse">
+  <li><a href="#후진제거법" id="toc-후진제거법" class="nav-link" data-scroll-target="#후진제거법">후진제거법</a></li>
+  <li><a href="#후진-제거법을-적용한-모델델" id="toc-후진-제거법을-적용한-모델델" class="nav-link" data-scroll-target="#후진-제거법을-적용한-모델델">후진 제거법을 적용한 모델델</a></li>
+  <li><a href="#회귀진단-1" id="toc-회귀진단-1" class="nav-link" data-scroll-target="#회귀진단-1">회귀진단</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -230,8 +246,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="패키지-로드" class="level2">
+<h2 class="anchored" data-anchor-id="패키지-로드">패키지 로드</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.0     ✔ readr     2.1.4
@@ -244,19 +263,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>필요한 패키지를 로딩중입니다: carData
+
+다음의 패키지를 부착합니다: 'car'
+
+The following object is masked from 'package:dplyr':
+
+    recode
+
+The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>corrplot 0.92 loaded</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="데이터" class="level2">
+<h2 class="anchored" data-anchor-id="데이터">데이터</h2>
+<ul>
+<li><p>위도, 경도 데이터 제거</p></li>
+<li><p>컬럼명 영문 변환</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"C:/linear_model_dataset_R.xlsx"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Latitude,Longitude))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"year_built"</span>,<span class="st">"floor"</span>,<span class="st">"station_m"</span>,<span class="st">"pop"</span>,<span class="st">"dong_area"</span>,<span class="st">"foreign_ratio"</span>,<span class="st">"school_m"</span>,<span class="st">"market_m"</span>,<span class="st">"price_per_pyeong"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"C:/linear_model_dataset_R.xlsx"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Latitude,Longitude))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"year_built"</span>,<span class="st">"floor"</span>,<span class="st">"station_m"</span>,<span class="st">"pop"</span>,<span class="st">"dong_area"</span>,<span class="st">"foreign_ratio"</span>,<span class="st">"school_m"</span>,<span class="st">"market_m"</span>,<span class="st">"price_per_pyeong"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">한</th>
+<th style="text-align: center;">영</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">건축년도</td>
+<td style="text-align: center;">year_built</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">층</td>
+<td style="text-align: center;">floor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">근처 역까지의 거리</td>
+<td style="text-align: center;">station_m</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">법정동 인구수</td>
+<td style="text-align: center;">pop</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">법정동크기</td>
+<td style="text-align: center;">dong_area</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">외국인 비율</td>
+<td style="text-align: center;">foreign_ratio</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">근처 초등학교까지의 거리</td>
+<td style="text-align: center;">school_m</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">근처 마트까지의 거리</td>
+<td style="text-align: center;">market_m</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">평당 금액</td>
+<td style="text-align: center;">price_per_pyeong</td>
+</tr>
+</tbody>
+</table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 9
   year_built floor station_m   pop dong_area foreign_r…¹ schoo…² marke…³ price…⁴
@@ -271,17 +356,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   ⁴​price_per_pyeong</code></pre>
 </div>
 </div>
+</section>
+<section id="상관행렬" class="level2">
+<h2 class="anchored" data-anchor-id="상관행렬">상관행렬</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(price_per_pyeong)))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(data_cor, <span class="at">method =</span> <span class="st">"shade"</span>,<span class="at">addCoef.col=</span><span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(data)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data_cor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 year_built      floor  station_m        pop  dong_area
+year_built        1.0000000  0.4452263 -0.1517927  0.5040012 -0.3377168
+floor             0.4452263  1.0000000 -0.1499609  0.2791992 -0.2425241
+station_m        -0.1517927 -0.1499609  1.0000000 -0.2742544  0.6625711
+pop               0.5040012  0.2791992 -0.2742544  1.0000000 -0.4440357
+dong_area        -0.3377168 -0.2425241  0.6625711 -0.4440357  1.0000000
+foreign_ratio    -0.1367913 -0.1164478  0.2242779 -0.4610396  0.4211463
+school_m         -0.2039064 -0.1784708  0.4277893 -0.3383860  0.5042992
+market_m         -0.3682454 -0.2615120  0.7017695 -0.5304463  0.7791119
+price_per_pyeong  0.7890349  0.4754674 -0.2741590  0.6661318 -0.4809320
+                 foreign_ratio   school_m   market_m price_per_pyeong
+year_built          -0.1367913 -0.2039064 -0.3682454        0.7890349
+floor               -0.1164478 -0.1784708 -0.2615120        0.4754674
+station_m            0.2242779  0.4277893  0.7017695       -0.2741590
+pop                 -0.4610396 -0.3383860 -0.5304463        0.6661318
+dong_area            0.4211463  0.5042992  0.7791119       -0.4809320
+foreign_ratio        1.0000000  0.4879119  0.4624987       -0.2947559
+school_m             0.4879119  1.0000000  0.6046044       -0.3129903
+market_m             0.4624987  0.6046044  1.0000000       -0.4731039
+price_per_pyeong    -0.2947559 -0.3129903 -0.4731039        1.0000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(data_cor,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"shade"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col=</span><span class="st">"black"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Linear_model_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="선형회귀-모델" class="level2">
+<h2 class="anchored" data-anchor-id="선형회귀-모델">선형회귀 모델</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price_per_pyeong <span class="sc">~</span> year_built<span class="sc">+</span>floor<span class="sc">+</span>station_m<span class="sc">+</span>pop<span class="sc">+</span>dong_area<span class="sc">+</span>foreign_ratio<span class="sc">+</span>school_m <span class="sc">+</span> market_m, </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> data)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price_per_pyeong <span class="sc">~</span> year_built<span class="sc">+</span>floor<span class="sc">+</span>station_m<span class="sc">+</span>pop<span class="sc">+</span>dong_area<span class="sc">+</span>foreign_ratio<span class="sc">+</span>school_m <span class="sc">+</span> market_m, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> data)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -311,8 +429,11 @@ Multiple R-squared:  0.7504,    Adjusted R-squared:  0.7485
 F-statistic: 394.5 on 8 and 1050 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+</section>
+<section id="회귀진단" class="level2">
+<h2 class="anchored" data-anchor-id="회귀진단">회귀진단</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Linear_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -326,8 +447,13 @@ F-statistic: 394.5 on 8 and 1050 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><img src="Linear_model_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="변수선택" class="level2">
+<h2 class="anchored" data-anchor-id="변수선택">변수선택</h2>
+<section id="후진제거법" class="level3">
+<h3 class="anchored" data-anchor-id="후진제거법">후진제거법</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">step</span>(model,<span class="at">direction =</span> <span class="st">"backward"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">step</span>(model,<span class="at">direction =</span> <span class="st">"backward"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Start:  AIC=11987.65
 price_per_pyeong ~ year_built + floor + station_m + pop + dong_area + 
@@ -372,8 +498,11 @@ price_per_pyeong ~ year_built + floor + pop + dong_area + school_m +
 - year_built  1  64152329 150209891 12574</code></pre>
 </div>
 </div>
+</section>
+<section id="후진-제거법을-적용한-모델델" class="level3">
+<h3 class="anchored" data-anchor-id="후진-제거법을-적용한-모델델">후진 제거법을 적용한 모델델</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -401,8 +530,28 @@ Multiple R-squared:  0.7497,    Adjusted R-squared:  0.7483
 F-statistic: 525.1 on 6 and 1052 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+</section>
+<section id="회귀진단-1" class="level3">
+<h3 class="anchored" data-anchor-id="회귀진단-1">회귀진단</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Linear_model_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

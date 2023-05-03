@@ -6,7 +6,7 @@ date-modified: "2023/04/29"
 description: "Geocomputation"
 categories: R
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 ## Library packages
@@ -15,7 +15,8 @@ editor_options:
 library(sf)
 library(tidyverse)
 library(rgdal)
-library(sp)
+library(plotly)
+library(ggtext)
 ```
 
 ## Load data
@@ -47,7 +48,8 @@ data_sf %>% ggplot(aes(fill = COL_ADM_SE))+
 ## Filter Place of Interest
 
 ```{r}
-cheonan <- data_sf %>% filter(COL_ADM_SE=="44130")
+cheonan <- data_sf %>% 
+  filter(COL_ADM_SE=="44130")
 
 cheonan_seobuk <- cheonan %>%  
   filter(substr(EMD_CD,1,5)=="44133")
@@ -66,19 +68,51 @@ cheonan %>% ggplot(aes(fill=substr(EMD_CD,1,5)))+
 ```
 
 ```{r}
-cheonan_seobuk %>% ggplot(aes(fill=EMD_NM))+
+chsb <- cheonan_seobuk %>% ggplot(aes(fill=EMD_NM))+
   geom_sf()+
   geom_sf_text(mapping = aes(label = EMD_NM))+
   labs(title = "천안시 서북구 (읍면동)")+
   theme_minimal()+
   scale_fill_discrete(name = "읍면동")
+
+chsb %>% ggplotly()
 ```
 
 ```{r}
-cheonan_dongnam %>% ggplot(aes(fill=EMD_NM))+
+chdn <- cheonan_dongnam %>% ggplot(aes(fill=EMD_NM))+
   geom_sf()+
   geom_sf_text(mapping = aes(label = EMD_NM))+
   labs(title = "천안시 동남구 (읍면동)")+
   theme_minimal()+
   scale_fill_discrete(name = "읍면동")
+
+chdn %>% ggplotly()
 ```
+
+
+```{r}
+data <- read.csv("C:/trainsets_2/GEOCOMPS.csv")
+data_sf <- data %>% st_as_sf(coords = c("Longitude","Latitude"))
+st_crs(data_sf) <- 4737
+st_crs(data_sf)
+
+cheonan <- cheonan %>% 
+  filter(EMD_NM!="광덕면")
+
+gn <- ggplot()+
+  geom_sf(data = cheonan,fill=NA)+
+  geom_sf(data = data_sf,mapping = aes(color = 건축년도))+
+  scale_color_gradient(low = "blue", high = "red")+
+  theme_minimal()
+
+gn %>% ggplotly()
+```
+
+
+
+
+
+
+
+
+
