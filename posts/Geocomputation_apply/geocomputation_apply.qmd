@@ -9,6 +9,12 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+#| warning: false
+#| message: false
+```
+
+
 ## Library packages
 
 ```{r}
@@ -89,7 +95,6 @@ chdn <- cheonan_dongnam %>% ggplot(aes(fill=EMD_NM))+
 chdn %>% ggplotly()
 ```
 
-
 ```{r}
 data <- read.csv("C:/trainsets_2/GEOCOMPS.csv")
 data_sf <- data %>% st_as_sf(coords = c("Longitude","Latitude"))
@@ -107,12 +112,3 @@ gn <- ggplot()+
 
 gn %>% ggplotly()
 ```
-
-
-
-
-
-
-
-
-

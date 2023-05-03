@@ -7,7 +7,7 @@ description: "Data Visualization"
 image: "vis.png"
 categories: "R"
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r}
@@ -30,6 +30,7 @@ library(stringr)
 library(geojsonsf)
 library(sf)
 library(forcats)
+library(tidyr)
 ```
 
 ## mpg datasets
@@ -1192,4 +1193,131 @@ income_df %>% ggplot(aes(x=age,y=median_income))+
   theme(panel.grid.major.x = element_blank(),
         axis.ticks.x = element_blank())+
   facet_wrap(~race, scales ="free_x")
+```
+
+## Dot plot & Heatmap
+
+important limitation of bars is that they need to start at zero, so that the bar length is proportional to the amount shown.
+
+막대는 금액을 시각화하는 유일한 옵션이 아닙니다. 막대의 한 가지 중요한 제한 사항은 막대 길이가 표시된 양에 비례하도록 0에서 시작해야 한다는 것입니다. 일부 데이터 세트의 경우 이는 비실용적이거나 주요 기능을 모호하게 할 수 있습니다. 이 경우 x 축 또는 y 축을 따라 적절한 위치에 점을 배치하여 금액을 표시할 수 있습니다.
+
+### Dot plot(gapminder)
+
+```{r}
+library(gapminder)
+
+df_america <- gapminder %>% filter(year == 2007,continent == "Americas")
+
+df_america %>% ggplot(aes(x=lifeExp,y=reorder(country,lifeExp)))+
+  geom_point(color = "#0073b2",size = 3)+
+  scale_x_continuous(
+    name = "Life expectancy(years)",
+    limits = c(59,82),
+    expand = c(0,0))+
+  scale_y_discrete(name = NULL,expand = c(0,0.5))+
+  theme_minimal()+
+  theme(plot.margin = margin(18,6,3,1.5))
+```
+
+### Dot plot(SW기술자 평균연봉)
+
+```{r}
+data_sw_raw <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/SW%EA%B8%B0%EC%88%A0%EC%9E%90_%ED%8F%89%EA%B7%A0%EC%9E%84%EA%B8%88_20220412145301.csv")
+
+data_sw_21 <- data_sw_raw %>% 
+  select(직무별,X2021) %>% 
+  drop_na()
+
+data_sw_21 %>% ggplot(aes(x=X2021,y=reorder(직무별,X2021)))+
+  geom_point(color = "#0073b2",size = 3)+
+  scale_x_continuous(
+    name = "평균임금",
+    limits = c(14.6e4,65e4),
+    expand = c(0,0),
+    labels = format(seq(2,6,1)*1e5,big.mark = ",",scientific = FALSE))+
+  scale_y_discrete(name = NULL,expand = c(0,0.5))+
+  theme_minimal()+
+  theme(plot.margin = margin(18,6,3,1.5))
+```
+
+### Tile plot(internet prevalce)
+
+```{r}
+internet <- read.csv('https://raw.githubusercontent.com/Sungileo/trainsets_2/main/internet.csv')
+
+country_list <- c("United States","China","India","Japan","Algeria","Brazil","Germany","France","United Kingdom","Italy","New Zealand","Canada","Mexico","Chile","Argentina","Norway","South Africa","Kenya","Israel","Iceland")
+
+internet_short <- internet %>% 
+  filter(country %in% country_list) %>% 
+  mutate(users = ifelse(is.na(users),0,users))
+  
+internet_summary <- internet_short %>% 
+  filter(year == 2016) %>% 
+  arrange(users)
+
+internet_short <- internet_short %>% 
+  filter(year > 1993) %>% 
+  mutate(country = factor(country,levels = internet_summary$country))
+
+internet_short %>% ggplot(aes(x=year,y=country,fill=users))+
+  geom_tile(color = "white",linewidth = 0.25)+
+  scale_fill_viridis_c(
+    option = "A", begin = 0.05, end = 0.98,
+    limits = c(0,100), name = "Internet users / 100 people",
+    guide = guide_colorbar(
+      direction = "horizontal",
+      label.position = "bottom",
+      title.position = "top",
+      ticks = FALSE,
+      barwidth = grid::unit(3.5,"in"),
+      barheight = grid::unit(0.2,"in")))+
+  scale_x_continuous(expand = c(0,0),name = NULL)+
+  scale_y_discrete(name = NULL,position = "right")+
+  theme_minimal()+
+  theme(
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.position = "top",
+    legend.justification = "left",
+    legend.title.align = 0.5,
+    legend.title = element_text(size = 10))
+```
+
+### Tile plot(연령집단별 자살률)
+
+```{r}
+data_rate_raw <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%97%B0%EB%A0%B9%EC%A7%91%EB%8B%A8%EB%B3%84_%EC%9E%90%EC%82%B4%EB%A5%A0.csv")
+
+data_rate_melt <- data_rate_raw %>% 
+  reshape2::melt(id.vars = c("연령집단"),
+                 variable.name = "년도",
+                 value.name = "자살률") %>% 
+  mutate(년도 = gsub("\\D","",년도) %>% as.integer())
+
+data_rate_melt %>% ggplot(aes(x=년도,y=연령집단,fill=자살률))+
+  geom_tile(color = "white",linewidth = 0.25)+
+  scale_fill_viridis_c(
+    option = "A", begin = 0.05, end = 0.98,
+    limits = c(0,130), name = "연령집단(인구 십만 명당)",
+    guide = guide_colorbar(
+      direction = "horizontal",
+      label.position = "bottom",
+      title.position = "top",
+      ticks = FALSE,
+      barwidth = grid::unit(3.5,"in"),
+      barheight = grid::unit(0.2,"in")))+
+  scale_x_continuous(expand = c(0,0),name = NULL)+
+  scale_y_discrete(name = NULL,position = "right")+
+  theme_minimal()+
+  theme(
+    axis.line = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.position = "top",
+    legend.justification = "left",
+    legend.title.align = 0.5,
+    legend.title = element_text(size = 10))
 ```

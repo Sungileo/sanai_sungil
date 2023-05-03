@@ -271,6 +271,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#인구증감" id="toc-인구증감" class="nav-link" data-scroll-target="#인구증감">인구증감</a></li>
   <li><a href="#random-p-value" id="toc-random-p-value" class="nav-link" data-scroll-target="#random-p-value">Random p-value</a></li>
   <li><a href="#visualizing-amounts-수량-데이터의-시각화" id="toc-visualizing-amounts-수량-데이터의-시각화" class="nav-link" data-scroll-target="#visualizing-amounts-수량-데이터의-시각화">Visualizing amounts: 수량 데이터의 시각화</a></li>
+  <li><a href="#dot-plot-heatmap" id="toc-dot-plot-heatmap" class="nav-link" data-scroll-target="#dot-plot-heatmap">Dot plot &amp; Heatmap</a>
+  <ul class="collapse">
+  <li><a href="#dot-plotgapminder" id="toc-dot-plotgapminder" class="nav-link" data-scroll-target="#dot-plotgapminder">Dot plot(gapminder)</a></li>
+  <li><a href="#dot-plotsw기술자-평균연봉" id="toc-dot-plotsw기술자-평균연봉" class="nav-link" data-scroll-target="#dot-plotsw기술자-평균연봉">Dot plot(SW기술자 평균연봉)</a></li>
+  <li><a href="#tile-plotinternet-prevalce" id="toc-tile-plotinternet-prevalce" class="nav-link" data-scroll-target="#tile-plotinternet-prevalce">Tile plot(internet prevalce)</a></li>
+  <li><a href="#tile-plot연령집단별-자살률" id="toc-tile-plot연령집단별-자살률" class="nav-link" data-scroll-target="#tile-plot연령집단별-자살률">Tile plot(연령집단별 자살률)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -353,7 +360,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stderr">
 <pre><code>Linking to GEOS 3.9.3, GDAL 3.5.2, PROJ 8.2.1; sf_use_s2() is TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="mpg-datasets" class="level2">
@@ -1850,8 +1858,146 @@ using the `.groups` argument.</code></pre>
 <p><img src="vis_files/figure-html/unnamed-chunk-85-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="dot-plot-heatmap" class="level2">
+<h2 class="anchored" data-anchor-id="dot-plot-heatmap">Dot plot &amp; Heatmap</h2>
+<p>important limitation of bars is that they need to start at zero, so that the bar length is proportional to the amount shown.</p>
+<p>막대는 금액을 시각화하는 유일한 옵션이 아닙니다. 막대의 한 가지 중요한 제한 사항은 막대 길이가 표시된 양에 비례하도록 0에서 시작해야 한다는 것입니다. 일부 데이터 세트의 경우 이는 비실용적이거나 주요 기능을 모호하게 할 수 있습니다. 이 경우 x 축 또는 y 축을 따라 적절한 위치에 점을 배치하여 금액을 표시할 수 있습니다.</p>
+<section id="dot-plotgapminder" class="level3">
+<h3 class="anchored" data-anchor-id="dot-plotgapminder">Dot plot(gapminder)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a>df_america <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>,continent <span class="sc">==</span> <span class="st">"Americas"</span>)</span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a>df_america <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp,<span class="at">y=</span><span class="fu">reorder</span>(country,lifeExp)))<span class="sc">+</span></span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#0073b2"</span>,<span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb149-7"><a href="#cb149-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb149-8"><a href="#cb149-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Life expectancy(years)"</span>,</span>
+<span id="cb149-9"><a href="#cb149-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">59</span>,<span class="dv">82</span>),</span>
+<span id="cb149-10"><a href="#cb149-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb149-11"><a href="#cb149-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="cn">NULL</span>,<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb149-12"><a href="#cb149-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb149-13"><a href="#cb149-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">18</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-86-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="dot-plotsw기술자-평균연봉" class="level3">
+<h3 class="anchored" data-anchor-id="dot-plotsw기술자-평균연봉">Dot plot(SW기술자 평균연봉)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>data_sw_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets_2/main/SW%EA%B8%B0%EC%88%A0%EC%9E%90_%ED%8F%89%EA%B7%A0%EC%9E%84%EA%B8%88_20220412145301.csv"</span>)</span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a>data_sw_21 <span class="ot">&lt;-</span> data_sw_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(직무별,X2021) <span class="sc">%&gt;%</span> </span>
+<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb150-6"><a href="#cb150-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-7"><a href="#cb150-7" aria-hidden="true" tabindex="-1"></a>data_sw_21 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>X2021,<span class="at">y=</span><span class="fu">reorder</span>(직무별,X2021)))<span class="sc">+</span></span>
+<span id="cb150-8"><a href="#cb150-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#0073b2"</span>,<span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb150-9"><a href="#cb150-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb150-10"><a href="#cb150-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"평균임금"</span>,</span>
+<span id="cb150-11"><a href="#cb150-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">14.6e4</span>,<span class="fl">65e4</span>),</span>
+<span id="cb150-12"><a href="#cb150-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb150-13"><a href="#cb150-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">format</span>(<span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fl">1e5</span>,<span class="at">big.mark =</span> <span class="st">","</span>,<span class="at">scientific =</span> <span class="cn">FALSE</span>))<span class="sc">+</span></span>
+<span id="cb150-14"><a href="#cb150-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="cn">NULL</span>,<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb150-15"><a href="#cb150-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb150-16"><a href="#cb150-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">18</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-87-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="tile-plotinternet-prevalce" class="level3">
+<h3 class="anchored" data-anchor-id="tile-plotinternet-prevalce">Tile plot(internet prevalce)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>internet <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'https://raw.githubusercontent.com/Sungileo/trainsets_2/main/internet.csv'</span>)</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a>country_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"United States"</span>,<span class="st">"China"</span>,<span class="st">"India"</span>,<span class="st">"Japan"</span>,<span class="st">"Algeria"</span>,<span class="st">"Brazil"</span>,<span class="st">"Germany"</span>,<span class="st">"France"</span>,<span class="st">"United Kingdom"</span>,<span class="st">"Italy"</span>,<span class="st">"New Zealand"</span>,<span class="st">"Canada"</span>,<span class="st">"Mexico"</span>,<span class="st">"Chile"</span>,<span class="st">"Argentina"</span>,<span class="st">"Norway"</span>,<span class="st">"South Africa"</span>,<span class="st">"Kenya"</span>,<span class="st">"Israel"</span>,<span class="st">"Iceland"</span>)</span>
+<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-5"><a href="#cb151-5" aria-hidden="true" tabindex="-1"></a>internet_short <span class="ot">&lt;-</span> internet <span class="sc">%&gt;%</span> </span>
+<span id="cb151-6"><a href="#cb151-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> country_list) <span class="sc">%&gt;%</span> </span>
+<span id="cb151-7"><a href="#cb151-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">users =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(users),<span class="dv">0</span>,users))</span>
+<span id="cb151-8"><a href="#cb151-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb151-9"><a href="#cb151-9" aria-hidden="true" tabindex="-1"></a>internet_summary <span class="ot">&lt;-</span> internet_short <span class="sc">%&gt;%</span> </span>
+<span id="cb151-10"><a href="#cb151-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2016</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb151-11"><a href="#cb151-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(users)</span>
+<span id="cb151-12"><a href="#cb151-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-13"><a href="#cb151-13" aria-hidden="true" tabindex="-1"></a>internet_short <span class="ot">&lt;-</span> internet_short <span class="sc">%&gt;%</span> </span>
+<span id="cb151-14"><a href="#cb151-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1993</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb151-15"><a href="#cb151-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country,<span class="at">levels =</span> internet_summary<span class="sc">$</span>country))</span>
+<span id="cb151-16"><a href="#cb151-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-17"><a href="#cb151-17" aria-hidden="true" tabindex="-1"></a>internet_short <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year,<span class="at">y=</span>country,<span class="at">fill=</span>users))<span class="sc">+</span></span>
+<span id="cb151-18"><a href="#cb151-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>,<span class="at">linewidth =</span> <span class="fl">0.25</span>)<span class="sc">+</span></span>
+<span id="cb151-19"><a href="#cb151-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(</span>
+<span id="cb151-20"><a href="#cb151-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">option =</span> <span class="st">"A"</span>, <span class="at">begin =</span> <span class="fl">0.05</span>, <span class="at">end =</span> <span class="fl">0.98</span>,</span>
+<span id="cb151-21"><a href="#cb151-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="at">name =</span> <span class="st">"Internet users / 100 people"</span>,</span>
+<span id="cb151-22"><a href="#cb151-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(</span>
+<span id="cb151-23"><a href="#cb151-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb151-24"><a href="#cb151-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">label.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb151-25"><a href="#cb151-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">title.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb151-26"><a href="#cb151-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">ticks =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb151-27"><a href="#cb151-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">barwidth =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">3.5</span>,<span class="st">"in"</span>),</span>
+<span id="cb151-28"><a href="#cb151-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">barheight =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.2</span>,<span class="st">"in"</span>)))<span class="sc">+</span></span>
+<span id="cb151-29"><a href="#cb151-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">name =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb151-30"><a href="#cb151-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="cn">NULL</span>,<span class="at">position =</span> <span class="st">"right"</span>)<span class="sc">+</span></span>
+<span id="cb151-31"><a href="#cb151-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb151-32"><a href="#cb151-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb151-33"><a href="#cb151-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb151-34"><a href="#cb151-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb151-35"><a href="#cb151-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb151-36"><a href="#cb151-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb151-37"><a href="#cb151-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb151-38"><a href="#cb151-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.justification =</span> <span class="st">"left"</span>,</span>
+<span id="cb151-39"><a href="#cb151-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title.align =</span> <span class="fl">0.5</span>,</span>
+<span id="cb151-40"><a href="#cb151-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-88-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="tile-plot연령집단별-자살률" class="level3">
+<h3 class="anchored" data-anchor-id="tile-plot연령집단별-자살률">Tile plot(연령집단별 자살률)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>data_rate_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%97%B0%EB%A0%B9%EC%A7%91%EB%8B%A8%EB%B3%84_%EC%9E%90%EC%82%B4%EB%A5%A0.csv"</span>)</span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>data_rate_melt <span class="ot">&lt;-</span> data_rate_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb152-4"><a href="#cb152-4" aria-hidden="true" tabindex="-1"></a>  reshape2<span class="sc">::</span><span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"연령집단"</span>),</span>
+<span id="cb152-5"><a href="#cb152-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">variable.name =</span> <span class="st">"년도"</span>,</span>
+<span id="cb152-6"><a href="#cb152-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">value.name =</span> <span class="st">"자살률"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb152-7"><a href="#cb152-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(년도 <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">D"</span>,<span class="st">""</span>,년도) <span class="sc">%&gt;%</span> <span class="fu">as.integer</span>())</span>
+<span id="cb152-8"><a href="#cb152-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-9"><a href="#cb152-9" aria-hidden="true" tabindex="-1"></a>data_rate_melt <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>년도,<span class="at">y=</span>연령집단,<span class="at">fill=</span>자살률))<span class="sc">+</span></span>
+<span id="cb152-10"><a href="#cb152-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>,<span class="at">linewidth =</span> <span class="fl">0.25</span>)<span class="sc">+</span></span>
+<span id="cb152-11"><a href="#cb152-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(</span>
+<span id="cb152-12"><a href="#cb152-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">option =</span> <span class="st">"A"</span>, <span class="at">begin =</span> <span class="fl">0.05</span>, <span class="at">end =</span> <span class="fl">0.98</span>,</span>
+<span id="cb152-13"><a href="#cb152-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">130</span>), <span class="at">name =</span> <span class="st">"연령집단(인구 십만 명당)"</span>,</span>
+<span id="cb152-14"><a href="#cb152-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="fu">guide_colorbar</span>(</span>
+<span id="cb152-15"><a href="#cb152-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb152-16"><a href="#cb152-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">label.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb152-17"><a href="#cb152-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">title.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb152-18"><a href="#cb152-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">ticks =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb152-19"><a href="#cb152-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">barwidth =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">3.5</span>,<span class="st">"in"</span>),</span>
+<span id="cb152-20"><a href="#cb152-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">barheight =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.2</span>,<span class="st">"in"</span>)))<span class="sc">+</span></span>
+<span id="cb152-21"><a href="#cb152-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">name =</span> <span class="cn">NULL</span>)<span class="sc">+</span></span>
+<span id="cb152-22"><a href="#cb152-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="cn">NULL</span>,<span class="at">position =</span> <span class="st">"right"</span>)<span class="sc">+</span></span>
+<span id="cb152-23"><a href="#cb152-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb152-24"><a href="#cb152-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb152-25"><a href="#cb152-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb152-26"><a href="#cb152-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb152-27"><a href="#cb152-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb152-28"><a href="#cb152-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb152-29"><a href="#cb152-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb152-30"><a href="#cb152-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.justification =</span> <span class="st">"left"</span>,</span>
+<span id="cb152-31"><a href="#cb152-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title.align =</span> <span class="fl">0.5</span>,</span>
+<span id="cb152-32"><a href="#cb152-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-89-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

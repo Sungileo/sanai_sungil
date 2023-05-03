@@ -9,6 +9,10 @@ editor_options:
   chunk_output_type: inline
 ---
 
+```{r}
+#| warning: false
+#| message: false
+```
 
 ## 패키지 로드
 
@@ -67,7 +71,9 @@ model <- lm(price_per_pyeong ~ year_built+floor+station_m+pop+dong_area+foreign_
 
 summary(model)
 ```
+
 ## 회귀진단
+
 ```{r}
 plot(model)
 ```
