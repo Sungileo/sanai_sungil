@@ -1321,3 +1321,6 @@ data_rate_melt %>% ggplot(aes(x=년도,y=연령집단,fill=자살률))+
     legend.title.align = 0.5,
     legend.title = element_text(size = 10))
 ```
+
+
+

@@ -18,6 +18,8 @@ library(sf)
 library(raster)
 library(spData)
 library(spDataLarge)
+library(tmap)
+library(mapview)
 ```
 
 # 벡터 데이터
@@ -25,7 +27,7 @@ library(spDataLarge)
 R class의 벡터 데이터와 다른 의미의, 공간 위치데이터의 점,선,면을 나타내는 데이터
 
 ```{r}
-vignette(package = "sf") 
+#vignette(package = "sf") 
 ```
 
 ## World dataset from spData Package
@@ -586,4 +588,61 @@ st_touches(p, a, sparse = FALSE)[, 1]
 
 ```{r}
 st_is_within_distance(p, a, dist = 0.9,sparse = F)
+```
+
+## Spartial data operations
+
+OSM : OpenStreetMap
+
+cycle_hire과 cycle_hire_osm은 겹치는 포인트가 없음
+
+```{r}
+plot(st_geometry(cycle_hire), col = "blue")
+plot(st_geometry(cycle_hire_osm), add = TRUE, pch = 3, col = "red")
+
+any(st_touches(cycle_hire, cycle_hire_osm, sparse = FALSE))
+```
+
+```{r}
+tmap_mode("view")
+tm_basemap("Stamen.Terrain") +
+  tm_shape(cycle_hire) + 
+  tm_symbols(col = "red", shape = 16, size = 0.5, alpha = .5) + 
+  tm_shape(cycle_hire_osm) +
+  tm_symbols(col = "blue", shape = 16, size = 0.5, alpha = .5) + 
+  tm_tiles("Stamen.TonerLabels")
+tmap_mode("plot")
+```
+
+### `st_is_within_distance()`
+
+위경도가 아닌 투영좌표계로 변경
+
+```{r}
+cycle_hire_P <-  st_transform(cycle_hire, 27700)
+cycle_hire_osm_P <-  st_transform(cycle_hire_osm, 27700)
+sel <-  st_is_within_distance(cycle_hire_P, cycle_hire_osm_P, dist = 20)
+summary(lengths(sel) > 0)
+
+
+sum(lengths(sel) > 0)
+mean(lengths(sel) > 0)
+```
+
+```{r}
+z = st_join(cycle_hire_P, cycle_hire_osm_P,
+            join = st_is_within_distance, dist = 20)
+
+nrow(cycle_hire)
+nrow(z)
+
+z = z %>% 
+  group_by(id) %>% 
+  summarize(capacity = mean(capacity))
+
+nrow(z)
+
+
+plot(cycle_hire_osm["capacity"])
+plot(z["capacity"])
 ```
