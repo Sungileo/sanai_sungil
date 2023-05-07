@@ -8,6 +8,7 @@ website:
     background: '#7fcdff'
     left:
       - projects.qmd
+      - kaggle_geo.qmd
       - recordings.qmd
     
   

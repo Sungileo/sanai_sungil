@@ -25,6 +25,11 @@ library(corrplot)
 
 ## 데이터
 
+활용 데이터는 2022-12월부터, 2023-01 까지의 천안시 아파트 매매내역이다.
+
+아파트명, 전용면적, 거래금액, 건축년도, 층, 근처 역, 인구수, 크기, 외국인 비율, 초등학교 거리 로 구성되어 있다.
+
+## 전처리
 -   위도, 경도 데이터 제거
 
 -   컬럼명 영문 변환
@@ -65,13 +70,18 @@ corrplot(data_cor,
 
 ## 선형회귀 모델
 
+### 다중선형회귀 모델
+
 ```{r}
-model <- lm(price_per_pyeong ~ year_built+floor+station_m+pop+dong_area+foreign_ratio+school_m + market_m, 
-            data = data)
+model <- lm(price_per_pyeong ~ year_built+floor+station_m+pop+dong_area+foreign_ratio+school_m + market_m, data = data)
 
 summary(model)
 ```
 
+ - 역까지의 거리, 외국인 비율, 초등학교까지의 거리의 p-value가 0.05 보다 크므로 유의하지 않다고 볼 수 있다.
+
+ - R-squred 값이 0.7504로 독립변수들이 종속변수(평당 금액)을 75% 정도 설명할 수 있음을 의미함
+ 
 ## 회귀진단
 
 ```{r}
@@ -86,11 +96,14 @@ plot(model)
 model_2 <- step(model,direction = "backward")
 ```
 
-### 후진 제거법을 적용한 모델델
+### 후진 제거법을 적용한 모델
+
+AIC값으로 외국인 비율, 역까지의 거리 변수를 제거한 모델
 
 ```{r}
 model_2 %>% summary
 ```
+
 
 ### 회귀진단
 

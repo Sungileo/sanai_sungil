@@ -86,8 +86,6 @@ plot(mtcars$wt,resid)
 
 ```
 
-
-
 ## Prediction
 
 ```{r}

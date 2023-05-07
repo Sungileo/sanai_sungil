@@ -1,0 +1,321 @@
+---
+title: "ggplot, geospatial"
+author: "sungil_park"
+date: "2023/03/15"
+date-modified: "2023/03/20"
+description: "Data Visualization"
+image: "vis.png"
+categories: "R"
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r packages}
+rm(list = ls())
+library(ggplot2)
+library(dplyr)
+library(colorspace)
+library(stringr)
+library(geojsonsf)
+library(sf)
+```
+
+## Map Korea
+
+### library packages, load `.json`
+
+```{r}
+kor_sigu <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json")
+
+kor_202202 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202202_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9.csv")
+
+kor_202202 %>% head()
+kor_202202 %>% sapply(class)
+kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format()
+```
+
+### Merge data by 행정구역_코드
+
+```{r}
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
+use_map <- use_map %>% merge(kor_202202,by = "행정구역_코드", all.x=T)
+```
+
+### Plot
+
+```{r}
+use_map %>% ggplot(aes(fill=총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+
+### Plot Daejeon
+
+```{r}
+daejeon_map <-  use_map %>% filter(행정구역 %>% substr(1,5) == "대전광역시")
+
+daejeon_map %>% ggplot(aes(fill=총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.95,0.2)
+  )
+```
+
+### Plot Gender_ratio
+
+```{r}
+use_map %>% ggplot(aes(fill = 남여_비율))+
+  geom_sf()+
+  scale_fill_continuous_diverging(
+    name = "남자/여자",
+    palette = "BLue-Red",
+    mid=1,
+  limits = 1 + c(-1,+1)*0.35,
+  rev = T)+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+
+## 2023년 3월 시군구 인구수
+
+시군구 지도 데이터, 행정구역 코드 10자리로 만들기
+
+```{r}
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
+```
+
+### 데이터 로드
+
+2023년 3월 주민등록 인구통계 데이터, 행정안전부
+
+```{r}
+data_pop <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "utf-8")
+data_pop %>% head() 
+```
+
+### 전처리
+
+1.  인구수0명 출장소 제외
+
+2.  행정구역 코드 10자리 추출
+
+3.  인구수 숫자형으로 변환
+
+4.  시 단위 제외, 정렬
+
+```{r}
+data_202303 <- data_pop %>% 
+  filter(X2023년03월_총인구수>0) %>%  
+  select(행정구역,X2023년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2023년03월_총인구수 = gsub(",","",X2023년03월_총인구수) %>% as.numeric()) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2023년03월_총인구수))
+
+data_202303 %>% head()
+```
+
+### 지도 데이터와 병합
+
+```{r}
+use_map <- use_map %>% merge(data_202303,by = "행정구역_코드", all.x=T)
+```
+
+### Plot
+
+```{r}
+use_map %>% ggplot(aes(fill=X2023년03월_총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "2023년 3월 인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2))+
+  labs(title = "2023년 3월")
+```
+
+## 인구수 증가율
+
+```{r}
+file_2023 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "utf-8")
+
+file_2013 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/201303_201303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "UTF-8")
+```
+
+### 전처리
+
+1.  인구수 0명 이상 필터
+
+2.  행정구역(지역코드), 총인구수 열만 선택
+
+3.  행정구역(지역코드)에서 지역코드와 행정구역 분리
+
+4.  시 단위 제외, 인구수 기준 정렬
+
+```{r}
+data_2023 <- file_2023 %>%
+  filter(X2023년03월_총인구수>0) %>%  
+  select(행정구역,X2023년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2023년03월_총인구수 = gsub(",","",X2023년03월_총인구수) %>% as.numeric(),
+         행정구역 =  sapply(행정구역, function(x) strsplit(x, "(", fixed=T)[[1]][1]),
+         행정구역 = sapply(행정구역, function(x) gsub("( *)$", "", x) %>% paste())) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2023년03월_총인구수))
+
+data_2013 <- file_2013 %>% 
+  filter(X2013년03월_총인구수>0) %>%  
+  select(행정구역,X2013년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2013년03월_총인구수 = gsub(",","",X2013년03월_총인구수) %>% as.numeric(),
+         행정구역 =  sapply(행정구역, function(x) strsplit(x, "(", fixed=T)[[1]][1]),
+         행정구역 = sapply(행정구역, function(x) gsub("( *)$", "", x) %>% paste())) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2013년03월_총인구수))
+```
+
+### 병합
+
+1.  지역코드 기준 병합
+
+2.  인구성장률 열 추가
+
+3.  중복 열 제거, 인구성장률 기준 정렬
+
+4.  서울, 대전, 대구, 부산지역만 필터
+
+5.  시도 추출, factor 변환
+
+```{r}
+kor_census <- data_2013 %>% 
+  merge(data_2023,by = "행정구역_코드", all.x=T) %>%  
+  mutate(성장률 = (X2023년03월_총인구수 - X2013년03월_총인구수) / X2013년03월_총인구수) %>% 
+  select(행정구역.x,X2013년03월_총인구수,X2023년03월_총인구수, 성장률, 행정구역_코드) %>% 
+  filter(substr(행정구역.x,1,2) %in% c("서울","대전","대구","부산")) %>%
+  arrange(desc(성장률))
+
+names(kor_census) <- c("행정구역", "X2013인구수","X2023인구수","성장률","행정구역_코드")
+
+kor_census$시도 = sapply(kor_census$행정구역,
+                           function(x) strsplit(x, " ")[[1]][1])
+kor_census$시도 = factor(kor_census$시도,
+                           levels = c("서울특별시","대전광역시","대구광역시","부산광역시"))
+
+```
+
+### Plot
+
+```{r}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
+
+
+ggplot(kor_census,aes(x = reorder(행정구역,성장률),y= 성장률, fill = 시도))+
+  geom_col()+
+  scale_y_continuous(name = "인구성장률",
+                     expand = c(0,0),
+                     labels = scales::percent_format(scale = 100))+
+  scale_fill_manual(values = region_colors)+
+  coord_flip()+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.y = element_blank())+
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
+```
+
+### Map plot
+
+```{r}
+kor_map <- kor_sigu
+kor_map$행정구역_코드 <- paste(kor_map$SIG_CD,"00000",sep="")
+```
+
+```{r}
+kor_census_2 <- data_2013 %>% 
+  merge(data_2023,by = "행정구역_코드", all.x=T) %>%  
+  mutate(성장률 = (X2023년03월_총인구수 - X2013년03월_총인구수) / X2013년03월_총인구수) %>% 
+  select(행정구역.x,X2013년03월_총인구수,X2023년03월_총인구수, 성장률, 행정구역_코드) %>% 
+  arrange(desc(성장률))
+
+names(kor_census_2) <- c("행정구역", "X2013인구수","X2023인구수","성장률","행정구역_코드")
+
+
+kor_map <- kor_map %>% left_join(kor_census_2, by="행정구역_코드")
+```
+
+```{r}
+kor_map %>% ggplot(aes(fill=성장률))+
+  geom_sf()+
+  scale_fill_continuous_diverging(
+    name = "인구성장률",
+    palette = "BLue-Red",
+    limits = c(-0.4,2.4))+
+  theme_minimal()+
+  theme(legend.title.align = 0.5,
+        legend.text.align = 1.0,
+        legend.position = c(0.85,0.2))
+  
+```
+
+## 인구증감
+
+```{r}
+data <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor_census_2013_2023.csv",encoding = "utf-8")
+
+data <- data %>% mutate(인구증감 = 총인구수_2023-총인구수_2013)
+
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "") %>% as.numeric()
+use_map <- use_map %>% merge(data,by = "행정구역_코드")
+
+use_map %>% ggplot(aes(fill = 인구증감))+
+  geom_sf()+
+  coord_sf(datum = NA)+
+  scale_fill_continuous_diverging(
+    name = "인구증감",
+    palette = "BLue-Red",
+    na.value = "grey40",
+    mid=0,
+    rev = T,
+    limits = c(-4,4)*100000,
+    labels = format(seq(-4,4,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(legend.position = c(0.85,0.2))
+```

@@ -133,7 +133,6 @@ ggplotly(p1)
 range
 ```
 
-
 ```{r}
 axx <- list(nticks = 4,
             range = c(-25,75))
@@ -166,12 +165,3 @@ cheonan <- readRDS("C:/cheonan_geo.rds")
 fig_2 <- plot_ly(cheonan)
 fig_2
 ```
-
-
-
-
-
-
-
-
-

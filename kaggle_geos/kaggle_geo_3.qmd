@@ -1,0 +1,356 @@
+---
+title: "Interactive Maps"
+author: "Sungil Park"
+date: "2023/04/25"
+description: "Kaggle Geospatial Analysis (3/5)"
+categories: ['Python','Kaggle tutorial']
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+
+```
+
+
+## Intorduction
+
+이 튜토리얼에서는 `folium` 패키지로 interactive maps을 만드는 방법을 배웁니다. 그 과정에서 새로운 기술을 적용하여, 보스턴 범죄 데이터를 시각화하게 됩니다.
+
+```{python}
+import math
+import pandas as pd
+import geopandas as gpd
+import folium
+from folium import Choropleth, Circle, Marker
+from folium.plugins import HeatMap, MarkerCluster
+```
+
+```{python}
+# Create a map
+m_1 = folium.Map(location=[42.32,-71.0589], tiles='openstreetmap', zoom_start=10)
+
+# Display the map
+m_1
+```
+
+여러 인수를 사용하여 지도의 모양을 사용자 지정할 수 있습니다:
+
+-   `location`는 맵의 초기 중심을 설정합니다. 여기서는 보스턴시의 위도(42.32° N)와 경도(-71.0589° E)를 사용합니다.
+
+-   `tiles`은 지도의 스타일을 변경합니다. 이 경우 OpenStreetMap 스타일을 선택합니다.
+
+-   `zoom_start`는 지도의 초기 확대/축소 수준을 설정하며, 값이 클수록 지도가 더 가까이 확대됩니다.
+
+지금 바로 확대/축소하거나 지도를 다른 방향으로 드래그하여 탐색해 보세요.
+
+## the Data
+
+이제 지도에 범죄 데이터를 추가하겠습니다.
+
+```{python}
+crimes = pd.read_csv("C:/archive/crimes-in-boston/crimes-in-boston/crime.csv", encoding='latin-1')
+
+# Drop rows with missing locations
+crimes.dropna(subset=['Lat', 'Long', 'DISTRICT'], inplace=True)
+
+# Focus on major crimes in 2018
+crimes = crimes[crimes.OFFENSE_CODE_GROUP.isin([
+    'Larceny', 'Auto Theft', 'Robbery', 'Larceny From Motor Vehicle', 'Residential Burglary',
+    'Simple Assault', 'Harassment', 'Ballistics', 'Aggravated Assault', 'Other Burglary', 
+    'Arson', 'Commercial Burglary', 'HOME INVASION', 'Homicide', 'Criminal Harassment', 
+    'Manslaughter'])]
+crimes = crimes[crimes.YEAR>=2018]
+
+# Print the first five rows of the table
+crimes.head()
+```
+
+## Plotting points
+
+맵에 넣어야 하는 데이터의 양을 줄이기 위해 주간 강도 사건으로 관심을 한정하겠습니다.
+
+```{python}
+daytime_robberies = crimes[((crimes.OFFENSE_CODE_GROUP == 'Robbery') & (crimes.HOUR.isin(range(9,18))))]
+```
+
+## folium.Marker
+
+`folium.Marker()`로 지도에 마커를 추가합니다. 아래의 각 마커는 서로 다른 강도에 해당합니다.
+
+```{python}
+# Create a map
+m_2 = folium.Map(location=[42.32,-71.0589], tiles='cartodbpositron', zoom_start=13)
+
+# Add points to the map
+for idx, row in daytime_robberies.iterrows():
+  Marker([row['Lat'], row['Long']]).add_to(m_2)
+
+# Display the map
+m_2
+```
+
+## folium.plugins.MarkerCluster
+
+추가할 마커가 많은 경우 `folium.plugins.MarkerCluster()`를 사용하면 지도를 깔끔하게 정리하는 데 도움이 될 수 있습니다. 각 마커는 `MarkerCluster` 객체에 추가됩니다.
+
+```{python}
+# Create the map
+m_3 = folium.Map(location=[42.32,-71.0589], tiles='cartodbpositron', zoom_start=13)
+
+# Add points to the map
+mc = MarkerCluster()
+for idx, row in daytime_robberies.iterrows():
+    if not math.isnan(row['Long']) and not math.isnan(row['Lat']):
+        mc.add_child(Marker([row['Lat'], row['Long']]))
+m_3.add_child(mc)
+
+# Display the map
+m_3
+```
+
+## Bubble maps
+
+버블 맵은 마커 대신 원을 사용합니다. 각 원의 크기와 색상을 변경하여 위치와 다른 두 변수 사이의 관계를 표시할 수도 있습니다.
+
+`folium.Circle()`을 사용하여 원을 반복적으로 추가하여 버블 맵을 만듭니다.
+
+아래 코드 셀에서 9\~12시간에 발생한 강도는 녹색으로 표시되고, 13\~17시간에 발생한 강도는 빨간색으로 표시됩니다.
+
+```{python}
+# Create a base map
+m_4 = folium.Map(location=[42.32,-71.0589], tiles='cartodbpositron', zoom_start=13)
+
+def color_producer(val):
+    if val <= 12:
+        return 'forestgreen'
+    else:
+        return 'darkred'
+
+# Add a bubble map to the base map
+for i in range(0,len(daytime_robberies)):
+    Circle(
+        location=[daytime_robberies.iloc[i]['Lat'], daytime_robberies.iloc[i]['Long']],
+        radius=20,
+        color=color_producer(daytime_robberies.iloc[i]['HOUR'])).add_to(m_4)
+
+# Display the map
+m_4
+```
+
+`folium.Circle()`은 여러 인수를 받습니다:
+
+-   `location`는 원의 중심을 위도와 경도로 표시한 목록입니다.
+
+-   `radius`는 원의 반지름을 설정합니다.
+
+    -   기존 버블 맵에서는 각 원의 반지름이 달라질 수 있습니다. 각 원의 색상을 변경하는 데 사용되는 `color_producer()` 함수와 유사한 함수를 정의하여 이를 구현할 수 있습니다.
+
+-   `color`는 각 원의 색상을 설정합니다.
+
+-   `color_producer()` 함수는 강도의 위치에 대한 시간의 효과를 시각화하는 데 사용됩니다.
+
+## Heatmap
+
+히트맵을 만들려면 `folium.plugins.HeatMap()`을 사용합니다. 이것은 도시 내 여러 지역의 범죄 밀도를 보여주며, 빨간색 영역은 상대적으로 범죄 발생이 더 많습니다.
+
+대도시에서 예상할 수 있듯이 대부분의 범죄는 도심 근처에서 발생합니다.
+
+```{python}
+# Create a base map
+m_5 = folium.Map(location=[42.32,-71.0589], tiles='cartodbpositron', zoom_start=12)
+
+# Add a heatmap to the base map
+HeatMap(data=crimes[['Lat', 'Long']], radius=10).add_to(m_5)
+
+# Display the map
+m_5
+```
+
+-   `data`는 플롯하려는 위치가 포함된 데이터 프레임입니다.
+
+-   `radius`은 히트맵의 부드러움을 제어합니다. 값이 클수록 히트맵이 더 매끄럽게 보입니다(즉, 간격이 줄어듭니다).
+
+## Choropleth maps
+
+경찰 구역별로 범죄가 어떻게 다른지 이해하기 위해 Choropleth maps을 만들어 보겠습니다.
+
+첫 번째 단계로, 각 지역마다 다른 행이 할당되고 'geometry' 열에 지리적 경계가 포함된 지오데이터프레임(GeoDataFrame)을 만듭니다.
+
+```{python}
+# GeoDataFrame with geographical boundaries of Boston police districts
+districts_full = gpd.read_file("C:/archive/Police_Districts/Police_Districts/Police_Districts.shp")
+districts = districts_full[["DISTRICT", "geometry"]].set_index("DISTRICT")
+districts.head()
+```
+
+또한 각 지역의 범죄 발생 건수를 보여주는 plot_dict라는 판다 시리즈를 만듭니다.
+
+```{python}
+# Number of crimes in each police district
+plot_dict = crimes.DISTRICT.value_counts()
+plot_dict.head()
+```
+
+It's very important that `plot_dict` has the same index as districts - this is how the code knows how to match the geographical boundaries with appropriate colors.
+
+```{python}
+# Create a base map
+m_6 = folium.Map(location=[42.32,-71.0589], tiles='cartodbpositron', zoom_start=12)
+
+# Add a choropleth map to the base map
+Choropleth(geo_data=districts.__geo_interface__, 
+           data=plot_dict, 
+           key_on="feature.id", 
+           fill_color='YlGnBu', 
+           legend_name='Major criminal incidents (Jan-Aug 2018)'
+          ).add_to(m_6)
+
+# Display the map
+m_6
+```
+
+`folium.Choropleth()`는 여러 인수를 받습니다:
+
+-   `geo_data`는 각 지리적 영역의 경계를 포함하는 GeoJSON FeatureCollection입니다.
+
+    -   위의 코드에서는 `__geo_interface__` 속성을 사용하여 지역 GeoDataFrame을 GeoJSON FeatureCollection으로 변환합니다.
+
+-   `data`는 각 지리적 영역에 색을 입히는 데 사용할 값이 포함된 Pandas 시리즈입니다.
+
+-   `key_on`은 항상 `feature.id`로 설정됩니다.
+
+    -   이는 `geo_data`에 사용되는 GeoDataFrame과 데이터에 제공된 판다 시리즈의 인덱스가 동일하다는 사실을 나타냅니다. 자세한 내용을 이해하려면 GeoJSON Feature Collection의 구조를 좀 더 자세히 살펴봐야 합니다("features" 키에 해당하는 값은 목록이고 각 항목은 "id" 키를 포함하는 사전입니다).
+
+-   `fill_color`는 색상 배율을 설정합니다.
+
+-   `legend_name`은 맵의 오른쪽 상단 모서리에 있는 범례에 레이블을 지정합니다.
+
+## Your turn
+
+### Introduction
+
+일본의 도시 안전 계획가인 당신은 일본의 어느 지역에 추가적인 내진 보강이 필요한지 분석하고 있습니다. 인구 밀도가 높고 지진이 발생하기 쉬운 지역은 어디일까요?
+
+### Do earthquakes coincide with plate boundaries?
+
+```{python}
+plate_boundaries = gpd.read_file("C:/archive/Plate_Boundaries/Plate_Boundaries/Plate_Boundaries.shp")
+
+plate_boundaries['coordinates'] = plate_boundaries.apply(lambda x: [(b,a) for (a,b) in list(x.geometry.coords)], axis='columns')
+
+plate_boundaries.drop('geometry', axis=1, inplace=True)
+
+plate_boundaries.head()
+```
+
+```{python}
+# Load the data and print the first 5 rows
+earthquakes = pd.read_csv("C:/archive/earthquakes1970-2014.csv", parse_dates=["DateTime"])
+earthquakes.head()
+```
+
+```{python}
+m_1 = folium.Map(location=[35,136], tiles='cartodbpositron', zoom_start=5)
+for i in range(len(plate_boundaries)):
+    folium.PolyLine(locations=plate_boundaries.coordinates.iloc[i], weight=2, color='black').add_to(m_1)
+
+HeatMap(data=earthquakes[['Latitude', 'Longitude']], radius=15).add_to(m_1)
+
+m_1
+```
+
+### Is there a relationship between earthquake depth and proximity to a plate boundary in Japan?
+
+```{python}
+m_2 = folium.Map(location=[35,136], tiles='cartodbpositron', zoom_start=5)
+for i in range(len(plate_boundaries)):
+    folium.PolyLine(locations=plate_boundaries.coordinates.iloc[i], weight=2, color='black').add_to(m_2)
+    
+# Custom function to assign a color to each circle
+def color_producer(val):
+    if val < 50:
+        return 'forestgreen'
+    elif val < 100:
+        return 'darkorange'
+    else:
+        return 'darkred'
+
+# Add a map to visualize earthquake depth
+for i in range(0,len(earthquakes)):
+    folium.Circle(
+        location=[earthquakes.iloc[i]['Latitude'], earthquakes.iloc[i]['Longitude']],
+        radius=2000,
+        color=color_producer(earthquakes.iloc[i]['Depth'])).add_to(m_2)
+        
+m_2
+```
+
+### Which prefectures have high population density?
+
+```{python}
+# GeoDataFrame with prefecture boundaries
+prefectures = gpd.read_file("C:/archive/japan-prefecture-boundaries/japan-prefecture-boundaries/japan-prefecture-boundaries.shp")
+prefectures.set_index('prefecture', inplace=True)
+prefectures.head()
+```
+
+```{python}
+# DataFrame containing population of each prefecture
+population = pd.read_csv("C:/archive/japan-prefecture-population.csv")
+population.set_index('prefecture', inplace=True)
+
+# Calculate area (in square kilometers) of each prefecture
+area_sqkm = pd.Series(prefectures.geometry.to_crs(epsg=32654).area / 10**6, name='area_sqkm')
+stats = population.join(area_sqkm)
+
+# Add density (per square kilometer) of each prefecture
+stats['density'] = stats["population"] / stats["area_sqkm"]
+stats.head()
+```
+
+```{python}
+m_3 = folium.Map(location=[35,136], tiles='cartodbpositron', zoom_start=5)
+
+# Create a choropleth map to visualize population density
+Choropleth(geo_data=prefectures['geometry'].__geo_interface__,
+           data=stats['density'],
+           key_on="feature.id",
+           fill_color='YlGnBu',
+           legend_name='Population density (per square kilometer)'
+          ).add_to(m_3)
+          
+m_3          
+```
+
+### Which high-density prefecture is prone to high-magnitude earthquakes?
+
+```{python}
+# Create a base map
+m_4 = folium.Map(location=[35,136], tiles='cartodbpositron', zoom_start=5)
+
+# Create a map
+def color_producer(magnitude):
+    if magnitude > 6.5:
+        return 'red'
+    else:
+        return 'green'
+
+Choropleth(
+    geo_data=prefectures['geometry'].__geo_interface__,
+    data=stats['density'],
+    key_on="feature.id",
+    fill_color='BuPu',
+    legend_name='Population density (per square kilometer)').add_to(m_4)
+
+for i in range(0,len(earthquakes)):
+    folium.Circle(
+        location=[earthquakes.iloc[i]['Latitude'], earthquakes.iloc[i]['Longitude']],
+        popup=("{} ({})").format(
+            earthquakes.iloc[i]['Magnitude'],
+            earthquakes.iloc[i]['DateTime'].year),
+        radius=earthquakes.iloc[i]['Magnitude']**5.5,
+        color=color_producer(earthquakes.iloc[i]['Magnitude'])).add_to(m_4)
+        
+m_4
+```

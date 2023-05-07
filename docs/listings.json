@@ -1,8 +1,20 @@
 [
   {
+    "listing": "/kaggle_geo.html",
+    "items": [
+      "/kaggle_geos/geocomputation_apply.html",
+      "/kaggle_geos/kaggle_geo_1.html",
+      "/kaggle_geos/kaggle_geo_2.html",
+      "/kaggle_geos/kaggle_geo_3.html",
+      "/kaggle_geos/kaggle_geo_4.html",
+      "/kaggle_geos/kaggle_geo_5.html",
+      "/kaggle_geos/Geocomputation.html",
+      "/kaggle_geos/vis_geo.html"
+    ]
+  },
+  {
     "listing": "/projects.html",
     "items": [
-      "/posts/Geocomputation_apply/geocomputation_apply.html",
       "/posts/Linear_model/Linear_model.html",
       "/posts/Plotly/Plotly.html",
       "/posts/Statistic/Statistic.html",
@@ -11,7 +23,6 @@
       "/posts/week_1a_numpy/week_1a_numpy.html",
       "/posts/week_1b_pandas/week_1b_pandas.html",
       "/posts/python_playground/pyhton_playground.html",
-      "/posts/Geocomputation_with_R/Geocomputation.html",
       "/posts/penguin/penguin.html",
       "/posts/vis/vis.html",
       "/posts/pizza/pizza.html",

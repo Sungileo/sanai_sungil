@@ -150,6 +150,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../kaggle_geo.html">
+ <span class="menu-text">Geospatial Analysis</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../recordings.html">
  <span class="menu-text">Recordings</span></a>
   </li>  
@@ -194,13 +198,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#패키지-로드" id="toc-패키지-로드" class="nav-link active" data-scroll-target="#패키지-로드">패키지 로드</a></li>
   <li><a href="#데이터" id="toc-데이터" class="nav-link" data-scroll-target="#데이터">데이터</a></li>
+  <li><a href="#전처리" id="toc-전처리" class="nav-link" data-scroll-target="#전처리">전처리</a></li>
   <li><a href="#상관행렬" id="toc-상관행렬" class="nav-link" data-scroll-target="#상관행렬">상관행렬</a></li>
-  <li><a href="#선형회귀-모델" id="toc-선형회귀-모델" class="nav-link" data-scroll-target="#선형회귀-모델">선형회귀 모델</a></li>
+  <li><a href="#선형회귀-모델" id="toc-선형회귀-모델" class="nav-link" data-scroll-target="#선형회귀-모델">선형회귀 모델</a>
+  <ul class="collapse">
+  <li><a href="#다중선형회귀-모델" id="toc-다중선형회귀-모델" class="nav-link" data-scroll-target="#다중선형회귀-모델">다중선형회귀 모델</a></li>
+  </ul></li>
   <li><a href="#회귀진단" id="toc-회귀진단" class="nav-link" data-scroll-target="#회귀진단">회귀진단</a></li>
   <li><a href="#변수선택" id="toc-변수선택" class="nav-link" data-scroll-target="#변수선택">변수선택</a>
   <ul class="collapse">
   <li><a href="#후진제거법" id="toc-후진제거법" class="nav-link" data-scroll-target="#후진제거법">후진제거법</a></li>
-  <li><a href="#후진-제거법을-적용한-모델델" id="toc-후진-제거법을-적용한-모델델" class="nav-link" data-scroll-target="#후진-제거법을-적용한-모델델">후진 제거법을 적용한 모델델</a></li>
+  <li><a href="#후진-제거법을-적용한-모델" id="toc-후진-제거법을-적용한-모델" class="nav-link" data-scroll-target="#후진-제거법을-적용한-모델">후진 제거법을 적용한 모델</a></li>
   <li><a href="#회귀진단-1" id="toc-회귀진단-1" class="nav-link" data-scroll-target="#회귀진단-1">회귀진단</a></li>
   </ul></li>
   </ul>
@@ -288,6 +296,11 @@ The following object is masked from 'package:purrr':
 </section>
 <section id="데이터" class="level2">
 <h2 class="anchored" data-anchor-id="데이터">데이터</h2>
+<p>활용 데이터는 2022-12월부터, 2023-01 까지의 천안시 아파트 매매내역이다.</p>
+<p>아파트명, 전용면적, 거래금액, 건축년도, 층, 근처 역, 인구수, 크기, 외국인 비율, 초등학교 거리 로 구성되어 있다.</p>
+</section>
+<section id="전처리" class="level2">
+<h2 class="anchored" data-anchor-id="전처리">전처리</h2>
 <ul>
 <li><p>위도, 경도 데이터 제거</p></li>
 <li><p>컬럼명 영문 변환</p></li>
@@ -398,11 +411,12 @@ price_per_pyeong    -0.2947559 -0.3129903 -0.4731039        1.0000000</code></pr
 </section>
 <section id="선형회귀-모델" class="level2">
 <h2 class="anchored" data-anchor-id="선형회귀-모델">선형회귀 모델</h2>
+<section id="다중선형회귀-모델" class="level3">
+<h3 class="anchored" data-anchor-id="다중선형회귀-모델">다중선형회귀 모델</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price_per_pyeong <span class="sc">~</span> year_built<span class="sc">+</span>floor<span class="sc">+</span>station_m<span class="sc">+</span>pop<span class="sc">+</span>dong_area<span class="sc">+</span>foreign_ratio<span class="sc">+</span>school_m <span class="sc">+</span> market_m, </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> data)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price_per_pyeong <span class="sc">~</span> year_built<span class="sc">+</span>floor<span class="sc">+</span>station_m<span class="sc">+</span>pop<span class="sc">+</span>dong_area<span class="sc">+</span>foreign_ratio<span class="sc">+</span>school_m <span class="sc">+</span> market_m, <span class="at">data =</span> data)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -432,6 +446,11 @@ Multiple R-squared:  0.7504,    Adjusted R-squared:  0.7485
 F-statistic: 394.5 on 8 and 1050 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+<ul>
+<li><p>역까지의 거리, 외국인 비율, 초등학교까지의 거리의 p-value가 0.05 보다 크므로 유의하지 않다고 볼 수 있다.</p></li>
+<li><p>R-squred 값이 0.7504로 독립변수들이 종속변수(평당 금액)을 75% 정도 설명할 수 있음을 의미함</p></li>
+</ul>
+</section>
 </section>
 <section id="회귀진단" class="level2">
 <h2 class="anchored" data-anchor-id="회귀진단">회귀진단</h2>
@@ -502,8 +521,9 @@ price_per_pyeong ~ year_built + floor + pop + dong_area + school_m +
 </div>
 </div>
 </section>
-<section id="후진-제거법을-적용한-모델델" class="level3">
-<h3 class="anchored" data-anchor-id="후진-제거법을-적용한-모델델">후진 제거법을 적용한 모델델</h3>
+<section id="후진-제거법을-적용한-모델" class="level3">
+<h3 class="anchored" data-anchor-id="후진-제거법을-적용한-모델">후진 제거법을 적용한 모델</h3>
+<p>AIC값으로 외국인 비율, 역까지의 거리 변수를 제거한 모델</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_2 <span class="sc">%&gt;%</span> summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
