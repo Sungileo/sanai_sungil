@@ -157,11 +157,3 @@ fig <- fig %>%
 fig
 
 ```
-
-```{r}
-library(sf)
-cheonan <- readRDS("C:/cheonan_geo.rds")
-
-fig_2 <- plot_ly(cheonan)
-fig_2
-```

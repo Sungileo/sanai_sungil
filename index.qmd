@@ -8,7 +8,7 @@ title: "Sungil_Park"
 
 #### This is a quarto blog created with Rstudio.
 
-#### Created for publishing my project and records about me.
+#### Created for publishing my projects and records about me.
 
 #### Software Environments
 

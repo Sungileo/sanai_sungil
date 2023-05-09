@@ -7,6 +7,7 @@ description: "Geocomputation"
 categories: R
 editor_options: 
   chunk_output_type: inline
+image: '../img/shark_left.jpg'
 ---
 
 ```{r}
@@ -101,16 +102,20 @@ chdn %>% ggplotly()
 
 ```{r}
 data <- read.csv("C:/trainsets_2/GEOCOMPS.csv")
-data_sf <- data %>% st_as_sf(coords = c("Longitude","Latitude"))
+data_sf <- data %>% 
+  mutate(평단가 = (거래금액/전용면적) %>% as.integer()) %>% 
+  st_as_sf(coords = c("Longitude","Latitude"))
 st_crs(data_sf) <- 4737
 st_crs(data_sf)
 
 cheonan <- cheonan %>% 
   filter(EMD_NM!="광덕면")
 
+
+
 gn <- ggplot()+
   geom_sf(data = cheonan,fill=NA)+
-  geom_sf(data = data_sf,mapping = aes(color = 건축년도))+
+  geom_sf(data = data_sf,mapping = aes(color = 평단가))+
   scale_color_gradient(low = "blue", high = "red")+
   theme_minimal()
 
@@ -159,21 +164,3 @@ tm_shape(cheonan["EMD_NM"])+
   tm_shape(data_nm_sf["정보"])+
   tm_symbols(shape = 2, col = "red", size = 0.05)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

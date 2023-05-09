@@ -558,7 +558,7 @@ ggplot(data_202302,aes(x=index,y=popratio))+
                      breaks = NULL)
 ```
 
-## RColorBrewer
+\## RColorBrewer
 
 ```{r}
 library(colorspace)
@@ -768,7 +768,6 @@ ggplot(kor_202202_use_2,aes(x = reorder(행정구역,총인구수),y= 총인구�
         axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0")
         )
 ```
-
 
 ## Random p-value
 
@@ -1020,4 +1019,40 @@ data_rate_melt %>% ggplot(aes(x=년도,y=연령집단,fill=자살률))+
     legend.justification = "left",
     legend.title.align = 0.5,
     legend.title = element_text(size = 10))
+```
+
+## Histogram & Density plot
+
+```{r}
+titanic_all <- read.csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
+
+titanic_all <- titanic_all %>% 
+  mutate(sex = factor(Sex,levels = c("male","female"))) 
+
+titanic_all %>% 
+  filter(!is.na(Age)) %>% 
+  ggplot(aes(x=Age))+
+  geom_histogram(breaks = seq(0,75,5),
+                 color = "white",
+                 fill="#56b4e9")+
+  scale_y_continuous(expand = c(0,0),
+                     breaks = 25*(0:5))+
+  scale_x_continuous(expand = c(0,0),
+                     limits = c(0,75),
+                     name = "age (years)")+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.line.x = element_blank(),
+        plot.margin = margin(3,7,3,1.5))
+
+```
+
+```{r}
+titanic_all %>% ggplot(aes(x=Age))+
+  geom_density(fill = "#56b4e9",
+               color = "#01587a",
+               bw=2,
+               kernel = "gaussian")
 ```

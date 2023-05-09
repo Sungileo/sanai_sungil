@@ -21,15 +21,24 @@ library(readxl)
 library(tidyverse)
 library(car)
 library(corrplot)
+library(plotly)
+library(olsrr)
 ```
+
+# 천안시 아파트 매매가 분석
+
+## 목적
+
+-   아파트 매매, 가격결정에 관한 유용한 인사이트 획득
 
 ## 데이터
 
-활용 데이터는 2022-12월부터, 2023-01 까지의 천안시 아파트 매매내역이다.
+활용 데이터는 2022-12월부터, 2023-01 까지의 천안시 아파트 매매내역 1059건이다.
 
-아파트명, 전용면적, 거래금액, 건축년도, 층, 근처 역, 인구수, 크기, 외국인 비율, 초등학교 거리 로 구성되어 있다.
+아파트명, 전용면적, 거래금액, 건축년도, 층, 근처 역, 인구수, 크기, 외국인 비율, 초등학교 거리로 구성되어 있다.
 
 ## 전처리
+
 -   위도, 경도 데이터 제거
 
 -   컬럼명 영문 변환
@@ -56,7 +65,39 @@ names(data) <- c("year_built","floor","station_m","pop","dong_area","foreign_rat
 data %>% head()
 ```
 
-## 상관행렬
+## 이상치 확인
+
+### 박스플롯
+
+```{r}
+a <- plot_ly(y=data$year_built,type = "box",name = "건축년도")
+b <- plot_ly(y=data$floor,type = "box",name = "층")
+c <- plot_ly(y=data$station_m,type = "box",name = "전철역 거리")
+d <- plot_ly(y=data$pop,type = "box",name = "법정동 인구수")
+e <- plot_ly(y=data$dong_area,type = "box",name = "법정동 크기")
+f <- plot_ly(y=data$foreign_ratio,type = "box",name = "법정동 외국인 비율")
+g <- plot_ly(y=data$school_m,type = "box",name = "초등학교 거리")
+h <- plot_ly(y=data$market_m,type = "box",name = "대형마트 거리")
+i <- plot_ly(y=data$price_per_pyeong,type = "box",name = "평당 가격")
+
+subplot(a,b,c,d,e,f,g,h,i,nrows = 3)
+```
+
+위 박스플롯을 기준으로 upper fence 밖에 있는 관측치 256건 제거
+
+```{r}
+data <- data %>% 
+  filter(school_m < 1135) %>% 
+  filter(market_m < 3156) %>% 
+  filter(foreign_ratio < 0.11) %>% 
+  filter(floor < 29) %>% 
+  filter(station_m < 4366) %>% 
+  filter(dong_area < 33.02)
+
+data %>% nrow()
+```
+
+### 상관행렬
 
 ```{r}
 data_cor <- cor(data)
@@ -73,40 +114,66 @@ corrplot(data_cor,
 ### 다중선형회귀 모델
 
 ```{r}
-model <- lm(price_per_pyeong ~ year_built+floor+station_m+pop+dong_area+foreign_ratio+school_m + market_m, data = data)
+model <- lm(price_per_pyeong ~ ., data = data)
 
 summary(model)
 ```
 
- - 역까지의 거리, 외국인 비율, 초등학교까지의 거리의 p-value가 0.05 보다 크므로 유의하지 않다고 볼 수 있다.
+-   역까지의 거리, 초등학교까지의 거리의 p-value가 0.05 보다 크므로 유의하지 않다고 볼 수 있다.
 
- - R-squred 값이 0.7504로 독립변수들이 종속변수(평당 금액)을 75% 정도 설명할 수 있음을 의미함
- 
-## 회귀진단
+-   R-squred 값이 0.6743으로 독립변수들이 종속변수(평당 금액)을 67% 정도 설명할 수 있음을 의미함
+
+## VIF (분산팽창계수)
 
 ```{r}
-plot(model)
+model %>% vif()
 ```
+
+-   VIF값이 10 이상인 변수가 없는걸로 보아 다중공선성이 없는 것으로 판단됨
 
 ## 변수선택
 
-### 후진제거법
+### Stepwise selection (단계적 선택법)
 
 ```{r}
-model_2 <- step(model,direction = "backward")
+model_2 <- step(model,direction = "both")
 ```
 
-### 후진 제거법을 적용한 모델
-
-AIC값으로 외국인 비율, 역까지의 거리 변수를 제거한 모델
+AIC 값으로 `근처 역까지의 거리(station_m)` 변수가 제거되었다.
 
 ```{r}
-model_2 %>% summary
+model_2 %>% summary()
 ```
 
-
-### 회귀진단
+## 회귀진단
 
 ```{r}
 plot(model_2)
+ols_plot_cooksd_bar(model_2)
 ```
+
+### Outlier 관측치 38건을 제거한 모델
+
+```{r}
+cooked_dist <- cooks.distance(model_2)
+
+data_2 <- data %>% 
+  cbind(cooked_dist) %>% 
+  filter(cooked_dist<0.005)
+
+model_3 <- lm(price_per_pyeong ~ year_built+floor+pop+dong_area+foreign_ratio+school_m+market_m , data=data_2)
+
+model_3 <- step(model_3,direction = "both")
+
+model_3 %>% summary()
+```
+
+-   R-squared값이 향상됨을 볼 수 있다.
+
+## 결론
+
+ - 추가변수 수집
+
+ - 건축년도가 예상보다 영향이 많음
+ 
+ - 현재 실제가와 비교 필요
