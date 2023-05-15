@@ -793,11 +793,11 @@ plot(nz_rotate, add=T, col="red")
 
 ### Clipping
 
-- 공간 클리핑은 영향을 받는 일부 형상의 지오메트리 열의 변경을 수반하는 **공간 부분 집합의 한 형태**
+-   공간 클리핑은 영향을 받는 일부 형상의 지오메트리 열의 변경을 수반하는 **공간 부분 집합의 한 형태**
 
-- 클리핑은 선, 다각형 및 해당 '다중' 등점보다 복잡한 형상에만 적용
+-   클리핑은 선, 다각형 및 해당 '다중' 등점보다 복잡한 형상에만 적용
 
-- 두 개의 겹치는 원은 중심점이 서로 1 만큼 떨어져 있고 반지름은 1인 원
+-   두 개의 겹치는 원은 중심점이 서로 1 만큼 떨어져 있고 반지름은 1인 원
 
 ```{r}
 b  <-  st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
@@ -835,15 +835,15 @@ plot(x_sdif_y, col = "lightgrey", border = "grey", add = TRUE)
 
 ### Subsetting(부분집합) and clipping
 
- - 클리핑 오브젝트는 지오메트리를 변경할 수 있지만 오브젝트의 부분 집합을 지정할 수도 있으며 클리핑/하위 설정 오브젝트와 교차하는 피쳐만 반환할 수도 있음
+-   클리핑 오브젝트는 지오메트리를 변경할 수 있지만 오브젝트의 부분 집합을 지정할 수도 있으며 클리핑/하위 설정 오브젝트와 교차하는 피쳐만 반환할 수도 있음
 
- - 이 점을 설명하기 위해 아래 그림은 원 x와 y의 경계 상자를 덮는 점들을 부분집합
- 
- - **어떤 점은 원 하나 안에 있고, 어떤 점은 둘 다 안에 있고, 어떤 점은 둘 다 안에 있음**
- 
- - **st_sample() :**  x와 y의 범위 내에서 점들의 간단한 무작위 분포를 생성하기 위해 아래에 사용
- 
- - 그 결과 아래 그램에 표시된 출력이 나타나며, x와 y 둘 다와 교차하는 점만을 반환하기 위해 점들을 부분집합하는 방법은 무엇인가?
+-   이 점을 설명하기 위해 아래 그림은 원 x와 y의 경계 상자를 덮는 점들을 부분집합
+
+-   **어떤 점은 원 하나 안에 있고, 어떤 점은 둘 다 안에 있고, 어떤 점은 둘 다 안에 있음**
+
+-   **st_sample() :** x와 y의 범위 내에서 점들의 간단한 무작위 분포를 생성하기 위해 아래에 사용
+
+-   그 결과 아래 그램에 표시된 출력이 나타나며, x와 y 둘 다와 교차하는 점만을 반환하기 위해 점들을 부분집합하는 방법은 무엇인가?
 
 ```{r}
 bb = st_bbox(st_union(x, y))
@@ -873,6 +873,99 @@ sel_p_xy <-  st_intersects(p, x, sparse = FALSE)[, 1] &
 p_xy3 <-  p[sel_p_xy]
 plot(p_xy3,add=T,col="green")
 ```
+
+## Geometry unions
+
+### `aggregate()`
+
+```{r}
+regions  <-  aggregate(x = us_states[, "total_pop_15"], by = list(us_states$REGION),
+                    FUN = sum, na.rm = TRUE)
+plot(regions[2])
+
+us_states %>% View()
+```
+
+### `groupby()` & `summarize()`
+
+```{r}
+regions2  <-  us_states %>% 
+  group_by(REGION) %>%
+  summarize(pop = sum(total_pop_15, na.rm = TRUE))
+plot(regions2[2])
+```
+
+### `st_union()` 공간정보만 가져오기
+
+```{r}
+us_west  <-  us_states[us_states$REGION == "West", ]
+us_west_union  <-  st_union(us_west)
+plot(us_west_union)
+
+texas <-  us_states[us_states$NAME == "Texas", ]
+texas_union  <-  st_union(us_west_union, texas)
+plot(texas_union)
+```
+
+## Type transformation(유형변환)
+
+### `st_cast()` 로 구현
+
+```{r}
+multipoint <-  st_multipoint(matrix(c(1, 3, 5, 
+                                      1, 3, 1), ncol = 2))
+linestring <-  st_cast(multipoint, "LINESTRING")
+polyg <-  st_cast(multipoint, "POLYGON")
+
+plot(multipoint)
+plot(linestring)
+plot(polyg,col = "lightblue")
+
+st_length(linestring)    #길이계산
+st_area(polyg)           #면적계산
+```
+
+### `st_cast()` multilinestring to seperation of linstrings
+
+```{r}
+multilinestring_list <-  list(matrix(c(1, 4, 5, 3), ncol = 2), 
+                            matrix(c(4, 4, 4, 1), ncol = 2),
+                            matrix(c(2, 4, 2, 2), ncol = 2))
+multilinestring <- st_multilinestring((multilinestring_list))
+multilinestring_sf <-  st_sf(geom = st_sfc(multilinestring))
+multilinestring_sf
+plot(multilinestring_sf)
+
+linestring_sf2 = st_cast(multilinestring_sf, "LINESTRING")
+linestring_sf2
+
+linestring_sf2$name  <-  c("Riddle Rd", "Marshall Ave", "Foulke St")
+linestring_sf2$length <-  st_length(linestring_sf2)
+linestring_sf2
+plot(linestring_sf2[2])
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

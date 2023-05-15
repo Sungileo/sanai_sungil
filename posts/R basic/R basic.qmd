@@ -1,421 +1,206 @@
 ---
-title: "R basics"
+title: "Statistical Analysis"
 author: "Sungil Park"
 date: "2023/04/11"
-description: "R basics"
+date-modified: "2023/05/13"
+description: "Examples of performing Statistical analysis"
 categories: R
 image: "../../img/rkid.png"
 editor_options: 
   chunk_output_type: console
 ---
 
-R basics
-
-## 데이터 로드
-
 ```{r}
-employtable <- read.csv("https://gist.githubusercontent.com/kevin336/acbb2271e66c10a5b73aacf82ca82784/raw/e38afe62e088394d61ed30884dd50a6826eee0a8/employees.csv")
-
-head(employtable)
+library(tidyverse)
 ```
 
-## 차원 확인 `dim()`
 
-```{r}
-dim(employtable)
+# Statistical Analysis
+
+## Purpose and examples of performing statistical analysis
+
+```{mermaid}
+flowchart TD
+    A(데이터 수집 및 특성 파악) --> B(데이터 특성 상세화 <br> - 분석 방향 설정)
+    B --> |데이터 두개 이상| C( - 분할표 작성<br> - 데이터 사이 의존 관계 분석<br> :카이제곱, 피셔 검정<br> - 특정 분포를 따르는지 분석<br> :콜모고로프-스미노프, <br>샤피로 윌크 검정)
+    B -->|데이터가 한개| D(통계 분석 작업 수행)
+    C-->D
+    D --> E(차이검정<br> - T-test, ANOVA, 비율, 부호, 맥나마 검정)
+    D --> F(인과관계<br> - 상관계수 및 상관분석)
 ```
 
-## 행 개수 `nrow()`
+### 통계 분석을 수행하는 목적
+
+차이 검정은 어떤 그룹, 집단, 형태가 차이가 있는지를 알아보는 것입니다.
+
+-   샘플로 뽑은 데이터가 전체 모집단을 대표한다고 볼 수 있는지를 겁정합니다. 만약 대표한다면, 샘플에서 얻은 데이터로 모집단을 예측할 수 있습니다.
+
+-   약을 먹기 전과 후의 환자 상태를 조사한 후에, 이것이 차이가 있는지를 검정합니다. 이것을 통하여 약이 효과가 있는지 없는지를 알 수 있습니다.
+
+인과 관계는 어떤 그룹 사이 인과관계(상관관계)가 있는지를 알아보는 것입니다.
+
+-   상관관계가 있다면 한쪽에 변화에 대하여 다른쪽의 변화를 예측할 수 있습니다.
+
+### 통계에서 사용하는 데이터 유형
+
+범주형 데이터(Categorical Data) : 사전에 정해진 특정 유형으로 분류되는 데이터
+
+-   명목형 데이터
+    -   성별, 좌파/우파
+-   순서형 데이터 : 분류된 데이터 사이
+    -   대/중/소, A/B/C
+
+연속형 데이터
+
+-   등간 척도
+    -   온도, 시간 등
+-   비율 척도
+    -   키, 몸무게, 점수, 관찰 빈도 등
+
+## 표본 만들기 및 기초통계량
+
+### 난수생성 & 분포함수 그리기
+
+정규 분포를 따르는 난수를 생성하고 확률 밀도 함수를 그려 보겠습니다.
 
 ```{r}
-nrow(employtable)
+# 평균 0, 표준편차 10인 난수를 1000000개 생성
+
+rnorm(1000000,0,10) %>% 
+  density() %>% 
+  plot()
 ```
 
-## 열 개수 `ncol()`
+### 표본추출 방법
+
+단순 표본 추출
 
 ```{r}
-ncol(employtable)
+# 1 ~ 10 중에 2개 추출
+sample(1:10, 2, replace = TRUE)
 ```
 
-## 기초통계량
+층화 임의 추출
+
+-   iris 데이터 속 종별로 3개씩 추출
 
 ```{r}
-summary(employtable)
+library(sampling)
+
+# srswor : 복원 단순 임의 추출
+strata(c("Species"), size = c(3,3,3), method = "srswor", data=iris)
 ```
 
-## 원하는 컬럼(열) 뽑기 `$` 기호 사용
+### 기초통계량
 
 ```{r}
-employtable$EMAIL
+x <- c(1:5)
+# 평균
+mean(x)
+# 분산
+var(x)
+# 표준편차
+sd(x)
+# 기초통계량
+summary(iris)
 ```
 
-## 인덱싱 `df[행,열]`
-
-R에서 데이터의 일부분을 선택/선별하는 작업을 Indexing 한다고 합니다.
-
-R로 데이터 전처리, 분석을 하다보면 R Indexing을 부지기수로 사용하게 되니 R Indexing은 제대로 알고 넘어가야할 매우 중요한 부분입니다.
-
-특히, R에서는 벡터 Indexing 후 연산하는게 매우 큰 강점이고 유용한 기능이랍니다. \### 파이썬과 달리 1부터 시작 \### 행 인덱싱
+### 분할표
 
 ```{r}
-employtable[1,]
+x <- c('A','B','C','D','D','A','A','A','C','B','C') %>% factor()
+
+# 각 데이터별 빈도수수
+table(x)
 ```
+
+## 독립성 및 적합성 검정
+
+데이터에 대한 분할표가 구성되었다면, 이것을 대상으로 독립성 검정과 적합도 검정을 수행할 단계입니다.
+
+## 독립성검정
+
+### 카이제곱 검정(Chi-squared test)
+
+-   검정하려고 하는 가설은 "`child1`과 `child2`가 가지고 있는 장난감 비율 차이가 있는가?" 입니다. 즉, 분할표를 구성한 데이터 두개 사이 상호 연관이 있는지를 검정하는 것입니다.
 
 ```{r}
-employtable[1:5,]
+toy <- data.frame(child1 = c(5,11,1),
+                  child2 = c(4,7,3),
+                  row.names = c("car","truck","doll"))
+
+toy
+chisq.test(toy)
 ```
 
-### 열 인덱싱
+귀무가설 H0 : child1 = child2 (차이가 없다)
+
+대립가설 H1 : child1 =/= child2 (차이가 있다)
+
+-   p-value가 0.05보다 크기 때문에 귀무가설을 채택한다. 즉, "아이에 따라 장난감 비율 차이가 없다"고 볼 수 있다.
+
+### 피셔 검정(Fisher test)
+
+피셔 검정은 표본 수가 적거나 분할표가 치우치게 분포된 경우에 적용하는 검정입니다.
+
+앞에서 카이제곱 검정을 했지만 경고가 떴으므로 정확한 결과를 위하여 피셔 검정을 수행합니다.
 
 ```{r}
-employtable[,2]
+fisher.test(toy)
 ```
+
+-   p-value가 0.05보다 크기 때문에 귀무가설을 채택한다. 즉, "아이에 따라 장난감 비율 차이가 없다"고 볼 수 있다.
+
+ex) 냉장고 제품 A,B,C의 시장 점유율은 A가 55%, B가 15%, C가 30% 이다. 특정 지역 냉장고 제품 보유수를 조사하니, 각 320, 80, 265 였다. 이때, 특정 지역의 냉장고 보유 비율이 시장 점유율과 같다고 볼 수 있는가?
+
+H0 : 특정 지역 보유비율 = 시장점유율
+
+H1 : 특정 지역 보유비율 =/= 시장점유율
 
 ```{r}
-employtable[,1:5]
+fridge <- data.frame("특정지역보유수" = c(320,80,265), 
+                     "시장점유율_개수" = c(665*0.55, 665*0.15, 665*0.3),
+                     row.names = c("A","B","C"))
+fridge
+
+chisq.test(fridge)
 ```
 
-### 벡터 넣어도 됨
+-   p-value 가 0.05보다 작으므로 "특정 지역의 보유율과 시장점유율은 같지 않다"고 볼 수 있다.
+
+## 적합성검정
+
+Goodness od Fit test
+
+### 콜모고로프-스미노프 검정(kolmogorov-Smirnov test)
+
+콜모고로프-스미노프 검정은 두 데이터 분포가 같은지 검정하는 것입니다.
+
+즉, 주어진 두개의 데이터를 근거로 두 모집단의 분포가 같은지 검정합니다.
 
 ```{r}
-employtable[,c(2,3,5)]
+x <- rnorm(50) # 평균이 0, 표준편차가 1인 정규분포를 따르는 난수 50개
+y <- runif(30) # 0 ~ 1 사이의 난수 30개
+
+ks.test(x,y)
 ```
 
-### 행, 열 인덱싱
+H0 : x의 분포 = y의 분포 (분포가 같다)
+
+H1 : x의 분포 =/= y의 분포 (분포가 다르다)
+
+-   p-value가 0.05보다 작으므로 대립가설 채택, "분포가 다르다"고 볼 수 있다다.
+
+### 샤피로 윌크 검정(Shapiro-Wilk test)
+
+샤피로 윌크 검정(Shapiro-Wilk test)은 데이터가 정규분포를 따르는지를 검정하는 방법입니다.
+
+H0 : 정규 분포를 한다.
+
+H1 : 정규 분포를 하지 않는다.
 
 ```{r}
-employtable[1:5,c(2,3,5)]
+rnorm(100,mean=5,sd=3) %>% shapiro.test()
 ```
 
-## Employtable의 JOB_ID 종류 확인 `unique()`
-
-```{r}
-unique(employtable$JOB_ID)
-```
-
-## 기존 데이터로 새로운 열 만들기
-
-### 문자열
-
-first_name, last_name 를 합치기
-
-문자열을 합칠때는 `paste()` 사용
-
-```{r}
-employtable_2 = employtable
-
-employtable_2$FULL_NAME <- paste(employtable_2$FIRST_NAME,employtable_2$LAST_NAME)
-head(employtable_2)
-```
-
-### 숫자
-
-예시 데이터
-
-```{r}
-name <- c("david","johns","yoon","michael")
-math <- c(90,85,70,80)
-art <- c(60,70,80,90)
-
-ex <- data.frame(name,math,art)
-ex
-```
-
-```{r}
-ex$Total <- ex$math + ex$art
-ex
-```
-
-## 조건에 맞는 데이터 추출
-
-JOB_ID가 ST_CLERK인 행 추출
-
-1.  조건을 치면 불리언 타입으로 추출됨
-
-```{r}
-employtable$JOB_ID == "ST_CLERK"
-```
-
-2.  인덱싱
-
-```{r}
-employtable[employtable$JOB_ID == "ST_CLERK",]
-```
-
-SALARY가 5000 이상인 행 추출
-
-```{r}
-employtable[employtable$SALARY > 5000,]
-```
-
-## 조건에 맞는 데이터 추출(2)
-
-# dplyr 패키지 사용
-
-R의 기본적인 data.frame에서 자료를 조건에 따라 선택하고, 배열하고, 결합하고, 요약하는데 편리한 함수을 제공하는 패키지이다.
-
-### 설치, 적용
-
-```{r}
-#install.packages("dplyr")   설치는 한번만
-library(dplyr)
-```
-
-## 파이프 연산자
-
-파이프 연산자는 이름 그대로 어떤 값들이 파이프를 통과하는 것처럼 함수와 함수들을 타고다닐 수 있게 해줍니다.
-
-가독성이 좋음
-
-단축키 `ctrl + shift + M`
-
-```{r}
-#head(employtable) 과 동일
-employtable %>% head()
-```
-
-## 조건에 맞는 열 추출
-
-`filter()` 사용
-
-```{r}
-head(filter(employtable,JOB_ID == "ST_CLERK"))
-
-employtable %>% filter(JOB_ID == "ST_CLERK") %>% head()
-```
-
-```{r}
-filter(employtable,SALARY > 5000) %>% head()
-```
-
-## 정렬
-
-`arrange()` 사용
-
-SALARY 순으로 정렬
-
-```{r}
-head(arrange(employtable,SALARY))
-
-employtable %>% arrange(SALARY) %>% head()
-```
-
-역순으로 할때는 `desc()` 사용
-
-```{r}
-head(arrange(employtable,desc(SALARY)))
-
-employtable %>% arrange(desc(SALARY)) %>% head()
-```
-
-1.  인덱싱
-2.  조건에 맞는 데이터 추출
-3.  파이프 연산자에 익숙해지기
-
-# 사망사고 데이터
-
-다음은 2021년 일년동안 전국에서 사망사고가 발생한 교통사고 데이터입니다.
-
-## 가) 작업경로 확인 및 불러오기
-
-```{r}
-library(dplyr)
-acc_death = read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/acc_death.csv")
-acc_death %>% head()
-```
-
-## 나) 데이터 확인
-
-### a. 데이터의 상위6개, 하위 6개 관측치를 미리보기 하시오
-
-```{r}
-acc_death %>% head(6)
-acc_death %>% tail(6)
-```
-
-### b. 데이터 구조, 변수개수, 변수 명, 관측치 개수를 학인하시오
-
-```{r}
-acc_death %>% str()
-```
-
-### c. 데이터 객체의 차원(행, 열) 을 확인하시오
-
-```{r}
-acc_death %>% dim()
-```
-
-## 다) 데이터 전처리
-
-"발생년월일시" 열을 활용하여 년월일"yyyymmdd" (numeric) 와 시분"hhmm" (numeric) 을 나타내는 새로운 열을 추가하시오
-
-```{r}
-acc_death$yyyymmdd <- acc_death$발생년월일시 %>% 
-  as.POSIXct() %>% 
-  as.character("%Y%m%d") %>% 
-  as.numeric()
-
-
-acc_death$hhmm <- acc_death$발생년월일시 %>% 
-  as.POSIXct(format = "%Y-%m-%d %H:%M") %>% 
-  as.character("%H%M") %>% 
-  as.numeric()
-```
-
-```{r}
-acc_death %>% str()
-```
-
-## 라) 데이터 분석
-
-### a. 2021년에 "사망자수", "부상자수", "중상자수", "경상자수", "부상신고자수" 각 열의 총 합을 계산하시오
-
-```{r}
-lapply(acc_death[,5:9],sum)
-```
-
-### b. 사망사고가 가장 많이 발생한 날짜는 몇월 몇일인가
-
-```{r}
-acc_death %>% group_by(yyyymmdd) %>% 
-  summarize(death_count = n()) %>% 
-  arrange(desc(death_count))
-```
-
-### c. 사망사고는 주간, 야간 중 언제 많이 발생하였는가
-
-```{r}
-table(acc_death$주야)
-```
-
-### d. 대전 지역의 사망사고 건수는 몇건인가
-
-```{r}
-acc_death %>% 
-  filter(발생지시도=="대전") %>% 
-  count()
-```
-
-### e. 발생지시도 열을 기준으로 지역별 사망사고 건수를 계산하시오, 대전은 몇 위인가
-
-```{r}
-acc_death %>% 
-  group_by(발생지시도) %>% 
-  summarize(death_count = n()) %>% 
-  arrange(desc(death_count))
-```
-
-### f. 요일별로 사망사고 건수를 계산하시오
-
-```{r}
-acc_death$요일 %>% table()
-```
-
-### g. 월별 사망사고 건수를 계산하시오
-
-```{r}
-table(substr(acc_death$yyyymmdd,5,6))
-```
-
-### h. "사고유형"별 발생 비율을 계산하시오
-
-```{r}
-acc_death %>% group_by(사고유형) %>% 
-  summarize(건수 = n()) %>% 
-  mutate(비율 = 건수/sum(건수)*100)
-```
-
-### i. "도로형태"의 "교차로내" 에서 발생한 사고는 몇건인가
-
-```{r}
-acc_death %>% filter(도로형태=="교차로내") %>% count()
-```
-
-## 마) 1. 화물차
-
-화물차는 일반승용차에 비해서 사고 발생시 사망사고를 일으킬 위험성이 큽니 다. 정부는 화물차 사고의 심각성을 깨닫고 화물차로 인한 사망사고 줄이기 캠 페인을 펼칠 예정입니다. 이에 앞서, 화물차 사망사고의 심각성을 데이터에 기 반하여 살펴보고 대책을 마련하고자 합니다. 아래에 해당되는 답을 데이터를 활용하여 찾아보세요. \### a. 화물차가 일으킨(가해자_당사자종별) 사망사고는 몇% 인가
-
-```{r}
-count(filter(acc_death,가해자_당사자종별=="화물차"))/nrow(acc_death) * 100
-```
-
-### b. 화물차가 일으킨 사망사고 중, "가해자법규위반" 별로 사고 건수를 계산하시오
-
-```{r}
-acc_death %>% 
-  filter(가해자_당사자종별=="화물차") %>% 
-  group_by(가해자법규위반) %>% 
-  summarize(건수= n()) %>% 
-  arrange(desc(건수))
-```
-
-### c. 화물차가 일으킨 사고의 시간대별 사고건수를 계산하시오
-
-```{r}
-acc_death %>% 
-  filter(가해자_당사자종별=="화물차") %>% 
-  group_by(hhmm) %>% 
-  summarize(건수= n()) %>% 
-  arrange(desc(건수))
-```
-
-### d. 화물차(가해자)와 보행자(피해자)인 사망사고 건수는 몇건인가
-
-```{r}
-acc_death %>% 
-  filter(가해자_당사자종별=="화물차" & 피해자_당사자종별=="보행자") %>% 
-  count()
-```
-
-## 바) 2. 이륜차
-
-1인가구 증가와 배달문화의 확대로 이륜차 사고가 증가하고 있다. 정부에서는 이륜차 사고의 심각성을 파악하고자 한다. 아래의 물음에 답하세요. \### a. 이륜차와 연관된 사망사고는 몇건인가(가해자 or 피해자)
-
-```{r}
-acc_death %>% 
-  filter(가해자_당사자종별=="이륜차"|피해자_당사자종별=="이륜차") %>% 
-  count()
-```
-
-### b. 월별 이륜차 사고 건수를 계산한 뒤 그래프를 그리시오
-
-``` plot()``{base} ```
-
-```{r}
-acc_death %>% 
-  filter(가해자_당사자종별=="이륜차"|피해자_당사자종별=="이륜차") %>% 
-  group_by(substr(yyyymmdd,5,6)) %>% 
-  summarize(n=n()) %>% 
-  plot(main = "월별 이륜차 사고 건수",
-       xlab = "2021년 월",
-       ylab = "이륜차 사고 건수(월별)",
-       ylim = c(0,80),
-       type = "o",
-       col = "red")
-```
-
-`ggplot()`
-
-```{r}
-library(ggplot2)
-
-
-d <- acc_death %>% 
-  filter(가해자_당사자종별=="이륜차"|피해자_당사자종별=="이륜차") %>% 
-  group_by(substr(yyyymmdd,5,6)) %>% 
-  summarize(n=n())
- 
-colnames(d) <- c("month", "n")
-d$month <- d$month %>% as.numeric()
-
-d %>% ggplot(aes(month,n))+
-  geom_point()+
-  geom_line(color = "red")+
-  scale_x_continuous(breaks = seq(1,12,1),
-                     name = "2021년 월")+
-  scale_y_continuous(limits = c(10,80),
-                     breaks = seq(10,80,5),
-                     name = "이륜차 사고 건수(월별)")+
-  theme_light()+
-  theme(panel.grid = element_blank())
-```
+-   p-value가 0.05보다 크므로 H0채택, "정규 분포를 따른다"고 볼 수 있다.

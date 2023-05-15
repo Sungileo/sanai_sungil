@@ -1023,15 +1023,17 @@ data_rate_melt %>% ggplot(aes(x=년도,y=연령집단,fill=자살률))+
 
 ## Histogram & Density plot
 
+### Single Distribution
+
 ```{r}
-titanic_all <- read.csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
+titanic_all <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/titanic_all.csv")
 
 titanic_all <- titanic_all %>% 
-  mutate(sex = factor(Sex,levels = c("male","female"))) 
+  mutate(sex = factor(sex,levels = c("male","female"))) 
 
 titanic_all %>% 
-  filter(!is.na(Age)) %>% 
-  ggplot(aes(x=Age))+
+  filter(!is.na(age)) %>% 
+  ggplot(aes(x=age))+
   geom_histogram(breaks = seq(0,75,5),
                  color = "white",
                  fill="#56b4e9")+
@@ -1049,10 +1051,213 @@ titanic_all %>%
 
 ```
 
+
 ```{r}
-titanic_all %>% ggplot(aes(x=Age))+
+titanic_all %>% ggplot(aes(x=age))+
   geom_density(fill = "#56b4e9",
                color = "#01587a",
                bw=2,
                kernel = "gaussian")
 ```
+
+### Multiple Distributions
+
+```{r}
+titanic_all %>% ggplot(aes(x=age,
+                       y=after_stat(count),
+                       fill=sex))+
+  geom_density(bw=2,
+               kernel="gaussian",
+               alpha=0.5)+
+  scale_y_continuous(expand = c(0,0),
+                     name = "Scaled Density")+
+  scale_x_continuous(name = "Age (years)",
+                     limits = c(0,75),
+                     expand = c(0,0))+
+  scale_fill_manual(values = c("#0072b2","#d55e00"),
+                    name = "Gender")+
+  scale_color_manual(values = colorspace::darken(c("#0072b2","#d55e00"),0.5),
+                     name = "Gender")+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = c(0.8,0.8),
+        plot.margin = margin(3,7,3,1.5))
+```
+
+```{r}
+titanic_all %>% ggplot(aes(x=age,
+                       y=after_stat(count)))+
+  geom_density(data = select(titanic_all,-sex),
+               aes(fill="all passengers"),
+               color = "transparent")+
+  geom_density(aes(fill=sex),bw=2,color="transparent")+
+  facet_wrap(~sex)+
+  scale_y_continuous(expand = c(0,0),
+                     name = "Scaled Density")+
+  scale_x_continuous(name = "Age (years)",
+                     limits = c(0,75),
+                     expand = c(0,0))+
+  scale_fill_manual(
+    values = c("#b3b3b3a0","#d55e00","#0072b2"),
+    breaks = c("all passengers","male","female"),
+    labels = c("all passengers","males","females"),
+    name = NULL,
+    guide = guide_legend(direction = "horizontal"))+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        strip.background = element_rect(fill="white"),
+        strip.text.x = element_text(colour = "black"))
+```
+
+```{r}
+gender_counts <- data.frame(
+  age = (1:25)*3 - 1.5,
+  male = hist(filter(titanic_all,sex == "male")$age,
+              breaks = (0:25)*3+0.01,
+              plot = FALSE)$counts,
+  female = hist(filter(titanic_all,sex == "female")$age,
+              breaks = (0:25)*3+0.01,
+              plot = FALSE)$counts) %>% 
+  reshape2::melt("age", 
+                 variable.name = "gender",
+                 value.name = "count")
+
+gender_counts %>% ggplot(aes(x=age,
+                             y=ifelse(gender=="male",-1,1)*count,
+                             fill=gender))+
+  geom_col()+
+  scale_x_continuous(name = "Age (years)",
+                     limits = c(0,75),
+                     expand = c(0,0))+
+  scale_y_continuous(name = "Count",
+                     breaks = 20*(-2:1),
+                     labels = c('40','20','0','20'))+
+  scale_fill_manual(values = c("#d55e00","#0072b2"),
+                    guide = "none")+
+  coord_flip()+
+  cowplot::draw_text(x = 70, y = -39, "Male",hjust = 0)+
+  cowplot::draw_text(x = 70, y = 21, "Female",hjust = 0)+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x = element_text(hjust = 0.61))
+```
+
+```{r}
+iris %>% ggplot(aes(x=Sepal.Length, color = Species, fill=Species))+
+  geom_density(alpha = 0.3)+
+  xlab("Sepal Length (cm)")+
+  ylab("Density")+
+  ggtitle("Iris Density Plot")+
+  theme_minimal()+
+  theme(panel.border = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = c(.82,.78))
+```
+
+
+```{r}
+data_age_raw <- read.csv("C:/trainsets_2/행정안전부_지역별(법정동) 성별 연령별 주민등록 인구수_20230430.csv",fileEncoding = "CP949")
+
+data_age_raw$법정동코드 <- data_age_raw$법정동코드 %>% as.character()
+measure_col <- names(data_age_raw)[10:ncol(data_age_raw)]
+
+data_age_melt <- data_age_raw %>% 
+  select(-기준연월,-(시군구명:여자)) %>% 
+  filter(시도명=="대전광역시") %>% 
+  reshape2::melt(id.vars = c("법정동코드","시도명"),
+                 measure.vars = measure_col,
+                 variable.name = "나이_성별",
+                 value.name = "인구수") %>% 
+  mutate(나이_성별 = as.character(나이_성별))
+
+data_age_melt <- data_age_melt %>% 
+  mutate(age = gsub('\\D','',나이_성별) %>% as.integer(),
+         sex = substring(나이_성별,nchar(나이_성별)-1,nchar(나이_성별)))
+
+age_len <- 5
+data_age_cat <- data_age_melt %>% 
+  mutate(age_cat = cut(age+0.1,breaks = seq(0,120,age_len),
+                       labels = F)) %>% 
+  group_by(age_cat) %>% 
+  summarize(count = sum(인구수))
+
+data_age_cat$age_cat <- age_len*(data_age_cat$age_cat-1)+age_len/2 
+```
+
+```{r}
+data_age_cat %>% ggplot(aes(x=age_cat,y=count/1000))+
+  geom_col(fill="#56b4e9")+
+  scale_y_continuous(expand = c(0,0),name = "인구 (천)")+
+  scale_x_continuous(expand = c(0,0),name = "연령 (세)")+
+  theme_minimal()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.line.x = element_blank(),
+        plot.margin = margin(3,7,3,1.5))
+```
+
+```{r}
+data_age_cat %>% ggplot(aes(x=age_cat,weight = count))+
+  geom_density(fill="#56b4e9",bw=3)+
+  scale_y_continuous(expand = c(0,0),name = "인구 (밀도)")+
+  scale_x_continuous(expand = c(0,0),name = "연령 (세)")+
+  theme_minimal()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.line.x = element_blank(),
+        plot.margin = margin(3,7,3,1.5))
+```
+
+
+
+
+## Visualizing distributions
+
+Empirical cumulative distribution functions, and Q-Q plots
+
+```{r}
+set.seed(4211)
+points <- round(c(rnorm(47,mean=82,sd=10),45,51,67))
+points[points>100] <- 100
+student_data <- data.frame(points,rank=rank(points,ties.method = "random"))
+
+student_data %>% ggplot(aes(x=points,y=50*after_stat(y)))+
+  stat_ecdf(geom = "step",color="#0072b2")+
+  geom_point(aes(y=rank),color = "#0072b2")+
+  scale_x_continuous(limits = c(40,102),
+                     expand = c(0,0),
+                     breaks = 10*(4:10))+
+  scale_y_continuous(limits = c(-5,55),
+                     expand = c(0,0),
+                     name="Student Rank (ascending)")+
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 ---
-title: "R Statistics"
+title: "R Linear Regression"
 author: "Sungil Park"
 date: "2023/04/14"
 description: "R basics"

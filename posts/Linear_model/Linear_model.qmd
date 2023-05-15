@@ -17,6 +17,7 @@ editor_options:
 ## 패키지 로드
 
 ```{r}
+rm(list = ls())
 library(readxl)
 library(tidyverse)
 library(car)
@@ -83,18 +84,39 @@ i <- plot_ly(y=data$price_per_pyeong,type = "box",name = "평당 가격")
 subplot(a,b,c,d,e,f,g,h,i,nrows = 3)
 ```
 
-위 박스플롯을 기준으로 upper fence 밖에 있는 관측치 256건 제거
+**층**, **전철역 거리**, **법정동크기**, **초등학교 거리**, **대형마트의 거리** 변수의 이상치가 많고 뭉쳐있는걸 확인할 수있음
 
 ```{r}
-data <- data %>% 
-  filter(school_m < 1135) %>% 
-  filter(market_m < 3156) %>% 
-  filter(foreign_ratio < 0.11) %>% 
-  filter(floor < 29) %>% 
-  filter(station_m < 4366) %>% 
-  filter(dong_area < 33.02)
+a <- plot_ly(y=data$year_built,type = "box",name = "건축년도")
+b <- plot_ly(y=data$floor %>% log(),type = "box",name = "층")
+c <- plot_ly(y=data$station_m %>% log(),type = "box",name = "전철역 거리")
+d <- plot_ly(y=data$pop,type = "box",name = "법정동 인구수")
+e <- plot_ly(y=data$dong_area %>% log(),type = "box",name = "법정동 크기")
+f <- plot_ly(y=data$foreign_ratio,type = "box",name = "법정동 외국인 비율")
+g <- plot_ly(y=data$school_m %>% log(),type = "box",name = "초등학교 거리")
+h <- plot_ly(y=data$market_m %>% log(),type = "box",name = "대형마트 거리")
+i <- plot_ly(y=data$price_per_pyeong,type = "box",name = "평당 가격")
 
-data %>% nrow()
+subplot(a,b,c,d,e,f,g,h,i,nrows = 3)
+```
+이상치가 있는 독립변수들을 로그변환한 결과 이상치가 줄어듬
+
+Outlier 70건 제거
+
+```{r}
+data <- data %>% mutate(floor = floor %>% log(),
+                station_m = station_m %>% log(),
+                dong_area = dong_area %>% log(),
+                school_m = school_m %>% log(),
+                market_m = market_m %>% log())
+
+data <- data %>% 
+  filter(station_m>5.5&station_m<9.375) %>%
+  filter(floor>-0.139) %>% 
+  filter(foreign_ratio<0.1176) %>% 
+  filter(school_m<7.607) %>%
+  filter(market_m>4.66 & market_m<9.009)
+
 ```
 
 ### 상관행렬
@@ -119,9 +141,9 @@ model <- lm(price_per_pyeong ~ ., data = data)
 summary(model)
 ```
 
--   역까지의 거리, 초등학교까지의 거리의 p-value가 0.05 보다 크므로 유의하지 않다고 볼 수 있다.
+-   초등학교까지의 거리의 p-value가 0.05 보다 크므로 유의하지 않다고 볼 수 있다.
 
--   R-squred 값이 0.6743으로 독립변수들이 종속변수(평당 금액)을 67% 정도 설명할 수 있음을 의미함
+-   R-squred 값이 0.7565으로 독립변수들이 종속변수(평당 금액)을 76% 정도 설명할 수 있음을 의미함
 
 ## VIF (분산팽창계수)
 
@@ -139,7 +161,7 @@ model %>% vif()
 model_2 <- step(model,direction = "both")
 ```
 
-AIC 값으로 `근처 역까지의 거리(station_m)` 변수가 제거되었다.
+AIC 값으로 `초등학교까지의 거리(school_m)` 변수가 제거되었다.
 
 ```{r}
 model_2 %>% summary()
@@ -152,7 +174,7 @@ plot(model_2)
 ols_plot_cooksd_bar(model_2)
 ```
 
-### Outlier 관측치 38건을 제거한 모델
+### Outlier 관측치 37건을 제거한 모델
 
 ```{r}
 cooked_dist <- cooks.distance(model_2)
@@ -168,12 +190,12 @@ model_3 <- step(model_3,direction = "both")
 model_3 %>% summary()
 ```
 
--   R-squared값이 향상됨을 볼 수 있다.
+-   R-squared값이 0.7564 -> 0.7948로 향상됨을 볼 수 있다.
 
 ## 결론
 
- - 추가변수 수집
+-   추가변수 수집
 
- - 건축년도가 예상보다 영향이 많음
- 
- - 현재 실제가와 비교 필요
+-   건축년도가 예상보다 영향이 많음
+
+-   현재 실제가와 비교 필요
