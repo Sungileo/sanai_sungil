@@ -65,25 +65,23 @@ plot(model)
 ```
 
 ```{r}
-model_2 <- lm(mpg~wt+disp,data = mtcars)
+model_2 <- lm(mpg~wt,data = mtcars)
 
 summary(model_2)
 
 
 resid <- resid(model_2)
 
+library(MASS)
+stdres(model_2)
+
 hist(resid)
 
-qqnorm(resid)
-qqline(resid)
+plot(seq(1:length(fitted(model_2))),stdres(model_2))
 
+stdres(model_2) %>% shapiro.test()
 
-plot(fitted(model_2),resid)
-
-
-
-plot(mtcars$wt,resid)
-
+hist(stdres(model_2))
 ```
 
 ## Prediction

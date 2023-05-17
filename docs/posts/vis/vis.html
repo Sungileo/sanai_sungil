@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,49 +111,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">Sungil_Park</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../projects.html">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../kaggle_geo.html">
+    <a class="nav-link" href="../../kaggle_geo.html" rel="" target="">
  <span class="menu-text">Geospatial Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../recordings.html">
+    <a class="nav-link" href="../../recordings.html" rel="" target="">
  <span class="menu-text">Recordings</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Contact</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-contact">    
         <li>
-    <a class="dropdown-item" href="https://github.com/Sungileo"><i class="bi bi-github" role="img">
+    <a class="dropdown-item" href="https://github.com/Sungileo" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="dropdown-text">Github</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea"><i class="bi bi-linkedin" role="img">
+    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="dropdown-text">Linkedin</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil"><i class="bi bi-instagram" role="img">
+    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil" rel="" target=""><i class="bi bi-instagram" role="img">
 </i> 
  <span class="dropdown-text">Instagram</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -263,7 +236,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#single-distribution" id="toc-single-distribution" class="nav-link" data-scroll-target="#single-distribution">Single Distribution</a></li>
   <li><a href="#multiple-distributions" id="toc-multiple-distributions" class="nav-link" data-scroll-target="#multiple-distributions">Multiple Distributions</a></li>
   </ul></li>
-  <li><a href="#visualizing-distributions" id="toc-visualizing-distributions" class="nav-link" data-scroll-target="#visualizing-distributions">Visualizing distributions</a></li>
+  <li><a href="#visualizing-distributions" id="toc-visualizing-distributions" class="nav-link" data-scroll-target="#visualizing-distributions">Visualizing distributions</a>
+  <ul class="collapse">
+  <li><a href="#figure-9.3" id="toc-figure-9.3" class="nav-link" data-scroll-target="#figure-9.3">Figure 9.3</a></li>
+  <li><a href="#figure-9.9" id="toc-figure-9.9" class="nav-link" data-scroll-target="#figure-9.9">Figure 9.9</a></li>
+  <li><a href="#figure-9.11" id="toc-figure-9.11" class="nav-link" data-scroll-target="#figure-9.11">Figure 9.11</a></li>
+  <li><a href="#figure-9.12" id="toc-figure-9.12" class="nav-link" data-scroll-target="#figure-9.12">Figure 9.12</a></li>
+  </ul></li>
+  <li><a href="#국내-기온" id="toc-국내-기온" class="nav-link" data-scroll-target="#국내-기온">국내 기온</a></li>
   </ul>
 </nav>
     </div>
@@ -313,9 +293,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
-
-</div>
 <p>Train markdown, ggplot https://clauswilke.com/dataviz/</p>
 <section id="library-packages" class="level2">
 <h2 class="anchored" data-anchor-id="library-packages">library packages</h2>
@@ -1021,7 +998,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 2             고양시   462873 5.273464     2 고양시
 3             창원시   456357 5.199228     3 창원시
 4             용인시   432476 4.927154     4       
-5             성남시   409466 4.665003     5       
+5             성남시   409466 4.665003     5 성남시
 6             청주시   394735 4.497175     6       </code></pre>
 </div>
 </div>
@@ -1869,6 +1846,286 @@ using the `.groups` argument.</code></pre>
 <p><img src="vis_files/figure-html/unnamed-chunk-81-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<section id="figure-9.3" class="level3">
+<h3 class="anchored" data-anchor-id="figure-9.3">Figure 9.3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(lincoln_weather)</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>lincoln_weather <span class="sc">%&gt;%</span> <span class="fu">sapply</span> (class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         CST          Max Temperature [F] 
+                 "character"                    "integer" 
+        Mean Temperature [F]          Min Temperature [F] 
+                   "integer"                    "integer" 
+           Max Dew Point [F]           Mean Dew Point [F] 
+                   "integer"                    "integer" 
+            Min Dewpoint [F]                 Max Humidity 
+                   "integer"                    "integer" 
+               Mean Humidity                 Min Humidity 
+                   "integer"                    "integer" 
+ Max Sea Level Pressure [In] Mean Sea Level Pressure [In] 
+                   "numeric"                    "numeric" 
+ Min Sea Level Pressure [In]       Max Visibility [Miles] 
+                   "numeric"                    "integer" 
+     Mean Visibility [Miles]       Min Visibility [Miles] 
+                   "integer"                    "integer" 
+        Max Wind Speed [MPH]         Mean Wind Speed[MPH] 
+                   "integer"                    "integer" 
+        Max Gust Speed [MPH]           Precipitation [In] 
+                   "integer"                  "character" 
+                  CloudCover                       Events 
+                   "integer"                  "character" 
+           WindDir [Degrees]                        Month 
+                   "integer"                     "factor" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>lincoln_df <span class="ot">&lt;-</span> lincoln_weather <span class="sc">%&gt;%</span></span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month_short =</span> <span class="fu">fct_recode</span>(</span>
+<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>    Month,</span>
+<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Jan =</span> <span class="st">"January"</span>,</span>
+<span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Feb =</span> <span class="st">"February"</span>,</span>
+<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mar =</span> <span class="st">"March"</span>,</span>
+<span id="cb144-7"><a href="#cb144-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Apr =</span> <span class="st">"April"</span>,</span>
+<span id="cb144-8"><a href="#cb144-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">May =</span> <span class="st">"May"</span>,</span>
+<span id="cb144-9"><a href="#cb144-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Jun =</span> <span class="st">"June"</span>,</span>
+<span id="cb144-10"><a href="#cb144-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Jul =</span> <span class="st">"July"</span>,</span>
+<span id="cb144-11"><a href="#cb144-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Aug =</span> <span class="st">"August"</span>,</span>
+<span id="cb144-12"><a href="#cb144-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sep =</span> <span class="st">"September"</span>,</span>
+<span id="cb144-13"><a href="#cb144-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Oct =</span> <span class="st">"October"</span>,</span>
+<span id="cb144-14"><a href="#cb144-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nov =</span> <span class="st">"November"</span>,</span>
+<span id="cb144-15"><a href="#cb144-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Dec =</span> <span class="st">"December"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb144-16"><a href="#cb144-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span> (<span class="at">month_short =</span> <span class="fu">fct_rev</span> (month_short))</span>
+<span id="cb144-17"><a href="#cb144-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-18"><a href="#cb144-18" aria-hidden="true" tabindex="-1"></a>lincoln_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_short,<span class="at">y=</span><span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb144-19"><a href="#cb144-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>)<span class="sc">+</span></span>
+<span id="cb144-20"><a href="#cb144-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"month"</span>)<span class="sc">+</span></span>
+<span id="cb144-21"><a href="#cb144-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean Temperature [F]"</span>)<span class="sc">+</span></span>
+<span id="cb144-22"><a href="#cb144-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-82-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>lincoln_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_short,<span class="at">y=</span><span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>)<span class="sc">+</span></span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"month"</span>)<span class="sc">+</span></span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean Temperature [F]"</span>)<span class="sc">+</span></span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-83-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>lincoln_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_short,<span class="at">y=</span><span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">15</span>,<span class="at">height =</span> <span class="dv">0</span>,<span class="at">seed =</span> <span class="dv">320</span>),<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"month"</span>)<span class="sc">+</span></span>
+<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean Temperature [F]"</span>)<span class="sc">+</span></span>
+<span id="cb146-5"><a href="#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-83-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>lincoln_df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> month_short,<span class="at">y=</span><span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color =</span> <span class="st">"transparent"</span>,<span class="at">fill =</span> <span class="st">"grey90"</span>)<span class="sc">+</span></span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">15</span>,<span class="at">height =</span> <span class="dv">0</span>,<span class="at">seed =</span> <span class="dv">320</span>),<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"month"</span>)<span class="sc">+</span></span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean Temperature [F]"</span>)<span class="sc">+</span></span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-83-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="figure-9.9" class="level3">
+<h3 class="anchored" data-anchor-id="figure-9.9">Figure 9.9</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lincoln_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Month</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span> (</span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="dv">3</span>, </span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rel_min_height =</span> <span class="fl">0.01</span>,</span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bandwidth =</span> <span class="fl">3.4</span>, </span>
+<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">"skyblue"</span>, </span>
+<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span> (</span>
+<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"mean temperature (°F)"</span>,</span>
+<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">75</span>)) <span class="sc">+</span> </span>
+<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span> (<span class="at">name=</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (</span>
+<span id="cb148-14"><a href="#cb148-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb148-15"><a href="#cb148-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.margin =</span> <span class="fu">margin</span> (<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-84-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="figure-9.11" class="level3">
+<h3 class="anchored" data-anchor-id="figure-9.11">Figure 9.11</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>movie_length <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets_2/main/movie_lengths.csv"</span>)</span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="#cb149-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="#cb149-5" aria-hidden="true" tabindex="-1"></a>movie_length <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> length, <span class="at">y =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
+<span id="cb149-6"><a href="#cb149-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span> (<span class="at">scale =</span> <span class="dv">10</span>, <span class="at">size =</span> <span class="fl">0.25</span>, <span class="at">rel_min_height =</span> <span class="fl">0.03</span>, </span>
+<span id="cb149-7"><a href="#cb149-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill =</span> <span class="st">"grey85"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb149-8"><a href="#cb149-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span> (<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">name =</span> <span class="st">"length (minutes)"</span>) <span class="sc">+</span> </span>
+<span id="cb149-9"><a href="#cb149-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>(</span>
+<span id="cb149-10"><a href="#cb149-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">1980</span>, <span class="dv">1960</span>, <span class="dv">1940</span>, <span class="dv">1920</span>),</span>
+<span id="cb149-11"><a href="#cb149-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2005</span>, <span class="dv">1903</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb149-12"><a href="#cb149-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb149-13"><a href="#cb149-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (</span>
+<span id="cb149-14"><a href="#cb149-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb149-15"><a href="#cb149-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span> (<span class="dv">3</span>, <span class="dv">14</span>, <span class="dv">3</span>, <span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Picking joint bandwidth of 6.68</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-85-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="figure-9.12" class="level3">
+<h3 class="anchored" data-anchor-id="figure-9.12">Figure 9.12</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Figure 9.12 - data</span></span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>all_house_88_113 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets_2/main/all_house_88_113.csv"</span>)</span>
+<span id="cb151-3"><a href="#cb151-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-4"><a href="#cb151-4" aria-hidden="true" tabindex="-1"></a>all_house_88_113 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dim_1,</span>
+<span id="cb151-5"><a href="#cb151-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> year1,</span>
+<span id="cb151-6"><a href="#cb151-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">group =</span> <span class="fu">interaction</span>(party_code, <span class="fu">factor</span>(year1)), </span>
+<span id="cb151-7"><a href="#cb151-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">fill =</span> <span class="fu">interaction</span> (party_code, <span class="fu">factor</span> (year1))))<span class="sc">+</span></span>
+<span id="cb151-8"><a href="#cb151-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span> (<span class="at">scale =</span> <span class="dv">5</span>, <span class="at">size =</span> <span class="fl">0.25</span>, <span class="at">rel_min_height =</span> <span class="fl">0.01</span>, </span>
+<span id="cb151-9"><a href="#cb151-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha=</span><span class="fl">0.9</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb151-10"><a href="#cb151-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span> (<span class="at">name =</span> <span class="st">"DW-NOMINATE score"</span>, </span>
+<span id="cb151-11"><a href="#cb151-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">8</span>, <span class="fl">1.3</span>),</span>
+<span id="cb151-12"><a href="#cb151-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.25</span>)) <span class="sc">+</span></span>
+<span id="cb151-13"><a href="#cb151-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>(<span class="at">name =</span> <span class="st">"year"</span>,</span>
+<span id="cb151-14"><a href="#cb151-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb151-15"><a href="#cb151-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">2013</span>, <span class="dv">1963</span>, <span class="sc">-</span><span class="dv">10</span>))) <span class="sc">+</span> </span>
+<span id="cb151-16"><a href="#cb151-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_cyclical</span>(</span>
+<span id="cb151-17"><a href="#cb151-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">"100.1963"</span>, <span class="st">"200.1963"</span>),</span>
+<span id="cb151-18"><a href="#cb151-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">100.1963</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Democrats"</span>, <span class="st">`</span><span class="at">200.1963</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Republicans"</span>), </span>
+<span id="cb151-19"><a href="#cb151-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#4040ff"</span>, <span class="st">"#ff4040"</span>, <span class="st">"#6060ff"</span>, <span class="st">"#ff6060"</span>),</span>
+<span id="cb151-20"><a href="#cb151-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb151-21"><a href="#cb151-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="st">"legend"</span>) <span class="sc">+</span> </span>
+<span id="cb151-22"><a href="#cb151-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb151-23"><a href="#cb151-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">panel.border =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb151-24"><a href="#cb151-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb151-25"><a href="#cb151-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb151-26"><a href="#cb151-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb151-27"><a href="#cb151-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb151-28"><a href="#cb151-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.background =</span> <span class="fu">element_rect</span> (<span class="at">fill =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Picking joint bandwidth of 0.0465</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_density_ridges()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-86-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="국내-기온" class="level2">
+<h2 class="anchored" data-anchor-id="국내-기온">국내 기온</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/Sungileo/trainsets_2/main/OBS_ASOS_DD_20230322080932.csv"</span>)</span>
+<span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="#cb154-3" aria-hidden="true" tabindex="-1"></a>air<span class="sc">$</span>일시 <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(air<span class="sc">$</span>일시)</span>
+<span id="cb154-4"><a href="#cb154-4" aria-hidden="true" tabindex="-1"></a>air<span class="sc">$</span>월 <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">month</span>(air<span class="sc">$</span>일시,<span class="at">label =</span> T)</span>
+<span id="cb154-5"><a href="#cb154-5" aria-hidden="true" tabindex="-1"></a>air <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  지점 지점명       일시 평균기온..C. 최저기온..C. 최고기온..C. 월
+1  108   서울 2022-01-01         -4.3        -10.2          2.3  1
+2  108   서울 2022-01-02         -1.3         -5.2          3.0  1
+3  108   서울 2022-01-03         -1.9         -8.0          2.5  1
+4  108   서울 2022-01-04         -2.5         -5.6          1.0  1
+5  108   서울 2022-01-05         -2.8         -7.8          1.9  1
+6  108   서울 2022-01-06         -2.2         -5.9          3.3  1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>air_dj <span class="ot">&lt;-</span> air <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지점명<span class="sc">==</span><span class="st">"대전"</span>)</span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-3"><a href="#cb156-3" aria-hidden="true" tabindex="-1"></a>air_dj <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> 월,<span class="at">y=</span><span class="st">`</span><span class="at">평균기온..C.</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb156-4"><a href="#cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>)<span class="sc">+</span></span>
+<span id="cb156-5"><a href="#cb156-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"월"</span>)<span class="sc">+</span></span>
+<span id="cb156-6"><a href="#cb156-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"평균기온"</span>)<span class="sc">+</span></span>
+<span id="cb156-7"><a href="#cb156-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-87-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>air_dj <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> 월,<span class="at">y=</span><span class="st">`</span><span class="at">평균기온..C.</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>)<span class="sc">+</span></span>
+<span id="cb157-3"><a href="#cb157-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"월"</span>)<span class="sc">+</span></span>
+<span id="cb157-4"><a href="#cb157-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"평균기온"</span>)<span class="sc">+</span></span>
+<span id="cb157-5"><a href="#cb157-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-87-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>air_dj <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> 월,<span class="at">y=</span><span class="st">`</span><span class="at">평균기온..C.</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">15</span>,<span class="at">height =</span> <span class="dv">0</span>,<span class="at">seed =</span> <span class="dv">320</span>),<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"월"</span>)<span class="sc">+</span></span>
+<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"평균기온"</span>)<span class="sc">+</span></span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-87-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>air_dj <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> 월,<span class="at">y=</span><span class="st">`</span><span class="at">평균기온..C.</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">color=</span><span class="st">"transparent"</span>,<span class="at">fill =</span> <span class="st">"grey90"</span>)<span class="sc">+</span></span>
+<span id="cb159-3"><a href="#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> .<span class="dv">15</span>,<span class="at">height =</span> <span class="dv">0</span>,<span class="at">seed =</span> <span class="dv">320</span>),<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb159-4"><a href="#cb159-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"월"</span>)<span class="sc">+</span></span>
+<span id="cb159-5"><a href="#cb159-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"평균기온"</span>)<span class="sc">+</span></span>
+<span id="cb159-6"><a href="#cb159-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-87-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>air_dj <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">평균기온..C.</span><span class="st">`</span>, <span class="at">y =</span> 월 <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>())) <span class="sc">+</span> </span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span> (</span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="dv">3</span>, </span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rel_min_height =</span> <span class="fl">0.01</span>,</span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bandwidth =</span> <span class="fl">3.4</span>, </span>
+<span id="cb160-6"><a href="#cb160-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">"skyblue"</span>, </span>
+<span id="cb160-7"><a href="#cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb160-8"><a href="#cb160-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span> (</span>
+<span id="cb160-9"><a href="#cb160-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"평균기온"</span>,</span>
+<span id="cb160-10"><a href="#cb160-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">75</span>)) <span class="sc">+</span> </span>
+<span id="cb160-11"><a href="#cb160-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="st">"월"</span>)<span class="sc">+</span></span>
+<span id="cb160-12"><a href="#cb160-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb160-13"><a href="#cb160-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (</span>
+<span id="cb160-14"><a href="#cb160-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb160-15"><a href="#cb160-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.margin =</span> <span class="fu">margin</span> (<span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-87-5.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>air_dj_jj <span class="ot">&lt;-</span> air <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지점명 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"대전"</span>,<span class="st">"제주"</span>))</span>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a>air_dj_jj <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">평균기온..C.</span><span class="st">`</span>,</span>
+<span id="cb161-4"><a href="#cb161-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y =</span> 월 <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>(),</span>
+<span id="cb161-5"><a href="#cb161-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">group =</span> <span class="fu">interaction</span>(지점명, <span class="fu">factor</span>(월)), </span>
+<span id="cb161-6"><a href="#cb161-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">fill =</span> <span class="fu">interaction</span> (지점명, <span class="fu">factor</span>(월))))<span class="sc">+</span></span>
+<span id="cb161-7"><a href="#cb161-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span> (<span class="at">rel_min_height =</span> <span class="fl">0.01</span>, </span>
+<span id="cb161-8"><a href="#cb161-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">alpha=</span><span class="fl">0.9</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb161-9"><a href="#cb161-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span> (<span class="at">name =</span> <span class="st">"평균기온"</span>) <span class="sc">+</span></span>
+<span id="cb161-10"><a href="#cb161-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="st">"월"</span>) <span class="sc">+</span> </span>
+<span id="cb161-11"><a href="#cb161-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_cyclical</span>(</span>
+<span id="cb161-12"><a href="#cb161-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">"대전.1"</span>, <span class="st">"제주.1"</span>),</span>
+<span id="cb161-13"><a href="#cb161-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">대전.1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"대전"</span>, <span class="st">`</span><span class="at">제주.1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"제주"</span>), </span>
+<span id="cb161-14"><a href="#cb161-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#4040ff"</span>, <span class="st">"#ff4040"</span>, <span class="st">"#6060ff"</span>, <span class="st">"#ff6060"</span>),</span>
+<span id="cb161-15"><a href="#cb161-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb161-16"><a href="#cb161-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="st">"legend"</span>) <span class="sc">+</span> </span>
+<span id="cb161-17"><a href="#cb161-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb161-18"><a href="#cb161-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">panel.border =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb161-19"><a href="#cb161-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="dv">0</span>),</span>
+<span id="cb161-20"><a href="#cb161-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb161-21"><a href="#cb161-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb161-22"><a href="#cb161-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb161-23"><a href="#cb161-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.background =</span> <span class="fu">element_rect</span> (<span class="at">fill =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Picking joint bandwidth of 1.18</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="vis_files/figure-html/unnamed-chunk-88-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>
@@ -1901,9 +2158,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1968,6 +2239,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

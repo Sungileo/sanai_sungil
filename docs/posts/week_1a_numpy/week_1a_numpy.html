@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -125,6 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
@@ -141,49 +113,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">Sungil_Park</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../projects.html">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../kaggle_geo.html">
+    <a class="nav-link" href="../../kaggle_geo.html" rel="" target="">
  <span class="menu-text">Geospatial Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../recordings.html">
+    <a class="nav-link" href="../../recordings.html" rel="" target="">
  <span class="menu-text">Recordings</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Contact</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-contact">    
         <li>
-    <a class="dropdown-item" href="https://github.com/Sungileo"><i class="bi bi-github" role="img">
+    <a class="dropdown-item" href="https://github.com/Sungileo" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="dropdown-text">Github</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea"><i class="bi bi-linkedin" role="img">
+    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="dropdown-text">Linkedin</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil"><i class="bi bi-instagram" role="img">
+    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil" rel="" target=""><i class="bi bi-instagram" role="img">
 </i> 
  <span class="dropdown-text">Instagram</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -332,9 +306,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
-
-</div>
 <section id="numpy-기본" class="level1">
 <h1>“Numpy 기본”</h1>
 <blockquote class="blockquote">
@@ -596,18 +567,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>np.random.rand(<span class="dv">3</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>array([[0.80079178, 0.87042811, 0.40049388, 0.37427476],
-       [0.46458845, 0.42886881, 0.74369761, 0.02372094],
-       [0.01385687, 0.93045894, 0.13365706, 0.40975283]])</code></pre>
+<pre><code>array([[0.44507164, 0.58661525, 0.20566614, 0.30281903],
+       [0.45045589, 0.45890681, 0.59438324, 0.90348103],
+       [0.46504769, 0.52542312, 0.13206845, 0.56309254]])</code></pre>
 </div>
 </div>
 <p>다음은 평균이 0이고 분산이 1인 일변량 <a href="https://ko.wikipedia.org/wiki/%EC%A0%95%EA%B7%9C_%EB%B6%84%ED%8F%AC">정규 분포</a>(가우시안 분포)에서 샘플링한 랜덤한 부동 소수를 담은 <span class="math inline">\(3 \times 4\)</span> 행렬입니다:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>np.random.randn(<span class="dv">3</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>array([[-0.77885023,  2.23172464,  0.66728179,  1.35410671],
-       [-0.97420186,  2.19076701, -0.2358002 , -0.99055243],
-       [ 0.40439515, -0.56439771,  1.845155  ,  1.47406004]])</code></pre>
+<pre><code>array([[-1.65520174, -0.76346388, -1.17102303, -1.06192225],
+       [-0.47596638, -1.74237277,  0.94600138,  1.45904941],
+       [ 2.11922222,  0.55667287,  0.60686783, -0.49188438]])</code></pre>
 </div>
 </div>
 <p>이 분포의 모양을 알려면 맷플롯립을 사용해 그려보는 것이 좋습니다(더 자세한 것은 <a href="tools_matplotlib.ipynb">맷플롯립 튜토리얼</a>을 참고하세요):</p>
@@ -618,99 +589,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>plt.hist(np.random.rand(<span class="dv">100000</span>), density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, histtype<span class="op">=</span><span class="st">"step"</span>, color<span class="op">=</span><span class="st">"blue"</span>, label<span class="op">=</span><span class="st">"rand"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(array([1.05102247, 0.96002053, 1.07502298, 1.00302145, 1.00702153,
-       0.9400201 , 0.92101969, 1.00202142, 0.95302038, 0.98602108,
-       1.00602151, 1.02002181, 1.0010214 , 0.982021  , 0.99102119,
-       0.92401976, 1.01402168, 0.96602065, 1.05002245, 0.97802091,
-       1.05902264, 1.00902157, 0.96902072, 0.93401997, 0.9730208 ,
-       0.97902093, 0.99902136, 0.99002117, 0.98902115, 1.04002224,
-       0.96702068, 1.04102226, 1.01902179, 1.05302251, 1.00902157,
-       1.00002138, 0.99802134, 0.98402104, 0.98002095, 1.00402147,
-       0.93501999, 0.95702046, 1.03302209, 1.00902157, 0.9960213 ,
-       0.93702003, 0.96402061, 1.00302145, 1.05502256, 1.00302145,
-       0.93702003, 0.98002095, 1.04802241, 1.04602236, 0.97502085,
-       1.01302166, 0.97402083, 0.9960213 , 1.02802198, 0.97002074,
-       1.03602215, 0.96602065, 1.01702174, 1.03902222, 1.03802219,
-       0.95702046, 1.04402232, 1.02202185, 0.99102119, 0.96302059,
-       1.01602172, 0.97602087, 1.02702196, 1.03002202, 1.03002202,
-       0.98002095, 1.00802155, 1.0150217 , 1.00002138, 0.93001988,
-       0.94502021, 1.02702196, 1.01902179, 1.01302166, 1.00402147,
-       0.99802134, 0.96102055, 0.96902072, 1.03102204, 1.08602322,
-       1.02202185, 1.02602194, 1.029022  , 1.03902222, 1.0100216 ,
-       1.04202228, 0.97702089, 0.99702132, 1.02302187, 1.01202164]), array([1.27125299e-05, 1.00124987e-02, 2.00122849e-02, 3.00120711e-02,
-       4.00118573e-02, 5.00116435e-02, 6.00114297e-02, 7.00112159e-02,
-       8.00110021e-02, 9.00107883e-02, 1.00010574e-01, 1.10010361e-01,
-       1.20010147e-01, 1.30009933e-01, 1.40009719e-01, 1.50009505e-01,
-       1.60009292e-01, 1.70009078e-01, 1.80008864e-01, 1.90008650e-01,
-       2.00008436e-01, 2.10008223e-01, 2.20008009e-01, 2.30007795e-01,
-       2.40007581e-01, 2.50007367e-01, 2.60007154e-01, 2.70006940e-01,
-       2.80006726e-01, 2.90006512e-01, 3.00006298e-01, 3.10006084e-01,
-       3.20005871e-01, 3.30005657e-01, 3.40005443e-01, 3.50005229e-01,
-       3.60005015e-01, 3.70004802e-01, 3.80004588e-01, 3.90004374e-01,
-       4.00004160e-01, 4.10003946e-01, 4.20003733e-01, 4.30003519e-01,
-       4.40003305e-01, 4.50003091e-01, 4.60002877e-01, 4.70002664e-01,
-       4.80002450e-01, 4.90002236e-01, 5.00002022e-01, 5.10001808e-01,
-       5.20001595e-01, 5.30001381e-01, 5.40001167e-01, 5.50000953e-01,
-       5.60000739e-01, 5.70000525e-01, 5.80000312e-01, 5.90000098e-01,
-       5.99999884e-01, 6.09999670e-01, 6.19999456e-01, 6.29999243e-01,
-       6.39999029e-01, 6.49998815e-01, 6.59998601e-01, 6.69998387e-01,
-       6.79998174e-01, 6.89997960e-01, 6.99997746e-01, 7.09997532e-01,
-       7.19997318e-01, 7.29997105e-01, 7.39996891e-01, 7.49996677e-01,
-       7.59996463e-01, 7.69996249e-01, 7.79996036e-01, 7.89995822e-01,
-       7.99995608e-01, 8.09995394e-01, 8.19995180e-01, 8.29994967e-01,
-       8.39994753e-01, 8.49994539e-01, 8.59994325e-01, 8.69994111e-01,
-       8.79993897e-01, 8.89993684e-01, 8.99993470e-01, 9.09993256e-01,
-       9.19993042e-01, 9.29992828e-01, 9.39992615e-01, 9.49992401e-01,
-       9.59992187e-01, 9.69991973e-01, 9.79991759e-01, 9.89991546e-01,
-       9.99991332e-01]), [&lt;matplotlib.patches.Polygon object at 0x00000238D55C5590&gt;])</code></pre>
+<pre><code>(array([1.00103886, 1.01603945, 1.03704026, 0.99403859, 0.96403743,
+       1.00903917, 1.00903917, 1.04404053, 1.00503902, 1.02203968,
+       1.00903917, 1.01703948, 1.00303894, 1.01003921, 0.9890384 ,
+       0.99503863, 0.98603828, 0.96803758, 0.97603789, 1.02403976,
+       0.98603828, 0.99803875, 0.9660375 , 1.05504096, 0.94303661,
+       0.95703716, 0.95703716, 1.08204201, 0.97303778, 0.98603828,
+       1.01503941, 1.05204084, 1.03003999, 0.95903723, 0.9710377 ,
+       1.00403898, 0.96703754, 0.98503824, 0.9710377 , 0.98803836,
+       0.97903801, 0.96503747, 0.96803758, 1.01903956, 1.00503902,
+       1.00603906, 0.95203696, 1.00603906, 1.02303972, 0.96703754,
+       1.09604255, 1.01103925, 0.97503785, 1.00603906, 0.93103615,
+       1.0380403 , 0.95503708, 1.05304088, 1.00403898, 1.01403937,
+       1.03104003, 0.99003844, 0.99303855, 1.07304166, 1.02303972,
+       1.03204007, 1.02303972, 1.00303894, 0.97803797, 0.95703716,
+       1.04704065, 0.9710377 , 1.00103886, 0.96503747, 0.99003844,
+       1.02303972, 1.07304166, 0.95503708, 0.94503669, 1.01303933,
+       0.97203774, 0.98103809, 0.99303855, 1.02603983, 1.01103925,
+       1.01103925, 0.98603828, 0.97503785, 0.9840382 , 1.02903995,
+       0.97403782, 0.97703793, 0.9890384 , 0.94903684, 0.99703871,
+       1.0200396 , 1.00603906, 1.08304205, 1.04004038, 1.01503941]), array([2.07365660e-05, 1.00203483e-02, 2.00199601e-02, 3.00195719e-02,
+       4.00191836e-02, 5.00187954e-02, 6.00184072e-02, 7.00180190e-02,
+       8.00176307e-02, 9.00172425e-02, 1.00016854e-01, 1.10016466e-01,
+       1.20016078e-01, 1.30015690e-01, 1.40015301e-01, 1.50014913e-01,
+       1.60014525e-01, 1.70014137e-01, 1.80013748e-01, 1.90013360e-01,
+       2.00012972e-01, 2.10012584e-01, 2.20012196e-01, 2.30011807e-01,
+       2.40011419e-01, 2.50011031e-01, 2.60010643e-01, 2.70010254e-01,
+       2.80009866e-01, 2.90009478e-01, 3.00009090e-01, 3.10008701e-01,
+       3.20008313e-01, 3.30007925e-01, 3.40007537e-01, 3.50007149e-01,
+       3.60006760e-01, 3.70006372e-01, 3.80005984e-01, 3.90005596e-01,
+       4.00005207e-01, 4.10004819e-01, 4.20004431e-01, 4.30004043e-01,
+       4.40003654e-01, 4.50003266e-01, 4.60002878e-01, 4.70002490e-01,
+       4.80002102e-01, 4.90001713e-01, 5.00001325e-01, 5.10000937e-01,
+       5.20000549e-01, 5.30000160e-01, 5.39999772e-01, 5.49999384e-01,
+       5.59998996e-01, 5.69998607e-01, 5.79998219e-01, 5.89997831e-01,
+       5.99997443e-01, 6.09997055e-01, 6.19996666e-01, 6.29996278e-01,
+       6.39995890e-01, 6.49995502e-01, 6.59995113e-01, 6.69994725e-01,
+       6.79994337e-01, 6.89993949e-01, 6.99993560e-01, 7.09993172e-01,
+       7.19992784e-01, 7.29992396e-01, 7.39992008e-01, 7.49991619e-01,
+       7.59991231e-01, 7.69990843e-01, 7.79990455e-01, 7.89990066e-01,
+       7.99989678e-01, 8.09989290e-01, 8.19988902e-01, 8.29988514e-01,
+       8.39988125e-01, 8.49987737e-01, 8.59987349e-01, 8.69986961e-01,
+       8.79986572e-01, 8.89986184e-01, 8.99985796e-01, 9.09985408e-01,
+       9.19985019e-01, 9.29984631e-01, 9.39984243e-01, 9.49983855e-01,
+       9.59983467e-01, 9.69983078e-01, 9.79982690e-01, 9.89982302e-01,
+       9.99981914e-01]), [&lt;matplotlib.patches.Polygon object at 0x0000021B4C15D750&gt;])</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>plt.hist(np.random.randn(<span class="dv">100000</span>), density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, histtype<span class="op">=</span><span class="st">"step"</span>, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"randn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(array([3.56561988e-04, 0.00000000e+00, 0.00000000e+00, 1.18853996e-04,
-       4.75415984e-04, 4.75415984e-04, 4.75415984e-04, 9.50831968e-04,
-       2.13937193e-03, 1.66395594e-03, 1.54510195e-03, 3.44676588e-03,
-       4.04103586e-03, 4.15988986e-03, 5.46728381e-03, 7.84436373e-03,
-       9.03290369e-03, 1.37870635e-02, 1.42624795e-02, 1.81846614e-02,
-       2.43650692e-02, 2.73364191e-02, 3.74390087e-02, 4.49268105e-02,
-       4.83735764e-02, 6.40623038e-02, 6.48942818e-02, 8.20092572e-02,
-       9.19929929e-02, 1.07444012e-01, 1.32165644e-01, 1.46071561e-01,
-       1.51063429e-01, 1.71744024e-01, 1.90047540e-01, 2.17621667e-01,
-       2.39134240e-01, 2.55654945e-01, 2.79782307e-01, 2.93569370e-01,
-       3.18053293e-01, 3.36356809e-01, 3.47885646e-01, 3.54541470e-01,
-       3.80213933e-01, 3.76410605e-01, 3.96021515e-01, 3.99111718e-01,
-       4.05529834e-01, 3.95546099e-01, 3.98398594e-01, 3.94238705e-01,
-       3.73320401e-01, 3.62148126e-01, 3.54066054e-01, 3.40873260e-01,
-       3.22569745e-01, 2.97253844e-01, 2.86913546e-01, 2.63974725e-01,
-       2.49712246e-01, 2.18572499e-01, 1.98129611e-01, 1.82322030e-01,
-       1.61166019e-01, 1.50706867e-01, 1.26341798e-01, 1.14931814e-01,
-       9.42512188e-02, 8.90216430e-02, 7.45214555e-02, 6.44188658e-02,
-       5.37220062e-02, 4.61153504e-02, 3.79144247e-02, 3.48242208e-02,
-       2.67421491e-02, 2.32953832e-02, 1.66395594e-02, 1.34305015e-02,
-       9.27061169e-03, 7.84436373e-03, 6.53696978e-03, 5.34842982e-03,
-       4.15988986e-03, 2.61478791e-03, 3.92218187e-03, 2.13937193e-03,
-       1.90166394e-03, 5.94269980e-04, 5.94269980e-04, 3.56561988e-04,
-       4.75415984e-04, 2.37707992e-04, 4.75415984e-04, 1.18853996e-04,
-       0.00000000e+00, 1.18853996e-04, 1.18853996e-04, 2.37707992e-04]), array([-4.09853453, -4.01439768, -3.93026084, -3.846124  , -3.76198716,
-       -3.67785031, -3.59371347, -3.50957663, -3.42543978, -3.34130294,
-       -3.2571661 , -3.17302925, -3.08889241, -3.00475557, -2.92061873,
-       -2.83648188, -2.75234504, -2.6682082 , -2.58407135, -2.49993451,
-       -2.41579767, -2.33166082, -2.24752398, -2.16338714, -2.0792503 ,
-       -1.99511345, -1.91097661, -1.82683977, -1.74270292, -1.65856608,
-       -1.57442924, -1.49029239, -1.40615555, -1.32201871, -1.23788187,
-       -1.15374502, -1.06960818, -0.98547134, -0.90133449, -0.81719765,
-       -0.73306081, -0.64892396, -0.56478712, -0.48065028, -0.39651344,
-       -0.31237659, -0.22823975, -0.14410291, -0.05996606,  0.02417078,
-        0.10830762,  0.19244447,  0.27658131,  0.36071815,  0.44485499,
-        0.52899184,  0.61312868,  0.69726552,  0.78140237,  0.86553921,
-        0.94967605,  1.0338129 ,  1.11794974,  1.20208658,  1.28622342,
-        1.37036027,  1.45449711,  1.53863395,  1.6227708 ,  1.70690764,
-        1.79104448,  1.87518133,  1.95931817,  2.04345501,  2.12759185,
-        2.2117287 ,  2.29586554,  2.38000238,  2.46413923,  2.54827607,
-        2.63241291,  2.71654976,  2.8006866 ,  2.88482344,  2.96896028,
-        3.05309713,  3.13723397,  3.22137081,  3.30550766,  3.3896445 ,
-        3.47378134,  3.55791819,  3.64205503,  3.72619187,  3.81032871,
-        3.89446556,  3.9786024 ,  4.06273924,  4.14687609,  4.23101293,
-        4.31514977]), [&lt;matplotlib.patches.Polygon object at 0x00000238D446B910&gt;])</code></pre>
+<pre><code>(array([1.10426779e-04, 0.00000000e+00, 2.20853558e-04, 0.00000000e+00,
+       1.10426779e-04, 3.31280336e-04, 4.41707115e-04, 7.72987452e-04,
+       1.54597490e-03, 1.21469457e-03, 1.21469457e-03, 1.98768202e-03,
+       2.53981591e-03, 5.19005860e-03, 3.53365692e-03, 6.29432639e-03,
+       8.39243519e-03, 1.10426779e-02, 1.25886528e-02, 1.68952972e-02,
+       2.07602344e-02, 2.49564520e-02, 3.09194981e-02, 3.51157157e-02,
+       4.50541258e-02, 5.42195484e-02, 6.00721677e-02, 7.92864272e-02,
+       8.93352641e-02, 1.04353306e-01, 1.20033909e-01, 1.35162377e-01,
+       1.58683281e-01, 1.78228821e-01, 1.96228386e-01, 2.21184838e-01,
+       2.38963549e-01, 2.61490612e-01, 2.79269324e-01, 2.96937608e-01,
+       3.25648571e-01, 3.37685090e-01, 3.51267583e-01, 3.85279031e-01,
+       3.82739215e-01, 4.01290914e-01, 3.91352504e-01, 3.97867684e-01,
+       3.91573358e-01, 3.99965793e-01, 3.83180922e-01, 3.73905073e-01,
+       3.64297943e-01, 3.46519232e-01, 3.26421558e-01, 3.15931014e-01,
+       2.85784504e-01, 2.72091583e-01, 2.44926595e-01, 2.21074411e-01,
+       2.03516553e-01, 1.79553942e-01, 1.61112670e-01, 1.42229691e-01,
+       1.23346712e-01, 1.07003549e-01, 9.17646532e-02, 7.98385611e-02,
+       6.85750296e-02, 5.45508287e-02, 4.41707115e-02, 4.24038831e-02,
+       3.10299248e-02, 2.39626110e-02, 1.96559666e-02, 1.44659080e-02,
+       1.15948118e-02, 8.72371553e-03, 7.95072807e-03, 5.19005860e-03,
+       4.08579082e-03, 3.31280336e-03, 3.42323014e-03, 1.98768202e-03,
+       1.43554812e-03, 9.93841009e-04, 4.41707115e-04, 8.83414230e-04,
+       1.10426779e-04, 7.72987452e-04, 3.31280336e-04, 2.20853558e-04,
+       2.20853558e-04, 0.00000000e+00, 0.00000000e+00, 2.20853558e-04,
+       0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.10426779e-04]), array([-4.30865016, -4.21809241, -4.12753467, -4.03697693, -3.94641918,
+       -3.85586144, -3.76530369, -3.67474595, -3.5841882 , -3.49363046,
+       -3.40307272, -3.31251497, -3.22195723, -3.13139948, -3.04084174,
+       -2.95028399, -2.85972625, -2.7691685 , -2.67861076, -2.58805302,
+       -2.49749527, -2.40693753, -2.31637978, -2.22582204, -2.13526429,
+       -2.04470655, -1.95414881, -1.86359106, -1.77303332, -1.68247557,
+       -1.59191783, -1.50136008, -1.41080234, -1.3202446 , -1.22968685,
+       -1.13912911, -1.04857136, -0.95801362, -0.86745587, -0.77689813,
+       -0.68634039, -0.59578264, -0.5052249 , -0.41466715, -0.32410941,
+       -0.23355166, -0.14299392, -0.05243618,  0.03812157,  0.12867931,
+        0.21923706,  0.3097948 ,  0.40035255,  0.49091029,  0.58146803,
+        0.67202578,  0.76258352,  0.85314127,  0.94369901,  1.03425676,
+        1.1248145 ,  1.21537224,  1.30592999,  1.39648773,  1.48704548,
+        1.57760322,  1.66816097,  1.75871871,  1.84927646,  1.9398342 ,
+        2.03039194,  2.12094969,  2.21150743,  2.30206518,  2.39262292,
+        2.48318067,  2.57373841,  2.66429615,  2.7548539 ,  2.84541164,
+        2.93596939,  3.02652713,  3.11708488,  3.20764262,  3.29820036,
+        3.38875811,  3.47931585,  3.5698736 ,  3.66043134,  3.75098909,
+        3.84154683,  3.93210457,  4.02266232,  4.11322006,  4.20377781,
+        4.29433555,  4.3848933 ,  4.47545104,  4.56600878,  4.65656653,
+        4.74712427]), [&lt;matplotlib.patches.Polygon object at 0x0000021B4C171410&gt;])</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>plt.axis([<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="fl">1.1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -804,7 +775,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>],[<span class="dv">1000</span>, <span class="dv">2000</span>]], dtype<span class="op">=</span>np.int32)</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>f.data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;memory at 0x00000238D55FEDC0&gt;</code></pre>
+<pre><code>&lt;memory at 0x0000021B4C1CADC0&gt;</code></pre>
 </div>
 </div>
 <p>파이썬 2에서는 <code>f.data</code>가 버퍼이고 파이썬 3에서는 memoryview입니다.</p>
@@ -1898,7 +1869,7 @@ var = 25.855555555555554</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb309"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb309-1"><a href="#cb309-1" aria-hidden="true" tabindex="-1"></a>c.flat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;numpy.flatiter object at 0x00000238BC646450&gt;</code></pre>
+<pre><code>&lt;numpy.flatiter object at 0x0000021B48BD2C60&gt;</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2676,8 +2647,8 @@ var = 25.855555555555554</code></pre>
 <div class="sourceCode cell-code" id="cb454"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb454-1"><a href="#cb454-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.rand(<span class="dv">2</span>,<span class="dv">3</span>)</span>
 <span id="cb454-2"><a href="#cb454-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>array([[0.86903192, 0.93610166, 0.14649519],
-       [0.57399563, 0.03938154, 0.31437062]])</code></pre>
+<pre><code>array([[0.44583967, 0.62009922, 0.68989873],
+       [0.05070289, 0.05664681, 0.51773963]])</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2792,9 +2763,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -2859,6 +2844,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

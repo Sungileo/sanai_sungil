@@ -14,7 +14,6 @@ editor_options:
 library(tidyverse)
 ```
 
-
 # Statistical Analysis
 
 ## Purpose and examples of performing statistical analysis

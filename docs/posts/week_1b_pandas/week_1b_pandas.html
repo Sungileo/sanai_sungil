@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,49 +111,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">Sungil_Park</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../projects.html">
+    <a class="nav-link" href="../../projects.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../kaggle_geo.html">
+    <a class="nav-link" href="../../kaggle_geo.html" rel="" target="">
  <span class="menu-text">Geospatial Analysis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../recordings.html">
+    <a class="nav-link" href="../../recordings.html" rel="" target="">
  <span class="menu-text">Recordings</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Contact</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-contact">    
         <li>
-    <a class="dropdown-item" href="https://github.com/Sungileo"><i class="bi bi-github" role="img">
+    <a class="dropdown-item" href="https://github.com/Sungileo" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="dropdown-text">Github</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea"><i class="bi bi-linkedin" role="img">
+    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea" rel="" target=""><i class="bi bi-linkedin" role="img">
 </i> 
  <span class="dropdown-text">Linkedin</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil"><i class="bi bi-instagram" role="img">
+    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil" rel="" target=""><i class="bi bi-instagram" role="img">
 </i> 
  <span class="dropdown-text">Instagram</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -304,9 +277,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
-
-</div>
 <section id="pandas-기본" class="level1">
 <h1>“Pandas 기본”</h1>
 <blockquote class="blockquote">
@@ -764,7 +734,7 @@ Freq: H, dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>temp_series_freq_2H <span class="op">=</span> temp_series.resample(<span class="st">"2H"</span>)</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>temp_series_freq_2H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x000001FB5F610250&gt;</code></pre>
+<pre><code>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x000002A4C8F29B50&gt;</code></pre>
 </div>
 </div>
 <p>리샘플링 연산은 사실 지연된 연산입니다. (<a href="https://ko.wikipedia.org/wiki/%EB%8A%90%EA%B8%8B%ED%95%9C_%EA%B3%84%EC%82%B0%EB%B2%95" class="uri">https://ko.wikipedia.org/wiki/%EB%8A%90%EA%B8%8B%ED%95%9C_%EA%B3%84%EC%82%B0%EB%B2%95</a>) 그래서 <code>Series</code> 객체 대신 <code>DatetimeIndexResampler</code> 객체가 반환됩니다. 실제 리샘플링 연산을 수행하려면 <code>mean()</code> 같은 메서드를 호출할 수 있습니다. 이 메서드는 연속적인 시간 쌍에 대해 평균을 계산합니다:</p>
@@ -1540,18 +1510,18 @@ Data Reshaping!</p>
 <div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value
-0  2000-01-03        A -1.027578
-1  2000-01-04        A -0.236937
-2  2000-01-05        A -0.929609
-3  2000-01-03        B  0.688561
-4  2000-01-04        B  0.700911
-5  2000-01-05        B -0.370410
-6  2000-01-03        C  1.498366
-7  2000-01-04        C  0.295254
-8  2000-01-05        C  1.948305
-9  2000-01-03        D  0.748470
-10 2000-01-04        D -0.971124
-11 2000-01-05        D -1.395331</code></pre>
+0  2000-01-03        A -1.779235
+1  2000-01-04        A  0.684953
+2  2000-01-05        A -0.874432
+3  2000-01-03        B  1.208169
+4  2000-01-04        B  2.185636
+5  2000-01-05        B  0.189102
+6  2000-01-03        C -1.346194
+7  2000-01-04        C  1.369788
+8  2000-01-05        C  0.450613
+9  2000-01-03        D -0.456200
+10 2000-01-04        D -1.131299
+11 2000-01-05        D  0.107412</code></pre>
 </div>
 </div>
 <p>To select out everything for variable A we could do:</p>
@@ -1560,9 +1530,9 @@ Data Reshaping!</p>
 <span id="cb185-2"><a href="#cb185-2" aria-hidden="true" tabindex="-1"></a>filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        date variable     value
-0 2000-01-03        A -1.027578
-1 2000-01-04        A -0.236937
-2 2000-01-05        A -0.929609</code></pre>
+0 2000-01-03        A -1.779235
+1 2000-01-04        A  0.684953
+2 2000-01-05        A -0.874432</code></pre>
 </div>
 </div>
 <p>But suppose we wish to do time series operations with the variables. A better representation would be where the columns are the unique variables and an index of dates identifies individual observations. To reshape the data into this form, we use the DataFrame.pivot() method (also implemented as a top level function pivot()):</p>
@@ -1573,9 +1543,9 @@ Data Reshaping!</p>
 <div class="cell-output cell-output-stdout">
 <pre><code>variable           A         B         C         D
 date                                              
-2000-01-03 -1.027578  0.688561  1.498366  0.748470
-2000-01-04 -0.236937  0.700911  0.295254 -0.971124
-2000-01-05 -0.929609 -0.370410  1.948305 -1.395331</code></pre>
+2000-01-03 -1.779235  1.208169 -1.346194 -0.456200
+2000-01-04  0.684953  2.185636  1.369788 -1.131299
+2000-01-05 -0.874432  0.189102  0.450613  0.107412</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1598,18 +1568,18 @@ date
 <div class="sourceCode cell-code" id="cb194"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value    value2
-0  2000-01-03        A -1.027578 -2.055156
-1  2000-01-04        A -0.236937 -0.473875
-2  2000-01-05        A -0.929609 -1.859219
-3  2000-01-03        B  0.688561  1.377122
-4  2000-01-04        B  0.700911  1.401821
-5  2000-01-05        B -0.370410 -0.740819
-6  2000-01-03        C  1.498366  2.996733
-7  2000-01-04        C  0.295254  0.590508
-8  2000-01-05        C  1.948305  3.896611
-9  2000-01-03        D  0.748470  1.496940
-10 2000-01-04        D -0.971124 -1.942248
-11 2000-01-05        D -1.395331 -2.790662</code></pre>
+0  2000-01-03        A -1.779235 -3.558470
+1  2000-01-04        A  0.684953  1.369905
+2  2000-01-05        A -0.874432 -1.748863
+3  2000-01-03        B  1.208169  2.416339
+4  2000-01-04        B  2.185636  4.371272
+5  2000-01-05        B  0.189102  0.378204
+6  2000-01-03        C -1.346194 -2.692387
+7  2000-01-04        C  1.369788  2.739576
+8  2000-01-05        C  0.450613  0.901226
+9  2000-01-03        D -0.456200 -0.912401
+10 2000-01-04        D -1.131299 -2.262598
+11 2000-01-05        D  0.107412  0.214823</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1620,9 +1590,9 @@ date
 <pre><code>               value                      ...    value2                    
 variable           A         B         C  ...         B         C         D
 date                                      ...                              
-2000-01-03 -1.027578  0.688561  1.498366  ...  1.377122  2.996733  1.496940
-2000-01-04 -0.236937  0.700911  0.295254  ...  1.401821  0.590508 -1.942248
-2000-01-05 -0.929609 -0.370410  1.948305  ... -0.740819  3.896611 -2.790662
+2000-01-03 -1.779235  1.208169 -1.346194  ...  2.416339 -2.692387 -0.912401
+2000-01-04  0.684953  2.185636  1.369788  ...  4.371272  2.739576 -2.262598
+2000-01-05 -0.874432  0.189102  0.450613  ...  0.378204  0.901226  0.214823
 
 [3 rows x 8 columns]</code></pre>
 </div>
@@ -1646,9 +1616,9 @@ date                                      ...
 <div class="cell-output cell-output-stdout">
 <pre><code>variable           A         B         C         D
 date                                              
-2000-01-03 -1.027578  0.688561  1.498366  0.748470
-2000-01-04 -0.236937  0.700911  0.295254 -0.971124
-2000-01-05 -0.929609 -0.370410  1.948305 -1.395331</code></pre>
+2000-01-03 -1.779235  1.208169 -1.346194 -0.456200
+2000-01-04  0.684953  2.185636  1.369788 -1.131299
+2000-01-05 -0.874432  0.189102  0.450613  0.107412</code></pre>
 </div>
 </div>
 </section>
@@ -2141,17 +2111,17 @@ bob       38        25.335002     181  ...      False   0.0      83
 <div class="sourceCode cell-code" id="cb291"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb291-1"><a href="#cb291-1" aria-hidden="true" tabindex="-1"></a>df4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            a         b         c
-0    1.305392  2.764889  1.033054
-1    0.059949 -0.251358 -1.464163
-2    1.488910  2.443848 -2.232982
-3    0.261351  2.189087 -2.861673
-4    0.741234  0.692094 -2.268742
+0    1.582532 -0.931262 -1.255118
+1    1.405943  0.557804 -0.836974
+2    2.546889  0.448032 -1.674430
+3    0.591254 -0.357199  0.615557
+4    1.230467 -0.264734 -1.692172
 ..        ...       ...       ...
-995  0.903163 -0.185562 -0.067825
-996 -0.412603 -0.448507  0.715612
-997  0.035278 -1.052563 -0.448701
-998  1.522485 -0.532577 -0.634951
-999  1.893537  0.033929 -0.718313
+995  0.408608 -0.778283 -2.154570
+996  1.108967 -0.875071 -0.511273
+997  1.733804 -1.233824 -0.746373
+998  0.057617 -0.290796 -0.737213
+999  0.270893 -0.366631 -2.025455
 
 [1000 rows x 3 columns]</code></pre>
 </div>
@@ -2177,18 +2147,18 @@ bob       38        25.335002     181  ...      False   0.0      83
 <div class="sourceCode cell-code" id="cb295"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb295-1"><a href="#cb295-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value    value2
-0  2000-01-03        A -1.027578 -2.055156
-1  2000-01-04        A -0.236937 -0.473875
-2  2000-01-05        A -0.929609 -1.859219
-3  2000-01-03        B  0.688561  1.377122
-4  2000-01-04        B  0.700911  1.401821
-5  2000-01-05        B -0.370410 -0.740819
-6  2000-01-03        C  1.498366  2.996733
-7  2000-01-04        C  0.295254  0.590508
-8  2000-01-05        C  1.948305  3.896611
-9  2000-01-03        D  0.748470  1.496940
-10 2000-01-04        D -0.971124 -1.942248
-11 2000-01-05        D -1.395331 -2.790662</code></pre>
+0  2000-01-03        A -1.779235 -3.558470
+1  2000-01-04        A  0.684953  1.369905
+2  2000-01-05        A -0.874432 -1.748863
+3  2000-01-03        B  1.208169  2.416339
+4  2000-01-04        B  2.185636  4.371272
+5  2000-01-05        B  0.189102  0.378204
+6  2000-01-03        C -1.346194 -2.692387
+7  2000-01-04        C  1.369788  2.739576
+8  2000-01-05        C  0.450613  0.901226
+9  2000-01-03        D -0.456200 -0.912401
+10 2000-01-04        D -1.131299 -2.262598
+11 2000-01-05        D  0.107412  0.214823</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2204,16 +2174,16 @@ bob       38        25.335002     181  ...      False   0.0      83
 <span id="cb298-5"><a href="#cb298-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Col1      Col2  X
-0  0.232333  0.115301  A
-1  0.557129  0.872273  A
-2  0.738063  0.337789  A
-3  0.637366  0.181021  A
-4  0.319264  0.742525  A
-5  0.190785  0.321255  B
-6  0.551104  0.203025  B
-7  0.378223  0.962740  B
-8  0.167862  0.051698  B
-9  0.097615  0.512212  B</code></pre>
+0  0.992492  0.267127  A
+1  0.390160  0.893644  A
+2  0.253465  0.500416  A
+3  0.681770  0.528301  A
+4  0.942952  0.371113  A
+5  0.803794  0.646833  B
+6  0.481927  0.693365  B
+7  0.234217  0.096075  B
+8  0.549655  0.494527  B
+9  0.707389  0.605997  B</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2583,7 +2553,7 @@ darwin    9.0  10.0  11.0  NaN   Biking</code></pre>
 <div class="sourceCode cell-code" id="cb361"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb361-1"><a href="#cb361-1" aria-hidden="true" tabindex="-1"></a>grouped_grades <span class="op">=</span> final_grades.groupby(<span class="st">"hobby"</span>)</span>
 <span id="cb361-2"><a href="#cb361-2" aria-hidden="true" tabindex="-1"></a>grouped_grades</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x000001FB77B56F90&gt;</code></pre>
+<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x000002A4E0E9CF10&gt;</code></pre>
 </div>
 </div>
 <p>이제 hobby마다 평균 점수를 계산할 수 있습니다:</p>
@@ -3290,9 +3260,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -3357,6 +3341,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

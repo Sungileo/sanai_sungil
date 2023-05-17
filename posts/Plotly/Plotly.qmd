@@ -6,7 +6,7 @@ description: "Interactive Plot Basic"
 categories: R
 image: "../../img/plotly_boy.png"
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r}
@@ -120,6 +120,7 @@ fig <- df %>%
     xaxis = list(type = "log"))
 
 fig
+
 ```
 
 ```{r}
