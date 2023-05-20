@@ -315,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop universities that were not successfully geocoded</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>90.0% of addresses were geocoded!</code></pre>
+<pre><code>91.0% of addresses were geocoded!</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>universities <span class="op">=</span> universities.loc[<span class="op">~</span>np.isnan(universities[<span class="st">"Latitude"</span>])]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>universities <span class="op">=</span> gpd.GeoDataFrame(</span>
@@ -342,96 +342,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;folium.map.Marker object at 0x000002145FBB0D90&gt;
-&lt;folium.map.Marker object at 0x0000021467C97CD0&gt;
-&lt;folium.map.Marker object at 0x0000021467CAD090&gt;
-&lt;folium.map.Marker object at 0x0000021460D732D0&gt;
-&lt;folium.map.Marker object at 0x000002145FBAFFD0&gt;
-&lt;folium.map.Marker object at 0x0000021467CBF9D0&gt;
-&lt;folium.map.Marker object at 0x000002145FBBC990&gt;
-&lt;folium.map.Marker object at 0x0000021467CBFC10&gt;
-&lt;folium.map.Marker object at 0x0000021467CC4490&gt;
-&lt;folium.map.Marker object at 0x0000021467CC4850&gt;
-&lt;folium.map.Marker object at 0x0000021467CC4B90&gt;
-&lt;folium.map.Marker object at 0x0000021467CC4E90&gt;
-&lt;folium.map.Marker object at 0x0000021467CC5190&gt;
-&lt;folium.map.Marker object at 0x0000021467CC54D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CC57D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CC5B10&gt;
-&lt;folium.map.Marker object at 0x0000021467CC5E10&gt;
-&lt;folium.map.Marker object at 0x0000021467CC6110&gt;
-&lt;folium.map.Marker object at 0x0000021467CC6410&gt;
-&lt;folium.map.Marker object at 0x0000021467CC6710&gt;
-&lt;folium.map.Marker object at 0x0000021467CC6A10&gt;
-&lt;folium.map.Marker object at 0x0000021467CC6D10&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7010&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7310&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7610&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7950&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7C50&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7F50&gt;
-&lt;folium.map.Marker object at 0x0000021467CC7F10&gt;
-&lt;folium.map.Marker object at 0x0000021467CD8590&gt;
-&lt;folium.map.Marker object at 0x0000021467CD8890&gt;
-&lt;folium.map.Marker object at 0x0000021467CD8BD0&gt;
-&lt;folium.map.Marker object at 0x0000021467CD8ED0&gt;
-&lt;folium.map.Marker object at 0x0000021467CD91D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CD94D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CD9810&gt;
-&lt;folium.map.Marker object at 0x0000021467CD9B10&gt;
-&lt;folium.map.Marker object at 0x0000021467CD9E10&gt;
-&lt;folium.map.Marker object at 0x0000021467CDA150&gt;
-&lt;folium.map.Marker object at 0x0000021467CDA450&gt;
-&lt;folium.map.Marker object at 0x0000021467CDA790&gt;
-&lt;folium.map.Marker object at 0x0000021467CDAAD0&gt;
-&lt;folium.map.Marker object at 0x0000021467CDAE10&gt;
-&lt;folium.map.Marker object at 0x0000021467CDB0D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CDB410&gt;
-&lt;folium.map.Marker object at 0x0000021467CDB750&gt;
-&lt;folium.map.Marker object at 0x0000021467CDBA50&gt;
-&lt;folium.map.Marker object at 0x0000021467CDBD90&gt;
-&lt;folium.map.Marker object at 0x0000021467CDBBD0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE4410&gt;
-&lt;folium.map.Marker object at 0x0000021467CE4710&gt;
-&lt;folium.map.Marker object at 0x0000021467CE4A50&gt;
-&lt;folium.map.Marker object at 0x0000021467CE4D50&gt;
-&lt;folium.map.Marker object at 0x0000021467CE50D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE5450&gt;
-&lt;folium.map.Marker object at 0x0000021467CE5810&gt;
-&lt;folium.map.Marker object at 0x0000021467CE5B90&gt;
-&lt;folium.map.Marker object at 0x0000021467CE5F50&gt;
-&lt;folium.map.Marker object at 0x0000021467CE62D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE6650&gt;
-&lt;folium.map.Marker object at 0x0000021467CE69D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE6D50&gt;
-&lt;folium.map.Marker object at 0x0000021467CE70D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE7450&gt;
-&lt;folium.map.Marker object at 0x0000021467CE77D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE7B50&gt;
-&lt;folium.map.Marker object at 0x0000021467CE7ED0&gt;
-&lt;folium.map.Marker object at 0x0000021467CE7F10&gt;
-&lt;folium.map.Marker object at 0x0000021467CF4610&gt;
-&lt;folium.map.Marker object at 0x0000021467CF49D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF4D50&gt;
-&lt;folium.map.Marker object at 0x0000021467CF50D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF5450&gt;
-&lt;folium.map.Marker object at 0x0000021467CF57D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF5B50&gt;
-&lt;folium.map.Marker object at 0x0000021467CF5ED0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF6250&gt;
-&lt;folium.map.Marker object at 0x0000021467CF65D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF6950&gt;
-&lt;folium.map.Marker object at 0x0000021467CF6CD0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF7050&gt;
-&lt;folium.map.Marker object at 0x0000021467CF73D0&gt;
-&lt;folium.map.Marker object at 0x0000021467CF7790&gt;
-&lt;folium.map.Marker object at 0x0000021467CF7B10&gt;
-&lt;folium.map.Marker object at 0x0000021467CF7E90&gt;
-&lt;folium.map.Marker object at 0x0000021467CF7ED0&gt;
-&lt;folium.map.Marker object at 0x0000021467D085D0&gt;
-&lt;folium.map.Marker object at 0x0000021467D08950&gt;
-&lt;folium.map.Marker object at 0x0000021467D08D10&gt;
-&lt;folium.map.Marker object at 0x0000021467D090D0&gt;</code></pre>
+<pre><code>&lt;folium.map.Marker object at 0x00000244CEC83A90&gt;
+&lt;folium.map.Marker object at 0x00000244D8C70DD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1B53890&gt;
+&lt;folium.map.Marker object at 0x00000244D1B38810&gt;
+&lt;folium.map.Marker object at 0x00000244D1B46A50&gt;
+&lt;folium.map.Marker object at 0x00000244D1B44B50&gt;
+&lt;folium.map.Marker object at 0x00000244D1B11E10&gt;
+&lt;folium.map.Marker object at 0x00000244D1D88E10&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8AD10&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8B450&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8BE50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8BDD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8BA10&gt;
+&lt;folium.map.Marker object at 0x00000244D1D89910&gt;
+&lt;folium.map.Marker object at 0x00000244D04F03D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1B13BD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1B20C90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8B650&gt;
+&lt;folium.map.Marker object at 0x00000244D1D89BD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D89750&gt;
+&lt;folium.map.Marker object at 0x00000244D1D88E90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D89190&gt;
+&lt;folium.map.Marker object at 0x00000244D1D88F90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D457D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D45D90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D44490&gt;
+&lt;folium.map.Marker object at 0x00000244D1D44DD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D46590&gt;
+&lt;folium.map.Marker object at 0x00000244D1D45F90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D47DD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D47D10&gt;
+&lt;folium.map.Marker object at 0x00000244D1D44790&gt;
+&lt;folium.map.Marker object at 0x00000244D1D46550&gt;
+&lt;folium.map.Marker object at 0x00000244D1D475D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D0E790&gt;
+&lt;folium.map.Marker object at 0x00000244D037E790&gt;
+&lt;folium.map.Marker object at 0x00000244D1B71590&gt;
+&lt;folium.map.Marker object at 0x00000244D1B709D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1B71E10&gt;
+&lt;folium.map.Marker object at 0x00000244D1B71110&gt;
+&lt;folium.map.Marker object at 0x00000244D8C821D0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C82FD0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C832D0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C83010&gt;
+&lt;folium.map.Marker object at 0x00000244D8C83550&gt;
+&lt;folium.map.Marker object at 0x00000244D8C81290&gt;
+&lt;folium.map.Marker object at 0x00000244D8C82750&gt;
+&lt;folium.map.Marker object at 0x00000244D8C82450&gt;
+&lt;folium.map.Marker object at 0x00000244D8C81E50&gt;
+&lt;folium.map.Marker object at 0x00000244D8C81B10&gt;
+&lt;folium.map.Marker object at 0x00000244D8C81510&gt;
+&lt;folium.map.Marker object at 0x00000244D8C82D50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D78F90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D78B50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D780D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D79A90&gt;
+&lt;folium.map.Marker object at 0x00000244D1D79B50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D79AD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D7A550&gt;
+&lt;folium.map.Marker object at 0x00000244D1D7A390&gt;
+&lt;folium.map.Marker object at 0x00000244D1D7BCD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D7A610&gt;
+&lt;folium.map.Marker object at 0x00000244D1D7B950&gt;
+&lt;folium.map.Marker object at 0x00000244D1D7B7D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D79110&gt;
+&lt;folium.map.Marker object at 0x00000244D1D78990&gt;
+&lt;folium.map.Marker object at 0x00000244D1D91FD0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D93090&gt;
+&lt;folium.map.Marker object at 0x00000244D1D93F10&gt;
+&lt;folium.map.Marker object at 0x00000244D1D91F50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D91590&gt;
+&lt;folium.map.Marker object at 0x00000244D1D91A50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D90890&gt;
+&lt;folium.map.Marker object at 0x00000244D1D90B50&gt;
+&lt;folium.map.Marker object at 0x00000244D1D90750&gt;
+&lt;folium.map.Marker object at 0x00000244D1D939D0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C881D0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C885D0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C88B90&gt;
+&lt;folium.map.Marker object at 0x00000244D8C89950&gt;
+&lt;folium.map.Marker object at 0x00000244D8C89CD0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8A090&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8A410&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8A790&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8AB10&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8AE90&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8B250&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8B5D0&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8B990&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8BD10&gt;
+&lt;folium.map.Marker object at 0x00000244D8C8BF10&gt;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -462,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_7f26672fdaab44f9e6b22c190552c9a5 {
+                #map_ff7be9578b9f8792de2c9cdd80cfd942 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -476,14 +477,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_7f26672fdaab44f9e6b22c190552c9a5&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_ff7be9578b9f8792de2c9cdd80cfd942&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_7f26672fdaab44f9e6b22c190552c9a5 = L.map(
-                &quot;map_7f26672fdaab44f9e6b22c190552c9a5&quot;,
+            var map_ff7be9578b9f8792de2c9cdd80cfd942 = L.map(
+                &quot;map_ff7be9578b9f8792de2c9cdd80cfd942&quot;,
                 {
                     center: [54.0, 15.0],
                     crs: L.CRS.EPSG3857,
@@ -497,1897 +498,1918 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_983b0401f1931986323aee4d46086646 = L.tileLayer(
+            var tile_layer_981cd9952ae96596552b47eccc996b74 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-            var marker_3a31ae134dcf9766bf88a8a38d55c46d = L.marker(
+            var marker_4a60353923be4a9fa761e882c38ebaf0 = L.marker(
                 [51.7590373, -1.2524298],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_75e1d94e37b6fb81d31907cbb014e7c8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_9db1a457ff32f1bbe952b75410a40e39 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_a17f9fbe02c84a8a7260904879844cdf = $(`<div id=&quot;html_a17f9fbe02c84a8a7260904879844cdf&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Oxford</div>`)[0];
-                popup_75e1d94e37b6fb81d31907cbb014e7c8.setContent(html_a17f9fbe02c84a8a7260904879844cdf);
+                var html_7ada7ef1abb4024435c543a35a4f33a7 = $(`<div id=&quot;html_7ada7ef1abb4024435c543a35a4f33a7&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Oxford</div>`)[0];
+                popup_9db1a457ff32f1bbe952b75410a40e39.setContent(html_7ada7ef1abb4024435c543a35a4f33a7);
             
         
 
-        marker_3a31ae134dcf9766bf88a8a38d55c46d.bindPopup(popup_75e1d94e37b6fb81d31907cbb014e7c8)
+        marker_4a60353923be4a9fa761e882c38ebaf0.bindPopup(popup_9db1a457ff32f1bbe952b75410a40e39)
         ;
 
         
     
     
-            var marker_bd75807e9efa8f04e51a5158e39d4007 = L.marker(
+            var marker_4a7d03b88857e5ea437e7fa7d0ccd0c8 = L.marker(
                 [52.2006233, 0.1104744],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_f6acf058112dc71839e1e411867fa0bf = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_452140cec8a13944f77f5b3d95d5eac6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_b079cc8b6e56f0c4cccc27c3571f46bc = $(`<div id=&quot;html_b079cc8b6e56f0c4cccc27c3571f46bc&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Cambridge</div>`)[0];
-                popup_f6acf058112dc71839e1e411867fa0bf.setContent(html_b079cc8b6e56f0c4cccc27c3571f46bc);
+                var html_b35462728da5570a5f64af2bb72eb1b8 = $(`<div id=&quot;html_b35462728da5570a5f64af2bb72eb1b8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Cambridge</div>`)[0];
+                popup_452140cec8a13944f77f5b3d95d5eac6.setContent(html_b35462728da5570a5f64af2bb72eb1b8);
             
         
 
-        marker_bd75807e9efa8f04e51a5158e39d4007.bindPopup(popup_f6acf058112dc71839e1e411867fa0bf)
+        marker_4a7d03b88857e5ea437e7fa7d0ccd0c8.bindPopup(popup_452140cec8a13944f77f5b3d95d5eac6)
         ;
 
         
     
     
-            var marker_a0fce125ba022da31beeff731fbbc9da = L.marker(
+            var marker_556a0f643e628089e6db2c39037071d0 = L.marker(
                 [51.4989595, -0.17564069276310426],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_93010f1600e957d6fb6907cdbcbec37a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_f9352f956bcbedabce39b2b00aaed9f3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_0e4d9d19a203a58954f27dd389e40358 = $(`<div id=&quot;html_0e4d9d19a203a58954f27dd389e40358&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Imperial College London</div>`)[0];
-                popup_93010f1600e957d6fb6907cdbcbec37a.setContent(html_0e4d9d19a203a58954f27dd389e40358);
+                var html_51500913cb19e2d83eb08819b9fff2f5 = $(`<div id=&quot;html_51500913cb19e2d83eb08819b9fff2f5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Imperial College London</div>`)[0];
+                popup_f9352f956bcbedabce39b2b00aaed9f3.setContent(html_51500913cb19e2d83eb08819b9fff2f5);
             
         
 
-        marker_a0fce125ba022da31beeff731fbbc9da.bindPopup(popup_93010f1600e957d6fb6907cdbcbec37a)
+        marker_556a0f643e628089e6db2c39037071d0.bindPopup(popup_f9352f956bcbedabce39b2b00aaed9f3)
         ;
 
         
     
     
-            var marker_87dbc37871fd470e8ce57e44a7ab8c4f = L.marker(
+            var marker_04cd50e29096fc14dbd8a688c3b417ce = L.marker(
                 [47.56277165, 7.580947334069263],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_816b607b419803b6b9d5264eb55a9468 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_9a44fdb456350ab4f29ee8b5ac111361 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_5a2435ab3aca91d7de0d17ae0d036989 = $(`<div id=&quot;html_5a2435ab3aca91d7de0d17ae0d036989&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>ETH Zurich</div>`)[0];
-                popup_816b607b419803b6b9d5264eb55a9468.setContent(html_5a2435ab3aca91d7de0d17ae0d036989);
+                var html_09af65aa2f26d5f03b04d7d09f1b3cc6 = $(`<div id=&quot;html_09af65aa2f26d5f03b04d7d09f1b3cc6&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>ETH Zurich</div>`)[0];
+                popup_9a44fdb456350ab4f29ee8b5ac111361.setContent(html_09af65aa2f26d5f03b04d7d09f1b3cc6);
             
         
 
-        marker_87dbc37871fd470e8ce57e44a7ab8c4f.bindPopup(popup_816b607b419803b6b9d5264eb55a9468)
+        marker_04cd50e29096fc14dbd8a688c3b417ce.bindPopup(popup_9a44fdb456350ab4f29ee8b5ac111361)
         ;
 
         
     
     
-            var marker_0fa3080c3355ee62e2ccd9f9c2168acc = L.marker(
+            var marker_3ffe53cca495b18cb475b717df7f0b54 = L.marker(
                 [51.5217852, -0.13515149671251314],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_19b23f93d99b1fe4ac53291840c42b2d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_a3a6a1d57a62f72907490eb2988807f1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_588d2359a4257797e4723b0b0aeb7f64 = $(`<div id=&quot;html_588d2359a4257797e4723b0b0aeb7f64&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>UCL</div>`)[0];
-                popup_19b23f93d99b1fe4ac53291840c42b2d.setContent(html_588d2359a4257797e4723b0b0aeb7f64);
+                var html_4a85171985e4baefc8868ebcb344c00c = $(`<div id=&quot;html_4a85171985e4baefc8868ebcb344c00c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>UCL</div>`)[0];
+                popup_a3a6a1d57a62f72907490eb2988807f1.setContent(html_4a85171985e4baefc8868ebcb344c00c);
             
         
 
-        marker_0fa3080c3355ee62e2ccd9f9c2168acc.bindPopup(popup_19b23f93d99b1fe4ac53291840c42b2d)
+        marker_3ffe53cca495b18cb475b717df7f0b54.bindPopup(popup_a3a6a1d57a62f72907490eb2988807f1)
         ;
 
         
     
     
-            var marker_07692079839db11215c84bf4f6eac36f = L.marker(
+            var marker_ac71312e08399d054c27e07695163277 = L.marker(
                 [51.51421115, -0.11680813159099895],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_e8921ab57333b4c163d4ea53c0dccdb4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_68aff47f557e4d5811043ec431c03b62 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_8eb425a5f0b9032e6892588bbd2bca68 = $(`<div id=&quot;html_8eb425a5f0b9032e6892588bbd2bca68&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>London School of Economics and Political Science</div>`)[0];
-                popup_e8921ab57333b4c163d4ea53c0dccdb4.setContent(html_8eb425a5f0b9032e6892588bbd2bca68);
+                var html_77e3b280d66116d9436a97d7d5393db8 = $(`<div id=&quot;html_77e3b280d66116d9436a97d7d5393db8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>London School of Economics and Political Science</div>`)[0];
+                popup_68aff47f557e4d5811043ec431c03b62.setContent(html_77e3b280d66116d9436a97d7d5393db8);
             
         
 
-        marker_07692079839db11215c84bf4f6eac36f.bindPopup(popup_e8921ab57333b4c163d4ea53c0dccdb4)
+        marker_ac71312e08399d054c27e07695163277.bindPopup(popup_68aff47f557e4d5811043ec431c03b62)
         ;
 
         
     
     
-            var marker_79ac4d3f49ee823160e813e494d17f5d = L.marker(
+            var marker_e6a9ec1fd1eadefd7206362a7acb414e = L.marker(
                 [55.94407645, -3.1883735563964555],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_de18f0cbbca8a5a08083af6ec2bf9281 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0ea0d6f499e25855860ea5db055f9d4b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_4d86f97fe48f37ea2eba783e7fcd4ea4 = $(`<div id=&quot;html_4d86f97fe48f37ea2eba783e7fcd4ea4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Edinburgh</div>`)[0];
-                popup_de18f0cbbca8a5a08083af6ec2bf9281.setContent(html_4d86f97fe48f37ea2eba783e7fcd4ea4);
+                var html_7c85bdcdc79b3bdf0d9cdedffc76dbd2 = $(`<div id=&quot;html_7c85bdcdc79b3bdf0d9cdedffc76dbd2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Edinburgh</div>`)[0];
+                popup_0ea0d6f499e25855860ea5db055f9d4b.setContent(html_7c85bdcdc79b3bdf0d9cdedffc76dbd2);
             
         
 
-        marker_79ac4d3f49ee823160e813e494d17f5d.bindPopup(popup_de18f0cbbca8a5a08083af6ec2bf9281)
+        marker_e6a9ec1fd1eadefd7206362a7acb414e.bindPopup(popup_0ea0d6f499e25855860ea5db055f9d4b)
         ;
 
         
     
     
-            var marker_8d9eee7a07ec66af1616288d69c3bc36 = L.marker(
+            var marker_9752ffc3be555500371668a7d8e92cef = L.marker(
                 [48.14701435, 11.575919303007243],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_f6079952a70017f9c303b43975de4973 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_e22800f41a921046dcc0aadc2c771bc0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_15061f3aecd97c4d399ea9e0d5c6a6bb = $(`<div id=&quot;html_15061f3aecd97c4d399ea9e0d5c6a6bb&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>LMU Munich</div>`)[0];
-                popup_f6079952a70017f9c303b43975de4973.setContent(html_15061f3aecd97c4d399ea9e0d5c6a6bb);
+                var html_4e0b0ee6c1cdd4bcec56d60e557bc5b0 = $(`<div id=&quot;html_4e0b0ee6c1cdd4bcec56d60e557bc5b0&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>LMU Munich</div>`)[0];
+                popup_e22800f41a921046dcc0aadc2c771bc0.setContent(html_4e0b0ee6c1cdd4bcec56d60e557bc5b0);
             
         
 
-        marker_8d9eee7a07ec66af1616288d69c3bc36.bindPopup(popup_f6079952a70017f9c303b43975de4973)
+        marker_9752ffc3be555500371668a7d8e92cef.bindPopup(popup_e22800f41a921046dcc0aadc2c771bc0)
         ;
 
         
     
     
-            var marker_95131525aa445af9b7c9cbf6ac36356c = L.marker(
+            var marker_c1b5377afd32550722f3f8610853a082 = L.marker(
                 [46.518659400000004, 6.566561505148001],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_85fd5505041e5ba177ef3cd2af2a2d7b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_862da8b5092c5fcb446c974ad3b5cd6d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_e68adae239ccd618a3f3b3b95c6fed54 = $(`<div id=&quot;html_e68adae239ccd618a3f3b3b95c6fed54&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>École Polytechnique Fédérale de Lausanne</div>`)[0];
-                popup_85fd5505041e5ba177ef3cd2af2a2d7b.setContent(html_e68adae239ccd618a3f3b3b95c6fed54);
+                var html_428c1a688984d85f52e3f664f7197de7 = $(`<div id=&quot;html_428c1a688984d85f52e3f664f7197de7&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>École Polytechnique Fédérale de Lausanne</div>`)[0];
+                popup_862da8b5092c5fcb446c974ad3b5cd6d.setContent(html_428c1a688984d85f52e3f664f7197de7);
             
         
 
-        marker_95131525aa445af9b7c9cbf6ac36356c.bindPopup(popup_85fd5505041e5ba177ef3cd2af2a2d7b)
+        marker_c1b5377afd32550722f3f8610853a082.bindPopup(popup_862da8b5092c5fcb446c974ad3b5cd6d)
         ;
 
         
     
     
-            var marker_b24ac58cb13ff369f3b55c7903d678cb = L.marker(
+            var marker_7954db83865baa8963e30755823965b1 = L.marker(
                 [51.5060001, -0.1121582948025203],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_f4317e56d35a5fc57faf721c23780f02 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_7819878ea925d08ee316c7369c2261a5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_33969bbb4055fdb8991357ff790c8537 = $(`<div id=&quot;html_33969bbb4055fdb8991357ff790c8537&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>King’s College London</div>`)[0];
-                popup_f4317e56d35a5fc57faf721c23780f02.setContent(html_33969bbb4055fdb8991357ff790c8537);
+                var html_6c7274036392f5f641065c0df1b0df29 = $(`<div id=&quot;html_6c7274036392f5f641065c0df1b0df29&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>King’s College London</div>`)[0];
+                popup_7819878ea925d08ee316c7369c2261a5.setContent(html_6c7274036392f5f641065c0df1b0df29);
             
         
 
-        marker_b24ac58cb13ff369f3b55c7903d678cb.bindPopup(popup_f4317e56d35a5fc57faf721c23780f02)
+        marker_7954db83865baa8963e30755823965b1.bindPopup(popup_7819878ea925d08ee316c7369c2261a5)
         ;
 
         
     
     
-            var marker_60c255a5fb47ed3338843a5729bffb3e = L.marker(
+            var marker_dffbecfc90d43ff0be017ea2fe15d8b4 = L.marker(
                 [59.219549549999996, 17.94005487275674],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_6e04743e356ea24c5f8cd6294b3f0e89 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_369d82409796254fb8720fd1479ada7f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_91511d10675a5c7eda438d96dfff5024 = $(`<div id=&quot;html_91511d10675a5c7eda438d96dfff5024&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Karolinska Institute</div>`)[0];
-                popup_6e04743e356ea24c5f8cd6294b3f0e89.setContent(html_91511d10675a5c7eda438d96dfff5024);
+                var html_18c553a61c6e25bb548b6cc8b5bef6fd = $(`<div id=&quot;html_18c553a61c6e25bb548b6cc8b5bef6fd&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Karolinska Institute</div>`)[0];
+                popup_369d82409796254fb8720fd1479ada7f.setContent(html_18c553a61c6e25bb548b6cc8b5bef6fd);
             
         
 
-        marker_60c255a5fb47ed3338843a5729bffb3e.bindPopup(popup_6e04743e356ea24c5f8cd6294b3f0e89)
+        marker_dffbecfc90d43ff0be017ea2fe15d8b4.bindPopup(popup_369d82409796254fb8720fd1479ada7f)
         ;
 
         
     
     
-            var marker_c9ba8c5640d49f350b23df20477573aa = L.marker(
+            var marker_f5a224a6763ef272f10b9214a352c1a4 = L.marker(
                 [1.3078539, 103.7776795],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_0ca6a8ea56a1f7f0024b171f15c58903 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0fc79d0e51d559e11963ac373230552f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_7c172561a508fe20600781ba2eea9c1e = $(`<div id=&quot;html_7c172561a508fe20600781ba2eea9c1e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Technical University of Munich</div>`)[0];
-                popup_0ca6a8ea56a1f7f0024b171f15c58903.setContent(html_7c172561a508fe20600781ba2eea9c1e);
+                var html_63c9b4da0243484c7dbe568e4111d57d = $(`<div id=&quot;html_63c9b4da0243484c7dbe568e4111d57d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Technical University of Munich</div>`)[0];
+                popup_0fc79d0e51d559e11963ac373230552f.setContent(html_63c9b4da0243484c7dbe568e4111d57d);
             
         
 
-        marker_c9ba8c5640d49f350b23df20477573aa.bindPopup(popup_0ca6a8ea56a1f7f0024b171f15c58903)
+        marker_f5a224a6763ef272f10b9214a352c1a4.bindPopup(popup_0fc79d0e51d559e11963ac373230552f)
         ;
 
         
     
     
-            var marker_5674b4d4075dba99c9ee8f73a77c3304 = L.marker(
+            var marker_8a5fccc0e2ce4239ca2b1c3681fdf1b9 = L.marker(
                 [41.11442525, -83.16686666639325],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_7a199734e05ef957c86e5474ebf4ae7b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_9b782d453c76de50a3444d10dbb07deb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_92d1fd30dd2f9983305a3e26b240cde4 = $(`<div id=&quot;html_92d1fd30dd2f9983305a3e26b240cde4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Heidelberg University</div>`)[0];
-                popup_7a199734e05ef957c86e5474ebf4ae7b.setContent(html_92d1fd30dd2f9983305a3e26b240cde4);
+                var html_f55e11a4decabfedf628d26cb9cd3df2 = $(`<div id=&quot;html_f55e11a4decabfedf628d26cb9cd3df2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Heidelberg University</div>`)[0];
+                popup_9b782d453c76de50a3444d10dbb07deb.setContent(html_f55e11a4decabfedf628d26cb9cd3df2);
             
         
 
-        marker_5674b4d4075dba99c9ee8f73a77c3304.bindPopup(popup_7a199734e05ef957c86e5474ebf4ae7b)
+        marker_8a5fccc0e2ce4239ca2b1c3681fdf1b9.bindPopup(popup_9b782d453c76de50a3444d10dbb07deb)
         ;
 
         
     
     
-            var marker_2c91f035018fb97e0ac720690565542e = L.marker(
+            var marker_bd28a8361554c5611f2aa6675d6f1a21 = L.marker(
+                [50.80571285, 3.2915374489139757],
+                {}
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
+        
+    
+        var popup_252d039d7e7378e3068ebe616e9aaec5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_4e7c083af693de2de5fc225aa1edc709 = $(`<div id=&quot;html_4e7c083af693de2de5fc225aa1edc709&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>KU Leuven</div>`)[0];
+                popup_252d039d7e7378e3068ebe616e9aaec5.setContent(html_4e7c083af693de2de5fc225aa1edc709);
+            
+        
+
+        marker_bd28a8361554c5611f2aa6675d6f1a21.bindPopup(popup_252d039d7e7378e3068ebe616e9aaec5)
+        ;
+
+        
+    
+    
+            var marker_3e26bb5f78611a6d5db5cdc5d8021c34 = L.marker(
                 [53.4657087, -2.232734319907597],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_cd3ec7bd34b6d957cb016abb09e37fc9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_cef345c5c478ef593a43ec9d755667dc = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_9541d0d9bdc20d83e5d1958638391c81 = $(`<div id=&quot;html_9541d0d9bdc20d83e5d1958638391c81&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Manchester</div>`)[0];
-                popup_cd3ec7bd34b6d957cb016abb09e37fc9.setContent(html_9541d0d9bdc20d83e5d1958638391c81);
+                var html_85c2716e81d918e74ea5d26fb80e4e69 = $(`<div id=&quot;html_85c2716e81d918e74ea5d26fb80e4e69&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Manchester</div>`)[0];
+                popup_cef345c5c478ef593a43ec9d755667dc.setContent(html_85c2716e81d918e74ea5d26fb80e4e69);
             
         
 
-        marker_2c91f035018fb97e0ac720690565542e.bindPopup(popup_cd3ec7bd34b6d957cb016abb09e37fc9)
+        marker_3e26bb5f78611a6d5db5cdc5d8021c34.bindPopup(popup_cef345c5c478ef593a43ec9d755667dc)
         ;
 
         
     
     
-            var marker_5972ddfc776938a5d811e38544f1fd1a = L.marker(
+            var marker_44b7429563ed8de1ca05c0551cffb43a = L.marker(
                 [51.99882735, 4.373960368154041],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_2663b071445938aeb0e0fe0b7c8ee8d9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_1237b601c0112086de02b30fb19dc8dd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_5290519af50784e439b00008229a8ef8 = $(`<div id=&quot;html_5290519af50784e439b00008229a8ef8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Delft University of Technology</div>`)[0];
-                popup_2663b071445938aeb0e0fe0b7c8ee8d9.setContent(html_5290519af50784e439b00008229a8ef8);
+                var html_41c1149380f10ac6002dff5b1931bd77 = $(`<div id=&quot;html_41c1149380f10ac6002dff5b1931bd77&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Delft University of Technology</div>`)[0];
+                popup_1237b601c0112086de02b30fb19dc8dd.setContent(html_41c1149380f10ac6002dff5b1931bd77);
             
         
 
-        marker_5972ddfc776938a5d811e38544f1fd1a.bindPopup(popup_2663b071445938aeb0e0fe0b7c8ee8d9)
+        marker_44b7429563ed8de1ca05c0551cffb43a.bindPopup(popup_1237b601c0112086de02b30fb19dc8dd)
         ;
 
         
     
     
-            var marker_05378a48b96974892c869528a2aa87c6 = L.marker(
+            var marker_517d65d32c1fc99fff4aa1c51da7e450 = L.marker(
                 [51.98544495, 5.663212001137484],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_3f916c4f39d9b3a4b66442666158cb59 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_07b7cfa49f72686cb7277d50d9f24615 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_025a53c86a1d4f0806df3a3909a6ce3d = $(`<div id=&quot;html_025a53c86a1d4f0806df3a3909a6ce3d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Wageningen University &amp; Research</div>`)[0];
-                popup_3f916c4f39d9b3a4b66442666158cb59.setContent(html_025a53c86a1d4f0806df3a3909a6ce3d);
+                var html_6e994fba2e5df406b0b2bcbc4ab4274b = $(`<div id=&quot;html_6e994fba2e5df406b0b2bcbc4ab4274b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Wageningen University &amp; Research</div>`)[0];
+                popup_07b7cfa49f72686cb7277d50d9f24615.setContent(html_6e994fba2e5df406b0b2bcbc4ab4274b);
             
         
 
-        marker_05378a48b96974892c869528a2aa87c6.bindPopup(popup_3f916c4f39d9b3a4b66442666158cb59)
+        marker_517d65d32c1fc99fff4aa1c51da7e450.bindPopup(popup_07b7cfa49f72686cb7277d50d9f24615)
         ;
 
         
     
     
-            var marker_ca146b37dfed8f29358d45d33ae24187 = L.marker(
+            var marker_39fb51a6e400afb5d8ed475b0d321716 = L.marker(
                 [52.36813335, 4.889804155733945],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_f45eff1758c7d44f4fb559dfa732e179 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0e38421d466234145ac1efee19df05cd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_1b7d92261857717101234c74cbe4e817 = $(`<div id=&quot;html_1b7d92261857717101234c74cbe4e817&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Amsterdam</div>`)[0];
-                popup_f45eff1758c7d44f4fb559dfa732e179.setContent(html_1b7d92261857717101234c74cbe4e817);
+                var html_0b74dd2a7d77bdfa0f1c8075d8e9d467 = $(`<div id=&quot;html_0b74dd2a7d77bdfa0f1c8075d8e9d467&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Amsterdam</div>`)[0];
+                popup_0e38421d466234145ac1efee19df05cd.setContent(html_0b74dd2a7d77bdfa0f1c8075d8e9d467);
             
         
 
-        marker_ca146b37dfed8f29358d45d33ae24187.bindPopup(popup_f45eff1758c7d44f4fb559dfa732e179)
+        marker_39fb51a6e400afb5d8ed475b0d321716.bindPopup(popup_0e38421d466234145ac1efee19df05cd)
         ;
 
         
     
     
-            var marker_b843748a859628db40bc0f7d8bd0dc22 = L.marker(
-                [52.5185813, 13.39287842853558],
+            var marker_6a3aea5e6a5d094ecfde1ed513dfc94a = L.marker(
+                [52.5183402, 13.392920232320172],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_d23f43319a8334c3b6488f38aea78a87 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_869d6d297ed7668fc662af19bcb0ce1e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_6c1ad53b6bddd76f5f344745acfada95 = $(`<div id=&quot;html_6c1ad53b6bddd76f5f344745acfada95&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Humboldt University of Berlin</div>`)[0];
-                popup_d23f43319a8334c3b6488f38aea78a87.setContent(html_6c1ad53b6bddd76f5f344745acfada95);
+                var html_2e735c9fce3cb7582b5b10a296ae19de = $(`<div id=&quot;html_2e735c9fce3cb7582b5b10a296ae19de&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Humboldt University of Berlin</div>`)[0];
+                popup_869d6d297ed7668fc662af19bcb0ce1e.setContent(html_2e735c9fce3cb7582b5b10a296ae19de);
             
         
 
-        marker_b843748a859628db40bc0f7d8bd0dc22.bindPopup(popup_d23f43319a8334c3b6488f38aea78a87)
+        marker_6a3aea5e6a5d094ecfde1ed513dfc94a.bindPopup(popup_869d6d297ed7668fc662af19bcb0ce1e)
         ;
 
         
     
     
-            var marker_bd33f86e1a6defe6d820be2533fa1bc9 = L.marker(
+            var marker_ed9b7e96778702a2721f8e75d7162427 = L.marker(
                 [52.168633850000006, 4.45966305742133],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_c6c2972d294dfc51c571a2e76c9057f6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_fdf0afe3768c90224f188547407213e3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_b59eda55a6bb3d2ad00d8b29466293cb = $(`<div id=&quot;html_b59eda55a6bb3d2ad00d8b29466293cb&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Leiden University</div>`)[0];
-                popup_c6c2972d294dfc51c571a2e76c9057f6.setContent(html_b59eda55a6bb3d2ad00d8b29466293cb);
+                var html_f2b8220a0fcb962f7889d271f1da5f07 = $(`<div id=&quot;html_f2b8220a0fcb962f7889d271f1da5f07&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Leiden University</div>`)[0];
+                popup_fdf0afe3768c90224f188547407213e3.setContent(html_f2b8220a0fcb962f7889d271f1da5f07);
             
         
 
-        marker_bd33f86e1a6defe6d820be2533fa1bc9.bindPopup(popup_c6c2972d294dfc51c571a2e76c9057f6)
+        marker_ed9b7e96778702a2721f8e75d7162427.bindPopup(popup_fdf0afe3768c90224f188547407213e3)
         ;
 
         
     
     
-            var marker_84218558fc8e361ac0deebf72bfdc304 = L.marker(
+            var marker_4a9c9ca5ff055c5aa3de8a09e1a6dd55 = L.marker(
                 [51.9229171, 4.487612362865811],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_b99950ac83fc65bf12e8f4baeaf6de7b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_b55ea589154b77de8ba9dc7a67683d61 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_e2d2371b3bb1c7f728310f8119484936 = $(`<div id=&quot;html_e2d2371b3bb1c7f728310f8119484936&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Erasmus University Rotterdam</div>`)[0];
-                popup_b99950ac83fc65bf12e8f4baeaf6de7b.setContent(html_e2d2371b3bb1c7f728310f8119484936);
+                var html_35cc9dcde02947d9e2770b4d03640123 = $(`<div id=&quot;html_35cc9dcde02947d9e2770b4d03640123&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Erasmus University Rotterdam</div>`)[0];
+                popup_b55ea589154b77de8ba9dc7a67683d61.setContent(html_35cc9dcde02947d9e2770b4d03640123);
             
         
 
-        marker_84218558fc8e361ac0deebf72bfdc304.bindPopup(popup_b99950ac83fc65bf12e8f4baeaf6de7b)
+        marker_4a9c9ca5ff055c5aa3de8a09e1a6dd55.bindPopup(popup_b55ea589154b77de8ba9dc7a67683d61)
         ;
 
         
     
     
-            var marker_7d0bdcc639a021a3e830184a2388e9aa = L.marker(
+            var marker_8440e50e4ad62db9bce05ec04588222b = L.marker(
                 [48.846899699999994, 2.357448653115875],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_732f20018f2783c7a641f351f1a3098d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_92b49a23554546b90e963dffff96306a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_09c308d5f3ac53ba776593305c816da4 = $(`<div id=&quot;html_09c308d5f3ac53ba776593305c816da4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Sorbonne University</div>`)[0];
-                popup_732f20018f2783c7a641f351f1a3098d.setContent(html_09c308d5f3ac53ba776593305c816da4);
+                var html_4b436fc62179c4e8a4666056683a56c2 = $(`<div id=&quot;html_4b436fc62179c4e8a4666056683a56c2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Sorbonne University</div>`)[0];
+                popup_92b49a23554546b90e963dffff96306a.setContent(html_4b436fc62179c4e8a4666056683a56c2);
             
         
 
-        marker_7d0bdcc639a021a3e830184a2388e9aa.bindPopup(popup_732f20018f2783c7a641f351f1a3098d)
+        marker_8440e50e4ad62db9bce05ec04588222b.bindPopup(popup_92b49a23554546b90e963dffff96306a)
         ;
 
         
     
     
-            var marker_95cea31c016bc3a0ef826331bd3c4d4c = L.marker(
+            var marker_d1188f8a65bedbc51a34d770af905987 = L.marker(
                 [52.08340265, 5.148315067762755],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_b5686fe2dcc51d9704a645e51817865e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_c7367877c189496c7cd447acd24a3f30 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_ed00482981aea73aa40c4988aab04dbd = $(`<div id=&quot;html_ed00482981aea73aa40c4988aab04dbd&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Utrecht University</div>`)[0];
-                popup_b5686fe2dcc51d9704a645e51817865e.setContent(html_ed00482981aea73aa40c4988aab04dbd);
+                var html_62766fb87d5e3a35ff9c0cdcb721cf7f = $(`<div id=&quot;html_62766fb87d5e3a35ff9c0cdcb721cf7f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Utrecht University</div>`)[0];
+                popup_c7367877c189496c7cd447acd24a3f30.setContent(html_62766fb87d5e3a35ff9c0cdcb721cf7f);
             
         
 
-        marker_95cea31c016bc3a0ef826331bd3c4d4c.bindPopup(popup_b5686fe2dcc51d9704a645e51817865e)
+        marker_d1188f8a65bedbc51a34d770af905987.bindPopup(popup_c7367877c189496c7cd447acd24a3f30)
         ;
 
         
     
     
-            var marker_176ac451c9d7ea0a2f8afbd8100f923b = L.marker(
+            var marker_2ab7a6b30196f7198b1bb5051b9c4f22 = L.marker(
                 [46.793058, 7.157106],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_6c33567de614e5627b31a8a9541aee59 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_597dee5dd31973e7cb6732e78ada0cdd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_9d1bdcca0a0481e0950575c9d2a5ae14 = $(`<div id=&quot;html_9d1bdcca0a0481e0950575c9d2a5ae14&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Freiburg</div>`)[0];
-                popup_6c33567de614e5627b31a8a9541aee59.setContent(html_9d1bdcca0a0481e0950575c9d2a5ae14);
+                var html_5d0242584cd125bac4a0bdc93dfd4fc8 = $(`<div id=&quot;html_5d0242584cd125bac4a0bdc93dfd4fc8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Freiburg</div>`)[0];
+                popup_597dee5dd31973e7cb6732e78ada0cdd.setContent(html_5d0242584cd125bac4a0bdc93dfd4fc8);
             
         
 
-        marker_176ac451c9d7ea0a2f8afbd8100f923b.bindPopup(popup_6c33567de614e5627b31a8a9541aee59)
+        marker_2ab7a6b30196f7198b1bb5051b9c4f22.bindPopup(popup_597dee5dd31973e7cb6732e78ada0cdd)
         ;
 
         
     
     
-            var marker_9aacc1079159b0e58e3d2dbb4be8151f = L.marker(
+            var marker_8727ba96ccaffd5727f7e2e2512c3069 = L.marker(
                 [51.457609649999995, -2.6016348983421755],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_89ce0001391c59aed77ac0d678eda096 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_7bbf499cda7d685ed832c11c12b3095c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_f9cd3c7968ebfa0e5e0a5a8d6d58b01f = $(`<div id=&quot;html_f9cd3c7968ebfa0e5e0a5a8d6d58b01f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bristol</div>`)[0];
-                popup_89ce0001391c59aed77ac0d678eda096.setContent(html_f9cd3c7968ebfa0e5e0a5a8d6d58b01f);
+                var html_fb5ffe29bf98bade63b2991a170ea391 = $(`<div id=&quot;html_fb5ffe29bf98bade63b2991a170ea391&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bristol</div>`)[0];
+                popup_7bbf499cda7d685ed832c11c12b3095c.setContent(html_fb5ffe29bf98bade63b2991a170ea391);
             
         
 
-        marker_9aacc1079159b0e58e3d2dbb4be8151f.bindPopup(popup_89ce0001391c59aed77ac0d678eda096)
+        marker_8727ba96ccaffd5727f7e2e2512c3069.bindPopup(popup_7bbf499cda7d685ed832c11c12b3095c)
         ;
 
         
     
     
-            var marker_91cf66a3b9d1e1b8a991e1c09d490dc1 = L.marker(
+            var marker_517c22f53ca4c2696e970541b28c2d32 = L.marker(
                 [53.21967825, 6.562514810379012],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_08cdb72d91a738cae33e2a72168f2f51 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_948a111d37e3f467e68037e283e8d43a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_500333793593605d27f74b9159790d5c = $(`<div id=&quot;html_500333793593605d27f74b9159790d5c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Groningen</div>`)[0];
-                popup_08cdb72d91a738cae33e2a72168f2f51.setContent(html_500333793593605d27f74b9159790d5c);
+                var html_4cd76472e42b946fc9299145a30c4bd9 = $(`<div id=&quot;html_4cd76472e42b946fc9299145a30c4bd9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Groningen</div>`)[0];
+                popup_948a111d37e3f467e68037e283e8d43a.setContent(html_4cd76472e42b946fc9299145a30c4bd9);
             
         
 
-        marker_91cf66a3b9d1e1b8a991e1c09d490dc1.bindPopup(popup_08cdb72d91a738cae33e2a72168f2f51)
+        marker_517c22f53ca4c2696e970541b28c2d32.bindPopup(popup_948a111d37e3f467e68037e283e8d43a)
         ;
 
         
     
     
-            var marker_63a8b9c6c11b809c36271405ee5bf2f7 = L.marker(
+            var marker_5f0fda77d68c3c26a27412208ba02b1e = L.marker(
                 [52.3813073, -1.5639569481637439],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_8e689c769bbc796a924afeb5af595ad7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_31053642ec4c794a304b23c42cc777ef = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_1d03a2b47ef7e0e54d9362399f8452bd = $(`<div id=&quot;html_1d03a2b47ef7e0e54d9362399f8452bd&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Warwick</div>`)[0];
-                popup_8e689c769bbc796a924afeb5af595ad7.setContent(html_1d03a2b47ef7e0e54d9362399f8452bd);
+                var html_7a2a037afde904ac7a115341290d897a = $(`<div id=&quot;html_7a2a037afde904ac7a115341290d897a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Warwick</div>`)[0];
+                popup_31053642ec4c794a304b23c42cc777ef.setContent(html_7a2a037afde904ac7a115341290d897a);
             
         
 
-        marker_63a8b9c6c11b809c36271405ee5bf2f7.bindPopup(popup_8e689c769bbc796a924afeb5af595ad7)
+        marker_5f0fda77d68c3c26a27412208ba02b1e.bindPopup(popup_31053642ec4c794a304b23c42cc777ef)
         ;
 
         
     
     
-            var marker_55341b5085f1ba1239488b37aad80087 = L.marker(
+            var marker_51e7afabce77f2a0d1c8b45ca4d08cba = L.marker(
                 [50.7791645, 6.068920971222876],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_e9a8400150147ab407f2100ca0d54b4e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_e213de17f788f45b2e0bd0b1f065af0f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_f8a7c2b6b612e5dcbc4a9b9e7800d424 = $(`<div id=&quot;html_f8a7c2b6b612e5dcbc4a9b9e7800d424&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>RWTH Aachen University</div>`)[0];
-                popup_e9a8400150147ab407f2100ca0d54b4e.setContent(html_f8a7c2b6b612e5dcbc4a9b9e7800d424);
+                var html_3fddb99d68011c941c1a615894ad16e4 = $(`<div id=&quot;html_3fddb99d68011c941c1a615894ad16e4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>RWTH Aachen University</div>`)[0];
+                popup_e213de17f788f45b2e0bd0b1f065af0f.setContent(html_3fddb99d68011c941c1a615894ad16e4);
             
         
 
-        marker_55341b5085f1ba1239488b37aad80087.bindPopup(popup_e9a8400150147ab407f2100ca0d54b4e)
+        marker_51e7afabce77f2a0d1c8b45ca4d08cba.bindPopup(popup_e213de17f788f45b2e0bd0b1f065af0f)
         ;
 
         
     
     
-            var marker_e4bb4692bae5cec8d520f8493cb2fef2 = L.marker(
+            var marker_698e03d9634532dd5fe7efb6e26d2a4a = L.marker(
                 [59.8617859, 17.6376705],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_5c9f924819274026d53e6069c781da07 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_1b5935f4468a9dd4ea787d96411238c3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_4c398bf2186f0a146c0d36165e03f83f = $(`<div id=&quot;html_4c398bf2186f0a146c0d36165e03f83f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Uppsala University</div>`)[0];
-                popup_5c9f924819274026d53e6069c781da07.setContent(html_4c398bf2186f0a146c0d36165e03f83f);
+                var html_6f3b7f0116b37efd24202c6d88a71778 = $(`<div id=&quot;html_6f3b7f0116b37efd24202c6d88a71778&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Uppsala University</div>`)[0];
+                popup_1b5935f4468a9dd4ea787d96411238c3.setContent(html_6f3b7f0116b37efd24202c6d88a71778);
             
         
 
-        marker_e4bb4692bae5cec8d520f8493cb2fef2.bindPopup(popup_5c9f924819274026d53e6069c781da07)
+        marker_698e03d9634532dd5fe7efb6e26d2a4a.bindPopup(popup_1b5935f4468a9dd4ea787d96411238c3)
         ;
 
         
     
     
-            var marker_7a2113e4e0cc1b2cc6e943283463dc05 = L.marker(
+            var marker_479f86a9798435a3d2072e5916d62aff = L.marker(
                 [48.53405945, 9.071244429234808],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_95ce0e6db5fb667624a8e116067a8ef5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0ba73cc9c5f521774bb7ba703c6530d8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_a17e5baf94fd59e5996654c4a4850880 = $(`<div id=&quot;html_a17e5baf94fd59e5996654c4a4850880&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Tübingen</div>`)[0];
-                popup_95ce0e6db5fb667624a8e116067a8ef5.setContent(html_a17e5baf94fd59e5996654c4a4850880);
+                var html_b8c8c2b5c7b4794d7f918a95fa6a4f9a = $(`<div id=&quot;html_b8c8c2b5c7b4794d7f918a95fa6a4f9a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Tübingen</div>`)[0];
+                popup_0ba73cc9c5f521774bb7ba703c6530d8.setContent(html_b8c8c2b5c7b4794d7f918a95fa6a4f9a);
             
         
 
-        marker_7a2113e4e0cc1b2cc6e943283463dc05.bindPopup(popup_95ce0e6db5fb667624a8e116067a8ef5)
+        marker_479f86a9798435a3d2072e5916d62aff.bindPopup(popup_0ba73cc9c5f521774bb7ba703c6530d8)
         ;
 
         
     
     
-            var marker_4ad7b1f3cfc322ded6617e8b235986fe = L.marker(
+            var marker_c8e4dbcdc189b7df0a5bf75174212ad0 = L.marker(
                 [52.5299885, 13.34866394036122],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_b6a78d35009c37d08fe23322f0b88917 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_a52845796d2b174785e25ef893fc4fc4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_0a273d2bf74c6674881dfe858056243d = $(`<div id=&quot;html_0a273d2bf74c6674881dfe858056243d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Charité - Universitätsmedizin Berlin</div>`)[0];
-                popup_b6a78d35009c37d08fe23322f0b88917.setContent(html_0a273d2bf74c6674881dfe858056243d);
+                var html_0d21caa80228b0f20be595f857f23008 = $(`<div id=&quot;html_0d21caa80228b0f20be595f857f23008&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Charité - Universitätsmedizin Berlin</div>`)[0];
+                popup_a52845796d2b174785e25ef893fc4fc4.setContent(html_0d21caa80228b0f20be595f857f23008);
             
         
 
-        marker_4ad7b1f3cfc322ded6617e8b235986fe.bindPopup(popup_b6a78d35009c37d08fe23322f0b88917)
+        marker_c8e4dbcdc189b7df0a5bf75174212ad0.bindPopup(popup_a52845796d2b174785e25ef893fc4fc4)
         ;
 
         
     
     
-            var marker_bed3d485f5397f589e1d29b08fa4b21e = L.marker(
+            var marker_4f94ab0ab115f54a0710848a9bbc29d6 = L.marker(
                 [47.49684345, 8.72980716809498],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_e73b82af6664d6dc33588aec8b223762 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_3cca67d11d94f4a07b765ad0e0822402 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_9d620754a27a61ed303b48be6e84325e = $(`<div id=&quot;html_9d620754a27a61ed303b48be6e84325e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Zurich</div>`)[0];
-                popup_e73b82af6664d6dc33588aec8b223762.setContent(html_9d620754a27a61ed303b48be6e84325e);
+                var html_90f68fe39ec73679c6997d6fee951f7a = $(`<div id=&quot;html_90f68fe39ec73679c6997d6fee951f7a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Zurich</div>`)[0];
+                popup_3cca67d11d94f4a07b765ad0e0822402.setContent(html_90f68fe39ec73679c6997d6fee951f7a);
             
         
 
-        marker_bed3d485f5397f589e1d29b08fa4b21e.bindPopup(popup_e73b82af6664d6dc33588aec8b223762)
+        marker_4f94ab0ab115f54a0710848a9bbc29d6.bindPopup(popup_3cca67d11d94f4a07b765ad0e0822402)
         ;
 
         
     
     
-            var marker_d223bd11dd168ed5307aeeb48833fe0f = L.marker(
+            var marker_daa4c1f05ed78f74b591cce5134ff2f0 = L.marker(
                 [55.872315349999994, -4.289219112981823],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_2f675ca03424a6565d9f383aeac7b77f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_4e405c40e5d277a9f1b784bf2c4b7a8c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_3f8070350ee22a1234e27bbbfdbe899c = $(`<div id=&quot;html_3f8070350ee22a1234e27bbbfdbe899c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Glasgow</div>`)[0];
-                popup_2f675ca03424a6565d9f383aeac7b77f.setContent(html_3f8070350ee22a1234e27bbbfdbe899c);
+                var html_96fba21040db77184d7d8465520f11cf = $(`<div id=&quot;html_96fba21040db77184d7d8465520f11cf&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Glasgow</div>`)[0];
+                popup_4e405c40e5d277a9f1b784bf2c4b7a8c.setContent(html_96fba21040db77184d7d8465520f11cf);
             
         
 
-        marker_d223bd11dd168ed5307aeeb48833fe0f.bindPopup(popup_2f675ca03424a6565d9f383aeac7b77f)
+        marker_daa4c1f05ed78f74b591cce5134ff2f0.bindPopup(popup_4e405c40e5d277a9f1b784bf2c4b7a8c)
         ;
 
         
     
     
-            var marker_4dbbff8a3cca33b47491ccda8f04460a = L.marker(
+            var marker_d7d60418377f07249e6c3c6f0a84485d = L.marker(
                 [58.163098500000004, 8.001442632957419],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_f40553e0ae6ee364adacd551202199c1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0094961b40d791a699196fe9832232c3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_443d8db3e0b21b1efbb0fefb7cd130ec = $(`<div id=&quot;html_443d8db3e0b21b1efbb0fefb7cd130ec&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lund University</div>`)[0];
-                popup_f40553e0ae6ee364adacd551202199c1.setContent(html_443d8db3e0b21b1efbb0fefb7cd130ec);
+                var html_5435312ca7270eaa2c2f0468a2e459c1 = $(`<div id=&quot;html_5435312ca7270eaa2c2f0468a2e459c1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lund University</div>`)[0];
+                popup_0094961b40d791a699196fe9832232c3.setContent(html_5435312ca7270eaa2c2f0468a2e459c1);
             
         
 
-        marker_4dbbff8a3cca33b47491ccda8f04460a.bindPopup(popup_f40553e0ae6ee364adacd551202199c1)
+        marker_d7d60418377f07249e6c3c6f0a84485d.bindPopup(popup_0094961b40d791a699196fe9832232c3)
         ;
 
         
     
     
-            var marker_3424fff404808674e9f681d2291646b0 = L.marker(
+            var marker_51bd04c08ec354a9c7925dd5b94885d2 = L.marker(
                 [60.175648300000006, 24.953550020522073],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_7176fa1e2969ccceeda1f4e00e9cab1a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_83d402dd9f37698c2377c85c910c8da0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_edd7b1370c20b566a07639d03dc4b138 = $(`<div id=&quot;html_edd7b1370c20b566a07639d03dc4b138&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Helsinki</div>`)[0];
-                popup_7176fa1e2969ccceeda1f4e00e9cab1a.setContent(html_edd7b1370c20b566a07639d03dc4b138);
+                var html_e8e8868678191f6ae56720cbfcfc2d94 = $(`<div id=&quot;html_e8e8868678191f6ae56720cbfcfc2d94&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Helsinki</div>`)[0];
+                popup_83d402dd9f37698c2377c85c910c8da0.setContent(html_e8e8868678191f6ae56720cbfcfc2d94);
             
         
 
-        marker_3424fff404808674e9f681d2291646b0.bindPopup(popup_7176fa1e2969ccceeda1f4e00e9cab1a)
+        marker_51bd04c08ec354a9c7925dd5b94885d2.bindPopup(popup_83d402dd9f37698c2377c85c910c8da0)
         ;
 
         
     
     
-            var marker_966af6c7ef5a970654495873d97860ed = L.marker(
+            var marker_d25d6d3ab0866d03cd518bbcca416791 = L.marker(
                 [47.56174235, 7.58285513707386],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_519f27590ab61508d7ea4b733144acfb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_7e0c0c8b707882ccb9a10aac92fac2f6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_4d5d2e8ff5d0986f127ff1aeffed2139 = $(`<div id=&quot;html_4d5d2e8ff5d0986f127ff1aeffed2139&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Basel</div>`)[0];
-                popup_519f27590ab61508d7ea4b733144acfb.setContent(html_4d5d2e8ff5d0986f127ff1aeffed2139);
+                var html_22152f73a707268854d4adfd81f6ae20 = $(`<div id=&quot;html_22152f73a707268854d4adfd81f6ae20&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Basel</div>`)[0];
+                popup_7e0c0c8b707882ccb9a10aac92fac2f6.setContent(html_22152f73a707268854d4adfd81f6ae20);
             
         
 
-        marker_966af6c7ef5a970654495873d97860ed.bindPopup(popup_519f27590ab61508d7ea4b733144acfb)
+        marker_d25d6d3ab0866d03cd518bbcca416791.bindPopup(popup_7e0c0c8b707882ccb9a10aac92fac2f6)
         ;
 
         
     
     
-            var marker_2fc571bfc21e2279a06522e23984b4da = L.marker(
+            var marker_14d4df7787fef517dfdd00d157a5cac7 = L.marker(
                 [53.3815327, -1.4806602],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_39b9c2b315987e5f2cc2a6f4d8bf27b0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_7c132e5fc178efffea07e8ae3fca7421 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_79fa467f1daecde5f34c47d66397c6ca = $(`<div id=&quot;html_79fa467f1daecde5f34c47d66397c6ca&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Sheffield</div>`)[0];
-                popup_39b9c2b315987e5f2cc2a6f4d8bf27b0.setContent(html_79fa467f1daecde5f34c47d66397c6ca);
+                var html_446443bcf85f69ac2b9458235875a2f4 = $(`<div id=&quot;html_446443bcf85f69ac2b9458235875a2f4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Sheffield</div>`)[0];
+                popup_7c132e5fc178efffea07e8ae3fca7421.setContent(html_446443bcf85f69ac2b9458235875a2f4);
             
         
 
-        marker_2fc571bfc21e2279a06522e23984b4da.bindPopup(popup_39b9c2b315987e5f2cc2a6f4d8bf27b0)
+        marker_14d4df7787fef517dfdd00d157a5cac7.bindPopup(popup_7c132e5fc178efffea07e8ae3fca7421)
         ;
 
         
     
     
-            var marker_85dfee21235e10ad84e4438b36022b8a = L.marker(
+            var marker_e9b6e1b1b9cc9846046b8ddd6a6778a8 = L.marker(
                 [48.7127874, 2.2107453],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_fc4ab87697f39a8a0835accfa0af0979 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_2fb98c6731122aeafa2c5b1ed30a3ab2 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d81f4b6d6cf980866a5ac71c53315110 = $(`<div id=&quot;html_d81f4b6d6cf980866a5ac71c53315110&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>École Polytechnique</div>`)[0];
-                popup_fc4ab87697f39a8a0835accfa0af0979.setContent(html_d81f4b6d6cf980866a5ac71c53315110);
+                var html_5d5775b2fac9e093128c7423b531a0c4 = $(`<div id=&quot;html_5d5775b2fac9e093128c7423b531a0c4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>École Polytechnique</div>`)[0];
+                popup_2fb98c6731122aeafa2c5b1ed30a3ab2.setContent(html_5d5775b2fac9e093128c7423b531a0c4);
             
         
 
-        marker_85dfee21235e10ad84e4438b36022b8a.bindPopup(popup_fc4ab87697f39a8a0835accfa0af0979)
+        marker_e9b6e1b1b9cc9846046b8ddd6a6778a8.bindPopup(popup_2fb98c6731122aeafa2c5b1ed30a3ab2)
         ;
 
         
     
     
-            var marker_928b18f79b74d4e1d6fd35f2b45a53af = L.marker(
+            var marker_ed255cf6e766c23f7eff5ff3b85e97d4 = L.marker(
                 [46.95097255, 7.438684130809055],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_a122e779c4a5526131aab411e3e07b31 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_eb9c4b53a4cc09a69aefe61215adf3c6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_fc99243a48fef1d5e1592023ece52c6e = $(`<div id=&quot;html_fc99243a48fef1d5e1592023ece52c6e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bern</div>`)[0];
-                popup_a122e779c4a5526131aab411e3e07b31.setContent(html_fc99243a48fef1d5e1592023ece52c6e);
+                var html_39fe2796b77d96278875e2f38be5a8db = $(`<div id=&quot;html_39fe2796b77d96278875e2f38be5a8db&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bern</div>`)[0];
+                popup_eb9c4b53a4cc09a69aefe61215adf3c6.setContent(html_39fe2796b77d96278875e2f38be5a8db);
             
         
 
-        marker_928b18f79b74d4e1d6fd35f2b45a53af.bindPopup(popup_a122e779c4a5526131aab411e3e07b31)
+        marker_ed255cf6e766c23f7eff5ff3b85e97d4.bindPopup(popup_eb9c4b53a4cc09a69aefe61215adf3c6)
         ;
 
         
     
     
-            var marker_2b443e44009753577e168b52b5c42c15 = L.marker(
+            var marker_80ff2752a696674638d896665c921d0c = L.marker(
                 [50.7338124, 7.1022465],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_02cdc671fb779e2ced8f51f77b95e1f9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0dc927c8d477618116ed06663d536040 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_8b45a2a6a347646aa4024fb62ed8005c = $(`<div id=&quot;html_8b45a2a6a347646aa4024fb62ed8005c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bonn</div>`)[0];
-                popup_02cdc671fb779e2ced8f51f77b95e1f9.setContent(html_8b45a2a6a347646aa4024fb62ed8005c);
+                var html_4035d5c0cd16ddc37a90c048dd4bcaaf = $(`<div id=&quot;html_4035d5c0cd16ddc37a90c048dd4bcaaf&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bonn</div>`)[0];
+                popup_0dc927c8d477618116ed06663d536040.setContent(html_4035d5c0cd16ddc37a90c048dd4bcaaf);
             
         
 
-        marker_2b443e44009753577e168b52b5c42c15.bindPopup(popup_02cdc671fb779e2ced8f51f77b95e1f9)
+        marker_80ff2752a696674638d896665c921d0c.bindPopup(popup_0dc927c8d477618116ed06663d536040)
         ;
 
         
     
     
-            var marker_e14b291d00e830b7aebb1fbcad58f705 = L.marker(
+            var marker_f213b0581599f87eab37476f1de3e07f = L.marker(
                 [54.9027916, -1.392096],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_b9356271e14e32bf253d47b7797de403 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_24b181fdec58200d0ec496e976324ddf = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_67cbefc279d371920715525d162cf2c5 = $(`<div id=&quot;html_67cbefc279d371920715525d162cf2c5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Durham University</div>`)[0];
-                popup_b9356271e14e32bf253d47b7797de403.setContent(html_67cbefc279d371920715525d162cf2c5);
+                var html_2f08ce9b9105c59884c2185015f39744 = $(`<div id=&quot;html_2f08ce9b9105c59884c2185015f39744&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Durham University</div>`)[0];
+                popup_24b181fdec58200d0ec496e976324ddf.setContent(html_2f08ce9b9105c59884c2185015f39744);
             
         
 
-        marker_e14b291d00e830b7aebb1fbcad58f705.bindPopup(popup_b9356271e14e32bf253d47b7797de403)
+        marker_f213b0581599f87eab37476f1de3e07f.bindPopup(popup_24b181fdec58200d0ec496e976324ddf)
         ;
 
         
     
     
-            var marker_47d881c594b5b5abf996403fb2db256e = L.marker(
+            var marker_7d426f3d5fd3379704891364b5887eb0 = L.marker(
                 [52.4522956, -1.9312856726008194],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_5014df5bdcb837aa72d0516e8a082286 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_cf2e92f60eb59597ff6458f5cd7d5a6e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d5f4a4a7b03d3bb4bc0841e504f6b597 = $(`<div id=&quot;html_d5f4a4a7b03d3bb4bc0841e504f6b597&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Birmingham</div>`)[0];
-                popup_5014df5bdcb837aa72d0516e8a082286.setContent(html_d5f4a4a7b03d3bb4bc0841e504f6b597);
+                var html_c65fe8c775e5f7d2db6ba81c710c4740 = $(`<div id=&quot;html_c65fe8c775e5f7d2db6ba81c710c4740&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Birmingham</div>`)[0];
+                popup_cf2e92f60eb59597ff6458f5cd7d5a6e.setContent(html_c65fe8c775e5f7d2db6ba81c710c4740);
             
         
 
-        marker_47d881c594b5b5abf996403fb2db256e.bindPopup(popup_5014df5bdcb837aa72d0516e8a082286)
+        marker_7d426f3d5fd3379704891364b5887eb0.bindPopup(popup_cf2e92f60eb59597ff6458f5cd7d5a6e)
         ;
 
         
     
     
-            var marker_2375e80bd505a995ff80df3023a753a9 = L.marker(
+            var marker_ee84cb64573e3c50d64051414d4bc7f7 = L.marker(
                 [55.6801502, 12.57232700140625],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_45394f31254c156c9998f0b05e5cf1fe = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_712452a4339b608503882ae47b00f20f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_c5296990146ea3979d32185c7080fafd = $(`<div id=&quot;html_c5296990146ea3979d32185c7080fafd&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Copenhagen</div>`)[0];
-                popup_45394f31254c156c9998f0b05e5cf1fe.setContent(html_c5296990146ea3979d32185c7080fafd);
+                var html_1f60141d0db3804a21d8c9d17e84c909 = $(`<div id=&quot;html_1f60141d0db3804a21d8c9d17e84c909&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Copenhagen</div>`)[0];
+                popup_712452a4339b608503882ae47b00f20f.setContent(html_1f60141d0db3804a21d8c9d17e84c909);
             
         
 
-        marker_2375e80bd505a995ff80df3023a753a9.bindPopup(popup_45394f31254c156c9998f0b05e5cf1fe)
+        marker_ee84cb64573e3c50d64051414d4bc7f7.bindPopup(popup_712452a4339b608503882ae47b00f20f)
         ;
 
         
     
     
-            var marker_605ec5cfaf9494b1dc1cff98b27813a0 = L.marker(
+            var marker_9c5a41e52777d31c187c127be71c4ebd = L.marker(
                 [50.9354752, -1.3962847494297244],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_9f1fd1d7ec8f5c89d6c33123ce7f22ab = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_e21db064bb842f45f68d8b484a34caaa = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_e442709bc85c6eb1d1598679553f05d8 = $(`<div id=&quot;html_e442709bc85c6eb1d1598679553f05d8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Southampton</div>`)[0];
-                popup_9f1fd1d7ec8f5c89d6c33123ce7f22ab.setContent(html_e442709bc85c6eb1d1598679553f05d8);
+                var html_da60b42da416179dc9c3668b4b23270c = $(`<div id=&quot;html_da60b42da416179dc9c3668b4b23270c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Southampton</div>`)[0];
+                popup_e21db064bb842f45f68d8b484a34caaa.setContent(html_da60b42da416179dc9c3668b4b23270c);
             
         
 
-        marker_605ec5cfaf9494b1dc1cff98b27813a0.bindPopup(popup_9f1fd1d7ec8f5c89d6c33123ce7f22ab)
+        marker_9c5a41e52777d31c187c127be71c4ebd.bindPopup(popup_e21db064bb842f45f68d8b484a34caaa)
         ;
 
         
     
     
-            var marker_f4981ffa78b70208ebd9889b01f82550 = L.marker(
+            var marker_8b73146309c9ba4763ab2b9580f120bc = L.marker(
                 [53.9453903, -1.0314592943104675],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_17717016247628e5447ef9d59e91a264 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_ee478991595cc40d78d061dea62811dd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_6270efb23edcbe12f225b6686278ad6b = $(`<div id=&quot;html_6270efb23edcbe12f225b6686278ad6b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of York</div>`)[0];
-                popup_17717016247628e5447ef9d59e91a264.setContent(html_6270efb23edcbe12f225b6686278ad6b);
+                var html_4266cf065856cf4959760c664f8a9b73 = $(`<div id=&quot;html_4266cf065856cf4959760c664f8a9b73&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of York</div>`)[0];
+                popup_ee478991595cc40d78d061dea62811dd.setContent(html_4266cf065856cf4959760c664f8a9b73);
             
         
 
-        marker_f4981ffa78b70208ebd9889b01f82550.bindPopup(popup_17717016247628e5447ef9d59e91a264)
+        marker_8b73146309c9ba4763ab2b9580f120bc.bindPopup(popup_ee478991595cc40d78d061dea62811dd)
         ;
 
         
     
     
-            var marker_f252bec60a452513115f2e644256669b = L.marker(
+            var marker_a0efb8327306b8d9ddcd7bf3a470a5df = L.marker(
                 [53.34366745, -6.254444724511822],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_f809e453049775df9e9da65834258937 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_c67ed85af05a1a4a7151a5e96dfe925b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_162191818205ae4d759bcbfb67861371 = $(`<div id=&quot;html_162191818205ae4d759bcbfb67861371&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Trinity College Dublin</div>`)[0];
-                popup_f809e453049775df9e9da65834258937.setContent(html_162191818205ae4d759bcbfb67861371);
+                var html_fd72ec1d3fea1898e5b2afe24751c21b = $(`<div id=&quot;html_fd72ec1d3fea1898e5b2afe24751c21b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Trinity College Dublin</div>`)[0];
+                popup_c67ed85af05a1a4a7151a5e96dfe925b.setContent(html_fd72ec1d3fea1898e5b2afe24751c21b);
             
         
 
-        marker_f252bec60a452513115f2e644256669b.bindPopup(popup_f809e453049775df9e9da65834258937)
+        marker_a0efb8327306b8d9ddcd7bf3a470a5df.bindPopup(popup_c67ed85af05a1a4a7151a5e96dfe925b)
         ;
 
         
     
     
-            var marker_4095b433d6d2a2245954cbd64e63902e = L.marker(
+            var marker_5eac95016552d6a303d9ca042a6c6b27 = L.marker(
                 [59.9414173, 10.722768340750914],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_4d5b8068f8f33ce5bc0f510426051d37 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_64b0e82d50b2e512c011df64256b77bc = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_97b4fa382209f8046bee174afe888322 = $(`<div id=&quot;html_97b4fa382209f8046bee174afe888322&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Oslo</div>`)[0];
-                popup_4d5b8068f8f33ce5bc0f510426051d37.setContent(html_97b4fa382209f8046bee174afe888322);
+                var html_26513d8a707ebc7d01721479260a99a6 = $(`<div id=&quot;html_26513d8a707ebc7d01721479260a99a6&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Oslo</div>`)[0];
+                popup_64b0e82d50b2e512c011df64256b77bc.setContent(html_26513d8a707ebc7d01721479260a99a6);
             
         
 
-        marker_4095b433d6d2a2245954cbd64e63902e.bindPopup(popup_4d5b8068f8f33ce5bc0f510426051d37)
+        marker_5eac95016552d6a303d9ca042a6c6b27.bindPopup(popup_64b0e82d50b2e512c011df64256b77bc)
         ;
 
         
     
     
-            var marker_ffdd74ca41b931298d0940b94fd0e044 = L.marker(
+            var marker_5a2ecb21104bcb50eafb17a282c4d6df = L.marker(
                 [56.1670905, 10.202617693592895],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_8d45c10ac10d61eace1d43fb9eb59fd7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_61acdc823e6dabefe6d069dad08b6b2a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_8ee3e581e1bbe015ac0923ccb21bdff1 = $(`<div id=&quot;html_8ee3e581e1bbe015ac0923ccb21bdff1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aarhus University</div>`)[0];
-                popup_8d45c10ac10d61eace1d43fb9eb59fd7.setContent(html_8ee3e581e1bbe015ac0923ccb21bdff1);
+                var html_4ed63d6e9e502308c08ec06f5198808c = $(`<div id=&quot;html_4ed63d6e9e502308c08ec06f5198808c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aarhus University</div>`)[0];
+                popup_61acdc823e6dabefe6d069dad08b6b2a.setContent(html_4ed63d6e9e502308c08ec06f5198808c);
             
         
 
-        marker_ffdd74ca41b931298d0940b94fd0e044.bindPopup(popup_8d45c10ac10d61eace1d43fb9eb59fd7)
+        marker_5a2ecb21104bcb50eafb17a282c4d6df.bindPopup(popup_61acdc823e6dabefe6d069dad08b6b2a)
         ;
 
         
     
     
-            var marker_dcdb4c29f31ff0d36884090dc786bccb = L.marker(
+            var marker_e8f7658359abeed094dfb320f72652c8 = L.marker(
                 [51.5411003, 9.948200846079496],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_109d5a8878865b7c8ce50fbd5a0aadc5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_5ecc42fd6f0bf15f8d333de3c5b3d677 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_c4a7236c9273f0ce756042309ecadee8 = $(`<div id=&quot;html_c4a7236c9273f0ce756042309ecadee8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Göttingen</div>`)[0];
-                popup_109d5a8878865b7c8ce50fbd5a0aadc5.setContent(html_c4a7236c9273f0ce756042309ecadee8);
+                var html_632d81789392d81ed6d0431e9bab60b5 = $(`<div id=&quot;html_632d81789392d81ed6d0431e9bab60b5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Göttingen</div>`)[0];
+                popup_5ecc42fd6f0bf15f8d333de3c5b3d677.setContent(html_632d81789392d81ed6d0431e9bab60b5);
             
         
 
-        marker_dcdb4c29f31ff0d36884090dc786bccb.bindPopup(popup_109d5a8878865b7c8ce50fbd5a0aadc5)
+        marker_e8f7658359abeed094dfb320f72652c8.bindPopup(popup_5ecc42fd6f0bf15f8d333de3c5b3d677)
         ;
 
         
     
     
-            var marker_197ae638fe6515a78b9be9f5dddcbdfb = L.marker(
+            var marker_e1487d0793452b5c6d5cadc2f71e97c1 = L.marker(
                 [49.4699765, 8.4819024],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_a4488d328a086d49f060c025da933be4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_629edc49ccea3951ffc067cfdf4bd395 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_5c5f8cd3aa438b927be623637205d71a = $(`<div id=&quot;html_5c5f8cd3aa438b927be623637205d71a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Mannheim</div>`)[0];
-                popup_a4488d328a086d49f060c025da933be4.setContent(html_5c5f8cd3aa438b927be623637205d71a);
+                var html_cd6d06403c6bd94b6fb49ea98056efe9 = $(`<div id=&quot;html_cd6d06403c6bd94b6fb49ea98056efe9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Mannheim</div>`)[0];
+                popup_629edc49ccea3951ffc067cfdf4bd395.setContent(html_cd6d06403c6bd94b6fb49ea98056efe9);
             
         
 
-        marker_197ae638fe6515a78b9be9f5dddcbdfb.bindPopup(popup_a4488d328a086d49f060c025da933be4)
+        marker_e1487d0793452b5c6d5cadc2f71e97c1.bindPopup(popup_629edc49ccea3951ffc067cfdf4bd395)
         ;
 
         
     
     
-            var marker_5cb38ee712fc26acf705496de9e4feee = L.marker(
+            var marker_c4abb571f707d1b7d6a172d9f4cd9f90 = L.marker(
                 [51.82151725, 5.863403442541042],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_7727bda6ff7303a16a6ed35fc478ea64 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d1132305cdf05e2eca8add0559e95c1b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_7014d0a7bd695dc70848fbd8790095bc = $(`<div id=&quot;html_7014d0a7bd695dc70848fbd8790095bc&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Radboud University Nijmegen</div>`)[0];
-                popup_7727bda6ff7303a16a6ed35fc478ea64.setContent(html_7014d0a7bd695dc70848fbd8790095bc);
+                var html_830864f2c85d269cfd2b21f8ac217a69 = $(`<div id=&quot;html_830864f2c85d269cfd2b21f8ac217a69&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Radboud University Nijmegen</div>`)[0];
+                popup_d1132305cdf05e2eca8add0559e95c1b.setContent(html_830864f2c85d269cfd2b21f8ac217a69);
             
         
 
-        marker_5cb38ee712fc26acf705496de9e4feee.bindPopup(popup_7727bda6ff7303a16a6ed35fc478ea64)
+        marker_c4abb571f707d1b7d6a172d9f4cd9f90.bindPopup(popup_d1132305cdf05e2eca8add0559e95c1b)
         ;
 
         
     
     
-            var marker_0456b3aac32d71251a80c1389fd72acf = L.marker(
+            var marker_7798e31cf9f7e7a4085bb6726a0867f6 = L.marker(
                 [50.821259999999995, 4.349652894133002],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_70a272787a0948bfb3673c18c28b786e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_c42d5081fc484c216396676e88d18937 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_7585bab2d756dccd84bff8abdfd805fa = $(`<div id=&quot;html_7585bab2d756dccd84bff8abdfd805fa&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Université Catholique de Louvain</div>`)[0];
-                popup_70a272787a0948bfb3673c18c28b786e.setContent(html_7585bab2d756dccd84bff8abdfd805fa);
+                var html_15da28cdc2362c8d0946f4adf8a257b8 = $(`<div id=&quot;html_15da28cdc2362c8d0946f4adf8a257b8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Université Catholique de Louvain</div>`)[0];
+                popup_c42d5081fc484c216396676e88d18937.setContent(html_15da28cdc2362c8d0946f4adf8a257b8);
             
         
 
-        marker_0456b3aac32d71251a80c1389fd72acf.bindPopup(popup_70a272787a0948bfb3673c18c28b786e)
+        marker_7798e31cf9f7e7a4085bb6726a0867f6.bindPopup(popup_c42d5081fc484c216396676e88d18937)
         ;
 
         
     
     
-            var marker_5a99c69c2f1d9d9d1bb1bb24147aa5da = L.marker(
+            var marker_abc162cfd9c311a07f132fc2be1d0140 = L.marker(
                 [50.84720265, 5.685941396293034],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_718ee3eb290a3dd997fcbc81b11f216c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_c215bd9372d13e3dfbcc111d635b9719 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_2f0e192354047867523b0df7778edf8b = $(`<div id=&quot;html_2f0e192354047867523b0df7778edf8b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Maastricht University</div>`)[0];
-                popup_718ee3eb290a3dd997fcbc81b11f216c.setContent(html_2f0e192354047867523b0df7778edf8b);
+                var html_fc26a3f60162e65ce30e5e2d82dcb585 = $(`<div id=&quot;html_fc26a3f60162e65ce30e5e2d82dcb585&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Maastricht University</div>`)[0];
+                popup_c215bd9372d13e3dfbcc111d635b9719.setContent(html_fc26a3f60162e65ce30e5e2d82dcb585);
             
         
 
-        marker_5a99c69c2f1d9d9d1bb1bb24147aa5da.bindPopup(popup_718ee3eb290a3dd997fcbc81b11f216c)
+        marker_abc162cfd9c311a07f132fc2be1d0140.bindPopup(popup_c215bd9372d13e3dfbcc111d635b9719)
         ;
 
         
     
     
-            var marker_b6d53026ec2a5addf5cd43886da52643 = L.marker(
+            var marker_1d21d5e8caff0f382cb244bfaf7c10db = L.marker(
                 [51.5247272, -0.03931034663016243],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_35f4e29b776846c5811bb8ade5493a53 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_aa2683093bce3a3031d977a68291076b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_34ea535360606e8833b375762de7bd52 = $(`<div id=&quot;html_34ea535360606e8833b375762de7bd52&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Queen Mary University of London</div>`)[0];
-                popup_35f4e29b776846c5811bb8ade5493a53.setContent(html_34ea535360606e8833b375762de7bd52);
+                var html_de2261b4ea3d8f6a3e7c35956bc00e27 = $(`<div id=&quot;html_de2261b4ea3d8f6a3e7c35956bc00e27&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Queen Mary University of London</div>`)[0];
+                popup_aa2683093bce3a3031d977a68291076b.setContent(html_de2261b4ea3d8f6a3e7c35956bc00e27);
             
         
 
-        marker_b6d53026ec2a5addf5cd43886da52643.bindPopup(popup_35f4e29b776846c5811bb8ade5493a53)
+        marker_1d21d5e8caff0f382cb244bfaf7c10db.bindPopup(popup_aa2683093bce3a3031d977a68291076b)
         ;
 
         
     
     
-            var marker_6b104c601862aa577c3d24f0a00c3765 = L.marker(
+            var marker_b2580f78084c61eb9348ef8c2b7eab2c = L.marker(
                 [42.6126851, -88.4805318],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_add49f73c2410b22c7949225b424a46f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_231738ad69ecd7b638586487e0d4c9df = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_5f5de84cf96751950cef1bac2a821905 = $(`<div id=&quot;html_5f5de84cf96751950cef1bac2a821905&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Geneva</div>`)[0];
-                popup_add49f73c2410b22c7949225b424a46f.setContent(html_5f5de84cf96751950cef1bac2a821905);
+                var html_9fab872c51cae1cfafcc55eda752957e = $(`<div id=&quot;html_9fab872c51cae1cfafcc55eda752957e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Geneva</div>`)[0];
+                popup_231738ad69ecd7b638586487e0d4c9df.setContent(html_9fab872c51cae1cfafcc55eda752957e);
             
         
 
-        marker_6b104c601862aa577c3d24f0a00c3765.bindPopup(popup_add49f73c2410b22c7949225b424a46f)
+        marker_b2580f78084c61eb9348ef8c2b7eab2c.bindPopup(popup_231738ad69ecd7b638586487e0d4c9df)
         ;
 
         
     
     
-            var marker_6d3032836fedeca33a6eb7adc09c30dc = L.marker(
+            var marker_e00578c47075644e4773a66e4f58b678 = L.marker(
                 [53.5641091, 9.994978875267606],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_d07c413777b6582668882eb92e7c3afd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_2ac0eeec5b04047969e9feb54e57ad2c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_a97a3c9d7b87712f073630bc2098f33f = $(`<div id=&quot;html_a97a3c9d7b87712f073630bc2098f33f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Hamburg</div>`)[0];
-                popup_d07c413777b6582668882eb92e7c3afd.setContent(html_a97a3c9d7b87712f073630bc2098f33f);
+                var html_38653dcf53809b300e2a66b2b52acf33 = $(`<div id=&quot;html_38653dcf53809b300e2a66b2b52acf33&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Hamburg</div>`)[0];
+                popup_2ac0eeec5b04047969e9feb54e57ad2c.setContent(html_38653dcf53809b300e2a66b2b52acf33);
             
         
 
-        marker_6d3032836fedeca33a6eb7adc09c30dc.bindPopup(popup_d07c413777b6582668882eb92e7c3afd)
+        marker_e00578c47075644e4773a66e4f58b678.bindPopup(popup_2ac0eeec5b04047969e9feb54e57ad2c)
         ;
 
         
     
     
-            var marker_ed8a344b25fc1e1fe8ad6bef0d7900ff = L.marker(
+            var marker_5c2578bd889010aa21a05761c0e3918c = L.marker(
                 [49.101853399999996, 8.433120159201868],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_4680a8a485027d6739ca76f7ec4cdab5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_3810db9de73e4c3a09682b399125af59 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_7307dc3a72938f31da21c7024d591ae8 = $(`<div id=&quot;html_7307dc3a72938f31da21c7024d591ae8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Karlsruhe Institute of Technology</div>`)[0];
-                popup_4680a8a485027d6739ca76f7ec4cdab5.setContent(html_7307dc3a72938f31da21c7024d591ae8);
+                var html_066976f8bdbabaf8f2b692021877bac3 = $(`<div id=&quot;html_066976f8bdbabaf8f2b692021877bac3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Karlsruhe Institute of Technology</div>`)[0];
+                popup_3810db9de73e4c3a09682b399125af59.setContent(html_066976f8bdbabaf8f2b692021877bac3);
             
         
 
-        marker_ed8a344b25fc1e1fe8ad6bef0d7900ff.bindPopup(popup_4680a8a485027d6739ca76f7ec4cdab5)
+        marker_5c2578bd889010aa21a05761c0e3918c.bindPopup(popup_3810db9de73e4c3a09682b399125af59)
         ;
 
         
     
     
-            var marker_68f62d73491818bb1aed21371f8c3950 = L.marker(
+            var marker_64be6239f38dbf9227e82d63e1e45a3a = L.marker(
                 [50.73693715, -3.534734858662963],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_af2b666123a5b8b600442c209476dfe9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0d92a9fdd6b71e32761070a8c750ef5b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_c5ee6b7e64c21179228dc9becce9eae2 = $(`<div id=&quot;html_c5ee6b7e64c21179228dc9becce9eae2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Exeter</div>`)[0];
-                popup_af2b666123a5b8b600442c209476dfe9.setContent(html_c5ee6b7e64c21179228dc9becce9eae2);
+                var html_c4bebeda88581f348cd26b8837567b2e = $(`<div id=&quot;html_c4bebeda88581f348cd26b8837567b2e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Exeter</div>`)[0];
+                popup_0d92a9fdd6b71e32761070a8c750ef5b.setContent(html_c4bebeda88581f348cd26b8837567b2e);
             
         
 
-        marker_68f62d73491818bb1aed21371f8c3950.bindPopup(popup_af2b666123a5b8b600442c209476dfe9)
+        marker_64be6239f38dbf9227e82d63e1e45a3a.bindPopup(popup_0d92a9fdd6b71e32761070a8c750ef5b)
         ;
 
         
     
     
-            var marker_345de4d72e12a41d686947c608a9e978 = L.marker(
+            var marker_9c0c69862c53a0c82b6988d5a6a59c34 = L.marker(
                 [51.00784845, 3.710883068491984],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_8a49cd2e378f19cce878e17885c5183b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_f6fcb9708231d2b861c50131e0a623e6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d9b5b1046044c49fe37398bdff8c484d = $(`<div id=&quot;html_d9b5b1046044c49fe37398bdff8c484d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Ghent University</div>`)[0];
-                popup_8a49cd2e378f19cce878e17885c5183b.setContent(html_d9b5b1046044c49fe37398bdff8c484d);
+                var html_09b3accb71969f2b97c8c73c2ef77e2a = $(`<div id=&quot;html_09b3accb71969f2b97c8c73c2ef77e2a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Ghent University</div>`)[0];
+                popup_f6fcb9708231d2b861c50131e0a623e6.setContent(html_09b3accb71969f2b97c8c73c2ef77e2a);
             
         
 
-        marker_345de4d72e12a41d686947c608a9e978.bindPopup(popup_8a49cd2e378f19cce878e17885c5183b)
+        marker_9c0c69862c53a0c82b6988d5a6a59c34.bindPopup(popup_f6fcb9708231d2b861c50131e0a623e6)
         ;
 
         
     
     
-            var marker_17e53f5928e8d79191da7a4d18970305 = L.marker(
+            var marker_f865d81909a4303a2e79529aeb435e62 = L.marker(
                 [48.2131284, 16.360685994114505],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_0491311c74a04ae9ee54e36c26611c45 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_4c4095a3e550f4f7c2d48764a626fb63 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_f28bd8e912b5572289481bf36caeebf2 = $(`<div id=&quot;html_f28bd8e912b5572289481bf36caeebf2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Vienna</div>`)[0];
-                popup_0491311c74a04ae9ee54e36c26611c45.setContent(html_f28bd8e912b5572289481bf36caeebf2);
+                var html_7921d77b49dfa4ed8e2fdc677d108e24 = $(`<div id=&quot;html_7921d77b49dfa4ed8e2fdc677d108e24&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Vienna</div>`)[0];
+                popup_4c4095a3e550f4f7c2d48764a626fb63.setContent(html_7921d77b49dfa4ed8e2fdc677d108e24);
             
         
 
-        marker_17e53f5928e8d79191da7a4d18970305.bindPopup(popup_0491311c74a04ae9ee54e36c26611c45)
+        marker_f865d81909a4303a2e79529aeb435e62.bindPopup(popup_4c4095a3e550f4f7c2d48764a626fb63)
         ;
 
         
     
     
-            var marker_098eb9c4883e647e2aeda9bf1dd16988 = L.marker(
+            var marker_79e6ecc21186f83bd91be73058c2dc79 = L.marker(
                 [50.928044549999996, 6.928130514523661],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_835d98a824b4d28e86680227e905dcf6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_9cb04f65fa1ba8a9bcaf6bfefd3a86f5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_26e3b5d9fb37ceca2917b309fdcba1ac = $(`<div id=&quot;html_26e3b5d9fb37ceca2917b309fdcba1ac&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Cologne</div>`)[0];
-                popup_835d98a824b4d28e86680227e905dcf6.setContent(html_26e3b5d9fb37ceca2917b309fdcba1ac);
+                var html_097466f2358fb9799f3f717d5e1c677a = $(`<div id=&quot;html_097466f2358fb9799f3f717d5e1c677a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Cologne</div>`)[0];
+                popup_9cb04f65fa1ba8a9bcaf6bfefd3a86f5.setContent(html_097466f2358fb9799f3f717d5e1c677a);
             
         
 
-        marker_098eb9c4883e647e2aeda9bf1dd16988.bindPopup(popup_835d98a824b4d28e86680227e905dcf6)
+        marker_79e6ecc21186f83bd91be73058c2dc79.bindPopup(popup_9cb04f65fa1ba8a9bcaf6bfefd3a86f5)
         ;
 
         
     
     
-            var marker_0263395ad92e169c334bc8e6fcb80ec1 = L.marker(
+            var marker_0f891645a66bb78d0c75b3ca4fc56653 = L.marker(
                 [54.00975365, -2.7875727317728654],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_42f3aac5456ebc2cd4974c93dce360f2 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_239cd5cc74c85fc23df06f7af5888e60 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_b7bbf2ca1b90b1c1ba852b582ddf1524 = $(`<div id=&quot;html_b7bbf2ca1b90b1c1ba852b582ddf1524&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lancaster University</div>`)[0];
-                popup_42f3aac5456ebc2cd4974c93dce360f2.setContent(html_b7bbf2ca1b90b1c1ba852b582ddf1524);
+                var html_6fb135b147da969fbdb1615795a90228 = $(`<div id=&quot;html_6fb135b147da969fbdb1615795a90228&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lancaster University</div>`)[0];
+                popup_239cd5cc74c85fc23df06f7af5888e60.setContent(html_6fb135b147da969fbdb1615795a90228);
             
         
 
-        marker_0263395ad92e169c334bc8e6fcb80ec1.bindPopup(popup_42f3aac5456ebc2cd4974c93dce360f2)
+        marker_0f891645a66bb78d0c75b3ca4fc56653.bindPopup(popup_239cd5cc74c85fc23df06f7af5888e60)
         ;
 
         
     
     
-            var marker_a94b4067fb2fbad955108c76db21b606 = L.marker(
+            var marker_2b34f734b847917a2260ee1c228b9f20 = L.marker(
                 [52.9387428, -1.2002956927457427],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_b0f88e49f7105f7e720f5f3906949bc3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_9081acc7edddcc88384fff6361e64cf5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_7ae1adfaf2a11f4e8dae1d26514a3541 = $(`<div id=&quot;html_7ae1adfaf2a11f4e8dae1d26514a3541&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Nottingham</div>`)[0];
-                popup_b0f88e49f7105f7e720f5f3906949bc3.setContent(html_7ae1adfaf2a11f4e8dae1d26514a3541);
+                var html_60f901101786fd67c380fcdf55335d32 = $(`<div id=&quot;html_60f901101786fd67c380fcdf55335d32&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Nottingham</div>`)[0];
+                popup_9081acc7edddcc88384fff6361e64cf5.setContent(html_60f901101786fd67c380fcdf55335d32);
             
         
 
-        marker_a94b4067fb2fbad955108c76db21b606.bindPopup(popup_b0f88e49f7105f7e720f5f3906949bc3)
+        marker_2b34f734b847917a2260ee1c228b9f20.bindPopup(popup_9081acc7edddcc88384fff6361e64cf5)
         ;
 
         
     
     
-            var marker_0c419e7fb27b84e242c7071e44e13a5e = L.marker(
+            var marker_24ef65fff139bcf8297661acdb09b80d = L.marker(
                 [48.38044334999999, 10.010101151636224],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_2a1fd6240bb7adda05ea1ddad3f09543 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_2f37d26e531884a8b63a39868d297b2e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_571328d95c8f6e429b84eb57fdabbd8a = $(`<div id=&quot;html_571328d95c8f6e429b84eb57fdabbd8a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Ulm University</div>`)[0];
-                popup_2a1fd6240bb7adda05ea1ddad3f09543.setContent(html_571328d95c8f6e429b84eb57fdabbd8a);
+                var html_55746ec76ef1e12f425f0a36e3015137 = $(`<div id=&quot;html_55746ec76ef1e12f425f0a36e3015137&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Ulm University</div>`)[0];
+                popup_2f37d26e531884a8b63a39868d297b2e.setContent(html_55746ec76ef1e12f425f0a36e3015137);
             
         
 
-        marker_0c419e7fb27b84e242c7071e44e13a5e.bindPopup(popup_2a1fd6240bb7adda05ea1ddad3f09543)
+        marker_24ef65fff139bcf8297661acdb09b80d.bindPopup(popup_2f37d26e531884a8b63a39868d297b2e)
         ;
 
         
     
     
-            var marker_0266e82d9a0f1109179e422e1f9e386e = L.marker(
+            var marker_51db19294fc51f5a21cf670989632d62 = L.marker(
                 [51.028276500000004, 13.735982754935176],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_59776bea80c43667a18e0c63717d2b27 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_ce383efb8fb42c6e533dfd400d2c0116 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d5a15ba75b3ba5bfa02a87fef4c5dddd = $(`<div id=&quot;html_d5a15ba75b3ba5bfa02a87fef4c5dddd&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>TU Dresden</div>`)[0];
-                popup_59776bea80c43667a18e0c63717d2b27.setContent(html_d5a15ba75b3ba5bfa02a87fef4c5dddd);
+                var html_4add0b53bb74bd5b6dd721e518c47825 = $(`<div id=&quot;html_4add0b53bb74bd5b6dd721e518c47825&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>TU Dresden</div>`)[0];
+                popup_ce383efb8fb42c6e533dfd400d2c0116.setContent(html_4add0b53bb74bd5b6dd721e518c47825);
             
         
 
-        marker_0266e82d9a0f1109179e422e1f9e386e.bindPopup(popup_59776bea80c43667a18e0c63717d2b27)
+        marker_51db19294fc51f5a21cf670989632d62.bindPopup(popup_ce383efb8fb42c6e533dfd400d2c0116)
         ;
 
         
     
     
-            var marker_1ecdf999622789960ac526683b185ef5 = L.marker(
+            var marker_98a2d4af26fe4feace64e69707c24744 = L.marker(
                 [53.80677435, -1.5562877504739676],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_14dec2576e07e37f5e8256c7c6bc34df = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_3b23c4e5d6e71ac02a82b5bb977447dc = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_476a40b1a1a50c5f7e1efc451c06b601 = $(`<div id=&quot;html_476a40b1a1a50c5f7e1efc451c06b601&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Leeds</div>`)[0];
-                popup_14dec2576e07e37f5e8256c7c6bc34df.setContent(html_476a40b1a1a50c5f7e1efc451c06b601);
+                var html_f853e652e5796c51693fec0b0a87e097 = $(`<div id=&quot;html_f853e652e5796c51693fec0b0a87e097&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Leeds</div>`)[0];
+                popup_3b23c4e5d6e71ac02a82b5bb977447dc.setContent(html_f853e652e5796c51693fec0b0a87e097);
             
         
 
-        marker_1ecdf999622789960ac526683b185ef5.bindPopup(popup_14dec2576e07e37f5e8256c7c6bc34df)
+        marker_98a2d4af26fe4feace64e69707c24744.bindPopup(popup_3b23c4e5d6e71ac02a82b5bb977447dc)
         ;
 
         
     
     
-            var marker_78b86bfca084c18747baa2bf8517a044 = L.marker(
+            var marker_ae2e5bd10b972efb62220e53b33ebd88 = L.marker(
                 [43.7206078, 10.4026444],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_ef14256bed2b04b1c77879fc76c4ad65 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_15205974dcee53c43acd2dbd138a66f5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_670cd8a9b1e66c4ab9961913ea80c974 = $(`<div id=&quot;html_670cd8a9b1e66c4ab9961913ea80c974&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Scuola Superiore Sant’Anna</div>`)[0];
-                popup_ef14256bed2b04b1c77879fc76c4ad65.setContent(html_670cd8a9b1e66c4ab9961913ea80c974);
+                var html_049c8e5ecb620a381a750513cbd5992f = $(`<div id=&quot;html_049c8e5ecb620a381a750513cbd5992f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Scuola Superiore Sant’Anna</div>`)[0];
+                popup_15205974dcee53c43acd2dbd138a66f5.setContent(html_049c8e5ecb620a381a750513cbd5992f);
             
         
 
-        marker_78b86bfca084c18747baa2bf8517a044.bindPopup(popup_ef14256bed2b04b1c77879fc76c4ad65)
+        marker_ae2e5bd10b972efb62220e53b33ebd88.bindPopup(popup_15205974dcee53c43acd2dbd138a66f5)
         ;
 
         
     
     
-            var marker_6eace4ff883f82f892a80a5b28ddcfb4 = L.marker(
+            var marker_6e1db1917371e3001e8048cb61e54a73 = L.marker(
                 [59.363333600000004, 18.05879425982729],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_10550cad851f8693c0a4f780ee978447 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_9a8a8e84fbbe97550e304f33d602325d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_a730a49d3eb08a894b1d1acc1f4eb683 = $(`<div id=&quot;html_a730a49d3eb08a894b1d1acc1f4eb683&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stockholm University</div>`)[0];
-                popup_10550cad851f8693c0a4f780ee978447.setContent(html_a730a49d3eb08a894b1d1acc1f4eb683);
+                var html_0bbc6bbd981419dca2bbbb9ba9f49cbe = $(`<div id=&quot;html_0bbc6bbd981419dca2bbbb9ba9f49cbe&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stockholm University</div>`)[0];
+                popup_9a8a8e84fbbe97550e304f33d602325d.setContent(html_0bbc6bbd981419dca2bbbb9ba9f49cbe);
             
         
 
-        marker_6eace4ff883f82f892a80a5b28ddcfb4.bindPopup(popup_10550cad851f8693c0a4f780ee978447)
+        marker_6e1db1917371e3001e8048cb61e54a73.bindPopup(popup_9a8a8e84fbbe97550e304f33d602325d)
         ;
 
         
     
     
-            var marker_2fa22522f48ef9e2807be174ecf4b636 = L.marker(
+            var marker_4b1cb61ac644e141a9b5d1d957b0cb19 = L.marker(
                 [57.16452475, -2.1018363546621197],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_3380a17614bd747cb4c51cb044de9321 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_fb7b400ae87d02ef804f492e0a0c66b6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_27351c7d736b75f29940b5bc0a3a15d2 = $(`<div id=&quot;html_27351c7d736b75f29940b5bc0a3a15d2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Aberdeen</div>`)[0];
-                popup_3380a17614bd747cb4c51cb044de9321.setContent(html_27351c7d736b75f29940b5bc0a3a15d2);
+                var html_500f5e01132f0a084b48e43338fccff0 = $(`<div id=&quot;html_500f5e01132f0a084b48e43338fccff0&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Aberdeen</div>`)[0];
+                popup_fb7b400ae87d02ef804f492e0a0c66b6.setContent(html_500f5e01132f0a084b48e43338fccff0);
             
         
 
-        marker_2fa22522f48ef9e2807be174ecf4b636.bindPopup(popup_3380a17614bd747cb4c51cb044de9321)
+        marker_4b1cb61ac644e141a9b5d1d957b0cb19.bindPopup(popup_fb7b400ae87d02ef804f492e0a0c66b6)
         ;
 
         
     
     
-            var marker_c61080e57b8ed6ee9207e1f9829ee4d9 = L.marker(
+            var marker_c925a8e425c6db5d28696ec88fa46387 = L.marker(
                 [43.7196687, 10.400432749413179],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_3b026375e0f805c63fa1604bd4ae1b90 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_1d0413ee1e636e932f0edfd4a29ac890 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_cf65f2ba30b6daf38121344d380b917b = $(`<div id=&quot;html_cf65f2ba30b6daf38121344d380b917b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Scuola Normale Superiore di Pisa</div>`)[0];
-                popup_3b026375e0f805c63fa1604bd4ae1b90.setContent(html_cf65f2ba30b6daf38121344d380b917b);
+                var html_5570a7a42651098156a868deb6e724ca = $(`<div id=&quot;html_5570a7a42651098156a868deb6e724ca&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Scuola Normale Superiore di Pisa</div>`)[0];
+                popup_1d0413ee1e636e932f0edfd4a29ac890.setContent(html_5570a7a42651098156a868deb6e724ca);
             
         
 
-        marker_c61080e57b8ed6ee9207e1f9829ee4d9.bindPopup(popup_3b026375e0f805c63fa1604bd4ae1b90)
+        marker_c925a8e425c6db5d28696ec88fa46387.bindPopup(popup_1d0413ee1e636e932f0edfd4a29ac890)
         ;
 
         
     
     
-            var marker_2f8a206229a54105dd62f3bbed487634 = L.marker(
+            var marker_c263197dce6866a23bdc522bbc1d1d55 = L.marker(
                 [50.86796665, -0.08778899363132905],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_5baed914a3ee90c10c5ac187aa9e3d97 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_2300d17197794e1e89d522d24cc79779 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_4866b6e007b53e5817c1c74afaa052de = $(`<div id=&quot;html_4866b6e007b53e5817c1c74afaa052de&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Sussex</div>`)[0];
-                popup_5baed914a3ee90c10c5ac187aa9e3d97.setContent(html_4866b6e007b53e5817c1c74afaa052de);
+                var html_8718af77dd092be5f5d2d27a2b28b22a = $(`<div id=&quot;html_8718af77dd092be5f5d2d27a2b28b22a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Sussex</div>`)[0];
+                popup_2300d17197794e1e89d522d24cc79779.setContent(html_8718af77dd092be5f5d2d27a2b28b22a);
             
         
 
-        marker_2f8a206229a54105dd62f3bbed487634.bindPopup(popup_5baed914a3ee90c10c5ac187aa9e3d97)
+        marker_c263197dce6866a23bdc522bbc1d1d55.bindPopup(popup_2300d17197794e1e89d522d24cc79779)
         ;
 
         
     
     
-            var marker_2ed91719121c21c9135df2162389b2ba = L.marker(
+            var marker_1bf1542ed8a65efdf21cadaabce2de5e = L.marker(
                 [55.785414450000005, 12.520215144442094],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_714151beebfc367f79c6209d83adeabc = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_99dd97d2a17073afbcea04d2310e96ba = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_39cd05f92986dab43ba0ae3843e6a494 = $(`<div id=&quot;html_39cd05f92986dab43ba0ae3843e6a494&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Technical University of Denmark</div>`)[0];
-                popup_714151beebfc367f79c6209d83adeabc.setContent(html_39cd05f92986dab43ba0ae3843e6a494);
+                var html_d9d9b0672d09777ef98b78a4d95928c1 = $(`<div id=&quot;html_d9d9b0672d09777ef98b78a4d95928c1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Technical University of Denmark</div>`)[0];
+                popup_99dd97d2a17073afbcea04d2310e96ba.setContent(html_d9d9b0672d09777ef98b78a4d95928c1);
             
         
 
-        marker_2ed91719121c21c9135df2162389b2ba.bindPopup(popup_714151beebfc367f79c6209d83adeabc)
+        marker_1bf1542ed8a65efdf21cadaabce2de5e.bindPopup(popup_99dd97d2a17073afbcea04d2310e96ba)
         ;
 
         
     
     
-            var marker_1e34d48bf98eebfce952e225dff9cc31 = L.marker(
+            var marker_6159de84281853e280feaf67dbc945cf = L.marker(
                 [56.3398198, -2.8117937053149826],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_227914e7caba4ebe36c858b083143ea9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_5f6a3fa70a03f9a6a4c8d057c1aec49d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_bc7125b072c2134c23b5e14126824630 = $(`<div id=&quot;html_bc7125b072c2134c23b5e14126824630&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of St Andrews</div>`)[0];
-                popup_227914e7caba4ebe36c858b083143ea9.setContent(html_bc7125b072c2134c23b5e14126824630);
+                var html_0ccbf8a3474ec7ad5cc1fb0df61cd95e = $(`<div id=&quot;html_0ccbf8a3474ec7ad5cc1fb0df61cd95e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of St Andrews</div>`)[0];
+                popup_5f6a3fa70a03f9a6a4c8d057c1aec49d.setContent(html_0ccbf8a3474ec7ad5cc1fb0df61cd95e);
             
         
 
-        marker_1e34d48bf98eebfce952e225dff9cc31.bindPopup(popup_227914e7caba4ebe36c858b083143ea9)
+        marker_6159de84281853e280feaf67dbc945cf.bindPopup(popup_5f6a3fa70a03f9a6a4c8d057c1aec49d)
         ;
 
         
     
     
-            var marker_d1e3795cefe25fe2230a79ccefe9c862 = L.marker(
+            var marker_e893608ba7fb5dd7d17dfc484140339e = L.marker(
                 [52.33396225, 4.865196500737312],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_66ec2f5f3b24b469df708f1e65f5988a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d820e168d4561f988237f0ea00eec81d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_022623fd28e79bc5a248277ac9d850f9 = $(`<div id=&quot;html_022623fd28e79bc5a248277ac9d850f9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Vrije Universiteit Amsterdam</div>`)[0];
-                popup_66ec2f5f3b24b469df708f1e65f5988a.setContent(html_022623fd28e79bc5a248277ac9d850f9);
+                var html_29afe4d09a31150127bb5b499623e6a2 = $(`<div id=&quot;html_29afe4d09a31150127bb5b499623e6a2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Vrije Universiteit Amsterdam</div>`)[0];
+                popup_d820e168d4561f988237f0ea00eec81d.setContent(html_29afe4d09a31150127bb5b499623e6a2);
             
         
 
-        marker_d1e3795cefe25fe2230a79ccefe9c862.bindPopup(popup_66ec2f5f3b24b469df708f1e65f5988a)
+        marker_e893608ba7fb5dd7d17dfc484140339e.bindPopup(popup_d820e168d4561f988237f0ea00eec81d)
         ;
 
         
     
     
-            var marker_37198b474966d164ef2d9c84d190935d = L.marker(
+            var marker_2d09590aa291fb0567fe66addd06ab2a = L.marker(
                 [51.4486602, 5.4903995655080475],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_31995393165aa4ac3fa848420f243a6b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0c2f7eb4c9b05d448bb9672e64e94104 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_6c77c5323dc0f2fc6a7be117258eea7c = $(`<div id=&quot;html_6c77c5323dc0f2fc6a7be117258eea7c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Eindhoven University of Technology</div>`)[0];
-                popup_31995393165aa4ac3fa848420f243a6b.setContent(html_6c77c5323dc0f2fc6a7be117258eea7c);
+                var html_2e77d105832a77a572f305da590e5d5d = $(`<div id=&quot;html_2e77d105832a77a572f305da590e5d5d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Eindhoven University of Technology</div>`)[0];
+                popup_0c2f7eb4c9b05d448bb9672e64e94104.setContent(html_2e77d105832a77a572f305da590e5d5d);
             
         
 
-        marker_37198b474966d164ef2d9c84d190935d.bindPopup(popup_31995393165aa4ac3fa848420f243a6b)
+        marker_2d09590aa291fb0567fe66addd06ab2a.bindPopup(popup_0c2f7eb4c9b05d448bb9672e64e94104)
         ;
 
         
     
     
-            var marker_eb5fd4ab96865d390254cc89ddf5e715 = L.marker(
+            var marker_f753f1907d72da39353bc8569b0819f9 = L.marker(
                 [52.62446355, -1.1257301398551323],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_d957bb2b53834366d045e2126afc8585 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_e151dd38eee4da220bee1f9ecb98eeab = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_6bd22472590e5a93b436c25635cef221 = $(`<div id=&quot;html_6bd22472590e5a93b436c25635cef221&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Leicester</div>`)[0];
-                popup_d957bb2b53834366d045e2126afc8585.setContent(html_6bd22472590e5a93b436c25635cef221);
+                var html_ed4d5feab64fdc91c45b5d4f3db48cac = $(`<div id=&quot;html_ed4d5feab64fdc91c45b5d4f3db48cac&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Leicester</div>`)[0];
+                popup_e151dd38eee4da220bee1f9ecb98eeab.setContent(html_ed4d5feab64fdc91c45b5d4f3db48cac);
             
         
 
-        marker_eb5fd4ab96865d390254cc89ddf5e715.bindPopup(popup_d957bb2b53834366d045e2126afc8585)
+        marker_f753f1907d72da39353bc8569b0819f9.bindPopup(popup_e151dd38eee4da220bee1f9ecb98eeab)
         ;
 
         
     
     
-            var marker_6c24ab4cfb31b4c7c1141d8e1229d52b = L.marker(
+            var marker_5b109fca7d5eb843bacab8c751c60e9d = L.marker(
                 [54.98017505, -1.6146802127187847],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_886d58779feac2d6f6889e1532c77841 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_e07bffb532e46be13d64b2794b94843e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_847beab8673ea38c4fadad0a2c7197dc = $(`<div id=&quot;html_847beab8673ea38c4fadad0a2c7197dc&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Newcastle University</div>`)[0];
-                popup_886d58779feac2d6f6889e1532c77841.setContent(html_847beab8673ea38c4fadad0a2c7197dc);
+                var html_732a80169d0e26ad22e3937f6efea259 = $(`<div id=&quot;html_732a80169d0e26ad22e3937f6efea259&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Newcastle University</div>`)[0];
+                popup_e07bffb532e46be13d64b2794b94843e.setContent(html_732a80169d0e26ad22e3937f6efea259);
             
         
 
-        marker_6c24ab4cfb31b4c7c1141d8e1229d52b.bindPopup(popup_886d58779feac2d6f6889e1532c77841)
+        marker_5b109fca7d5eb843bacab8c751c60e9d.bindPopup(popup_e07bffb532e46be13d64b2794b94843e)
         ;
 
         
     
     
-            var marker_d997c802f2f4bf2465abad00fb9bff64 = L.marker(
+            var marker_d36b11c5817d34f2403709c76b07aee8 = L.marker(
                 [46.5225695, 6.580949860268587],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_87c5a129c5cf514a51d0bc1509547ca0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_17548ad4ff7098e31f1dd7d4a833282f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_538ba179fdea6718b5800be18777007e = $(`<div id=&quot;html_538ba179fdea6718b5800be18777007e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Lausanne</div>`)[0];
-                popup_87c5a129c5cf514a51d0bc1509547ca0.setContent(html_538ba179fdea6718b5800be18777007e);
+                var html_c7aa9e4b606ac08dc5c2ad2ca7bf8701 = $(`<div id=&quot;html_c7aa9e4b606ac08dc5c2ad2ca7bf8701&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Lausanne</div>`)[0];
+                popup_17548ad4ff7098e31f1dd7d4a833282f.setContent(html_c7aa9e4b606ac08dc5c2ad2ca7bf8701);
             
         
 
-        marker_d997c802f2f4bf2465abad00fb9bff64.bindPopup(popup_87c5a129c5cf514a51d0bc1509547ca0)
+        marker_d36b11c5817d34f2403709c76b07aee8.bindPopup(popup_17548ad4ff7098e31f1dd7d4a833282f)
         ;
 
         
     
     
-            var marker_345ccc54dceff067f7551b346d861def = L.marker(
+            var marker_bcb25cb62f3514a3a462f78adffd2205 = L.marker(
                 [60.1860789, 24.828102074406736],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_522550430a2c2919db71590a94e8d77c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_6891706b788d8400c56d6561899e25b7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_dcfd576306c0a2fd93ee520d55c66707 = $(`<div id=&quot;html_dcfd576306c0a2fd93ee520d55c66707&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aalto University</div>`)[0];
-                popup_522550430a2c2919db71590a94e8d77c.setContent(html_dcfd576306c0a2fd93ee520d55c66707);
+                var html_fffb5ce645ae221624b284879297ed3c = $(`<div id=&quot;html_fffb5ce645ae221624b284879297ed3c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aalto University</div>`)[0];
+                popup_6891706b788d8400c56d6561899e25b7.setContent(html_fffb5ce645ae221624b284879297ed3c);
             
         
 
-        marker_345ccc54dceff067f7551b346d861def.bindPopup(popup_522550430a2c2919db71590a94e8d77c)
+        marker_bcb25cb62f3514a3a462f78adffd2205.bindPopup(popup_6891706b788d8400c56d6561899e25b7)
         ;
 
         
     
     
-            var marker_4e8ac16b57948e3524f43facaecd8732 = L.marker(
+            var marker_2350bafbe3f2b9e581d2f8e3b3a50051 = L.marker(
                 [53.40724285, -2.965833661018871],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_adb6a64f11119138b4b5c460c759502e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_806bb40bf3f31ec7c164ee71434cbb4a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d06d44c9ad0152f9e41733e356ce5597 = $(`<div id=&quot;html_d06d44c9ad0152f9e41733e356ce5597&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Liverpool</div>`)[0];
-                popup_adb6a64f11119138b4b5c460c759502e.setContent(html_d06d44c9ad0152f9e41733e356ce5597);
+                var html_e8ffac1ad05b3c46271c33f2dc37d13c = $(`<div id=&quot;html_e8ffac1ad05b3c46271c33f2dc37d13c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Liverpool</div>`)[0];
+                popup_806bb40bf3f31ec7c164ee71434cbb4a.setContent(html_e8ffac1ad05b3c46271c33f2dc37d13c);
             
         
 
-        marker_4e8ac16b57948e3524f43facaecd8732.bindPopup(popup_adb6a64f11119138b4b5c460c759502e)
+        marker_2350bafbe3f2b9e581d2f8e3b3a50051.bindPopup(popup_806bb40bf3f31ec7c164ee71434cbb4a)
         ;
 
         
     
     
-            var marker_f7c19bef8991974422f0f7dc9b6fad40 = L.marker(
+            var marker_7ac77a6e8fea24f11719b173eb7261b5 = L.marker(
                 [51.96734215, 7.599243326272159],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_38608848928d1c314f3207eb0ffdb20a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_ab67cedb45e1f60b4ddcad8b682c37f2 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_23b7199352aa4dbebc665a3c2413d28f = $(`<div id=&quot;html_23b7199352aa4dbebc665a3c2413d28f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Münster</div>`)[0];
-                popup_38608848928d1c314f3207eb0ffdb20a.setContent(html_23b7199352aa4dbebc665a3c2413d28f);
+                var html_d01101cf7f90d103f85aed9715b9421f = $(`<div id=&quot;html_d01101cf7f90d103f85aed9715b9421f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Münster</div>`)[0];
+                popup_ab67cedb45e1f60b4ddcad8b682c37f2.setContent(html_d01101cf7f90d103f85aed9715b9421f);
             
         
 
-        marker_f7c19bef8991974422f0f7dc9b6fad40.bindPopup(popup_38608848928d1c314f3207eb0ffdb20a)
+        marker_7ac77a6e8fea24f11719b173eb7261b5.bindPopup(popup_ab67cedb45e1f60b4ddcad8b682c37f2)
         ;
 
         
     
     
-            var marker_3f1c51e67c70f4acc29a8cbf5c686d36 = L.marker(
+            var marker_9590afefe74d4f78676538c355f4e136 = L.marker(
                 [52.2233862, 6.8854239028157],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_4a1fe26c25624f42407e08b61a654679 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_4f6a25fcd3cd00be4c990e59bba56add = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_fcbba047cfffb56db36500c8061ae4bb = $(`<div id=&quot;html_fcbba047cfffb56db36500c8061ae4bb&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Twente</div>`)[0];
-                popup_4a1fe26c25624f42407e08b61a654679.setContent(html_fcbba047cfffb56db36500c8061ae4bb);
+                var html_a6ee70e49793668a58d2c5f5c8ea574f = $(`<div id=&quot;html_a6ee70e49793668a58d2c5f5c8ea574f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Twente</div>`)[0];
+                popup_4f6a25fcd3cd00be4c990e59bba56add.setContent(html_a6ee70e49793668a58d2c5f5c8ea574f);
             
         
 
-        marker_3f1c51e67c70f4acc29a8cbf5c686d36.bindPopup(popup_4a1fe26c25624f42407e08b61a654679)
+        marker_9590afefe74d4f78676538c355f4e136.bindPopup(popup_4f6a25fcd3cd00be4c990e59bba56add)
         ;
 
         
     
     
-            var marker_3be9c60ba395fd684472f3283e6c5a16 = L.marker(
+            var marker_f9f7f591b9029dce98bdfa6fff03b61c = L.marker(
                 [51.48402915, -3.1697633635952807],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_e3bd62e31a494265db905f74fc7768b5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_6feac0bc221b78d22dd46e1c50c16c11 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_2376d44e52720f96f66dcb0ad88d7db2 = $(`<div id=&quot;html_2376d44e52720f96f66dcb0ad88d7db2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Cardiff University</div>`)[0];
-                popup_e3bd62e31a494265db905f74fc7768b5.setContent(html_2376d44e52720f96f66dcb0ad88d7db2);
+                var html_cb24e3f43a6ad6d46ee32240ed935342 = $(`<div id=&quot;html_cb24e3f43a6ad6d46ee32240ed935342&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Cardiff University</div>`)[0];
+                popup_6feac0bc221b78d22dd46e1c50c16c11.setContent(html_cb24e3f43a6ad6d46ee32240ed935342);
             
         
 
-        marker_3be9c60ba395fd684472f3283e6c5a16.bindPopup(popup_e3bd62e31a494265db905f74fc7768b5)
+        marker_f9f7f591b9029dce98bdfa6fff03b61c.bindPopup(popup_6feac0bc221b78d22dd46e1c50c16c11)
         ;
 
         
     
     
-            var marker_d6a88c8438a2315ec26434680e985cf4 = L.marker(
+            var marker_bff00e627cb44dc924b58223c6f75855 = L.marker(
                 [59.2016758, 17.6203201],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_dd33e177ce5d16f17498bff048dfb353 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_6aa274e1c21c88961b111e3732083fa1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d82a4a193002aa0f9b12fafdc5bec1e3 = $(`<div id=&quot;html_d82a4a193002aa0f9b12fafdc5bec1e3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>KTH Royal Institute of Technology</div>`)[0];
-                popup_dd33e177ce5d16f17498bff048dfb353.setContent(html_d82a4a193002aa0f9b12fafdc5bec1e3);
+                var html_1ad339395767b2f5decb3cdfdf380dc5 = $(`<div id=&quot;html_1ad339395767b2f5decb3cdfdf380dc5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>KTH Royal Institute of Technology</div>`)[0];
+                popup_6aa274e1c21c88961b111e3732083fa1.setContent(html_1ad339395767b2f5decb3cdfdf380dc5);
             
         
 
-        marker_d6a88c8438a2315ec26434680e985cf4.bindPopup(popup_dd33e177ce5d16f17498bff048dfb353)
+        marker_bff00e627cb44dc924b58223c6f75855.bindPopup(popup_6aa274e1c21c88961b111e3732083fa1)
         ;
 
         
     
     
-            var marker_f3ae9f13f69572672b7dd09c79e6829a = L.marker(
+            var marker_853ac521211ff3d9c41c51208243f012 = L.marker(
                 [47.690088599999996, 9.188243876500252],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_109353014fa266f182bbb131a84b87a4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_92bbe4f28d3d1a53ca875dae6dcbebba = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_57a8a5dbac8a40d4ae2cc5dfdc87c55e = $(`<div id=&quot;html_57a8a5dbac8a40d4ae2cc5dfdc87c55e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Konstanz</div>`)[0];
-                popup_109353014fa266f182bbb131a84b87a4.setContent(html_57a8a5dbac8a40d4ae2cc5dfdc87c55e);
+                var html_d263ee1971e2e26b35cb98a4ca642569 = $(`<div id=&quot;html_d263ee1971e2e26b35cb98a4ca642569&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Konstanz</div>`)[0];
+                popup_92bbe4f28d3d1a53ca875dae6dcbebba.setContent(html_d263ee1971e2e26b35cb98a4ca642569);
             
         
 
-        marker_f3ae9f13f69572672b7dd09c79e6829a.bindPopup(popup_109353014fa266f182bbb131a84b87a4)
+        marker_853ac521211ff3d9c41c51208243f012.bindPopup(popup_92bbe4f28d3d1a53ca875dae6dcbebba)
         ;
 
         
     
     
-            var marker_46c7ad6b6f8a5989446a21f194f4c2fd = L.marker(
+            var marker_a20d57b04bdd00886f4bf0751d22e9fa = L.marker(
                 [51.4290899, 6.8008580326401],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_3d0066f51e7343890d3128d1a41c0204 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_620d980af57c7c7c978a892b8732508b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_cca7bec525cbad415c168c7fca585ed9 = $(`<div id=&quot;html_cca7bec525cbad415c168c7fca585ed9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Duisburg-Essen</div>`)[0];
-                popup_3d0066f51e7343890d3128d1a41c0204.setContent(html_cca7bec525cbad415c168c7fca585ed9);
+                var html_5d382162749505d424383e627fc64267 = $(`<div id=&quot;html_5d382162749505d424383e627fc64267&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Duisburg-Essen</div>`)[0];
+                popup_620d980af57c7c7c978a892b8732508b.setContent(html_5d382162749505d424383e627fc64267);
             
         
 
-        marker_46c7ad6b6f8a5989446a21f194f4c2fd.bindPopup(popup_3d0066f51e7343890d3128d1a41c0204)
+        marker_a20d57b04bdd00886f4bf0751d22e9fa.bindPopup(popup_620d980af57c7c7c978a892b8732508b)
         ;
 
         
     
     
-            var marker_76249a2d2658bebcb800aed802e3ccd6 = L.marker(
+            var marker_d23d93b68f962a707a4652d76a5ad9fe = L.marker(
                 [52.622251, 1.2411579],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_0c9e6d04a648ac6e30f06262b2600ac8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_bd1704b0790f55e44083f79f6a42ddc6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d4c88a5d388d7eb40ef0398119c95131 = $(`<div id=&quot;html_d4c88a5d388d7eb40ef0398119c95131&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of East Anglia</div>`)[0];
-                popup_0c9e6d04a648ac6e30f06262b2600ac8.setContent(html_d4c88a5d388d7eb40ef0398119c95131);
+                var html_78b1602b2218c4cc2b35fad07bf71b4d = $(`<div id=&quot;html_78b1602b2218c4cc2b35fad07bf71b4d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of East Anglia</div>`)[0];
+                popup_bd1704b0790f55e44083f79f6a42ddc6.setContent(html_78b1602b2218c4cc2b35fad07bf71b4d);
             
         
 
-        marker_76249a2d2658bebcb800aed802e3ccd6.bindPopup(popup_0c9e6d04a648ac6e30f06262b2600ac8)
+        marker_d23d93b68f962a707a4652d76a5ad9fe.bindPopup(popup_bd1704b0790f55e44083f79f6a42ddc6)
         ;
 
         
     
     
-            var marker_73bbaa5ad883fd64911be09b2ca7b38c = L.marker(
+            var marker_acee9291401e4578430d866e726c4ba8 = L.marker(
                 [57.015907049999996, 9.975308243557345],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_d3ad665c870d141b858cb268c1eacde7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_19faa9c2a625b692b61ecabf9256787d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_17a2db9c36fb666d8422256a459563d4 = $(`<div id=&quot;html_17a2db9c36fb666d8422256a459563d4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aalborg University</div>`)[0];
-                popup_d3ad665c870d141b858cb268c1eacde7.setContent(html_17a2db9c36fb666d8422256a459563d4);
+                var html_e8c619ec2d97ea0117ad1b39989b7806 = $(`<div id=&quot;html_e8c619ec2d97ea0117ad1b39989b7806&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aalborg University</div>`)[0];
+                popup_19faa9c2a625b692b61ecabf9256787d.setContent(html_e8c619ec2d97ea0117ad1b39989b7806);
             
         
 
-        marker_73bbaa5ad883fd64911be09b2ca7b38c.bindPopup(popup_d3ad665c870d141b858cb268c1eacde7)
+        marker_acee9291401e4578430d866e726c4ba8.bindPopup(popup_19faa9c2a625b692b61ecabf9256787d)
         ;
 
         
     
     
-            var marker_88659a394417c59da57752ba6cf41864 = L.marker(
+            var marker_a16e8a61d301ad009a406abd8b3b0613 = L.marker(
                 [60.36887575, 5.351111541486731],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_84838fd8bdce3bc0b1ffc5ea92bea478 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_c5d14357d010a7e3894c1f7a56c74cb6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_b49736a0aa5ad261920516ae210e1216 = $(`<div id=&quot;html_b49736a0aa5ad261920516ae210e1216&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bergen</div>`)[0];
-                popup_84838fd8bdce3bc0b1ffc5ea92bea478.setContent(html_b49736a0aa5ad261920516ae210e1216);
+                var html_f17f5c0ac2000f5a9afc403e9bf98104 = $(`<div id=&quot;html_f17f5c0ac2000f5a9afc403e9bf98104&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bergen</div>`)[0];
+                popup_c5d14357d010a7e3894c1f7a56c74cb6.setContent(html_f17f5c0ac2000f5a9afc403e9bf98104);
             
         
 
-        marker_88659a394417c59da57752ba6cf41864.bindPopup(popup_84838fd8bdce3bc0b1ffc5ea92bea478)
+        marker_a16e8a61d301ad009a406abd8b3b0613.bindPopup(popup_c5d14357d010a7e3894c1f7a56c74cb6)
         ;
 
         
     
     
-            var marker_325f74b86f1c59bfd57e106b6b0461d1 = L.marker(
+            var marker_cf8c2e2933cae1ef0e566cd21d3d9cb1 = L.marker(
                 [55.7055406, 37.5360595],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_a9cd17ba1db4a3060d18b16806cde2e6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_cb084cc8431b47060147440d60aaa1e4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_46a8abae4233342c405c6832c3a0896f = $(`<div id=&quot;html_46a8abae4233342c405c6832c3a0896f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lomonosov Moscow State University</div>`)[0];
-                popup_a9cd17ba1db4a3060d18b16806cde2e6.setContent(html_46a8abae4233342c405c6832c3a0896f);
+                var html_b31e27f5c48414f8a47d99fefb844811 = $(`<div id=&quot;html_b31e27f5c48414f8a47d99fefb844811&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lomonosov Moscow State University</div>`)[0];
+                popup_cb084cc8431b47060147440d60aaa1e4.setContent(html_b31e27f5c48414f8a47d99fefb844811);
             
         
 
-        marker_325f74b86f1c59bfd57e106b6b0461d1.bindPopup(popup_a9cd17ba1db4a3060d18b16806cde2e6)
+        marker_cf8c2e2933cae1ef0e566cd21d3d9cb1.bindPopup(popup_cb084cc8431b47060147440d60aaa1e4)
         ;
 
         
     
     
-            var marker_03de5208d20257c6f57593fc6c6ee914 = L.marker(
+            var marker_d4eb1514e206e8d47802fafa544d9575 = L.marker(
                 [51.1843856, 4.41993868786375],
                 {}
-            ).addTo(map_7f26672fdaab44f9e6b22c190552c9a5);
+            ).addTo(map_ff7be9578b9f8792de2c9cdd80cfd942);
         
     
-        var popup_900ad9169e74700e0f814834b620cb77 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_84ed447a13ca0dc69ba316255d0c1fad = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_2ee9da93d61d8cff3c8284fb9ddcdf56 = $(`<div id=&quot;html_2ee9da93d61d8cff3c8284fb9ddcdf56&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Antwerp</div>`)[0];
-                popup_900ad9169e74700e0f814834b620cb77.setContent(html_2ee9da93d61d8cff3c8284fb9ddcdf56);
+                var html_eaebf944bc247d2c530c3aae17b7a985 = $(`<div id=&quot;html_eaebf944bc247d2c530c3aae17b7a985&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Antwerp</div>`)[0];
+                popup_84ed447a13ca0dc69ba316255d0c1fad.setContent(html_eaebf944bc247d2c530c3aae17b7a985);
             
         
 
-        marker_03de5208d20257c6f57593fc6c6ee914.bindPopup(popup_900ad9169e74700e0f814834b620cb77)
+        marker_d4eb1514e206e8d47802fafa544d9575.bindPopup(popup_84ed447a13ca0dc69ba316255d0c1fad)
         ;
 
         
@@ -2543,11 +2565,11 @@ dtype: int64</code></pre>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> starbucks[starbucks[<span class="st">"City"</span>]<span class="op">==</span><span class="st">'Berkeley'</span>].iterrows():</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    Marker([row[<span class="st">'Latitude'</span>], row[<span class="st">'Longitude'</span>]]).add_to(m_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;folium.map.Marker object at 0x0000021460D5B590&gt;
-&lt;folium.map.Marker object at 0x0000021460D58510&gt;
-&lt;folium.map.Marker object at 0x0000021467E3FC50&gt;
-&lt;folium.map.Marker object at 0x0000021467D09150&gt;
-&lt;folium.map.Marker object at 0x0000021467D09310&gt;</code></pre>
+<pre><code>&lt;folium.map.Marker object at 0x00000244D8C8BCD0&gt;
+&lt;folium.map.Marker object at 0x00000244DA066790&gt;
+&lt;folium.map.Marker object at 0x00000244D8E4D3D0&gt;
+&lt;folium.map.Marker object at 0x00000244D1D8B290&gt;
+&lt;folium.map.Marker object at 0x00000244D8CB8190&gt;</code></pre>
 </div>
 </div>
 </section>

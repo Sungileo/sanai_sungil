@@ -10,6 +10,8 @@ editor_options:
   chunk_output_type: inline
 ---
 
+## library packages
+
 ```{r packages}
 rm(list = ls())
 library(ggplot2)
@@ -22,7 +24,7 @@ library(sf)
 
 ## Map Korea
 
-### library packages, load `.json`
+### load `.json`
 
 ```{r}
 kor_sigu <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json")
@@ -319,3 +321,59 @@ use_map %>% ggplot(aes(fill = 인구증감))+
   theme_minimal()+
   theme(legend.position = c(0.85,0.2))
 ```
+
+## Mapdeck
+
+```{r}
+library(dplyr)
+library(mapdeck)
+set_token("pk.eyJ1Ijoic3VuZ2lsZW8iLCJhIjoiY2xoYTRwbXEzMGR6eTNkbXBoZnluNXdyYSJ9.Id1fKIbhtvA9Mrnyo_1JQA")
+
+crash_data = read.csv("https://git.io/geocompr-mapdeck")
+crash_data = na.omit(crash_data)
+
+ms = mapdeck_style("dark")
+```
+### grid_map
+```{r}
+mapdeck(style = ms, 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4) %>%
+  add_grid(data = crash_data, 
+           lat = "lat", 
+           lon = "lng", 
+           cell_size = 1000,
+           elevation_scale = 50, 
+           layer_id = "grid_layer",
+           colour_range = viridisLite::plasma(6))
+```
+### hexagon map
+```{r}
+mapdeck(style = mapdeck_style("dark"), 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4) %>%
+  add_hexagon(data = crash_data, 
+           lat = "lat", 
+           lon = "lng", 
+           elevation_scale = 100, 
+           layer_id = "hex_layer",
+           colour_range = viridisLite::plasma(6))
+```
+### heatmap
+```{r}
+mapdeck(style = "mapbox://styles/sungileo/clhtwpzyw00rl01rhfoiafw6q", 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4)%>%
+  add_heatmap(data = crash_data,
+              lat = "lat",
+              lon = "lng", 
+              colour_range = colourvalues::colour_values(1:6, palette = "inferno"))
+```
+
+
+
+
+

@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 ~ 10 중에 2개 추출</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5 2</code></pre>
+<pre><code>[1] 9 9</code></pre>
 </div>
 </div>
 <p>층화 임의 추출</p>
@@ -357,15 +357,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">strata</span>(<span class="fu">c</span>(<span class="st">"Species"</span>), <span class="at">size =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">method =</span> <span class="st">"srswor"</span>, <span class="at">data=</span>iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Species ID_unit Prob Stratum
-12      setosa      12 0.06       1
-16      setosa      16 0.06       1
-31      setosa      31 0.06       1
-62  versicolor      62 0.06       2
+32      setosa      32 0.06       1
+47      setosa      47 0.06       1
+49      setosa      49 0.06       1
+60  versicolor      60 0.06       2
 66  versicolor      66 0.06       2
 76  versicolor      76 0.06       2
-107  virginica     107 0.06       3
-115  virginica     115 0.06       3
-139  virginica     139 0.06       3</code></pre>
+105  virginica     105 0.06       3
+117  virginica     117 0.06       3
+126  virginica     126 0.06       3</code></pre>
 </div>
 </div>
 </section>
@@ -549,7 +549,7 @@ alternative hypothesis: two-sided</code></pre>
     Shapiro-Wilk normality test
 
 data:  .
-W = 0.9813, p-value = 0.1678</code></pre>
+W = 0.98405, p-value = 0.2708</code></pre>
 </div>
 </div>
 <ul>

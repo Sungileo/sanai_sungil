@@ -1173,7 +1173,7 @@ map_nz <- tm_shape(nz)+
 map_nz
 ```
 
-## mapdeck
+# mapdeck
 
 ```{r}
 library(mapdeck)
@@ -1206,7 +1206,6 @@ set_token("pk.eyJ1Ijoic3VuZ2lsZW8iLCJhIjoiY2xoYTRwbXEzMGR6eTNkbXBoZnluNXdyYSJ9.I
 
     -   **colour_range :** vector of 6 hex colours
 
-
 ```{r}
 crash_data = read.csv("https://git.io/geocompr-mapdeck")
 crash_data = na.omit(crash_data)
@@ -1225,14 +1224,3 @@ mapdeck(style = ms,
            layer_id = "grid_layer",
            colour_range = viridisLite::plasma(6))
 ```
-
-
-
-
-
-
-
-
-
-
-
