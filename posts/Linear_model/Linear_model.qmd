@@ -24,6 +24,7 @@ library(car)
 library(corrplot)
 library(plotly)
 library(olsrr)
+library(ggrepel)
 ```
 
 # 천안시 아파트 매매가 분석
@@ -99,6 +100,7 @@ i <- plot_ly(y=data$price_per_pyeong,type = "box",name = "평당 가격")
 
 subplot(a,b,c,d,e,f,g,h,i,nrows = 3)
 ```
+
 이상치가 있는 독립변수들을 로그변환한 결과 이상치가 줄어듬
 
 Outlier 70건 제거
@@ -190,12 +192,46 @@ model_3 <- step(model_3,direction = "both")
 model_3 %>% summary()
 ```
 
--   R-squared값이 0.7564 -> 0.7948로 향상됨을 볼 수 있다.
+-   R-squared값이 0.7564 -\> 0.7948로 향상됨을 볼 수 있다.
+
+-   따라서 회귀식은 `평당거래액` = `건축년도` x1 + `층` x2 + `인구수` x3+ `법정동크기` x4 + `외국인비율` x5 + `대형마트 거리` x6 + e 로 결정
+
+## 표준화 회귀계수
+
+```{r}
+library(lm.beta)
+
+std_model_3 <- lm.beta(model_3)
+std_model_3 %>% summary()
+```
+
+표준화 회귀계수를 데이터프레임으로
+
+```{r}
+std_coef <- std_model_3$standardized.coefficients %>% 
+  data.frame() %>% 
+  rownames_to_column()
+colnames(std_coef) <- c("독립변수","표준화 회귀계수")
+std_coef$`표준화 회귀계수` <-  round(std_coef$`표준화 회귀계수`,digits = 4)
+std_coef
+```
+
+```{r}
+std_coef %>% ggplot(aes(x=독립변수,y=`표준화 회귀계수`))+
+  geom_point(size = 3,na.rm = TRUE,color = "royalblue")+
+  geom_text_repel(aes(label = `표준화 회귀계수`),
+                  na.rm = TRUE)+
+  geom_hline(yintercept = 0,color = "red")+
+  scale_x_discrete(label=c("상수","법정동 크기","층","외국인 비율","대형마트 거리","인구수","건축년도"))+
+  theme_minimal()
+```
 
 ## 결론
 
--   추가변수 수집
+-   법정동 크기가 커질수록 평균거래액은 낮아짐
+
+    -   법정동은 인구수가 많아질수록 분할되기 때문에 법정동 크기가 큰 관측치는 교외지역이라서 집값이 떨어진다고 볼 수 있다.
 
 -   건축년도가 예상보다 영향이 많음
 
--   현재 실제가와 비교 필요
+-   층은 너무 저층이거나 고층일때 비선호되기에, 변수변환이 필요하다고 봄
