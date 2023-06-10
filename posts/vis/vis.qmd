@@ -1331,9 +1331,6 @@ movie_length %>% ggplot(aes(x = length, y = year, group = year)) +
 ### Figure 9.12
 
 ```{r}
-
-
-### Figure 9.12 - data
 all_house_88_113 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/all_house_88_113.csv")
 
 all_house_88_113 %>% ggplot(aes(x = dim_1,
@@ -1442,6 +1439,677 @@ air_dj_jj %>% ggplot(aes(x = `평균기온..C.`,
          legend.direction = "horizontal",
          legend.background = element_rect (fill = "white"))
 ```
+
+## Visualizing proportions: 비율 데이터의 시각화
+
+```{r}
+bundestag <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/bundestag.csv")
+bundestag$party
+```
+
+```{r}
+### 시작: 12시, 시계 방향, 색상
+bund_pie <- bundestag %>%
+  arrange (seats) %>%
+  mutate (party_fac = factor(party, levels = party[order(seats)]),
+  value = seats,
+  ypos = sum(value) - (cumsum(value)- 0.5*value),
+  mid_angle = 2*pi*(ypos/sum(value)),
+  hjust = ifelse(mid_angle<pi, 1, 0),
+  vjust = ifelse(mid_angle<pi, mid_angle/pi, 2-mid_angle/pi))
+
+### Figure 10.1
+bund_pie %>%  ggplot(aes(x="", y=seats, fill=party_fac)) +
+  geom_bar (stat="identity") +
+  geom_text(aes(x = 1, y = ypos, label = seats), color = "white", size=5) +
+  geom_text(aes(x = 1.5, y = ypos, label = party, hjust = hjust, vjust = vjust),
+            color="black", size=5) +
+  coord_polar (theta = "y", start = 0, direction = -1, clip = "off") +
+  scale_fill_manual (values = bund_pie$colors) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r}
+bund_pie <- bundestag %>%
+  arrange (seats) %>%
+  mutate (party_fac = factor(party, levels = party[order(seats)]),
+  value = seats,
+  labs = paste(party, "\n", round(value/sum(value)*100,0),"%",sep = ""),
+  ypos = sum(value) - (cumsum(value)- 0.5*value),
+  mid_angle = 2*pi*(ypos/sum(value)),
+  hjust = ifelse(mid_angle<pi, 1, 0),
+  vjust = ifelse(mid_angle<pi, mid_angle/pi, 2-mid_angle/pi))
+
+bund_pie %>% ggplot(aes(x="",y=seats,fill=party_fac))+
+  geom_bar(stat="identity",color="white")+
+  geom_text(aes(x=1,y=ypos,label=labs),size=4)+
+  coord_polar(theta = "y",start = 0,direction = -1,clip = "off")+
+  scale_fill_brewer(palette = "Set1")+
+  theme_void()+
+  theme(legend.position = "none")
+```
+
+```{r}
+bundestag %>% 
+  mutate(party = factor(party,levels= party)) %>% 
+  ggplot(aes(x=party,y=seats,fill=party))+
+  geom_col()+
+  geom_text(aes(label = seats),
+            size=5, vjust=2,
+            color=c("white","white","black"))+
+  scale_x_discrete(name = NULL)+
+  scale_fill_manual(values = bundestag$colors,guide = "none")+
+  theme_minimal()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+```{r}
+marketshare <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/marketshare.csv")
+
+marketshare %>% ggplot(aes(x=company,y=percent,fill=company))+
+  geom_col()+
+  facet_wrap(~year)+
+  scale_y_continuous(name = "Market share",
+                     labels = scales::percent_format(scale=1),
+                     expand = c(0,0))+
+  scale_fill_brewer(palette = "Set1",guide="none")+
+  theme_classic()+
+  theme(strip.background = element_blank())
+
+```
+
+```{r}
+library(plotly)
+
+my_colors <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00")
+
+marketshare %>% 
+  plot_ly(x= ~company,
+          y= ~percent,
+          color= ~company,
+          colors = my_colors,
+          frame= ~year,
+          text= ~percent,
+          hoverinfo = "text",
+          type = "bar") %>%  
+  layout(title = "Market Share by Company",
+         xaxis = list(title = "Company"),
+         yaxis = list(title = "Percentage",
+                      range = c(0,25)),
+         barmode = "stack")
+
+```
+
+```{r}
+library(ggmosaic)
+
+bridges <- read.csv('https://raw.githubusercontent.com/Sungileo/trainsets_2/main/bridges.csv')
+
+bridges <- bridges %>% 
+  mutate(MATERIAL  = factor(MATERIAL, levels = c("WOOD","STEEL","IRON")))
+bridges %>% head()
+```
+
+```{r}
+bridges %>% ggplot()+
+  geom_mosaic(aes(x=product(MATERIAL,ERECTED),fill=MATERIAL),
+              offset = 0,color="white")+
+  geom_mosaic_text(aes(x=product(MATERIAL,ERECTED),fill=MATERIAL))
+```
+
+```{r}
+bridges %>% ggplot()+
+  geom_mosaic(aes(x=product(MATERIAL,ERECTED),fill=MATERIAL),
+              offset = 0,color="white")+
+  geom_text(data = layer_data() %>% filter (.wt > 0), 
+            aes(x = (xmin + xmax)/2,
+                y = (ymin + ymax)/2,
+                label = .wt), color="white")
+```
+
+```{r}
+bridges %>% ggplot()+
+  geom_mosaic(aes(x=product(MATERIAL,ERECTED),fill=MATERIAL),
+              offset = 0,color="white")+
+  geom_text(data = layer_data() %>% filter (.wt > 0), 
+            aes(x = (xmin + xmax)/2,
+                y = (ymin + ymax)/2,
+                label = .wt), color="white")+
+  scale_y_productlist(name = "",expand = c(0,0),breaks = NULL)+
+  scale_x_productlist(name = "",expand = c(0,0),)+
+  scale_fill_manual(name = "",
+                    values = c("#d55e00d0","#0072b2d0","#009e73d0"))+
+  theme_minimal()+
+  theme(panel.grid.major = element_blank())
+```
+
+```{r}
+library(treemapify)
+
+bridges_sum <- bridges %>% 
+  filter(!is.na(MATERIAL)) %>% 
+  group_by(MATERIAL,ERECTED) %>% 
+  summarize(count = n())
+
+bridges_sum <- select(bridges,MATERIAL,ERECTED) %>% 
+  table() %>% 
+  reshape2::melt(vlaue.name = "count")
+
+bridges_sum
+```
+
+```{r}
+bridges_sum %>% with(interaction(ERECTED,MATERIAL)) %>% levels()
+
+fill_cols <- c("#FFEEEBD0", "#FFBBA9D0", "#FF834AD0", "#D55E00D0",
+               "#E7F0FFD0", "#94C6FFD0", "#579BDBD0", "#0072B2D0",
+               "#C6FFE5D0", "#76E3B8D0", "#4BC095D0", "#009E73D0")
+
+
+
+bridges_sum %>% ggplot(aes(area = value, 
+                           subgroup = MATERIAL,
+                           fill = interaction(ERECTED,MATERIAL)))+
+  geom_treemap(color = "white", size = 0.5*.pt, alpha = NA)+
+  geom_treemap_subgroup_text(colour = "grey50",
+                             place = "center",
+                             alpha = 0.7,
+                             grow = T)+
+  geom_treemap_subgroup_border(color = "white")+
+  geom_treemap_text(aes(label = ERECTED,
+                        color = interaction(ERECTED,MATERIAL)),
+                    color = "black",
+                    place = "center",
+                    grow = F)+
+  scale_fill_manual(values = fill_cols)+
+  guides(colour = "none",fill = "none")
+                         
+```
+
+```{r}
+### Figure 11.5 data
+US_census <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/drive-download-20230405T011215Z-001/US_census.csv")
+US_regions <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/drive-download-20230405T011215Z-001/US_regions.csv")
+
+population_df <- left_join (US_census, US_regions) %>% 
+  group_by(region, division, state) %>% 
+  summarize(
+    pop2000 = sum(pop2000, na.rm = TRUE),
+    pop2010 = sum(pop2010, na.rm = TRUE),
+    area = sum(area)) %>%
+  ungroup() %>%
+  mutate(
+    state = factor(state, levels = state),
+    region = factor(region, levels = c("West", "South", "Midwest", "Northeast")))
+```
+
+```{r}
+### manually add colors
+#hues
+hues <- c(50, 100, 250, 300) # brown, green, blue, purple
+
+#minimum and maximum population density
+minpop <- min(population_df$pop2010)
+maxpop <- max(population_df$pop2010)
+
+
+#turn pop density into color
+population_df_color <- population_df %>%
+  mutate (index = as.numeric(factor (region))) %>%
+  group_by(index) %>%
+  mutate(
+    value = (pop2010-minpop)/(maxpop-minpop),
+    fill = scales::gradient_n_pal(
+      colorspace::sequential_hcl(
+        6,
+        h = hues[index],
+        c = c(45, 20),
+        l = c(30, 80),
+        power = .5
+        )
+      )(1-value))
+
+population_df_color %>% ggplot(aes(area=area,subgroup = region, fill=fill))+
+  geom_treemap(color="white", size = 0.5*.pt, alpha=NA)+
+  geom_treemap_subgroup_text(
+    colour = "white",
+    place="center",
+    alpha = 0.7,
+    grow = T)+
+  geom_treemap_subgroup_border(color="white")+
+  geom_treemap_text(
+    aes(label = state),
+    color = "black",
+    place = "center",
+    grow = F)+
+  scale_fill_identity()+
+  guides(colour="none",fill="none")
+```
+
+```{r}
+library(GGally)
+
+blue_jays <- read.csv("https://raw.githubusercontent.com/nishamathi/SampleDatasets/main/blue_jays.csv")
+blue_jays$sex <- factor(blue_jays$sex,levels = c("F","M"))
+
+blue_jays %>% ggplot(aes(body_mass_g,head_length_mm))+
+  geom_point(pch=21,fill="gray25",color="white",size = 3)+
+  xlab("body_mass_g")+
+  ylab("head_length_mm")+
+  theme_minimal()
+
+```
+
+```{r}
+blue_jays %>% ggplot(aes(body_mass_g,head_length_mm,fill=sex))+
+  geom_point(pch=21,color="white",size = 3)+
+  xlab("body mass (g)")+
+  ylab("head length (mm)")+
+  theme_minimal()+
+  scale_fill_manual(
+    values = c(F = "#d55e00",M = "#0072b2"),
+    breaks = c("F","M"),
+    labels = c("female","male"),
+    name = NULL,
+    guide = guide_legend(direction = "horizontal")
+  )+
+  theme(legend.position = "top",
+        legend.justification = "right")
+```
+
+```{r}
+blue_jays$sex_2 <- ifelse(blue_jays$sex == "F","female birds","male birds")
+blue_jays$sex_2 <- factor(blue_jays$sex_2, levels = c("female birds","male birds"))
+
+blue_jays %>% ggplot(aes(body_mass_g,head_length_mm,size = skull_size_mm,fill=sex))+
+  geom_point(pch=21,color="white")+
+  facet_wrap(~sex)+
+  xlab("Body mass (g)")+
+  ylab("Head length (mm)")+
+  scale_fill_manual(values = c(`F`="#D55E00",`M`="#0072b2"),guid = "none")+
+  scale_radius(
+    range = c(2,7),
+    limits = c(28,34),
+    breaks = c(28,30,32,34),
+    guide = guide_legend(override.aes = list(fill="grey40"))
+  )+
+  theme_minimal()+
+  theme(strip.background = element_rect(
+    fill="grey85", colour = "grey85",
+    linetype = 1,linewidth = 0.25))
+```
+
+```{r}
+ggpairs(blue_jays,columns = 6:8,aes(color=sex))
+```
+
+```{r}
+load("C:/trainsets_2/forensic_glass.rda")
+forensic_glass %>% select(-type,-RI,-Si) %>%
+  ggcorr(palette = "RdBu",label =TRUE)
+```
+
+```{r}
+load("C:/trainsets_2/CO2_emissions.rda")
+
+emissions_1970_2010 <- CO2_emissions %>% filter(year %in% c(1970,2010)) %>% 
+  tidyr::spread(year,emissions) %>% na.omit()
+
+emissions_1970_2010 %>% ggplot(aes(`1970`,`2010`))+
+  geom_point(pch = 21,fill="#0072b2d0",color="white",size=3)+
+  geom_abline(slope = 1,color="grey")+
+  scale_x_log10(
+    limits = c(0.008,125),
+    breaks = c(0.01,0.1,1,10,100),
+    labels = c("0.01","0.1","1","10","100"),
+    name= parse(text = "`1970 CO`[2]*` emissions (tons/person)`"))+
+  scale_y_log10(
+    limits = c(0.008,125),
+    breaks = c(0.01,0.1,1,10,100),
+    labels = c("0.01","0.1","1","10","100"),
+    name= parse(text = "`2010 CO`[2]*` emissions (tons/person)`"))+
+  theme_classic()
+
+```
+
+```{r}
+load("C:/trainsets_2/preprint_growth.rda")
+
+biorxiv_growth <- preprint_growth %>% 
+  filter(archive == "bioRxiv") %>% 
+  filter(count > 0)
+
+biorxiv_growth %>% ggplot(aes(date,count))+
+  geom_point(color = "white",fill="#0072b2", shape = 21,size = 2)+
+  scale_y_continuous(name = "Preprints / month")+
+  scale_x_date(name = "Year")+
+  theme_classic()
+```
+
+```{r}
+biorxiv_growth %>% ggplot(aes(date,count))+
+  geom_point(color = "white",fill="#0072b2", shape = 21,size = 2)+
+  geom_line(linewidth = 0.5,color = "#0072b2")+
+  scale_y_continuous(name = "Preprints / month")+
+  scale_x_date(name = "Year")+
+  theme_classic()
+```
+
+```{r}
+biorxiv_growth %>% ggplot(aes(date,count))+
+  geom_line(linewidth = 1.25,color = "#0072b2")+
+  scale_y_continuous(name = "Preprints / month")+
+  scale_x_date(name = "Year")+
+  theme_classic()
+```
+
+```{r}
+biorxiv_growth %>% ggplot(aes(date,height = count, y=0))+
+  ggridges::geom_ridgeline(size = 1, color = "#0072b2",fill = "#0072b240")+
+  scale_y_continuous(name = "Preprints / month")+
+  scale_x_date(name = "Year")+
+  theme_classic()
+```
+
+```{r}
+preprint <-  preprint_growth %>% 
+  filter(archive %in% c("bioRxiv","arXiv q-bio","PeerJ Preprints")) %>% 
+  filter(count > 0) %>% 
+  mutate(archive = factor(archive,levels = c("bioRxiv","arXiv q-bio","PeerJ Preprints")))
+
+preprint %>% 
+  filter(date >= "2013-11-01" & date <= "2017-01-01") %>% 
+  ggplot(aes(date,count,color=archive,fill=archive,shape = archive))+
+  geom_line(linewidth = 0.75)+
+  geom_point(color="white",size = 2)+
+  scale_y_continuous(name = "Preprints / month")+
+  scale_x_date(name = "Year")+
+  scale_shape_manual(values = c(21,22,23),
+                     name = NULL)+
+  scale_color_manual(values = c("#0072b2","#d55e00","#009e73"),
+                     name = NULL)+
+  scale_fill_manual(values = c("#0072b2","#d55e00","#009e73"),
+                     name = NULL)+
+  theme_classic()+
+  theme(legend.position = c(0.2,0.8))
+```
+
+```{r}
+preprint_final <- filter(preprint,date == "2017-01-01")
+
+preprint %>% 
+  filter(date >= "2013-11-01" & date <= "2017-01-01") %>% 
+  ggplot(aes(date,count,color=archive,fill=archive,shape = archive))+
+  geom_line(linewidth = 1)+
+  scale_y_continuous(limits = c(0,600),
+                     expand = c(0,0),
+                     name = "Preprints / month",
+                     sec.axis = dup_axis(breaks = preprint_final$count,
+                                         labels = c("arXiv\nq-bio","PeerJ\nPreprints","bioRxiv"),
+                                         name = NULL))+
+  scale_x_date(name = "Year",
+               expand = expansion(mult=c(0.02,0)))+
+  scale_shape_manual(values = c(21,22,23),
+                     name = NULL)+
+  theme_classic()+
+  theme(
+    axis.line.y.right = element_blank(),
+    axis.ticks.y.right = element_blank(),
+    legend.position = "none")
+
+```
+
+```{r}
+load("C:/trainsets_2/dow_jones_industrial.rda")
+dow_jones_industrial %>% head()
+
+dow_jones_industrial %>% 
+  filter(date >= "2008/12/31" & date<= "2010/01/10") %>% 
+  ggplot(aes(date,close))+
+  geom_line(linewidth = 0.75)+
+  ylab("Dow Jones Industrial Average")+
+  scale_x_date(name = NULL,
+               date_labels = "%Y년 %b월")+
+  theme_minimal()
+```
+
+```{r}
+dow_jones_industrial %>% 
+  filter(date >= "2008/12/31" & date<= "2010/01/10") %>% 
+  ggplot(aes(date,close,color = "close"))+
+  geom_line(linewidth = 0.75)+
+  geom_smooth(aes(color = "smooth"),size = 1,na.rm = T,se = F)+
+  scale_color_manual(name = NULL,
+                     values = c(close = "#000000",smooth = "#0072b2"),
+                     labels = c("Close","LOESS smoother"))+
+  ylab("Dow Jones Industrial Average")+
+  scale_x_date(name = NULL,
+               date_labels = "%Y년 %b월")+
+  theme_minimal()+
+  theme(legend.position = c(0.8,0.4))
+```
+
+```{r}
+dow_jones_industrial %>% 
+  filter(date >= "2008/12/31" & date<= "2010/01/10") %>% 
+  ggplot(aes(date,close,color = "close"))+
+  geom_line(linewidth = 0.75)+
+  geom_smooth(aes(color = "smooth"),size = 1,na.rm = T,se = F,span = 0.3)+
+  scale_color_manual(name = NULL,
+                     values = c(close = "#000000",smooth = "#0072b2"),
+                     labels = c("Close","LOESS smoother"))+
+  ylab("Dow Jones Industrial Average")+
+  scale_x_date(name = NULL,
+               date_labels = "%Y년 %b월")+
+  theme_minimal()+
+  theme(legend.position = c(0.8,0.4))
+```
+
+```{r}
+dow_jones_industrial %>% 
+  filter(date >= "2008/12/31" & date<= "2010/01/10") %>% 
+  ggplot(aes(date,close,color = "close"))+
+  geom_line(linewidth = 0.75)+
+  geom_smooth(aes(color = "smooth"),size = 1,na.rm = T,se = F,
+              method = "gam",formula = y ~ s(x, k = 5, bs = "cr"))+
+  scale_color_manual(name = NULL,
+                     values = c(close = "#000000",smooth = "#0072b2"),
+                     labels = c("Close","Cubic regression splines"))+
+  ylab("Dow Jones Industrial Average")+
+  scale_x_date(name = NULL,
+               date_labels = "%Y년 %b월")+
+  theme_minimal()+
+  theme(legend.position = c(0.8,0.4))
+```
+
+```{r}
+dow_jones_industrial %>% 
+  filter(date >= "2008/12/31" & date<= "2010/01/10") %>% 
+  ggplot(aes(date,close,color = "close"))+
+  geom_line(linewidth = 0.75)+
+  geom_smooth(aes(color = "smooth"),size = 1,na.rm = T,se = F,
+              method = "gam",formula = y ~ s(x, k = 3, bs = "cr"))+
+  scale_color_manual(name = NULL,
+                     values = c(close = "#000000",smooth = "#0072b2"),
+                     labels = c("Close","Thin-plate regression spline"))+
+  ylab("Dow Jones Industrial Average")+
+  scale_x_date(name = NULL,
+               date_labels = "%Y년 %b월")+
+  theme_minimal()+
+  theme(legend.position = c(0.8,0.4))
+```
+
+```{r}
+dow_jones_industrial %>% 
+  filter(date >= "2008/12/31" & date<= "2010/01/10") %>% 
+  ggplot(aes(date,close,color = "close"))+
+  geom_line(linewidth = 0.75)+
+  geom_smooth(aes(color = "smooth"),size = 1,na.rm = T,se = F,
+              method = "gam",formula = y ~ s(x, k = 6, bs = "gp"))+
+  scale_color_manual(name = NULL,
+                     values = c(close = "#000000",smooth = "#0072b2"),
+                     labels = c("Close","Gaussian process spline"))+
+  ylab("Dow Jones Industrial Average")+
+  scale_x_date(name = NULL,
+               date_labels = "%Y년 %b월")+
+  theme_minimal()+
+  theme(legend.position = c(0.8,0.4))
+```
+
+```{r}
+blue_jays %>% 
+  ggplot(aes(body_mass_g,head_length_mm,fill=sex,color=sex))+
+  geom_point(pch=21,color = "white",size=3)+
+  geom_smooth(method="lm",linewidth = 0.75,se = FALSE, fullrange = TRUE)+
+  xlab("Body mass (g)")+
+  ylab("Head length (mm)")+
+  theme_minimal()+
+  scale_fill_manual(
+    values = c(`F`="#d55e00",`M`="#0072b2"),
+    breaks = c("F","M"),
+    labels = c("female birds","male birds"),
+    name = NULL,
+    guide = guide_legend(direction = "horizontal"))+
+  scale_color_manual(
+    values = c(`F`="#d55e00",`M`="#0072b2"),
+    breaks = c("F","M"),
+    labels = c("female birds","male birds"),
+    name = NULL)+
+  theme(legend.position = "top",
+        legend.justification = "right")
+  
+```
+
+```{r}
+load("C:/trainsets_2/CO2.rda")
+co2 <- CO2 %>% 
+  ggplot(aes(date_dec,co2_interp))+
+  geom_line(linewidth = 0.75, color="#0072b2")+
+  xlab(NULL)+
+  ylab(parse(text = "`CO`[2]*` concentration (ppm)`"))
+
+
+```
+
+```{r}
+CO2_complete <- filter(CO2,year >= 1959,year < 2018)
+
+CO2_ts <- ts(data = CO2_complete$co2_interp,
+             start = 1959, end = c(2017,12),frequency = 12)
+
+CO2_stl <- stl(CO2_ts,s.window = 7)
+
+CO2_detrended <- 
+  mutate(CO2_complete,
+         `monthly average` = co2_interp,
+         `seasonal fluctration` = CO2_stl$time.series[,"seasonal"],
+         `long-term trend` = CO2_stl$time.series[,"trend"],
+         remainder = CO2_stl$time.series[,"remainder"])
+
+facet_labels <- c("monthly average","seasonal fluctration","long-term trend","remainder")
+
+ggp <- CO2_detrended %>% 
+  select(date_dec,`monthly average`:remainder) %>% 
+  tidyr::gather("variable","value",-date_dec) %>% 
+  mutate(variable = factor(variable,levels = facet_labels)) %>% 
+  filter(date_dec >= 1989) %>% 
+  ggplot(aes(date_dec,value))+
+  geom_line(linewidth=0.75,color = "#0072b2")+
+  facet_wrap(facets = ~variable, ncol=1,scale="free")+
+  theme_minimal()
+
+ggp
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+#install.packages("officer")
+#install.packages("rvg")
+
+
+# Function Definition
+write.pptx <- function(ggp, out.pptx.file, title="", append = F, 
+                       left = 0.5, top = 1.7, width = 9, height = 5){
+  # read pptx
+  if(append){
+    out <- officer::read_pptx(out.pptx.file)
+  } else {
+    out <- officer::read_pptx()
+  }
+  # add ggplot
+  out <- out %>% 
+    officer::add_slide() %>%
+    officer::ph_with(rvg::dml(ggobj = ggp), 
+                     officer::ph_location(left = left, 
+                                          top = top, 
+                                          width = width, 
+                                          height = height))
+  # add title
+  if(title!=""){
+    out <- out %>% 
+      officer::ph_with(value = title, 
+                       location = officer::ph_location_type(type = "title"))
+  }
+  base::print(out, target = out.pptx.file)
+}
+
+```
+
+```{r}
+#ggsave("co2.png",co2,path = "C:/Sungil_LAB",width = 16,height = 9)
+
+#htmlwidgets::saveWidget(img,"imgname.html")
+
+#plotly::ggplotly(ggp) %>% htmlwidgets::saveWidget("ggp.html")
+
+#write.pptx(ggp,"figure 14,3.pptx")
+#write.pptx(ggp,"figure 14,3.pptx", title = "fiigure 14.3",append = T)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

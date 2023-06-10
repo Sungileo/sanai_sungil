@@ -1,0 +1,124 @@
+---
+title: "Data visualization final project"
+author: "Sungil Park"
+date: "2023/06/10"
+date-modified: "2023/06/10"
+description: "data visualization final project"
+categories: R
+editor_options: 
+  chunk_output_type: inline
+---
+
+# 한남대 주번 버스정류장 승차 데이터 시각화
+
+```{r, include=FALSE}
+rm(list=ls())
+library(tidyverse)
+```
+
+```{r, include=FALSE}
+daejeon_bus <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/daejeon_bus_2.csv",sep = "|")
+
+st_2 <- read.csv("C:/trainsets_2/station-info_4.txt",sep = "|")
+
+st_2 <- st_2 %>% select(BUS_NODE_ID,BUS_NODE_NM)
+names(st_2)[1] <- "BUS_STTN_ID"
+
+st_3 <- daejeon_bus %>% select(HH_ID,BUS_ROUTE_ID,BUS_STTN_ID,GETON_CNT,GETOFF_CNT,TRANSF_PSNGR_CNT)
+
+data_2 <- st_3 %>% left_join(st_2,by = "BUS_STTN_ID")
+
+
+data_3 <- data_2 %>% filter(BUS_NODE_NM %in% c("한남대학교","한남로삼거리","한숲아파트","한남대북문","대전신학대학교"))
+
+```
+
+## 정류장, 노선별
+
+### 한남로삼거리
+
+```{r, echo=FALSE}
+
+data_3 %>% 
+  filter(BUS_NODE_NM == "한남로삼거리") %>% 
+  group_by(HH_ID,BUS_ROUTE_ID) %>% 
+  summarize(cnt = sum(GETON_CNT), .groups = "drop") %>% 
+  ggplot(aes(x=HH_ID,y=factor(BUS_ROUTE_ID),fill=cnt))+
+  geom_tile(width = .95,height = 0.95)+
+  coord_fixed(expand = FALSE)+
+  scale_fill_viridis_c(option = "B",
+                       begin = 0.15, 
+                       end = 0.99,
+                       name = "시간대별 승차인원 (명)",
+                       direction = -1)+
+  ylab("한남로삼거리")+
+  scale_x_continuous(name = "시간대",
+                     breaks = c(5:23))+
+  theme(plot.margin = margin(0, 0, 0, 0))
+```
+
+### 한남대학교
+
+```{r, echo=FALSE}
+data_3 %>% 
+  filter(BUS_NODE_NM == "한남대학교") %>% 
+  group_by(HH_ID,BUS_ROUTE_ID) %>% 
+  summarize(cnt = sum(GETON_CNT), .groups = "drop") %>% 
+  ggplot(aes(x=HH_ID,y=factor(BUS_ROUTE_ID),fill=cnt))+
+  geom_tile(width = .95,height = 0.95)+
+  coord_fixed(expand = FALSE)+
+  scale_fill_viridis_c(option = "B",
+                       begin = 0.15, 
+                       end = 0.99,
+                       name = "시간대별 승차인원 (명)",
+                       direction = -1)+
+  ylab("한남대학교")+
+  scale_x_continuous(name = "시간대",
+                     breaks = c(6:23))+
+  theme(plot.margin = margin(0, 0, 0, 0))
+
+```
+
+### 한남대북문
+
+```{r, echo=FALSE}
+data_3 %>% 
+  filter(BUS_NODE_NM == "한남대북문") %>% 
+  group_by(HH_ID,BUS_ROUTE_ID) %>% 
+  summarize(cnt = sum(GETON_CNT), .groups = "drop") %>% 
+  ggplot(aes(x=HH_ID,y=factor(BUS_ROUTE_ID),fill=cnt))+
+  geom_tile(width = .95,height = 0.95)+
+  coord_fixed(expand = FALSE)+
+  scale_fill_viridis_c(option = "B",
+                       begin = 0.15, 
+                       end = 0.99,
+                       name = "시간대별 승차인원 (명)",
+                       direction = -1)+
+  ylab("한남대북문")+
+  scale_x_continuous(name = "시간대",
+                     breaks = c(5:23))+
+  theme(plot.margin = margin(0, 0, 0, 0))
+```
+
+### 한숲아파트
+
+```{r, echo=FALSE}
+data_3 %>% 
+  filter(BUS_NODE_NM == "한숲아파트") %>% 
+  group_by(HH_ID,BUS_ROUTE_ID) %>% 
+  summarize(cnt = sum(GETON_CNT), .groups = "drop") %>% 
+  ggplot(aes(x=HH_ID,y=factor(BUS_ROUTE_ID),fill=cnt))+
+  geom_tile(width = .95,height = 0.95)+
+  coord_fixed(expand = FALSE)+
+  scale_fill_viridis_c(option = "B",
+                       begin = 0.15, 
+                       end = 0.99,
+                       name = "시간대별 승차인원 (명)",
+                       direction = -1)+
+  ylab("한숲아파트")+
+  scale_x_continuous(name = "시간대",
+                     breaks = c(5:22))+
+  theme(plot.margin = margin(0, 0, 0, 0))
+
+
+```

@@ -41,7 +41,7 @@ http://data.nsdi.go.kr/dataset/15145
 Convert data type (`sp` -\> `sf`)
 
 ```{r}
-data_sp <- readOGR("C:/trainsets_2/LSMD_ADM_SECT_UMD_충남/LSMD_ADM_SECT_UMD_44.shp",encoding = "euc-kr")
+data_sp <- readOGR("C:/trainsets_2/LSMD_ADM_SECT_UMD_/LSMD_ADM_SECT_UMD_44.shp",encoding = "euc-kr")
 
 data_sf = st_as_sf(data_sp)
 data_sf %>% head()

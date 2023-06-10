@@ -1180,32 +1180,6 @@ library(mapdeck)
 set_token("pk.eyJ1Ijoic3VuZ2lsZW8iLCJhIjoiY2xoYTRwbXEzMGR6eTNkbXBoZnluNXdyYSJ9.Id1fKIbhtvA9Mrnyo_1JQA")
 ```
 
--   mapdeck()함수의 주요 Arguments
-
-    -   **style :** the style of the map (see [**mapdeck_style**](https://www.rdocumentation.org/link/mapdeck_style?package=mapdeck&version=0.3.4)) : one of streets, outdoors, light, dark, satellite, satellite-streets 생성할 맵의 스타일
-
-    -   **pitch :** the pitch angle of the map 맵의 기울기를 설정합니다. 0은 수평을 의미하고, 60은 수직
-
-    -   **zoom :** zoom level of the map 초기 맵의 줌 레벨을 설정
-
-    -   **location :** unnamed vector of lon and lat coordinates (in that order) 초기 맵의 중심 위치를 지정
-
--   add_grid()함수의 주요 Argurments
-
-    -   **data**: 격자를 생성하는 데 사용할 데이터 프레임
-
-    -   **lon :** column containing longitude values
-
-    -   **lat :** column containing latitude values
-
-    -   **cell_size :** size of each cell in meters. Default 1000 격자 셀의 크기
-
-    -   **elevation :** the height the polygon extrudes from the map. Only available if neither **`stroke_colour`** or **`stroke_width`** are supplied. Default 0 격자의 높이
-
-    -   **layer_id :** single value specifying an id for the layer 격자 레이어의 고유 식별자를 지정하는 데 사용. 이 식별자는 나중에 해당 레이어를 참조하거나 다른 함수를 통해 조작할 때 사용
-
-    -   **colour_range :** vector of 6 hex colours
-
 ```{r}
 crash_data = read.csv("https://git.io/geocompr-mapdeck")
 crash_data = na.omit(crash_data)
@@ -1224,3 +1198,7 @@ mapdeck(style = ms,
            layer_id = "grid_layer",
            colour_range = viridisLite::plasma(6))
 ```
+
+## more interactive map examples
+
+[**Geospatial Visualization**](https://sungileo.github.io/sanai_sungil/kaggle_geos/vis_geo.html#mapdeck)

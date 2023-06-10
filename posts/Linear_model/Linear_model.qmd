@@ -185,14 +185,25 @@ data_2 <- data %>%
   cbind(cooked_dist) %>% 
   filter(cooked_dist<0.005)
 
-model_3 <- lm(price_per_pyeong ~ year_built+floor+pop+dong_area+foreign_ratio+school_m+market_m , data=data_2)
+model_3 <- lm(price_per_pyeong ~ year_built+floor+pop+dong_area+station_m+foreign_ratio+school_m+market_m , data=data_2)
 
 model_3 <- step(model_3,direction = "both")
 
 model_3 %>% summary()
 ```
 
--   R-squared값이 0.7564 -\> 0.7948로 향상됨을 볼 수 있다.
+| 변수          | Estimate   | Std. Error | t value | Pr(\>           |
+|---------------|------------|------------|---------|-----------------|
+| Intercept     | -7.092e+04 | 2.058e+03  | -34.468 | \< 2e-16 \*\*\* |
+| year_built    | 3.494e+01  | 1.026e+00  | 34.053  | \< 2e-16 \*\*\* |
+| floor         | 6.388e+01  | 1.044e+01  | 6.118   | 1.39e-09 \*\*\* |
+| pop           | 1.398e-02  | 6.539e-04  | 21.382  | \< 2e-16 \*\*\* |
+| dong_area     | -1.680e+02 | 1.151e+01  | -14.596 | \< 2e-16 \*\*\* |
+| station_m     | 5.857e+01  | 1.313e+01  | 4.463   | 9.07e-06 \*\*\* |
+| foreign_ratio | 1.971e+03  | 3.093e+02  | 6.374   | 2.88e-10 \*\*\* |
+| market_m      | 1.453e+02  | 1.442e+01  | 10.075  | \< 2e-16 \*\*\* |
+
+-   R-squared값이 0.7564 -\> 0.7991로 향상됨을 볼 수 있다.
 
 -   따라서 회귀식은 `평당거래액` = `건축년도` x1 + `층` x2 + `인구수` x3+ `법정동크기` x4 + `외국인비율` x5 + `대형마트 거리` x6 + e 로 결정
 
@@ -222,7 +233,7 @@ std_coef %>% ggplot(aes(x=독립변수,y=`표준화 회귀계수`))+
   geom_text_repel(aes(label = `표준화 회귀계수`),
                   na.rm = TRUE)+
   geom_hline(yintercept = 0,color = "red")+
-  scale_x_discrete(label=c("상수","법정동 크기","층","외국인 비율","대형마트 거리","인구수","건축년도"))+
+  scale_x_discrete(label=c("상수","법정동 크기","층","외국인 비율","대형마트 거리","인구수","전철역 거리","건축년도"))+
   theme_minimal()
 ```
 
@@ -235,3 +246,15 @@ std_coef %>% ggplot(aes(x=독립변수,y=`표준화 회귀계수`))+
 -   건축년도가 예상보다 영향이 많음
 
 -   층은 너무 저층이거나 고층일때 비선호되기에, 변수변환이 필요하다고 봄
+
+
+
+```{r}
+-70920 + 34.94 * 2009 + 63.88 * log(11) + 0.01398 * 40187  - 168.0 * log(4.49) + 58.57 * log(2300)+ 1971 * 0.01 + 145.3 * log(699) 
+
+```
+
+
+
+
+
