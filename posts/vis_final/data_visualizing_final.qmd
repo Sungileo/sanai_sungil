@@ -9,7 +9,7 @@ editor_options:
   chunk_output_type: inline
 ---
 
-# 한남대 주번 버스정류장 승차 데이터 시각화
+# 한남대 주변 버스정류장 승차 데이터 시각화
 
 ```{r, include=FALSE}
 rm(list=ls())
@@ -33,6 +33,10 @@ data_3 <- data_2 %>% filter(BUS_NODE_NM %in% c("한남대학교","한남로삼�
 
 ```
 
+## 목적
+
+- 목적목적
+
 ## 정류장, 노선별
 
 ### 한남로삼거리
@@ -51,7 +55,8 @@ data_3 %>%
                        end = 0.99,
                        name = "시간대별 승차인원 (명)",
                        direction = -1)+
-  ylab("한남로삼거리")+
+  labs(title = "한남로삼거리")+
+  scale_y_discrete(name = "노선번호",label = c("105","314","711"))+
   scale_x_continuous(name = "시간대",
                      breaks = c(5:23))+
   theme(plot.margin = margin(0, 0, 0, 0))
@@ -61,7 +66,8 @@ data_3 %>%
 
 ```{r, echo=FALSE}
 data_3 %>% 
-  filter(BUS_NODE_NM == "한남대학교") %>% 
+  filter(BUS_NODE_NM == "한남대학교" &
+           BUS_ROUTE_ID != 30300065) %>% 
   group_by(HH_ID,BUS_ROUTE_ID) %>% 
   summarize(cnt = sum(GETON_CNT), .groups = "drop") %>% 
   ggplot(aes(x=HH_ID,y=factor(BUS_ROUTE_ID),fill=cnt))+
@@ -72,11 +78,11 @@ data_3 %>%
                        end = 0.99,
                        name = "시간대별 승차인원 (명)",
                        direction = -1)+
-  ylab("한남대학교")+
+  labs(title = "한남대학교")+
+  scale_y_discrete(name = "노선번호",label = c("105","314","711"))+
   scale_x_continuous(name = "시간대",
                      breaks = c(6:23))+
   theme(plot.margin = margin(0, 0, 0, 0))
-
 ```
 
 ### 한남대북문
@@ -94,7 +100,9 @@ data_3 %>%
                        end = 0.99,
                        name = "시간대별 승차인원 (명)",
                        direction = -1)+
-  ylab("한남대북문")+
+  labs(title = "한남대북문")+
+  scale_y_discrete(name = "노선번호",
+                   label = c("102","605","611","706","802"))+
   scale_x_continuous(name = "시간대",
                      breaks = c(5:23))+
   theme(plot.margin = margin(0, 0, 0, 0))
@@ -115,10 +123,37 @@ data_3 %>%
                        end = 0.99,
                        name = "시간대별 승차인원 (명)",
                        direction = -1)+
-  ylab("한숲아파트")+
+  scale_y_discrete(name = "노선번호",
+                   label = c("314","711"))+
   scale_x_continuous(name = "시간대",
                      breaks = c(5:22))+
+  labs(title = "한숲아파트")+
   theme(plot.margin = margin(0, 0, 0, 0))
 
 
 ```
+
+
+
+## 정류장별 승차인원
+
+```{r,echo=FALSE}
+data_3 %>% 
+  group_by(BUS_NODE_NM,HH_ID) %>% 
+  summarize(cnt=sum(GETON_CNT),.groups = "drop") %>% 
+  filter(BUS_NODE_NM %in% c("한남로삼거리","한숲아파트","한남대북문")) %>% 
+  ggplot(aes(x=HH_ID,y=BUS_NODE_NM,fill=cnt))+
+  geom_tile(width = .95,height = 0.95)+
+  coord_fixed(expand = FALSE)+
+  scale_fill_viridis_c(option = "B",
+                       begin = 0.15, 
+                       end = 0.99,
+                       name = "시간대별 승차인원 (명)",
+                       direction = -1)+
+  scale_x_continuous(name = "시간대",
+                     breaks = c(5:23))+
+  scale_y_discrete(name = "정류장")
+```
+
+
+
