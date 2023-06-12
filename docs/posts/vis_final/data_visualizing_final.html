@@ -61,6 +61,9 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -138,6 +141,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#한남대-주변-버스정류장-승차-데이터-시각화" id="toc-한남대-주변-버스정류장-승차-데이터-시각화" class="nav-link active" data-scroll-target="#한남대-주변-버스정류장-승차-데이터-시각화">한남대 주변 버스정류장 승차 데이터 시각화</a>
   <ul class="collapse">
   <li><a href="#목적" id="toc-목적" class="nav-link" data-scroll-target="#목적">목적</a></li>
+  <li><a href="#데이터" id="toc-데이터" class="nav-link" data-scroll-target="#데이터">데이터</a></li>
   <li><a href="#정류장-노선별" id="toc-정류장-노선별" class="nav-link" data-scroll-target="#정류장-노선별">정류장, 노선별</a>
   <ul class="collapse">
   <li><a href="#한남로삼거리" id="toc-한남로삼거리" class="nav-link" data-scroll-target="#한남로삼거리">한남로삼거리</a></li>
@@ -146,6 +150,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#한숲아파트" id="toc-한숲아파트" class="nav-link" data-scroll-target="#한숲아파트">한숲아파트</a></li>
   </ul></li>
   <li><a href="#정류장별-승차인원" id="toc-정류장별-승차인원" class="nav-link" data-scroll-target="#정류장별-승차인원">정류장별 승차인원</a></li>
+  <li><a href="#한계점" id="toc-한계점" class="nav-link" data-scroll-target="#한계점">한계점</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -201,8 +206,27 @@ ul.task-list li input[type="checkbox"] {
 <section id="목적" class="level2">
 <h2 class="anchored" data-anchor-id="목적">목적</h2>
 <ul>
-<li>목적목적</li>
+<li>한남대 주변 버스정류장의 시간대별 사용량을 알아봄으로서 버스의 유연한 배차 기획</li>
 </ul>
+</section>
+<section id="데이터" class="level2">
+<h2 class="anchored" data-anchor-id="데이터">데이터</h2>
+<p>국가교통 데이터 오픈마켓</p>
+<ul>
+<li><p><a href="https://www.bigdata-transportation.kr/frn/prdt/detail?prdtId=PRDTNUM_000000000243"><strong>대전시 대중교통 이용정보 데이터</strong></a></p></li>
+<li><p><a href="https://www.bigdata-transportation.kr/frn/prdt/detail?prdtId=PRDTNUM_000000000166"><strong>대전시 버스 정류장 속성 데이터</strong></a></p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">graph RL
+    A[버스 정류장 속성&lt;br&gt; - 버스정류장 코드&lt;br&gt; - 버스정류장 이름&lt;br&gt; - ..] --&gt;|버스정류장 코드| B[버스 이용량&lt;br&gt;  - 노선번호 &lt;br&gt; - 정류장 코드 &lt;br&gt; - 탑승객수&lt;br&gt; - 하차승객수&lt;br&gt; - ..]
+</pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="정류장-노선별" class="level2">
 <h2 class="anchored" data-anchor-id="정류장-노선별">정류장, 노선별</h2>
@@ -210,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="한남로삼거리">한남로삼거리</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -218,7 +242,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="한남대학교">한남대학교</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -226,7 +250,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="한남대북문">한남대북문</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -234,7 +258,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="한숲아파트">한숲아파트</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -243,9 +267,16 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="정류장별-승차인원">정류장별 승차인원</h2>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_visualizing_final_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="한계점" class="level2">
+<h2 class="anchored" data-anchor-id="한계점">한계점</h2>
+<ul>
+<li><p>시간대별 버스 이용량보다 작은 단위로 시각화 필요</p></li>
+<li><p>학생이 주 사용자기 때문에 방학시기는 따로 고려해야함</p></li>
+</ul>
 
 
 </section>
