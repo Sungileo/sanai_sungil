@@ -11,6 +11,8 @@ editor_options:
 
 # 한남대 주변 버스정류장 승차 데이터 시각화
 
+[link](https://sungileo.github.io/sanai_sungil/posts/vis_final/data_visualizing_final.html)
+
 ```{r, include=FALSE}
 rm(list=ls())
 library(tidyverse)
