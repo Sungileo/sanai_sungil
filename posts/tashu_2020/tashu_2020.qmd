@@ -86,7 +86,7 @@ ggmap(dj_map) + geom_point(data = tashu_station,
 options(scipen = 100)
 ```
 
-#### 3-1. 대여일시 열에서 대여년월일 추출 
+#### 3-1. 대여일시 열에서 대여 년월일 추출 
 
 ```{r}
 tashu_2020 <- tashu_2020 %>% mutate(대여년월일 = substr(tashu_2020$대여일시,1,8))
@@ -129,7 +129,9 @@ ggmap(dj_map) +
   geom_sf(data = tashu_sf,aes(size = cnt,alpha = 0.7),inherit.aes = FALSE)
 ```
 
-### 4. 행정동별 대여수 시시각화
+### 4. 행정동별 대여수 시각화
+
+같은 CRS로 맟추기
 
 ```{r}
 daejeon_area %>% st_crs()

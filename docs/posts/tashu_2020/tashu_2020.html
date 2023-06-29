@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#데이터-구조-변수정보-확인-변수명-변환" id="toc-데이터-구조-변수정보-확인-변수명-변환" class="nav-link" data-scroll-target="#데이터-구조-변수정보-확인-변수명-변환">1. 데이터 구조, 변수정보 확인 &amp; 변수명 변환</a></li>
   <li><a href="#google-api-활용" id="toc-google-api-활용" class="nav-link" data-scroll-target="#google-api-활용">2. Google API 활용</a></li>
   <li><a href="#데이터-전처리" id="toc-데이터-전처리" class="nav-link" data-scroll-target="#데이터-전처리">3. 데이터 전처리</a></li>
-  <li><a href="#행정동별-대여수-시시각화" id="toc-행정동별-대여수-시시각화" class="nav-link" data-scroll-target="#행정동별-대여수-시시각화">4. 행정동별 대여수 시시각화</a></li>
+  <li><a href="#행정동별-대여수-시각화" id="toc-행정동별-대여수-시각화" class="nav-link" data-scroll-target="#행정동별-대여수-시각화">4. 행정동별 대여수 시각화</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -307,8 +307,8 @@ It has 5 fields</code></pre>
 </section>
 <section id="데이터-전처리" class="level3">
 <h3 class="anchored" data-anchor-id="데이터-전처리">3. 데이터 전처리</h3>
-<section id="대여일시-열에서-대여년월일-추출" class="level4">
-<h4 class="anchored" data-anchor-id="대여일시-열에서-대여년월일-추출">3-1. 대여일시 열에서 대여년월일 추출</h4>
+<section id="대여일시-열에서-대여-년월일-추출" class="level4">
+<h4 class="anchored" data-anchor-id="대여일시-열에서-대여-년월일-추출">3-1. 대여일시 열에서 대여 년월일 추출</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tashu_2020 <span class="ot">&lt;-</span> tashu_2020 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(대여년월일 <span class="ot">=</span> <span class="fu">substr</span>(tashu_2020<span class="sc">$</span>대여일시,<span class="dv">1</span>,<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -381,8 +381,9 @@ replace the existing one.</code></pre>
 </div>
 </section>
 </section>
-<section id="행정동별-대여수-시시각화" class="level3">
-<h3 class="anchored" data-anchor-id="행정동별-대여수-시시각화">4. 행정동별 대여수 시시각화</h3>
+<section id="행정동별-대여수-시각화" class="level3">
+<h3 class="anchored" data-anchor-id="행정동별-대여수-시각화">4. 행정동별 대여수 시각화</h3>
+<p>같은 CRS로 맟추기</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>daejeon_area <span class="sc">%&gt;%</span> <span class="fu">st_crs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
