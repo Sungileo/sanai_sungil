@@ -1,0 +1,721 @@
+---
+title: "ggplot geospatial example"
+author: "sungil_park"
+date: "2023/03/15"
+date-modified: "2023/03/20"
+description: "Geospartial Data Visualization with ggplot"
+image: "vis.png"
+categories: "R"
+editor_options: 
+  chunk_output_type: inline
+---
+
+## library packages
+
+```{r packages}
+rm(list = ls())
+library(ggplot2)
+library(dplyr)
+library(colorspace)
+library(stringr)
+library(geojsonsf)
+library(sf)
+```
+
+## Map Korea
+
+### load `.json`
+
+```{r}
+kor_sigu <- geojson_sf("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor/KOR_SIGU.json")
+
+kor_202202 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202202_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9.csv")
+
+kor_202202 %>% head()
+kor_202202 %>% sapply(class)
+kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format()
+```
+
+### Merge data by 행정구역_코드
+
+```{r}
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
+use_map <- use_map %>% merge(kor_202202,by = "행정구역_코드", all.x=T)
+```
+
+### Plot
+
+```{r}
+use_map %>% ggplot(aes(fill=총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+
+### Plot Daejeon
+
+```{r}
+daejeon_map <-  use_map %>% filter(행정구역 %>% substr(1,5) == "대전광역시")
+
+daejeon_map %>% ggplot(aes(fill=총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.95,0.2)
+  )
+```
+
+### Plot Gender_ratio
+
+```{r}
+use_map %>% ggplot(aes(fill = 남여_비율))+
+  geom_sf()+
+  scale_fill_continuous_diverging(
+    name = "남자/여자",
+    palette = "BLue-Red",
+    mid=1,
+  limits = 1 + c(-1,+1)*0.35,
+  rev = T)+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2)
+  )
+```
+
+## 2023년 3월 시군구 인구수
+
+시군구 지도 데이터, 행정구역 코드 10자리로 만들기
+
+```{r}
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "")
+```
+
+### 데이터 로드
+
+2023년 3월 주민등록 인구통계 데이터, 행정안전부
+
+```{r}
+data_pop <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "utf-8")
+data_pop %>% head() 
+```
+
+### 전처리
+
+1.  인구수0명 출장소 제외
+
+2.  행정구역 코드 10자리 추출
+
+3.  인구수 숫자형으로 변환
+
+4.  시 단위 제외, 정렬
+
+```{r}
+data_202303 <- data_pop %>% 
+  filter(X2023년03월_총인구수>0) %>%  
+  select(행정구역,X2023년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2023년03월_총인구수 = gsub(",","",X2023년03월_총인구수) %>% as.numeric()) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2023년03월_총인구수))
+
+data_202303 %>% head()
+```
+
+### 지도 데이터와 병합
+
+```{r}
+use_map <- use_map %>% merge(data_202303,by = "행정구역_코드", all.x=T)
+```
+
+### Plot
+
+```{r}
+use_map %>% ggplot(aes(fill=X2023년03월_총인구수))+
+  geom_sf(color = "grey90")+
+  coord_sf(datum = NA)+
+  scale_fill_distiller(
+    name = "2023년 3월 인구수",
+    palette = "Blues", type = "seq", na.value = "grey60",
+    direction = 1,
+    breaks = seq(0,10,2) * 1e+5,
+    labels = format(seq(0,10,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(
+    legend.title.align = 0.5,
+    legend.text.align = 1.0,
+    legend.position = c(0.85,0.2))+
+  labs(title = "2023년 3월")
+```
+
+## 인구수 증가율
+
+```{r}
+file_2023 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/202303_202303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "utf-8")
+
+file_2013 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/201303_201303_%EC%A3%BC%EB%AF%BC%EB%93%B1%EB%A1%9D%EC%9D%B8%EA%B5%AC%EB%B0%8F%EC%84%B8%EB%8C%80%ED%98%84%ED%99%A9_%EC%9B%94%EA%B0%84.csv",encoding = "UTF-8")
+```
+
+### 전처리
+
+1.  인구수 0명 이상 필터
+
+2.  행정구역(지역코드), 총인구수 열만 선택
+
+3.  행정구역(지역코드)에서 지역코드와 행정구역 분리
+
+4.  시 단위 제외, 인구수 기준 정렬
+
+```{r}
+data_2023 <- file_2023 %>%
+  filter(X2023년03월_총인구수>0) %>%  
+  select(행정구역,X2023년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2023년03월_총인구수 = gsub(",","",X2023년03월_총인구수) %>% as.numeric(),
+         행정구역 =  sapply(행정구역, function(x) strsplit(x, "(", fixed=T)[[1]][1]),
+         행정구역 = sapply(행정구역, function(x) gsub("( *)$", "", x) %>% paste())) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2023년03월_총인구수))
+
+data_2013 <- file_2013 %>% 
+  filter(X2013년03월_총인구수>0) %>%  
+  select(행정구역,X2013년03월_총인구수) %>% 
+  mutate(행정구역_코드 = str_sub(행정구역,-11,-2),
+         X2013년03월_총인구수 = gsub(",","",X2013년03월_총인구수) %>% as.numeric(),
+         행정구역 =  sapply(행정구역, function(x) strsplit(x, "(", fixed=T)[[1]][1]),
+         행정구역 = sapply(행정구역, function(x) gsub("( *)$", "", x) %>% paste())) %>% 
+  filter(substr(행정구역_코드,3,4)!="00") %>% 
+  arrange(desc(X2013년03월_총인구수))
+```
+
+### 병합
+
+1.  지역코드 기준 병합
+
+2.  인구성장률 열 추가
+
+3.  중복 열 제거, 인구성장률 기준 정렬
+
+4.  서울, 대전, 대구, 부산지역만 필터
+
+5.  시도 추출, factor 변환
+
+```{r}
+kor_census <- data_2013 %>% 
+  merge(data_2023,by = "행정구역_코드", all.x=T) %>%  
+  mutate(성장률 = (X2023년03월_총인구수 - X2013년03월_총인구수) / X2013년03월_총인구수) %>% 
+  select(행정구역.x,X2013년03월_총인구수,X2023년03월_총인구수, 성장률, 행정구역_코드) %>% 
+  filter(substr(행정구역.x,1,2) %in% c("서울","대전","대구","부산")) %>%
+  arrange(desc(성장률))
+
+names(kor_census) <- c("행정구역", "X2013인구수","X2023인구수","성장률","행정구역_코드")
+
+kor_census$시도 = sapply(kor_census$행정구역,
+                           function(x) strsplit(x, " ")[[1]][1])
+kor_census$시도 = factor(kor_census$시도,
+                           levels = c("서울특별시","대전광역시","대구광역시","부산광역시"))
+
+```
+
+### Plot
+
+```{r}
+region_colors <- c("#E69F00","#56B4E9","#009E73","#F0E442")
+
+
+ggplot(kor_census,aes(x = reorder(행정구역,성장률),y= 성장률, fill = 시도))+
+  geom_col()+
+  scale_y_continuous(name = "인구성장률",
+                     expand = c(0,0),
+                     labels = scales::percent_format(scale = 100))+
+  scale_fill_manual(values = region_colors)+
+  coord_flip()+
+  theme_light()+
+  theme(panel.border = element_blank(),
+        panel.grid.major.y = element_blank())+
+  theme(axis.title.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.ticks.length = unit(0,"pt"),
+        axis.text.y = element_text(size = 8),legend.position = c(.78,.28),legend.background = element_rect(fill = "#FFFFFFB0"))
+```
+
+### Map plot
+
+```{r}
+kor_map <- kor_sigu
+kor_map$행정구역_코드 <- paste(kor_map$SIG_CD,"00000",sep="")
+```
+
+```{r}
+kor_census_2 <- data_2013 %>% 
+  merge(data_2023,by = "행정구역_코드", all.x=T) %>%  
+  mutate(성장률 = (X2023년03월_총인구수 - X2013년03월_총인구수) / X2013년03월_총인구수) %>% 
+  select(행정구역.x,X2013년03월_총인구수,X2023년03월_총인구수, 성장률, 행정구역_코드) %>% 
+  arrange(desc(성장률))
+
+names(kor_census_2) <- c("행정구역", "X2013인구수","X2023인구수","성장률","행정구역_코드")
+
+
+kor_map <- kor_map %>% left_join(kor_census_2, by="행정구역_코드")
+```
+
+```{r}
+kor_map %>% ggplot(aes(fill=성장률))+
+  geom_sf()+
+  scale_fill_continuous_diverging(
+    name = "인구성장률",
+    palette = "BLue-Red",
+    limits = c(-0.4,2.4))+
+  theme_minimal()+
+  theme(legend.title.align = 0.5,
+        legend.text.align = 1.0,
+        legend.position = c(0.85,0.2))
+  
+```
+
+## 인구증감
+
+```{r}
+data <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets/main/kor_census_2013_2023.csv",encoding = "utf-8")
+
+data <- data %>% mutate(인구증감 = 총인구수_2023-총인구수_2013)
+
+use_map <- kor_sigu
+use_map$행정구역_코드 <- paste(use_map$SIG_CD,"00000",sep = "") %>% as.numeric()
+use_map <- use_map %>% merge(data,by = "행정구역_코드")
+
+use_map %>% ggplot(aes(fill = 인구증감))+
+  geom_sf()+
+  coord_sf(datum = NA)+
+  scale_fill_continuous_diverging(
+    name = "인구증감",
+    palette = "BLue-Red",
+    na.value = "grey40",
+    mid=0,
+    rev = T,
+    limits = c(-4,4)*100000,
+    labels = format(seq(-4,4,2) * 1e+5, big.mark = ",",scientific = FALSE))+
+  theme_minimal()+
+  theme(legend.position = c(0.85,0.2))
+```
+
+## Mapdeck
+
+```{r}
+library(dplyr)
+library(mapdeck)
+set_token("pk.eyJ1Ijoic3VuZ2lsZW8iLCJhIjoiY2xoYTRwbXEzMGR6eTNkbXBoZnluNXdyYSJ9.Id1fKIbhtvA9Mrnyo_1JQA")
+
+crash_data = read.csv("https://git.io/geocompr-mapdeck")
+crash_data = na.omit(crash_data)
+
+ms = mapdeck_style("dark")
+
+# mapdeck(style = "mapbox://styles/sungileo/clhtwpzyw00rl01rhfoiafw6q")
+```
+
+### grid_map
+
+-   mapdeck()함수의 주요 Arguments
+
+    -   **style :** the style of the map (see [**mapdeck_style**](https://www.rdocumentation.org/link/mapdeck_style?package=mapdeck&version=0.3.4)) : one of streets, outdoors, light, dark, satellite, satellite-streets 생성할 맵의 스타일
+
+    -   **pitch :** the pitch angle of the map 맵의 기울기를 설정합니다. 0은 수평을 의미하고, 60은 수직
+
+    -   **zoom :** zoom level of the map 초기 맵의 줌 레벨을 설정
+
+    -   **location :** unnamed vector of lon and lat coordinates (in that order) 초기 맵의 중심 위치를 지정
+
+-   add_grid()함수의 주요 Argurments
+
+    -   **data**: 격자를 생성하는 데 사용할 데이터 프레임
+
+    -   **lon :** column containing longitude values
+
+    -   **lat :** column containing latitude values
+
+    -   **cell_size :** size of each cell in meters. Default 1000 격자 셀의 크기
+
+    -   **elevation :** the height the polygon extrudes from the map. Only available if neither **`stroke_colour`** or **`stroke_width`** are supplied. Default 0 격자의 높이
+
+    -   **layer_id :** single value specifying an id for the layer 격자 레이어의 고유 식별자를 지정하는 데 사용. 이 식별자는 나중에 해당 레이어를 참조하거나 다른 함수를 통해 조작할 때 사용
+
+    -   **colour_range :** vector of 6 hex colours
+
+```{r}
+mapdeck(style = ms, 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4) %>%
+  add_grid(data = crash_data, 
+           lat = "lat", 
+           lon = "lng", 
+           cell_size = 1000,
+           elevation_scale = 50, 
+           layer_id = "grid_layer",
+           colour_range = viridisLite::plasma(6))
+```
+
+### arc map
+
+-   add_arc()함수의 주요 Argurments
+
+    [add_arc function - RDocumentation](https://www.rdocumentation.org/packages/mapdeck/versions/0.3.4/topics/add_arc)
+
+    -   **layer_id :** single value specifying an id for the layer. Use this value to distinguish between shape layers of the same type. Layers with the same id are likely to conflict and not plot correctly
+    -   **origin :** vector of longitude and latitude columns, and optionally an elevation column, or an **`sfc`** column
+    -   **destination :** vector of longitude and latitude columns, and optionally an elevatino column, or an **`sfc`** column
+    -   **stroke_from :** column of **`data`** or hex colour to use as the staring stroke colour. IIf using a hex colour, use either a single value, or a column of hex colours on **`data`**
+    -   **stroke_to :** column of **`data`** or hex colour to use as the ending stroke colour. If using a hex colour, use either a single value, or a column of hex colours on **`data`**
+    -   **stroke_width :** width of the stroke in pixels
+
+Visualize flight data in USA
+
+```{r}
+url <- 'https://raw.githubusercontent.com/plotly/datasets/master/2011_february_aa_flight_paths.csv'
+flights <- read.csv(url)
+flights$id <- seq_len(nrow(flights))
+flights$stroke <- sample(1:3, size = nrow(flights), replace = T)
+
+mapdeck(style = ms, 
+        pitch = 45 ) %>%
+  add_arc(data = flights, 
+          layer_id = "arc_layer", 
+          origin = c("start_lon", "start_lat"), 
+          destination = c("end_lon", "end_lat"), 
+          stroke_from = "stroke", 
+          stroke_to = "stroke", 
+          stroke_width = "stroke" 
+  )
+```
+
+```{r}
+mapdeck(style = 'mapbox://styles/mapbox/dark-v9', 
+        pitch = 45 ) %>%
+  add_animated_arc(data = flights, 
+                   layer_id = "arc_layer", 
+                   origin = c("start_lon", "start_lat"), 
+                   destination = c("end_lon", "end_lat"), 
+                   stroke_from = "stroke", 
+                   stroke_to = "stroke", 
+                   stroke_width = "stroke")
+```
+
+### heatmap
+
+```{r}
+mapdeck(style = ms, 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4)%>%
+  add_heatmap(data = crash_data[1:30000,],
+              lat = "lat",
+              lon = "lng", 
+              colour_range = colourvalues::colour_values(1:6, palette = "inferno"))
+```
+
+```{r}
+roads %>% View()
+
+mapdeck(style = mapdeck_style("dark"), 
+        zoom = 10) %>%
+  add_path(data = roads,
+            stroke_colour = "FQID",
+           layer_id = "path_layer")
+```
+
+### hexagon map
+
+```{r}
+mapdeck(style = mapdeck_style("dark"), 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4) %>%
+  add_hexagon(data = crash_data, 
+           lat = "lat", 
+           lon = "lng", 
+           elevation_scale = 100, 
+           layer_id = "hex_layer",
+           colour_range = viridisLite::plasma(6))
+```
+
+## leaflet
+
+```{r}
+library(leaflet)
+library(spData)
+
+cycle_hire %>% head()
+lnd %>% head()
+
+pal = colorNumeric("RdYlBu", domain = cycle_hire$nbikes)
+
+leaflet(data = cycle_hire) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircles(col = ~pal(nbikes), opacity = 0.9) %>% 
+  addPolygons(data = lnd, fill = FALSE) %>% 
+  addLegend(pal = pal, values = ~nbikes) %>% 
+  setView(lng = -0.1, 51.5, zoom = 12) %>% 
+  addMiniMap()
+```
+
+```{r}
+# creat a basic map
+leaflet() %>%
+  addTiles() %>% # add default OpenStreetMap map tiles
+  setView( lng=127.063, lat=37.513, zoom = 6) # korea, zoom 6
+```
+
+-   지도 스타일 추가하기
+    -   addProviderTiles("Tile Name Here") 를 이용하여 외부 지도 타일을 추가(아래에서 원하는 스타일 map 이름 선택)
+
+```{r}
+# map style: NASA
+leaflet() %>%
+  addTiles() %>%
+  setView( lng=127.063, lat=37.513, zoom = 6) %>%
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012")
+
+# map style: Esri.WorldImagery
+leaflet() %>%
+  addTiles() %>%
+  setView( lng=127.063, lat=37.513, zoom = 16) %>%
+  addProviderTiles("Esri.WorldImagery")
+```
+
+-   지도 좌표에 표시 풍선 추가하기
+    -   addMarkers() 메소드를 사용하면 위도(latitude), 경도(longitude) 좌표 위치에 풍선 모양의 표식과 커서를 클릭했을 때 팝업으로 나타나는 설명을 추가할 수 있음
+
+```{r}
+# adding Popup
+popup = c("한남대학교 빅데이터응용학과")
+
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = c(127.4219), # longitude
+             lat = c(36.3548), # latitude
+             popup = popup)
+```
+
+## ggmap
+
+```{r}
+library(ggmap)
+```
+
+```{r, echo=FALSE}
+ggmap::register_google(key = "AIzaSyA7H7oNSWsslZFrFEel2DU0TDm_GT3mJ84")
+```
+
+```{r}
+getmap <- get_googlemap("seoul")
+ggmap(getmap)
+```
+
+```{r}
+str(crime)
+
+Houstonmap <- get_map("Houston")
+ggmap(Houstonmap)
+ggmap(Houstonmap) + geom_point(data=crime, aes(x=lon,y=lat), size=0.1, alpha=0.1) #점의크기, 점의 투명도 조절
+```
+
+```{r}
+#지도 확대 & 특정 지역 데이터만 추출하기
+Houstonmap <- get_map("Houston", zoom=14)
+crime1 <- crime[(crime$lon < -95.344 & crime$lon > -95.395) & 
+                  (crime$lat < 29.783 & crime$lat > 29.738),]
+ggmap(Houstonmap) + geom_point(data=crime1, aes(x=lon,y=lat), alpha=0.3)
+
+ggmap(Houstonmap) + geom_point(data=crime1, aes(x=lon, y=lat, colour = offense))
+```
+
+```{r}
+crime2 <- crime1[!duplicated(crime1[,c("lon","lat")]),] #위,경도에 대해 중복되지 않게 하나의 관측치만 선택
+crime2$offense <- as.character(crime2$offense) #범죄 종류 문자형으로 변경
+
+crime2$offense[crime2$offense=="murder" | crime2$offense=="rape"] <- "4"
+crime2$offense[crime2$offense=="robbery" | crime2$offense=="aggravated assault"] <- "3"
+crime2$offense[crime2$offense=="burglary" | crime2$offense=="auto theft"] <- "2"
+crime2$offense[crime2$offense=="theft"] <- "1"
+
+crime2$offense <-  as.numeric(crime2$offense) #문자형을 숫자로 변경
+
+ggmap(Houstonmap) + geom_point(data=crime2, aes(x=lon, y=lat, size = offense),alpha=0.2)
+```
+
+```{r}
+#범죄 위험도에 따라 점의 크기 및 색깔로 구별
+ggmap(Houstonmap) + geom_point(data=crime2, aes(x=lon, y=lat, size = offense, colour=offense),
+                               alpha=0.5) +
+  scale_colour_gradient(low="white", high="red")
+```
+
+```{r}
+crime3 <- crime2[crime2$date=="1/1/2010",]
+crime4 <- crime3[!duplicated(crime3[,c("hour")]),]
+ggmap(Houstonmap) + geom_point(data=crime3, aes(x=lon, y=lat)) +
+  geom_text(data=crime4, aes(label=street), vjust=1.2) +
+  geom_path(data=crime4, aes(x=lon, y=lat), color="red")
+```
+
+```{r}
+library(sf)
+library(dplyr)
+#install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/", type = "source")
+library(spDataLarge)
+#install.packages("stplanr")
+library(stplanr)      # geographic transport data package
+library(tmap)         # visualization package (see Chapter 8)
+
+names(bristol_zones)
+bristol_zones
+nrow(bristol_od)
+bristol_od
+nrow(bristol_zones)
+
+
+#bristol_zones 지역별로 출발지 'o'로 그룹화 하여 이동량 계산
+zones_attr = bristol_od %>% 
+  group_by(o) %>% 
+  summarize_if(is.numeric, sum) %>% 
+  dplyr::rename(geo_code = o)
+
+summary(zones_attr$geo_code %in% bristol_zones$geo_code)
+
+```
+
+```{r}
+#bristol_zones과 zones_attr를  geo_code를 기준으로 합치기
+
+zones_joined = left_join(bristol_zones, zones_attr, by = "geo_code")
+sum(zones_joined$all)
+
+
+names(zones_joined)
+
+names(zones_joined)[3] <- c("all_orig")
+names(zones_joined)
+```
+
+```{r}
+# 목적지가 geo_code인 데이터 group화하여 이동량 계산, 그리고 zones_joined에 추가하기
+zones_od = bristol_od %>% 
+  group_by(d) %>% 
+  summarize_if(is.numeric, sum) %>% 
+  dplyr::select(geo_code = d, all_dest = all) %>% 
+  inner_join(zones_joined, ., by = "geo_code")
+```
+
+```{r}
+qtm(zones_od, c("all_orig", "all_dest")) +
+  tm_layout(panel.labels = c("Origin", "Destination"))
+```
+
+```{r}
+od_top5 = bristol_od %>% 
+  arrange(desc(all)) %>% 
+  top_n(5, wt = all)
+
+#활동성(전체 이동수단인원에서 자전거or 도보로 이동한 인원)
+bristol_od$Active = (bristol_od$bicycle + bristol_od$foot) /
+  bristol_od$all * 100
+```
+
+```{r}
+od_intra = filter(bristol_od, o == d) #o와 d가 같을때
+od_inter = filter(bristol_od, o != d) #o와 d가 다를때
+```
+
+```{r}
+desire_lines = od2line(od_inter, zones_od)
+
+
+#> Creating centroids representing desire line start and end points.
+qtm(desire_lines, lines.lwd = "all")
+
+tmap_mode("plot")
+desire_lines_top5 = od2line(od_top5, zones_od)
+# tmaptools::palette_explorer()
+```
+
+```{r}
+tm_shape(desire_lines) +
+  tm_lines(palette = "plasma", 
+           breaks = c(0, 5, 10, 20, 40, 100),
+           lwd = "all",
+           scale = 9,
+           title.lwd = "Number of trips",
+           alpha = 0.6,
+           col = "Active",
+           title = "Active travel (%)") +
+  tm_shape(desire_lines_top5) +
+  tm_lines(lwd = 5, col = "black", alpha = 0.7) +
+  tm_scale_bar()
+```
+
+```{r}
+desire_lines$distance = as.numeric(st_length(desire_lines))
+
+desire_carshort = dplyr::filter(desire_lines, car_driver > 300 & distance < 5000)
+
+route_carshort = route(l = desire_carshort, route_fun = route_osrm)
+
+desire_carshort$geom_car = st_geometry(route_carshort)
+```
+
+```{r}
+plot(st_geometry(desire_carshort))
+plot(desire_carshort$geom_car, col = "red", add = TRUE)
+plot(st_geometry(st_centroid(zones_od)), add = TRUE)
+```
+
+```{r}
+getmap <- get_googlemap("bristol", zoom = 11)
+bristol_map <- ggmap(getmap)
+#센터 조정
+getmap <- get_googlemap(center = c(-2.56, 51.53), zoom = 12)
+bristol_map <- ggmap(getmap)
+
+bristol_map + 
+  geom_sf(data = desire_carshort, inherit.aes = F) + 
+  geom_sf(data = desire_carshort$geom_car, inherit.aes = F, col="red") +
+  geom_sf(data = st_geometry(st_centroid(zones_od)), inherit.aes = F)
+```
+
+```{r}
+tmap_mode("view")
+
+
+tm_basemap("OpenStreetMap")+
+  tm_shape(desire_carshort$geometry)+
+  tm_lines()+
+  tm_shape(desire_carshort$geom_car)+
+  tm_lines(col = "red",lwd = 0.5)+
+  tm_shape(st_geometry(st_centroid(zones_od)))+
+  tm_dots()
+
+```

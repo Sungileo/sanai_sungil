@@ -1,7 +1,7 @@
 ---
-title: "Geospatial Analysis"
+title: "Basics example"
 listing: 
-  contents: "kaggle_geos"
+  contents: "basics_example"
   sort: "date desc"
   type: default
   categories: true

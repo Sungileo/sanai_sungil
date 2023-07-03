@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sungil Park">
+<meta name="dcterms.date" content="2023-03-02">
+<meta name="description" content="Kaggle Geospatial Analysis (4/5)">
+
+<title>Sungil_Park - Manipulating Geospatial Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Sungil_Park</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../kaggle_geo.html" rel="" target="">
+ <span class="menu-text">Basics example</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recordings.html" rel="" target="">
+ <span class="menu-text">Recordings</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Contact</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-contact">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/Sungileo" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Github</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://kr.linkedin.com/in/sungilfromcheonankorea" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="dropdown-text">Linkedin</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://www.instagram.com/da_real_sungil" rel="" target=""><i class="bi bi-instagram" role="img">
+</i> 
+ <span class="dropdown-text">Instagram</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#geocoding" id="toc-geocoding" class="nav-link" data-scroll-target="#geocoding">Geocoding</a></li>
+  <li><a href="#table-joins" id="toc-table-joins" class="nav-link" data-scroll-target="#table-joins">Table joins</a>
+  <ul class="collapse">
+  <li><a href="#attribute-join" id="toc-attribute-join" class="nav-link" data-scroll-target="#attribute-join">Attribute join</a></li>
+  </ul></li>
+  <li><a href="#spatial-join" id="toc-spatial-join" class="nav-link" data-scroll-target="#spatial-join">Spatial join</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#geocode-the-missing-locations." id="toc-geocode-the-missing-locations." class="nav-link" data-scroll-target="#geocode-the-missing-locations.">Geocode the missing locations.</a></li>
+  <li><a href="#view-berkeley-locations" id="toc-view-berkeley-locations" class="nav-link" data-scroll-target="#view-berkeley-locations">View Berkeley locations</a></li>
+  <li><a href="#consolidate-your-data" id="toc-consolidate-your-data" class="nav-link" data-scroll-target="#consolidate-your-data">Consolidate your data</a></li>
+  <li><a href="#which-counties-look-promising" id="toc-which-counties-look-promising" class="nav-link" data-scroll-target="#which-counties-look-promising">Which counties look promising?</a></li>
+  <li><a href="#how-many-stores-did-you-identify" id="toc-how-many-stores-did-you-identify" class="nav-link" data-scroll-target="#how-many-stores-did-you-identify">How many stores did you identify?</a></li>
+  <li><a href="#visualize-the-store-locations." id="toc-visualize-the-store-locations." class="nav-link" data-scroll-target="#visualize-the-store-locations.">Visualize the store locations.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Manipulating Geospatial Data</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Kaggle tutorial</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Kaggle Geospatial Analysis (4/5)
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sungil Park </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>이 튜토리얼에서는 Geocoding과 Table join이라는 두 가지 지리적 공간 데이터에 대한 일반적인 조작에 대해 알아봅니다.</p>
+</section>
+<section id="geocoding" class="level2">
+<h2 class="anchored" data-anchor-id="geocoding">Geocoding</h2>
+<p>지오코딩은 장소 이름이나 주소를 지도상의 위치로 변환하는 프로세스입니다. 예를 들어 Google 지도, Bing 지도 등에서 랜드마크 설명을 기반으로 지리적 위치를 찾아본 적이 있다면 지오코딩을 사용해 본 적이 있을 것입니다</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\geopandas\_compat.py:123: UserWarning: The Shapely GEOS version (3.10.1-CAPI-1.16.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
+  warnings.warn(</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> Marker</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geopy.geocoders <span class="im">import</span> Nominatim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>위의 코드 셀에서 <code>Nominatim</code>은 위치를 생성하는 데 사용되는 지오코딩 소프트웨어를 나타냅니다.</p>
+<p>지오코더를 인스턴스화하는 것으로 시작합니다. 그런 다음 이름이나 주소를 Python 문자열로 적용하기만 하면 됩니다. (이 경우, 기자의 대피라미드라고도 알려진 “쿠푸의 피라미드”를 제공합니다.)</p>
+<p>지오코딩이 성공하면 두 가지 중요한 속성이 있는 geopy.location.Location 객체를 반환합니다:</p>
+<ul>
+<li><p><code>point</code> 속성에는 (위도, 경도) 위치가 포함되고</p></li>
+<li><p><code>address</code> 속성은 전체 주소를 포함합니다.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"kaggle_learn"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>location <span class="op">=</span> geolocator.geocode(<span class="st">"Pyramid of Khufu"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(location.point)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>29 58m 44.976s N, 31 8m 3.17625s E</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(location.address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>هرم خوفو, شارع ابو الهول السياحي, نزلة البطران, الجيزة, 12125, مصر</code></pre>
+</div>
+</div>
+<p><code>point</code> 속성의 값은 <code>geopy.point.Point</code> 객체이며, <code>latitude</code> 및 <code>longitude</code> 속성에서 각각 위도와 경도를 가져올 수 있습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>point <span class="op">=</span> location.point</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Latitude:"</span>, point.latitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Latitude: 29.97916</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Longitude:"</span>, point.longitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Longitude: 31.134215625236113</code></pre>
+</div>
+</div>
+<p>다양한 주소를 지오코딩해야 하는 경우가 종종 있습니다. 예를 들어 유럽에 있는 상위 100개 대학의 위치를 파악하고 싶다고 가정해 보겠습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>universities <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/top_universities.csv"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>universities.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Name
+0     University of Oxford
+1  University of Cambridge
+2  Imperial College London
+3               ETH Zurich
+4                      UCL</code></pre>
+</div>
+</div>
+<p>그런 다음 람다 함수를 사용하여 데이터 프레임의 모든 행에 지오코딩을 적용할 수 있습니다.</p>
+<p>(지오코딩이 실패할 경우를 대비하여 try/except 문을 사용합니다.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_geocoder(row):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        point <span class="op">=</span> geolocator.geocode(row).point</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.Series({<span class="st">'Latitude'</span>: point.latitude, <span class="st">'Longitude'</span>: point.longitude})</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>universities[[<span class="st">'Latitude'</span>, <span class="st">'Longitude'</span>]] <span class="op">=</span> universities.<span class="bu">apply</span>(<span class="kw">lambda</span> x: my_geocoder(x[<span class="st">'Name'</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">{}% o</span><span class="st">f addresses were geocoded!"</span>.<span class="bu">format</span>(</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="op">-</span> <span class="bu">sum</span>(np.isnan(universities[<span class="st">"Latitude"</span>])) <span class="op">/</span> <span class="bu">len</span>(universities)) <span class="op">*</span> <span class="dv">100</span>))</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop universities that were not successfully geocoded</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>91.0% of addresses were geocoded!</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>universities <span class="op">=</span> universities.loc[<span class="op">~</span>np.isnan(universities[<span class="st">"Latitude"</span>])]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>universities <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    universities, geometry<span class="op">=</span>gpd.points_from_xy(universities.Longitude, universities.Latitude))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>universities.crs <span class="op">=</span> {<span class="st">'init'</span>: <span class="st">'epsg:4326'</span>}</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>universities.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Name   Latitude  Longitude                   geometry
+0     University of Oxford  51.759037  -1.252430  POINT (-1.25243 51.75904)
+1  University of Cambridge  52.200623   0.110474   POINT (0.11047 52.20062)
+2  Imperial College London  51.498959  -0.175641  POINT (-0.17564 51.49896)
+3               ETH Zurich  47.562772   7.580947   POINT (7.58095 47.56277)
+4                      UCL  51.521785  -0.135151  POINT (-0.13515 51.52179)</code></pre>
+</div>
+</div>
+<p>다음으로 지오코더가 반환한 모든 위치를 시각화합니다. 일부 위치는 유럽이 아니기 때문에 확실히 부정확하다는 것을 알 수 있습니다!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a map</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="dv">54</span>, <span class="dv">15</span>], tiles<span class="op">=</span><span class="st">'openstreetmap'</span>, zoom_start<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add points to the map</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> universities.iterrows():</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    Marker([row[<span class="st">'Latitude'</span>], row[<span class="st">'Longitude'</span>]], popup<span class="op">=</span>row[<span class="st">'Name'</span>]).add_to(m)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;folium.map.Marker object at 0x000001C41ABFEC50&gt;
+&lt;folium.map.Marker object at 0x000001C41C8E3ED0&gt;
+&lt;folium.map.Marker object at 0x000001C41C8E67D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CAFC1D0&gt;
+&lt;folium.map.Marker object at 0x000001C4239F0DD0&gt;
+&lt;folium.map.Marker object at 0x000001C41B26AA50&gt;
+&lt;folium.map.Marker object at 0x000001C41C8CAD90&gt;
+&lt;folium.map.Marker object at 0x000001C41C89E710&gt;
+&lt;folium.map.Marker object at 0x000001C41C89C250&gt;
+&lt;folium.map.Marker object at 0x000001C41C896D50&gt;
+&lt;folium.map.Marker object at 0x000001C423A07010&gt;
+&lt;folium.map.Marker object at 0x000001C41C8D4A50&gt;
+&lt;folium.map.Marker object at 0x000001C41C8D5CD0&gt;
+&lt;folium.map.Marker object at 0x000001C41C8D6910&gt;
+&lt;folium.map.Marker object at 0x000001C41C895AD0&gt;
+&lt;folium.map.Marker object at 0x000001C41C8D7F50&gt;
+&lt;folium.map.Marker object at 0x000001C41C8BA810&gt;
+&lt;folium.map.Marker object at 0x000001C41C8D4050&gt;
+&lt;folium.map.Marker object at 0x000001C41C8D7090&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0DE10&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0CCD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0D6D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0D1D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0FE90&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0F410&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0EC50&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0FD10&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0E990&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0FC10&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0E810&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0F450&gt;
+&lt;folium.map.Marker object at 0x000001C41CB0DFD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05710&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05F50&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05DD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB07B90&gt;
+&lt;folium.map.Marker object at 0x000001C41CB07E90&gt;
+&lt;folium.map.Marker object at 0x000001C41CB079D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB06CD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB07750&gt;
+&lt;folium.map.Marker object at 0x000001C41CB06D10&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05E90&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05E50&gt;
+&lt;folium.map.Marker object at 0x000001C41CB06090&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05B10&gt;
+&lt;folium.map.Marker object at 0x000001C41CB04DD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB04710&gt;
+&lt;folium.map.Marker object at 0x000001C41AC00450&gt;
+&lt;folium.map.Marker object at 0x000001C41AC036D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB13B50&gt;
+&lt;folium.map.Marker object at 0x000001C41CB13BD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB05ED0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB13510&gt;
+&lt;folium.map.Marker object at 0x000001C41CB12D50&gt;
+&lt;folium.map.Marker object at 0x000001C41CB127D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB10C10&gt;
+&lt;folium.map.Marker object at 0x000001C41CB10190&gt;
+&lt;folium.map.Marker object at 0x000001C41CB10E90&gt;
+&lt;folium.map.Marker object at 0x000001C41CB12910&gt;
+&lt;folium.map.Marker object at 0x000001C41CB12AD0&gt;
+&lt;folium.map.Marker object at 0x000001C41CB125D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A03590&gt;
+&lt;folium.map.Marker object at 0x000001C423A01050&gt;
+&lt;folium.map.Marker object at 0x000001C423A013D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A034D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A03910&gt;
+&lt;folium.map.Marker object at 0x000001C423A01C50&gt;
+&lt;folium.map.Marker object at 0x000001C423A02FD0&gt;
+&lt;folium.map.Marker object at 0x000001C423A01850&gt;
+&lt;folium.map.Marker object at 0x000001C423A007D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD4710&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD44D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD4590&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD6410&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD6490&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD77D0&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD7850&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD6C50&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD7D10&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD6D50&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD6D90&gt;
+&lt;folium.map.Marker object at 0x000001C41CAD7450&gt;
+&lt;folium.map.Marker object at 0x000001C423A0C7D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A0D390&gt;
+&lt;folium.map.Marker object at 0x000001C423A0CB10&gt;
+&lt;folium.map.Marker object at 0x000001C423A0CAD0&gt;
+&lt;folium.map.Marker object at 0x000001C423A0DF10&gt;
+&lt;folium.map.Marker object at 0x000001C423A0E1D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A0E550&gt;
+&lt;folium.map.Marker object at 0x000001C423A0E8D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A0EC50&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
+    <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
+    
+            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
+            <style>
+                #map_2699131115deb8948690b5789591a866 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_2699131115deb8948690b5789591a866&quot; ></div>
+        
+</body>
+<script>
+    
+    
+            var map_2699131115deb8948690b5789591a866 = L.map(
+                &quot;map_2699131115deb8948690b5789591a866&quot;,
+                {
+                    center: [54.0, 15.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 2,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_7e058aee0e78d4eda2c9ff953ded681b = L.tileLayer(
+                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+            var marker_8ace7f4fcf666c819365e7fd58c4aaa3 = L.marker(
+                [51.7590373, -1.2524298],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_9580208fbbb5c02b656824e0858a7f05 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_09fc2e4748a2d03004d84176c162e504 = $(`<div id=&quot;html_09fc2e4748a2d03004d84176c162e504&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Oxford</div>`)[0];
+                popup_9580208fbbb5c02b656824e0858a7f05.setContent(html_09fc2e4748a2d03004d84176c162e504);
+            
+        
+
+        marker_8ace7f4fcf666c819365e7fd58c4aaa3.bindPopup(popup_9580208fbbb5c02b656824e0858a7f05)
+        ;
+
+        
+    
+    
+            var marker_63b70bc3b1b8f60664f75dfd4e2720a2 = L.marker(
+                [52.2006233, 0.1104744],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_c0be92eddb94c1e1c7594eec51c070e8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_89c373288db176aaaf5afe1afeada9e6 = $(`<div id=&quot;html_89c373288db176aaaf5afe1afeada9e6&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Cambridge</div>`)[0];
+                popup_c0be92eddb94c1e1c7594eec51c070e8.setContent(html_89c373288db176aaaf5afe1afeada9e6);
+            
+        
+
+        marker_63b70bc3b1b8f60664f75dfd4e2720a2.bindPopup(popup_c0be92eddb94c1e1c7594eec51c070e8)
+        ;
+
+        
+    
+    
+            var marker_06752479f432bccb6b5187131f9d3be6 = L.marker(
+                [51.4989595, -0.17564069276310426],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_504477272bb5d970e48fe83ba1817ffa = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_3bc39a06b383a7928c85e781566b3250 = $(`<div id=&quot;html_3bc39a06b383a7928c85e781566b3250&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Imperial College London</div>`)[0];
+                popup_504477272bb5d970e48fe83ba1817ffa.setContent(html_3bc39a06b383a7928c85e781566b3250);
+            
+        
+
+        marker_06752479f432bccb6b5187131f9d3be6.bindPopup(popup_504477272bb5d970e48fe83ba1817ffa)
+        ;
+
+        
+    
+    
+            var marker_aef56aadadfed8652632b83085bb20a5 = L.marker(
+                [47.56277165, 7.580947334069263],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_adf61fcdb2c6f331a562e20465c1a627 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_12b28bc0cc99886d30f703f47a84650b = $(`<div id=&quot;html_12b28bc0cc99886d30f703f47a84650b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>ETH Zurich</div>`)[0];
+                popup_adf61fcdb2c6f331a562e20465c1a627.setContent(html_12b28bc0cc99886d30f703f47a84650b);
+            
+        
+
+        marker_aef56aadadfed8652632b83085bb20a5.bindPopup(popup_adf61fcdb2c6f331a562e20465c1a627)
+        ;
+
+        
+    
+    
+            var marker_1c1b95037ace79bbf8f2fdbd0a73247b = L.marker(
+                [51.5217852, -0.13515149671251314],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_a0ff5cdef8c40676f142f894eb4ad2dc = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_981816ad38fbb72768ed2f650aa32fe0 = $(`<div id=&quot;html_981816ad38fbb72768ed2f650aa32fe0&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>UCL</div>`)[0];
+                popup_a0ff5cdef8c40676f142f894eb4ad2dc.setContent(html_981816ad38fbb72768ed2f650aa32fe0);
+            
+        
+
+        marker_1c1b95037ace79bbf8f2fdbd0a73247b.bindPopup(popup_a0ff5cdef8c40676f142f894eb4ad2dc)
+        ;
+
+        
+    
+    
+            var marker_d226474fb85b3890f2742fe4173fdd05 = L.marker(
+                [51.51426105, -0.11673351981492822],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_dc9332723ca34fddb444950966e42216 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_83797042b2e558f159e05bdbcee41fe5 = $(`<div id=&quot;html_83797042b2e558f159e05bdbcee41fe5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>London School of Economics and Political Science</div>`)[0];
+                popup_dc9332723ca34fddb444950966e42216.setContent(html_83797042b2e558f159e05bdbcee41fe5);
+            
+        
+
+        marker_d226474fb85b3890f2742fe4173fdd05.bindPopup(popup_dc9332723ca34fddb444950966e42216)
+        ;
+
+        
+    
+    
+            var marker_c55e86ccad3f0578b7d092dc4e41df23 = L.marker(
+                [55.94407645, -3.1883735563964555],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_708e577abcbba9b98cffa732213232ee = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_d4dd6ae70adf10a1f5f02d96a7863c93 = $(`<div id=&quot;html_d4dd6ae70adf10a1f5f02d96a7863c93&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Edinburgh</div>`)[0];
+                popup_708e577abcbba9b98cffa732213232ee.setContent(html_d4dd6ae70adf10a1f5f02d96a7863c93);
+            
+        
+
+        marker_c55e86ccad3f0578b7d092dc4e41df23.bindPopup(popup_708e577abcbba9b98cffa732213232ee)
+        ;
+
+        
+    
+    
+            var marker_953bc5df88e895440492af5cbdb48f80 = L.marker(
+                [48.14701435, 11.575919303007243],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_176b2797f4395005078d96841596626d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_c6a1b0af9ccc9384895b0442e65c35c2 = $(`<div id=&quot;html_c6a1b0af9ccc9384895b0442e65c35c2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>LMU Munich</div>`)[0];
+                popup_176b2797f4395005078d96841596626d.setContent(html_c6a1b0af9ccc9384895b0442e65c35c2);
+            
+        
+
+        marker_953bc5df88e895440492af5cbdb48f80.bindPopup(popup_176b2797f4395005078d96841596626d)
+        ;
+
+        
+    
+    
+            var marker_323b8168e626a3262f8658fab42e2f79 = L.marker(
+                [46.518659400000004, 6.566561505148001],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_71642d1537a13eaa663572593f959547 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_fdcd80ee6a8045bad55abe50c90ab2ea = $(`<div id=&quot;html_fdcd80ee6a8045bad55abe50c90ab2ea&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>École Polytechnique Fédérale de Lausanne</div>`)[0];
+                popup_71642d1537a13eaa663572593f959547.setContent(html_fdcd80ee6a8045bad55abe50c90ab2ea);
+            
+        
+
+        marker_323b8168e626a3262f8658fab42e2f79.bindPopup(popup_71642d1537a13eaa663572593f959547)
+        ;
+
+        
+    
+    
+            var marker_4c41f19cb968bd921d07a772ed4d72b8 = L.marker(
+                [51.5060001, -0.1121582948025203],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_8be1963cb76b0ab0a66ba0b4ddaf07e3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_438741047f7a0a9c0b6ac6af4fb8f050 = $(`<div id=&quot;html_438741047f7a0a9c0b6ac6af4fb8f050&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>King’s College London</div>`)[0];
+                popup_8be1963cb76b0ab0a66ba0b4ddaf07e3.setContent(html_438741047f7a0a9c0b6ac6af4fb8f050);
+            
+        
+
+        marker_4c41f19cb968bd921d07a772ed4d72b8.bindPopup(popup_8be1963cb76b0ab0a66ba0b4ddaf07e3)
+        ;
+
+        
+    
+    
+            var marker_20035746cc0149097f97f7d1da4481e4 = L.marker(
+                [59.219549549999996, 17.94005487275674],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_31130e9b2fe51f2b0cbc7ff6e2f70e4e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_7bd0f5e976bb3b94b79a5ae1cddf0856 = $(`<div id=&quot;html_7bd0f5e976bb3b94b79a5ae1cddf0856&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Karolinska Institute</div>`)[0];
+                popup_31130e9b2fe51f2b0cbc7ff6e2f70e4e.setContent(html_7bd0f5e976bb3b94b79a5ae1cddf0856);
+            
+        
+
+        marker_20035746cc0149097f97f7d1da4481e4.bindPopup(popup_31130e9b2fe51f2b0cbc7ff6e2f70e4e)
+        ;
+
+        
+    
+    
+            var marker_7e53b72917ee7991fa0f020c3bd544d2 = L.marker(
+                [1.3078539, 103.7776795],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_cfb0b0534464b9cb34095d5db5d7ae41 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_f1eaff560f4a9175914e1199da086214 = $(`<div id=&quot;html_f1eaff560f4a9175914e1199da086214&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Technical University of Munich</div>`)[0];
+                popup_cfb0b0534464b9cb34095d5db5d7ae41.setContent(html_f1eaff560f4a9175914e1199da086214);
+            
+        
+
+        marker_7e53b72917ee7991fa0f020c3bd544d2.bindPopup(popup_cfb0b0534464b9cb34095d5db5d7ae41)
+        ;
+
+        
+    
+    
+            var marker_2db30efa6d560a62763c2079e5ef30b4 = L.marker(
+                [49.419318849999996, 8.67020439452228],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_a6d76f287854f9b34c007d87b4950a05 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_3ece01aedcd592e71364987b39a02378 = $(`<div id=&quot;html_3ece01aedcd592e71364987b39a02378&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Heidelberg University</div>`)[0];
+                popup_a6d76f287854f9b34c007d87b4950a05.setContent(html_3ece01aedcd592e71364987b39a02378);
+            
+        
+
+        marker_2db30efa6d560a62763c2079e5ef30b4.bindPopup(popup_a6d76f287854f9b34c007d87b4950a05)
+        ;
+
+        
+    
+    
+            var marker_55c396094458b3d4463dbf229549041f = L.marker(
+                [50.80571285, 3.2915374489139757],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_6e50fdf61d00220b5d14e3138588b64c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_dea0ef30fdf87488493d0ebe9b98bc65 = $(`<div id=&quot;html_dea0ef30fdf87488493d0ebe9b98bc65&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>KU Leuven</div>`)[0];
+                popup_6e50fdf61d00220b5d14e3138588b64c.setContent(html_dea0ef30fdf87488493d0ebe9b98bc65);
+            
+        
+
+        marker_55c396094458b3d4463dbf229549041f.bindPopup(popup_6e50fdf61d00220b5d14e3138588b64c)
+        ;
+
+        
+    
+    
+            var marker_2441838aa42cc13ea29d76830f440714 = L.marker(
+                [53.4657087, -2.232734319907597],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_8896b3d51ce4cf2f33911510a6014032 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b552a16ae40eba9def370c62772e778c = $(`<div id=&quot;html_b552a16ae40eba9def370c62772e778c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Manchester</div>`)[0];
+                popup_8896b3d51ce4cf2f33911510a6014032.setContent(html_b552a16ae40eba9def370c62772e778c);
+            
+        
+
+        marker_2441838aa42cc13ea29d76830f440714.bindPopup(popup_8896b3d51ce4cf2f33911510a6014032)
+        ;
+
+        
+    
+    
+            var marker_d7e6063792a3df988e5efdff6219e73f = L.marker(
+                [51.99882735, 4.373960368154041],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_15b1e5d7db7419b4069ed9809982bf0f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_28f7915bf5d3d498ed318987f2712741 = $(`<div id=&quot;html_28f7915bf5d3d498ed318987f2712741&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Delft University of Technology</div>`)[0];
+                popup_15b1e5d7db7419b4069ed9809982bf0f.setContent(html_28f7915bf5d3d498ed318987f2712741);
+            
+        
+
+        marker_d7e6063792a3df988e5efdff6219e73f.bindPopup(popup_15b1e5d7db7419b4069ed9809982bf0f)
+        ;
+
+        
+    
+    
+            var marker_29a0746dc6c3cf328098eebc67fa9c2c = L.marker(
+                [51.98544495, 5.663212001137484],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_1ea1a615964023c8102de64b7814719e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_5765ef9616ec556ff626fe364ab1cbba = $(`<div id=&quot;html_5765ef9616ec556ff626fe364ab1cbba&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Wageningen University &amp; Research</div>`)[0];
+                popup_1ea1a615964023c8102de64b7814719e.setContent(html_5765ef9616ec556ff626fe364ab1cbba);
+            
+        
+
+        marker_29a0746dc6c3cf328098eebc67fa9c2c.bindPopup(popup_1ea1a615964023c8102de64b7814719e)
+        ;
+
+        
+    
+    
+            var marker_4f312e00aa2a31bbbf4cb0ee8d50f16a = L.marker(
+                [52.36813335, 4.889804155733945],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_117613fa9842868a4e60812e06b1d9b8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_daa29f9d0c2167b02e2890445f7abdab = $(`<div id=&quot;html_daa29f9d0c2167b02e2890445f7abdab&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Amsterdam</div>`)[0];
+                popup_117613fa9842868a4e60812e06b1d9b8.setContent(html_daa29f9d0c2167b02e2890445f7abdab);
+            
+        
+
+        marker_4f312e00aa2a31bbbf4cb0ee8d50f16a.bindPopup(popup_117613fa9842868a4e60812e06b1d9b8)
+        ;
+
+        
+    
+    
+            var marker_fbfc8c80faf5e50f6cf7a5360764f14d = L.marker(
+                [52.5183402, 13.392920232320172],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_937be5a802c31296fe0aeb32c44af000 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_1467fd39edc1b9535eacbb55a3925015 = $(`<div id=&quot;html_1467fd39edc1b9535eacbb55a3925015&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Humboldt University of Berlin</div>`)[0];
+                popup_937be5a802c31296fe0aeb32c44af000.setContent(html_1467fd39edc1b9535eacbb55a3925015);
+            
+        
+
+        marker_fbfc8c80faf5e50f6cf7a5360764f14d.bindPopup(popup_937be5a802c31296fe0aeb32c44af000)
+        ;
+
+        
+    
+    
+            var marker_63b6793b8c3747b92f13d8d4699195f2 = L.marker(
+                [52.168633850000006, 4.45966324754191],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_1f4da0f760922c3db8cb55104b24ff8c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_3eec21efd0c6da0ed09dd23e2cf93c75 = $(`<div id=&quot;html_3eec21efd0c6da0ed09dd23e2cf93c75&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Leiden University</div>`)[0];
+                popup_1f4da0f760922c3db8cb55104b24ff8c.setContent(html_3eec21efd0c6da0ed09dd23e2cf93c75);
+            
+        
+
+        marker_63b6793b8c3747b92f13d8d4699195f2.bindPopup(popup_1f4da0f760922c3db8cb55104b24ff8c)
+        ;
+
+        
+    
+    
+            var marker_5be6d85256bfacecda7cccbced2d4f80 = L.marker(
+                [51.9229171, 4.487612362865811],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_c3b57963fd3d3092bbf6eca849873bc4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_cb0df610689cb2f418c48d769cc639d5 = $(`<div id=&quot;html_cb0df610689cb2f418c48d769cc639d5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Erasmus University Rotterdam</div>`)[0];
+                popup_c3b57963fd3d3092bbf6eca849873bc4.setContent(html_cb0df610689cb2f418c48d769cc639d5);
+            
+        
+
+        marker_5be6d85256bfacecda7cccbced2d4f80.bindPopup(popup_c3b57963fd3d3092bbf6eca849873bc4)
+        ;
+
+        
+    
+    
+            var marker_872f7661eead0447f44a08e7f27c2192 = L.marker(
+                [48.846899699999994, 2.357448653115875],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_031e77c4e82e932846dd9287f9399a0f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_700c911805962f452c245b3a65281cae = $(`<div id=&quot;html_700c911805962f452c245b3a65281cae&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Sorbonne University</div>`)[0];
+                popup_031e77c4e82e932846dd9287f9399a0f.setContent(html_700c911805962f452c245b3a65281cae);
+            
+        
+
+        marker_872f7661eead0447f44a08e7f27c2192.bindPopup(popup_031e77c4e82e932846dd9287f9399a0f)
+        ;
+
+        
+    
+    
+            var marker_df72767e776c44622a6657f184505c07 = L.marker(
+                [52.08340265, 5.148315067762755],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_ab3c384e5a6597d8e98ea0d2c5823de0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2e05e270876d11e7bdc2b0c2711675a3 = $(`<div id=&quot;html_2e05e270876d11e7bdc2b0c2711675a3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Utrecht University</div>`)[0];
+                popup_ab3c384e5a6597d8e98ea0d2c5823de0.setContent(html_2e05e270876d11e7bdc2b0c2711675a3);
+            
+        
+
+        marker_df72767e776c44622a6657f184505c07.bindPopup(popup_ab3c384e5a6597d8e98ea0d2c5823de0)
+        ;
+
+        
+    
+    
+            var marker_4796bebe9f1da2d602b90a942ed66191 = L.marker(
+                [46.793058, 7.157106],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_baa52f7d50462fd00fc00c99d71a07d5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_d96600b47e28c8d7ef78456e0172238a = $(`<div id=&quot;html_d96600b47e28c8d7ef78456e0172238a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Freiburg</div>`)[0];
+                popup_baa52f7d50462fd00fc00c99d71a07d5.setContent(html_d96600b47e28c8d7ef78456e0172238a);
+            
+        
+
+        marker_4796bebe9f1da2d602b90a942ed66191.bindPopup(popup_baa52f7d50462fd00fc00c99d71a07d5)
+        ;
+
+        
+    
+    
+            var marker_5dce30b355a4d309dda6283451a7ece5 = L.marker(
+                [51.4582866, -2.601568350796178],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_afb00cacce1066cbf9cba763dc90625d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b642fec6ae66a856384ff5c11e74e0ba = $(`<div id=&quot;html_b642fec6ae66a856384ff5c11e74e0ba&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bristol</div>`)[0];
+                popup_afb00cacce1066cbf9cba763dc90625d.setContent(html_b642fec6ae66a856384ff5c11e74e0ba);
+            
+        
+
+        marker_5dce30b355a4d309dda6283451a7ece5.bindPopup(popup_afb00cacce1066cbf9cba763dc90625d)
+        ;
+
+        
+    
+    
+            var marker_d10a7983606405981144c40c36c71ba2 = L.marker(
+                [53.21944155, 6.562986329174857],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_8e823de8b779b3ee453dc9655e9a3b4f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_6a48675337f9be8ba52a4b91e5faf4d4 = $(`<div id=&quot;html_6a48675337f9be8ba52a4b91e5faf4d4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Groningen</div>`)[0];
+                popup_8e823de8b779b3ee453dc9655e9a3b4f.setContent(html_6a48675337f9be8ba52a4b91e5faf4d4);
+            
+        
+
+        marker_d10a7983606405981144c40c36c71ba2.bindPopup(popup_8e823de8b779b3ee453dc9655e9a3b4f)
+        ;
+
+        
+    
+    
+            var marker_1f77a8cbfef8d907503c080ef935d07c = L.marker(
+                [52.3813073, -1.5639569481637439],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_316436665e846d6904feaf22817f4a78 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2a92a5fffade3096295f5174d9dcaa51 = $(`<div id=&quot;html_2a92a5fffade3096295f5174d9dcaa51&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Warwick</div>`)[0];
+                popup_316436665e846d6904feaf22817f4a78.setContent(html_2a92a5fffade3096295f5174d9dcaa51);
+            
+        
+
+        marker_1f77a8cbfef8d907503c080ef935d07c.bindPopup(popup_316436665e846d6904feaf22817f4a78)
+        ;
+
+        
+    
+    
+            var marker_8af7db16cdeb5e7ddd8e7fc8c4a9508e = L.marker(
+                [50.7791645, 6.068920971222876],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_530b8149a01c8f8ee26db17acf1d8f54 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e39021775f1562e4d10e5e2454a01542 = $(`<div id=&quot;html_e39021775f1562e4d10e5e2454a01542&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>RWTH Aachen University</div>`)[0];
+                popup_530b8149a01c8f8ee26db17acf1d8f54.setContent(html_e39021775f1562e4d10e5e2454a01542);
+            
+        
+
+        marker_8af7db16cdeb5e7ddd8e7fc8c4a9508e.bindPopup(popup_530b8149a01c8f8ee26db17acf1d8f54)
+        ;
+
+        
+    
+    
+            var marker_1583bae837d0ccbaace4f44b7eaf4133 = L.marker(
+                [59.8617859, 17.6376705],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_ff39295ee8bf91497301a4df58913731 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_204a0dc23fceb62a86b3f71bb5102357 = $(`<div id=&quot;html_204a0dc23fceb62a86b3f71bb5102357&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Uppsala University</div>`)[0];
+                popup_ff39295ee8bf91497301a4df58913731.setContent(html_204a0dc23fceb62a86b3f71bb5102357);
+            
+        
+
+        marker_1583bae837d0ccbaace4f44b7eaf4133.bindPopup(popup_ff39295ee8bf91497301a4df58913731)
+        ;
+
+        
+    
+    
+            var marker_ebe15ed46556016b81acd528ee218e67 = L.marker(
+                [48.53405945, 9.071244429234808],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_8919bb09542daa2a17bafa7cbb8a47d0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_d659675769b2041c8a44bb6696a1e551 = $(`<div id=&quot;html_d659675769b2041c8a44bb6696a1e551&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Tübingen</div>`)[0];
+                popup_8919bb09542daa2a17bafa7cbb8a47d0.setContent(html_d659675769b2041c8a44bb6696a1e551);
+            
+        
+
+        marker_ebe15ed46556016b81acd528ee218e67.bindPopup(popup_8919bb09542daa2a17bafa7cbb8a47d0)
+        ;
+
+        
+    
+    
+            var marker_c54e87e11447218d68ddaad34c81ecb8 = L.marker(
+                [52.5299885, 13.34866394036122],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_fd56b2297bd4915c384f0ce2e0bff6be = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_86d7314d9d325ca7b161db9f39f31572 = $(`<div id=&quot;html_86d7314d9d325ca7b161db9f39f31572&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Charité - Universitätsmedizin Berlin</div>`)[0];
+                popup_fd56b2297bd4915c384f0ce2e0bff6be.setContent(html_86d7314d9d325ca7b161db9f39f31572);
+            
+        
+
+        marker_c54e87e11447218d68ddaad34c81ecb8.bindPopup(popup_fd56b2297bd4915c384f0ce2e0bff6be)
+        ;
+
+        
+    
+    
+            var marker_b68701f4fc1582b8cc8388729c88458c = L.marker(
+                [47.49684345, 8.72980716809498],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_b61752b0f3736fee09ebc8cb0accedd7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_9cd2a8a795346247257d5b5cb92c1e9e = $(`<div id=&quot;html_9cd2a8a795346247257d5b5cb92c1e9e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Zurich</div>`)[0];
+                popup_b61752b0f3736fee09ebc8cb0accedd7.setContent(html_9cd2a8a795346247257d5b5cb92c1e9e);
+            
+        
+
+        marker_b68701f4fc1582b8cc8388729c88458c.bindPopup(popup_b61752b0f3736fee09ebc8cb0accedd7)
+        ;
+
+        
+    
+    
+            var marker_20dc38ea68b3bd7f0a8fcc4487ddc30f = L.marker(
+                [55.872315349999994, -4.289219112981823],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_6e923a0c65504e4e966e3108db14df53 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_95241c51d13c7661e4d7490eb0cdc00f = $(`<div id=&quot;html_95241c51d13c7661e4d7490eb0cdc00f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Glasgow</div>`)[0];
+                popup_6e923a0c65504e4e966e3108db14df53.setContent(html_95241c51d13c7661e4d7490eb0cdc00f);
+            
+        
+
+        marker_20dc38ea68b3bd7f0a8fcc4487ddc30f.bindPopup(popup_6e923a0c65504e4e966e3108db14df53)
+        ;
+
+        
+    
+    
+            var marker_83b89e9b895fec19ad59b8635f0e2508 = L.marker(
+                [58.163098500000004, 8.001442632957419],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_5941a8824451ef6e28215b704b341333 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_519bd4db19380d8d204f3360576a36cd = $(`<div id=&quot;html_519bd4db19380d8d204f3360576a36cd&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lund University</div>`)[0];
+                popup_5941a8824451ef6e28215b704b341333.setContent(html_519bd4db19380d8d204f3360576a36cd);
+            
+        
+
+        marker_83b89e9b895fec19ad59b8635f0e2508.bindPopup(popup_5941a8824451ef6e28215b704b341333)
+        ;
+
+        
+    
+    
+            var marker_f46d297b1e76833b31cd780ac626021f = L.marker(
+                [60.175648300000006, 24.953550020522073],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_b096bec16cf7c0aafc345aecfca576ed = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_fa63ed815cdc17f04003dd265d069da7 = $(`<div id=&quot;html_fa63ed815cdc17f04003dd265d069da7&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Helsinki</div>`)[0];
+                popup_b096bec16cf7c0aafc345aecfca576ed.setContent(html_fa63ed815cdc17f04003dd265d069da7);
+            
+        
+
+        marker_f46d297b1e76833b31cd780ac626021f.bindPopup(popup_b096bec16cf7c0aafc345aecfca576ed)
+        ;
+
+        
+    
+    
+            var marker_e782d1da5f2f06a5f101d335989f43eb = L.marker(
+                [47.56174235, 7.58285513707386],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_8850e106e647865dd8e5305efcc679b7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_4dd2cec8936e5de5e39972ba44d8589b = $(`<div id=&quot;html_4dd2cec8936e5de5e39972ba44d8589b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Basel</div>`)[0];
+                popup_8850e106e647865dd8e5305efcc679b7.setContent(html_4dd2cec8936e5de5e39972ba44d8589b);
+            
+        
+
+        marker_e782d1da5f2f06a5f101d335989f43eb.bindPopup(popup_8850e106e647865dd8e5305efcc679b7)
+        ;
+
+        
+    
+    
+            var marker_c1e75519aa0e4e2026ced6c283b150f3 = L.marker(
+                [53.3815369, -1.4806342198324056],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_95ea8da72190f6e93a2bc63983cddd5b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_7683dbc9623a48b16302068fea88bb2b = $(`<div id=&quot;html_7683dbc9623a48b16302068fea88bb2b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Sheffield</div>`)[0];
+                popup_95ea8da72190f6e93a2bc63983cddd5b.setContent(html_7683dbc9623a48b16302068fea88bb2b);
+            
+        
+
+        marker_c1e75519aa0e4e2026ced6c283b150f3.bindPopup(popup_95ea8da72190f6e93a2bc63983cddd5b)
+        ;
+
+        
+    
+    
+            var marker_f294b274bb6e00bed8e8742f4a88c332 = L.marker(
+                [48.7127874, 2.2107453],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_457e81b6f07ee16696e41eec51d9d610 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_c99cbd144624e1d420c013acc4f05d48 = $(`<div id=&quot;html_c99cbd144624e1d420c013acc4f05d48&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>École Polytechnique</div>`)[0];
+                popup_457e81b6f07ee16696e41eec51d9d610.setContent(html_c99cbd144624e1d420c013acc4f05d48);
+            
+        
+
+        marker_f294b274bb6e00bed8e8742f4a88c332.bindPopup(popup_457e81b6f07ee16696e41eec51d9d610)
+        ;
+
+        
+    
+    
+            var marker_902e50dadf092348fa67a5f571fb9942 = L.marker(
+                [46.95097255, 7.438684130809055],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_b605ede48768fc837ad93bbfa3522a6f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b019d593a398889b3abb34fc17937660 = $(`<div id=&quot;html_b019d593a398889b3abb34fc17937660&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bern</div>`)[0];
+                popup_b605ede48768fc837ad93bbfa3522a6f.setContent(html_b019d593a398889b3abb34fc17937660);
+            
+        
+
+        marker_902e50dadf092348fa67a5f571fb9942.bindPopup(popup_b605ede48768fc837ad93bbfa3522a6f)
+        ;
+
+        
+    
+    
+            var marker_9fae2321b0ab5fecda107fb257c8831d = L.marker(
+                [50.7338124, 7.1022465],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_ffe6e167b40a9c25703824bc58622f54 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_38ef04a5f7b814cef2921ab8b292417b = $(`<div id=&quot;html_38ef04a5f7b814cef2921ab8b292417b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bonn</div>`)[0];
+                popup_ffe6e167b40a9c25703824bc58622f54.setContent(html_38ef04a5f7b814cef2921ab8b292417b);
+            
+        
+
+        marker_9fae2321b0ab5fecda107fb257c8831d.bindPopup(popup_ffe6e167b40a9c25703824bc58622f54)
+        ;
+
+        
+    
+    
+            var marker_91da2dfc12e6bd48b2eb4f0607c3c037 = L.marker(
+                [54.9027916, -1.392096],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_23fea1006ea2238f89707cd528fb4816 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_5cd14bf4094604a998d8f1377da8ecc2 = $(`<div id=&quot;html_5cd14bf4094604a998d8f1377da8ecc2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Durham University</div>`)[0];
+                popup_23fea1006ea2238f89707cd528fb4816.setContent(html_5cd14bf4094604a998d8f1377da8ecc2);
+            
+        
+
+        marker_91da2dfc12e6bd48b2eb4f0607c3c037.bindPopup(popup_23fea1006ea2238f89707cd528fb4816)
+        ;
+
+        
+    
+    
+            var marker_3c8cb9433a8fe129346a6d07b11cefcf = L.marker(
+                [52.4522956, -1.9312856726008194],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_7f6136af373120ef6e5e90ebf304463d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2fd50e159c847e5fe7768a324f0872ec = $(`<div id=&quot;html_2fd50e159c847e5fe7768a324f0872ec&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Birmingham</div>`)[0];
+                popup_7f6136af373120ef6e5e90ebf304463d.setContent(html_2fd50e159c847e5fe7768a324f0872ec);
+            
+        
+
+        marker_3c8cb9433a8fe129346a6d07b11cefcf.bindPopup(popup_7f6136af373120ef6e5e90ebf304463d)
+        ;
+
+        
+    
+    
+            var marker_e1019e08e932a393c7a6852f1d2f6255 = L.marker(
+                [55.6801502, 12.57232700140625],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_caf890f59eba680a9554e7b72b970c8e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_67a1c40444d585ffe0a165182f322787 = $(`<div id=&quot;html_67a1c40444d585ffe0a165182f322787&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Copenhagen</div>`)[0];
+                popup_caf890f59eba680a9554e7b72b970c8e.setContent(html_67a1c40444d585ffe0a165182f322787);
+            
+        
+
+        marker_e1019e08e932a393c7a6852f1d2f6255.bindPopup(popup_caf890f59eba680a9554e7b72b970c8e)
+        ;
+
+        
+    
+    
+            var marker_95314b1c09202eb54cc6c247ae35079b = L.marker(
+                [50.9354752, -1.3962847494297244],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_9b1fddd86c1a754a1679358aa40da783 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_09230157e559eb930e110d2a179de0c9 = $(`<div id=&quot;html_09230157e559eb930e110d2a179de0c9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Southampton</div>`)[0];
+                popup_9b1fddd86c1a754a1679358aa40da783.setContent(html_09230157e559eb930e110d2a179de0c9);
+            
+        
+
+        marker_95314b1c09202eb54cc6c247ae35079b.bindPopup(popup_9b1fddd86c1a754a1679358aa40da783)
+        ;
+
+        
+    
+    
+            var marker_23fc0518c1a333cc9a57af05824d0135 = L.marker(
+                [53.9453903, -1.0314592943104675],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_237811ca11270ae899585bdc28752af5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e1f8dbf3b857bd134adaac86e152c48c = $(`<div id=&quot;html_e1f8dbf3b857bd134adaac86e152c48c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of York</div>`)[0];
+                popup_237811ca11270ae899585bdc28752af5.setContent(html_e1f8dbf3b857bd134adaac86e152c48c);
+            
+        
+
+        marker_23fc0518c1a333cc9a57af05824d0135.bindPopup(popup_237811ca11270ae899585bdc28752af5)
+        ;
+
+        
+    
+    
+            var marker_2fd5e4fbbcbd73f72ef5106d9d4557d1 = L.marker(
+                [53.34366745, -6.254444724511822],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_4d1c3a2721112659d1b43a6ed19d478d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_c9ba5dd76c533677d0899f97999f43ff = $(`<div id=&quot;html_c9ba5dd76c533677d0899f97999f43ff&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Trinity College Dublin</div>`)[0];
+                popup_4d1c3a2721112659d1b43a6ed19d478d.setContent(html_c9ba5dd76c533677d0899f97999f43ff);
+            
+        
+
+        marker_2fd5e4fbbcbd73f72ef5106d9d4557d1.bindPopup(popup_4d1c3a2721112659d1b43a6ed19d478d)
+        ;
+
+        
+    
+    
+            var marker_a24c3340cc54d8a955b30ef67a465af1 = L.marker(
+                [59.9414173, 10.722768340750914],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_cd1798194e5d474239f5c8ff51532436 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_89d3323a3dede7ec4ee5cea1cd3417aa = $(`<div id=&quot;html_89d3323a3dede7ec4ee5cea1cd3417aa&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Oslo</div>`)[0];
+                popup_cd1798194e5d474239f5c8ff51532436.setContent(html_89d3323a3dede7ec4ee5cea1cd3417aa);
+            
+        
+
+        marker_a24c3340cc54d8a955b30ef67a465af1.bindPopup(popup_cd1798194e5d474239f5c8ff51532436)
+        ;
+
+        
+    
+    
+            var marker_e33b381c6b7ea09a3eb0244ab41cafb5 = L.marker(
+                [56.1670905, 10.202617693592895],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_137ef6eb2fefedf4932b59ebf1cb2b44 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e1e448470176dd66df251a5b76ed340b = $(`<div id=&quot;html_e1e448470176dd66df251a5b76ed340b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aarhus University</div>`)[0];
+                popup_137ef6eb2fefedf4932b59ebf1cb2b44.setContent(html_e1e448470176dd66df251a5b76ed340b);
+            
+        
+
+        marker_e33b381c6b7ea09a3eb0244ab41cafb5.bindPopup(popup_137ef6eb2fefedf4932b59ebf1cb2b44)
+        ;
+
+        
+    
+    
+            var marker_a0f40cd0a83791235814070e3dbbbb57 = L.marker(
+                [51.5411003, 9.948200846079496],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_8f5d32c0e0f48c72a84459b809a30383 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_252b5bbdb1cc44cf64f491b0ffc56157 = $(`<div id=&quot;html_252b5bbdb1cc44cf64f491b0ffc56157&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Göttingen</div>`)[0];
+                popup_8f5d32c0e0f48c72a84459b809a30383.setContent(html_252b5bbdb1cc44cf64f491b0ffc56157);
+            
+        
+
+        marker_a0f40cd0a83791235814070e3dbbbb57.bindPopup(popup_8f5d32c0e0f48c72a84459b809a30383)
+        ;
+
+        
+    
+    
+            var marker_7684554b00eedb2d4dfc567bbeed32f2 = L.marker(
+                [49.4699765, 8.4819024],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_80b4d5c0f2cbae9e06f11ed813fbc123 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_708021d512821164e8ceee729f7faa12 = $(`<div id=&quot;html_708021d512821164e8ceee729f7faa12&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Mannheim</div>`)[0];
+                popup_80b4d5c0f2cbae9e06f11ed813fbc123.setContent(html_708021d512821164e8ceee729f7faa12);
+            
+        
+
+        marker_7684554b00eedb2d4dfc567bbeed32f2.bindPopup(popup_80b4d5c0f2cbae9e06f11ed813fbc123)
+        ;
+
+        
+    
+    
+            var marker_c5bf88fb68076aecf52ea114754da306 = L.marker(
+                [51.82151725, 5.863403442541042],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_c4197aeeb4f18f06143ab55241ec6599 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_64ab009b21b76875d6669633583e8a59 = $(`<div id=&quot;html_64ab009b21b76875d6669633583e8a59&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Radboud University Nijmegen</div>`)[0];
+                popup_c4197aeeb4f18f06143ab55241ec6599.setContent(html_64ab009b21b76875d6669633583e8a59);
+            
+        
+
+        marker_c5bf88fb68076aecf52ea114754da306.bindPopup(popup_c4197aeeb4f18f06143ab55241ec6599)
+        ;
+
+        
+    
+    
+            var marker_b53fc02a6a60a823e71a72cefbd051f8 = L.marker(
+                [50.821259999999995, 4.349652894133002],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_d1de4877af95af9936fb80743c9dcbd3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_8bc4d3027176ea8ac60a100537a844b9 = $(`<div id=&quot;html_8bc4d3027176ea8ac60a100537a844b9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Université Catholique de Louvain</div>`)[0];
+                popup_d1de4877af95af9936fb80743c9dcbd3.setContent(html_8bc4d3027176ea8ac60a100537a844b9);
+            
+        
+
+        marker_b53fc02a6a60a823e71a72cefbd051f8.bindPopup(popup_d1de4877af95af9936fb80743c9dcbd3)
+        ;
+
+        
+    
+    
+            var marker_c67b8669e7de4ced134ad08c00c3d844 = L.marker(
+                [50.84720265, 5.685941396293034],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_d345a4e378a19caf57afda4ccd62bea3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_499f5b63e13664363389a549790b26e3 = $(`<div id=&quot;html_499f5b63e13664363389a549790b26e3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Maastricht University</div>`)[0];
+                popup_d345a4e378a19caf57afda4ccd62bea3.setContent(html_499f5b63e13664363389a549790b26e3);
+            
+        
+
+        marker_c67b8669e7de4ced134ad08c00c3d844.bindPopup(popup_d345a4e378a19caf57afda4ccd62bea3)
+        ;
+
+        
+    
+    
+            var marker_63e38c6722490dc31be16e90b40f0914 = L.marker(
+                [51.5247272, -0.03931034663016243],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_e9512a61eeb9ba419618efb83a654247 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_ab28e43ea32dd196af30acb97a58de0c = $(`<div id=&quot;html_ab28e43ea32dd196af30acb97a58de0c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Queen Mary University of London</div>`)[0];
+                popup_e9512a61eeb9ba419618efb83a654247.setContent(html_ab28e43ea32dd196af30acb97a58de0c);
+            
+        
+
+        marker_63e38c6722490dc31be16e90b40f0914.bindPopup(popup_e9512a61eeb9ba419618efb83a654247)
+        ;
+
+        
+    
+    
+            var marker_b3ed76d97818af648e8544b203b63db1 = L.marker(
+                [42.6126851, -88.4805318],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_7cd911e3a8275dcd83c72a99e93f560d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_71f38d64939a1ae240671ee8df796be4 = $(`<div id=&quot;html_71f38d64939a1ae240671ee8df796be4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Geneva</div>`)[0];
+                popup_7cd911e3a8275dcd83c72a99e93f560d.setContent(html_71f38d64939a1ae240671ee8df796be4);
+            
+        
+
+        marker_b3ed76d97818af648e8544b203b63db1.bindPopup(popup_7cd911e3a8275dcd83c72a99e93f560d)
+        ;
+
+        
+    
+    
+            var marker_a53aaac901804d35528a3e6d7c7f4fb7 = L.marker(
+                [53.5641091, 9.994978875267606],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_571fa9d57319afc71c409d41b6e482cf = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_ddee6d81c6a2cfb6c08cb98254620be2 = $(`<div id=&quot;html_ddee6d81c6a2cfb6c08cb98254620be2&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Hamburg</div>`)[0];
+                popup_571fa9d57319afc71c409d41b6e482cf.setContent(html_ddee6d81c6a2cfb6c08cb98254620be2);
+            
+        
+
+        marker_a53aaac901804d35528a3e6d7c7f4fb7.bindPopup(popup_571fa9d57319afc71c409d41b6e482cf)
+        ;
+
+        
+    
+    
+            var marker_2e9386a83084e312d96ecf309a04e765 = L.marker(
+                [49.101853399999996, 8.433120159201868],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_ee9b45da22cd48ff77e930c8002f584c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_f0a91a34c327fdc2e8858142b37b406f = $(`<div id=&quot;html_f0a91a34c327fdc2e8858142b37b406f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Karlsruhe Institute of Technology</div>`)[0];
+                popup_ee9b45da22cd48ff77e930c8002f584c.setContent(html_f0a91a34c327fdc2e8858142b37b406f);
+            
+        
+
+        marker_2e9386a83084e312d96ecf309a04e765.bindPopup(popup_ee9b45da22cd48ff77e930c8002f584c)
+        ;
+
+        
+    
+    
+            var marker_5c1707672b9be63198a27a2d6a7a9e73 = L.marker(
+                [50.73693715, -3.534734858662963],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_920e2a289adf6b79bf0f06977923063a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_9b6638cb21ae4cde940193ab50de1b55 = $(`<div id=&quot;html_9b6638cb21ae4cde940193ab50de1b55&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Exeter</div>`)[0];
+                popup_920e2a289adf6b79bf0f06977923063a.setContent(html_9b6638cb21ae4cde940193ab50de1b55);
+            
+        
+
+        marker_5c1707672b9be63198a27a2d6a7a9e73.bindPopup(popup_920e2a289adf6b79bf0f06977923063a)
+        ;
+
+        
+    
+    
+            var marker_57b7cd3c88634b7afcaaa44097a00eb5 = L.marker(
+                [51.00784845, 3.710883068491984],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_f7f3efcd5e15db1395e3c8ff51bfc380 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_9574d76e096a37e783441437f9215e80 = $(`<div id=&quot;html_9574d76e096a37e783441437f9215e80&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Ghent University</div>`)[0];
+                popup_f7f3efcd5e15db1395e3c8ff51bfc380.setContent(html_9574d76e096a37e783441437f9215e80);
+            
+        
+
+        marker_57b7cd3c88634b7afcaaa44097a00eb5.bindPopup(popup_f7f3efcd5e15db1395e3c8ff51bfc380)
+        ;
+
+        
+    
+    
+            var marker_4e4130a9c58a910c5dd5e2feede71fa3 = L.marker(
+                [48.2131284, 16.360685994114505],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_904f09473815d79045d88ac058d8da42 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_3b7642a59a39626506d21097de8e875a = $(`<div id=&quot;html_3b7642a59a39626506d21097de8e875a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Vienna</div>`)[0];
+                popup_904f09473815d79045d88ac058d8da42.setContent(html_3b7642a59a39626506d21097de8e875a);
+            
+        
+
+        marker_4e4130a9c58a910c5dd5e2feede71fa3.bindPopup(popup_904f09473815d79045d88ac058d8da42)
+        ;
+
+        
+    
+    
+            var marker_2763b335292ef459e524551d5981a6a1 = L.marker(
+                [50.928044549999996, 6.928130514523661],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_24ee20ce1d1fa5da110c385aa0dc4a42 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_94e5c1b2ba84e37788b572def89db027 = $(`<div id=&quot;html_94e5c1b2ba84e37788b572def89db027&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Cologne</div>`)[0];
+                popup_24ee20ce1d1fa5da110c385aa0dc4a42.setContent(html_94e5c1b2ba84e37788b572def89db027);
+            
+        
+
+        marker_2763b335292ef459e524551d5981a6a1.bindPopup(popup_24ee20ce1d1fa5da110c385aa0dc4a42)
+        ;
+
+        
+    
+    
+            var marker_68e79b8ea6429eb74631490eef49fdfe = L.marker(
+                [54.00975365, -2.7875727317728654],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_11ed37da18948e673ca68122f5e74c85 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_d982a5abca57022b18c9b8731596ef3b = $(`<div id=&quot;html_d982a5abca57022b18c9b8731596ef3b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lancaster University</div>`)[0];
+                popup_11ed37da18948e673ca68122f5e74c85.setContent(html_d982a5abca57022b18c9b8731596ef3b);
+            
+        
+
+        marker_68e79b8ea6429eb74631490eef49fdfe.bindPopup(popup_11ed37da18948e673ca68122f5e74c85)
+        ;
+
+        
+    
+    
+            var marker_f3c30c3932fbbb93762d563ee2765bb9 = L.marker(
+                [52.9387428, -1.2002956927457427],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_7c2cc2e4022e81fb494a7eed344db2d2 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_6e5f1a58d2864842dc19829298c2c147 = $(`<div id=&quot;html_6e5f1a58d2864842dc19829298c2c147&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Nottingham</div>`)[0];
+                popup_7c2cc2e4022e81fb494a7eed344db2d2.setContent(html_6e5f1a58d2864842dc19829298c2c147);
+            
+        
+
+        marker_f3c30c3932fbbb93762d563ee2765bb9.bindPopup(popup_7c2cc2e4022e81fb494a7eed344db2d2)
+        ;
+
+        
+    
+    
+            var marker_4bbeb6b0ad792d9f165712ba03cf9fe3 = L.marker(
+                [48.38044334999999, 10.010101151636224],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_50d42c65ea222c6f18400a632c5303ef = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_83c6e7fad7896372b257c116018a19a3 = $(`<div id=&quot;html_83c6e7fad7896372b257c116018a19a3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Ulm University</div>`)[0];
+                popup_50d42c65ea222c6f18400a632c5303ef.setContent(html_83c6e7fad7896372b257c116018a19a3);
+            
+        
+
+        marker_4bbeb6b0ad792d9f165712ba03cf9fe3.bindPopup(popup_50d42c65ea222c6f18400a632c5303ef)
+        ;
+
+        
+    
+    
+            var marker_2a5ab3c4d085db2bf1b6b58816baf11d = L.marker(
+                [51.028276500000004, 13.735982754935176],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_fe17699538d766aae37f8c0b6a4e7170 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_16f1158e7487ce0ce70e2db22433f922 = $(`<div id=&quot;html_16f1158e7487ce0ce70e2db22433f922&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>TU Dresden</div>`)[0];
+                popup_fe17699538d766aae37f8c0b6a4e7170.setContent(html_16f1158e7487ce0ce70e2db22433f922);
+            
+        
+
+        marker_2a5ab3c4d085db2bf1b6b58816baf11d.bindPopup(popup_fe17699538d766aae37f8c0b6a4e7170)
+        ;
+
+        
+    
+    
+            var marker_faa7f4dd9b009b8df2554415c06337c1 = L.marker(
+                [53.80677435, -1.5562877504739676],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_6f3ef7a10fda55f722d4ce40b6c9f187 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_c679ccb4420a0af9020b0468f210f80b = $(`<div id=&quot;html_c679ccb4420a0af9020b0468f210f80b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Leeds</div>`)[0];
+                popup_6f3ef7a10fda55f722d4ce40b6c9f187.setContent(html_c679ccb4420a0af9020b0468f210f80b);
+            
+        
+
+        marker_faa7f4dd9b009b8df2554415c06337c1.bindPopup(popup_6f3ef7a10fda55f722d4ce40b6c9f187)
+        ;
+
+        
+    
+    
+            var marker_80b686a74851536f42662d3b330c08af = L.marker(
+                [43.7206078, 10.4026444],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_0daa2e0c75e34c97a9c24d8e8b0d57f0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2a2981cf91e9fcf2b6d98b22424ba575 = $(`<div id=&quot;html_2a2981cf91e9fcf2b6d98b22424ba575&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Scuola Superiore Sant’Anna</div>`)[0];
+                popup_0daa2e0c75e34c97a9c24d8e8b0d57f0.setContent(html_2a2981cf91e9fcf2b6d98b22424ba575);
+            
+        
+
+        marker_80b686a74851536f42662d3b330c08af.bindPopup(popup_0daa2e0c75e34c97a9c24d8e8b0d57f0)
+        ;
+
+        
+    
+    
+            var marker_5ed4f1bcf135ede50b9ab12d264ed55b = L.marker(
+                [59.363333600000004, 18.05879425982729],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_63c9db1920bdfb631171f32e857e4cae = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_919c8d0468f099018f47056324fc3fe4 = $(`<div id=&quot;html_919c8d0468f099018f47056324fc3fe4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stockholm University</div>`)[0];
+                popup_63c9db1920bdfb631171f32e857e4cae.setContent(html_919c8d0468f099018f47056324fc3fe4);
+            
+        
+
+        marker_5ed4f1bcf135ede50b9ab12d264ed55b.bindPopup(popup_63c9db1920bdfb631171f32e857e4cae)
+        ;
+
+        
+    
+    
+            var marker_8aa864d8d3c3f7a6e1f10e2f321535b4 = L.marker(
+                [57.16452475, -2.1018363546621197],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_338ffc3d0c355ac5789a39d3505641ff = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_7d608d85b9517aef284279fa227fd544 = $(`<div id=&quot;html_7d608d85b9517aef284279fa227fd544&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Aberdeen</div>`)[0];
+                popup_338ffc3d0c355ac5789a39d3505641ff.setContent(html_7d608d85b9517aef284279fa227fd544);
+            
+        
+
+        marker_8aa864d8d3c3f7a6e1f10e2f321535b4.bindPopup(popup_338ffc3d0c355ac5789a39d3505641ff)
+        ;
+
+        
+    
+    
+            var marker_b535964616e35087eba992d046c422e8 = L.marker(
+                [43.7196687, 10.400432749413179],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_eabd24f18a678810415dce7e24368c5d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_7b24a834d3f38ebd2a484308a06383eb = $(`<div id=&quot;html_7b24a834d3f38ebd2a484308a06383eb&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Scuola Normale Superiore di Pisa</div>`)[0];
+                popup_eabd24f18a678810415dce7e24368c5d.setContent(html_7b24a834d3f38ebd2a484308a06383eb);
+            
+        
+
+        marker_b535964616e35087eba992d046c422e8.bindPopup(popup_eabd24f18a678810415dce7e24368c5d)
+        ;
+
+        
+    
+    
+            var marker_413816eca05f757fa9516eaa2bf45cbe = L.marker(
+                [50.86796665, -0.08778899363132905],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_cbfb36c54a92c993e8ec25d504469544 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_4658ab43f54c13d2e3cadc683bf12985 = $(`<div id=&quot;html_4658ab43f54c13d2e3cadc683bf12985&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Sussex</div>`)[0];
+                popup_cbfb36c54a92c993e8ec25d504469544.setContent(html_4658ab43f54c13d2e3cadc683bf12985);
+            
+        
+
+        marker_413816eca05f757fa9516eaa2bf45cbe.bindPopup(popup_cbfb36c54a92c993e8ec25d504469544)
+        ;
+
+        
+    
+    
+            var marker_75a2a19b9cc13bc8f81ed63eff7acdff = L.marker(
+                [55.785414450000005, 12.520215144442094],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_877c5de18cffc56336dbf0d546ce6f8e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2b569d38d1e2028a2ce871079a4b20f5 = $(`<div id=&quot;html_2b569d38d1e2028a2ce871079a4b20f5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Technical University of Denmark</div>`)[0];
+                popup_877c5de18cffc56336dbf0d546ce6f8e.setContent(html_2b569d38d1e2028a2ce871079a4b20f5);
+            
+        
+
+        marker_75a2a19b9cc13bc8f81ed63eff7acdff.bindPopup(popup_877c5de18cffc56336dbf0d546ce6f8e)
+        ;
+
+        
+    
+    
+            var marker_3ba1f2688bdf012e630803487d0c2bc8 = L.marker(
+                [56.3398198, -2.8117937053149826],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_a9673c1edce760a358f051bed184df37 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b83941fe0fd84d14244d62ff19282aee = $(`<div id=&quot;html_b83941fe0fd84d14244d62ff19282aee&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of St Andrews</div>`)[0];
+                popup_a9673c1edce760a358f051bed184df37.setContent(html_b83941fe0fd84d14244d62ff19282aee);
+            
+        
+
+        marker_3ba1f2688bdf012e630803487d0c2bc8.bindPopup(popup_a9673c1edce760a358f051bed184df37)
+        ;
+
+        
+    
+    
+            var marker_b7cfbe7c1a36a43f25d69ebd3655a1cb = L.marker(
+                [52.33396225, 4.865196500737312],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_ac22b14484f47e501a66dbc400f68d6b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_a7fb750925ea139774295883b811493a = $(`<div id=&quot;html_a7fb750925ea139774295883b811493a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Vrije Universiteit Amsterdam</div>`)[0];
+                popup_ac22b14484f47e501a66dbc400f68d6b.setContent(html_a7fb750925ea139774295883b811493a);
+            
+        
+
+        marker_b7cfbe7c1a36a43f25d69ebd3655a1cb.bindPopup(popup_ac22b14484f47e501a66dbc400f68d6b)
+        ;
+
+        
+    
+    
+            var marker_77b0edafa40449105cf65e51790fff48 = L.marker(
+                [51.4486602, 5.4903995655080475],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_c09865a6b14fe9abdf31f3ed9eb360d3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_cb92fab99fbec80243a5feab01b2540b = $(`<div id=&quot;html_cb92fab99fbec80243a5feab01b2540b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Eindhoven University of Technology</div>`)[0];
+                popup_c09865a6b14fe9abdf31f3ed9eb360d3.setContent(html_cb92fab99fbec80243a5feab01b2540b);
+            
+        
+
+        marker_77b0edafa40449105cf65e51790fff48.bindPopup(popup_c09865a6b14fe9abdf31f3ed9eb360d3)
+        ;
+
+        
+    
+    
+            var marker_65487ed1ab34dd739512d022f07fb51d = L.marker(
+                [52.62446355, -1.1257301398551323],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_6c0017ed5648f3bda201839abf3e4bf0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_0e373ed6adda5930c4ee1409cd6f2031 = $(`<div id=&quot;html_0e373ed6adda5930c4ee1409cd6f2031&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Leicester</div>`)[0];
+                popup_6c0017ed5648f3bda201839abf3e4bf0.setContent(html_0e373ed6adda5930c4ee1409cd6f2031);
+            
+        
+
+        marker_65487ed1ab34dd739512d022f07fb51d.bindPopup(popup_6c0017ed5648f3bda201839abf3e4bf0)
+        ;
+
+        
+    
+    
+            var marker_90bf1646068822cbe17878a68a50acc6 = L.marker(
+                [54.98017505, -1.6146802127187847],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_c7b5f5d12932f622598ae3a315d296bb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_c37f7bb809c5b474fc461ef68f85b342 = $(`<div id=&quot;html_c37f7bb809c5b474fc461ef68f85b342&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Newcastle University</div>`)[0];
+                popup_c7b5f5d12932f622598ae3a315d296bb.setContent(html_c37f7bb809c5b474fc461ef68f85b342);
+            
+        
+
+        marker_90bf1646068822cbe17878a68a50acc6.bindPopup(popup_c7b5f5d12932f622598ae3a315d296bb)
+        ;
+
+        
+    
+    
+            var marker_c7a5789b1ee3c4d1ec86a445e63a5a36 = L.marker(
+                [46.5225695, 6.580949860268587],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_2526df0e965767872c771c364b01e34d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b1fe22f4cff486799a03283fd29e8512 = $(`<div id=&quot;html_b1fe22f4cff486799a03283fd29e8512&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Lausanne</div>`)[0];
+                popup_2526df0e965767872c771c364b01e34d.setContent(html_b1fe22f4cff486799a03283fd29e8512);
+            
+        
+
+        marker_c7a5789b1ee3c4d1ec86a445e63a5a36.bindPopup(popup_2526df0e965767872c771c364b01e34d)
+        ;
+
+        
+    
+    
+            var marker_fdd0da06f16a1aa843b384e064b034c1 = L.marker(
+                [60.1860789, 24.828102074406736],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_5b4add1698a5d7e8e2281d368953d2f8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_f4d654347533adc47108cecde16b8f31 = $(`<div id=&quot;html_f4d654347533adc47108cecde16b8f31&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aalto University</div>`)[0];
+                popup_5b4add1698a5d7e8e2281d368953d2f8.setContent(html_f4d654347533adc47108cecde16b8f31);
+            
+        
+
+        marker_fdd0da06f16a1aa843b384e064b034c1.bindPopup(popup_5b4add1698a5d7e8e2281d368953d2f8)
+        ;
+
+        
+    
+    
+            var marker_fbb282b4f7207bac2b64c9dfea2295e8 = L.marker(
+                [53.40724285, -2.965833661018871],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_9766edcab067e6307abe322ea2b876a6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_bf195759be3c75105778e11922de46a8 = $(`<div id=&quot;html_bf195759be3c75105778e11922de46a8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Liverpool</div>`)[0];
+                popup_9766edcab067e6307abe322ea2b876a6.setContent(html_bf195759be3c75105778e11922de46a8);
+            
+        
+
+        marker_fbb282b4f7207bac2b64c9dfea2295e8.bindPopup(popup_9766edcab067e6307abe322ea2b876a6)
+        ;
+
+        
+    
+    
+            var marker_0e1be86d8d50f8907526a218279aa64e = L.marker(
+                [51.96734215, 7.599243326272159],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_31317550b0313dbd2cf389b5a373d4fa = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_0cc17616761c037b034e2f297741ca41 = $(`<div id=&quot;html_0cc17616761c037b034e2f297741ca41&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Münster</div>`)[0];
+                popup_31317550b0313dbd2cf389b5a373d4fa.setContent(html_0cc17616761c037b034e2f297741ca41);
+            
+        
+
+        marker_0e1be86d8d50f8907526a218279aa64e.bindPopup(popup_31317550b0313dbd2cf389b5a373d4fa)
+        ;
+
+        
+    
+    
+            var marker_cdddfd7d015a0ac69299780d41fc5dc1 = L.marker(
+                [52.2233862, 6.8854239028157],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_956571d97a122e440e77716c56afb8b8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_40f415151495abb896324d0df28de366 = $(`<div id=&quot;html_40f415151495abb896324d0df28de366&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Twente</div>`)[0];
+                popup_956571d97a122e440e77716c56afb8b8.setContent(html_40f415151495abb896324d0df28de366);
+            
+        
+
+        marker_cdddfd7d015a0ac69299780d41fc5dc1.bindPopup(popup_956571d97a122e440e77716c56afb8b8)
+        ;
+
+        
+    
+    
+            var marker_e37c885e962bb74f36d1243aeda8fcd2 = L.marker(
+                [51.48402915, -3.1697633635952807],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_97c3c9cd97b8c9c9061747daae5fb355 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b2d2614763b35a99e4e3033a24feec07 = $(`<div id=&quot;html_b2d2614763b35a99e4e3033a24feec07&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Cardiff University</div>`)[0];
+                popup_97c3c9cd97b8c9c9061747daae5fb355.setContent(html_b2d2614763b35a99e4e3033a24feec07);
+            
+        
+
+        marker_e37c885e962bb74f36d1243aeda8fcd2.bindPopup(popup_97c3c9cd97b8c9c9061747daae5fb355)
+        ;
+
+        
+    
+    
+            var marker_66dea32f50f422eeb4e81339f54715c5 = L.marker(
+                [59.2016758, 17.6203201],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_82d6e123626a2efa59dfa99ad8412406 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_4f21081a69b543100bfa62e7167e4b2f = $(`<div id=&quot;html_4f21081a69b543100bfa62e7167e4b2f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>KTH Royal Institute of Technology</div>`)[0];
+                popup_82d6e123626a2efa59dfa99ad8412406.setContent(html_4f21081a69b543100bfa62e7167e4b2f);
+            
+        
+
+        marker_66dea32f50f422eeb4e81339f54715c5.bindPopup(popup_82d6e123626a2efa59dfa99ad8412406)
+        ;
+
+        
+    
+    
+            var marker_c6af7f9b6b8912a87c974cff10395e47 = L.marker(
+                [47.690094, 9.188246768461973],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_9049ab723ac4ee9d6754da4fe87bfa2a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_d4ad4c33b1221934297b32ca0a061197 = $(`<div id=&quot;html_d4ad4c33b1221934297b32ca0a061197&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Konstanz</div>`)[0];
+                popup_9049ab723ac4ee9d6754da4fe87bfa2a.setContent(html_d4ad4c33b1221934297b32ca0a061197);
+            
+        
+
+        marker_c6af7f9b6b8912a87c974cff10395e47.bindPopup(popup_9049ab723ac4ee9d6754da4fe87bfa2a)
+        ;
+
+        
+    
+    
+            var marker_37b76259dccf6adc8b578ba5f924c77b = L.marker(
+                [51.4290899, 6.8008580326401],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_24395fcf8f61ad0ef791028ad17d842c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_07ee86d90d4a95abec7fe1aadd694fa4 = $(`<div id=&quot;html_07ee86d90d4a95abec7fe1aadd694fa4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Duisburg-Essen</div>`)[0];
+                popup_24395fcf8f61ad0ef791028ad17d842c.setContent(html_07ee86d90d4a95abec7fe1aadd694fa4);
+            
+        
+
+        marker_37b76259dccf6adc8b578ba5f924c77b.bindPopup(popup_24395fcf8f61ad0ef791028ad17d842c)
+        ;
+
+        
+    
+    
+            var marker_eacdea3ac6b348538fdafce4f5f199ea = L.marker(
+                [52.622251, 1.2411579],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_4bfb0458480805439b45b109469fa49d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b5f0bd2f33c3f51b6a405930fd3eb21e = $(`<div id=&quot;html_b5f0bd2f33c3f51b6a405930fd3eb21e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of East Anglia</div>`)[0];
+                popup_4bfb0458480805439b45b109469fa49d.setContent(html_b5f0bd2f33c3f51b6a405930fd3eb21e);
+            
+        
+
+        marker_eacdea3ac6b348538fdafce4f5f199ea.bindPopup(popup_4bfb0458480805439b45b109469fa49d)
+        ;
+
+        
+    
+    
+            var marker_72aab70b4ea2d477a7e64dc638c8935c = L.marker(
+                [57.015907049999996, 9.975308243557345],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_6308748137194b8047ad495685d7a61b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_bfe078606939cfc525feda83d1b029a0 = $(`<div id=&quot;html_bfe078606939cfc525feda83d1b029a0&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Aalborg University</div>`)[0];
+                popup_6308748137194b8047ad495685d7a61b.setContent(html_bfe078606939cfc525feda83d1b029a0);
+            
+        
+
+        marker_72aab70b4ea2d477a7e64dc638c8935c.bindPopup(popup_6308748137194b8047ad495685d7a61b)
+        ;
+
+        
+    
+    
+            var marker_0bed3f1bac97bd2524e46283d2df1398 = L.marker(
+                [60.36887575, 5.351111541486731],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_17eb0a1e74eb272919d2388f9ce51c47 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_8a2c55e824facdd3a1329c2756701d74 = $(`<div id=&quot;html_8a2c55e824facdd3a1329c2756701d74&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Bergen</div>`)[0];
+                popup_17eb0a1e74eb272919d2388f9ce51c47.setContent(html_8a2c55e824facdd3a1329c2756701d74);
+            
+        
+
+        marker_0bed3f1bac97bd2524e46283d2df1398.bindPopup(popup_17eb0a1e74eb272919d2388f9ce51c47)
+        ;
+
+        
+    
+    
+            var marker_1ee72af99e9e763f6e8b394a0ca41b4b = L.marker(
+                [55.7055406, 37.5360595],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_0425f77c0755aba6a0a542d3a6bf80e1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_4db1a2589f93cc470d8e2e62c22bff12 = $(`<div id=&quot;html_4db1a2589f93cc470d8e2e62c22bff12&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Lomonosov Moscow State University</div>`)[0];
+                popup_0425f77c0755aba6a0a542d3a6bf80e1.setContent(html_4db1a2589f93cc470d8e2e62c22bff12);
+            
+        
+
+        marker_1ee72af99e9e763f6e8b394a0ca41b4b.bindPopup(popup_0425f77c0755aba6a0a542d3a6bf80e1)
+        ;
+
+        
+    
+    
+            var marker_d2c37f847299ce849f99c1ebafce097b = L.marker(
+                [51.1843856, 4.41993868786375],
+                {}
+            ).addTo(map_2699131115deb8948690b5789591a866);
+        
+    
+        var popup_eb97825eee0c7c5dc5f74ca86c6141e4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_d9788039089e4c9e9d06dbae8a6efc3e = $(`<div id=&quot;html_d9788039089e4c9e9d06dbae8a6efc3e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>University of Antwerp</div>`)[0];
+                popup_eb97825eee0c7c5dc5f74ca86c6141e4.setContent(html_d9788039089e4c9e9d06dbae8a6efc3e);
+            
+        
+
+        marker_d2c37f847299ce849f99c1ebafce097b.bindPopup(popup_eb97825eee0c7c5dc5f74ca86c6141e4)
+        ;
+
+        
+    
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</div>
+</div>
+</section>
+<section id="table-joins" class="level2">
+<h2 class="anchored" data-anchor-id="table-joins">Table joins</h2>
+<section id="attribute-join" class="level3">
+<h3 class="anchored" data-anchor-id="attribute-join">Attribute join</h3>
+<p>여러 데이터프레임의 정보를 공유 인덱스로 결합하기 위해 <code>pd.DataFrame.join()</code>을 사용하는 방법을 이미 알고 계실 것입니다. 인덱스에서 일치하는 값을 단순화하여 데이터를 조인하는 이 방법을 특성 조인이라고 합니다.</p>
+<p>지오데이터프레임으로 특성 조인을 수행할 때는 <code>gpd.GeoDataFrame.merge()</code>를 사용하는 것이 가장 좋습니다. 이를 설명하기 위해 유럽의 모든 국가에 대한 경계가 포함된 GeoDataFrame europe_boundaries로 작업해 보겠습니다. 이 GeoDataFrame의 처음 다섯 행은 아래에 인쇄되어 있습니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>europe <span class="op">=</span> world.loc[world.continent <span class="op">==</span> <span class="st">'Europe'</span>].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>europe_stats <span class="op">=</span> europe[[<span class="st">"name"</span>, <span class="st">"pop_est"</span>, <span class="st">"gdp_md_est"</span>]]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>europe_boundaries <span class="op">=</span> europe[[<span class="st">"name"</span>, <span class="st">"geometry"</span>]]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>europe_boundaries.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name                                           geometry
+0   Russia  MULTIPOLYGON (((180.00000 71.51571, 180.00000 ...
+1   Norway  MULTIPOLYGON (((15.14282 79.67431, 15.52255 80...
+2   France  MULTIPOLYGON (((-51.65780 4.15623, -52.24934 3...
+3   Sweden  POLYGON ((11.02737 58.85615, 11.46827 59.43239...
+4  Belarus  POLYGON ((28.17671 56.16913, 29.22951 55.91834...</code></pre>
+</div>
+</div>
+<p>각 국가의 예상 인구와 국내총생산(GDP)을 포함하는 데이터 프레임 europe_stats와 결합합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>europe_stats.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name      pop_est  gdp_md_est
+0   Russia  144373535.0     1699876
+1   Norway    5347896.0      403336
+2   France   67059887.0     2715518
+3   Sweden   10285453.0      530883
+4  Belarus    9466856.0       63080</code></pre>
+</div>
+</div>
+<p>아래 코드 셀에서 Attribute join을 수행합니다. <code>on</code> 인수는 <code>europe_boundaries</code>의 행을 <code>europe_stats</code> 행에 일치시키는 데 사용되는 열 이름으로 설정됩니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use an attribute join to merge data about countries in Europe</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>europe <span class="op">=</span> europe_boundaries.merge(europe_stats, on<span class="op">=</span><span class="st">"name"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>europe.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      name  ... gdp_md_est
+0   Russia  ...    1699876
+1   Norway  ...     403336
+2   France  ...    2715518
+3   Sweden  ...     530883
+4  Belarus  ...      63080
+
+[5 rows x 4 columns]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="spatial-join" class="level2">
+<h2 class="anchored" data-anchor-id="spatial-join">Spatial join</h2>
+<p>또 다른 조인 유형은 spatial join입니다. spatial join을 사용하면 ‘geometry’ 열에 있는 개체 간의 공간 관계를 기반으로 지오데이터 프레임을 결합합니다. 예를 들어, 유럽 대학의 지오코딩된 주소가 포함된 지오데이터 프레임 대학이 이미 있습니다.</p>
+<p>그런 다음 spatial join을 사용하여 각 대학을 해당 국가에 일치시킬 수 있습니다. 이 작업은 <code>gpd.sjoin()</code>을 사용하여 수행합니다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use spatial join to match universities to countries in Europe</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#european_universities = gpd.sjoin(universities, europe)</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Investigate the result</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#print("We located {} universities.".format(len(universities)))</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#print("Only {} of the universities were located in Europe (in {} different countries).".format(</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#len(european_universities), len(european_universities.name.unique())))</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#european_universities.head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>위의 spatial join은 두 지오데이터 프레임의 “geometry” 열을 살펴봅니다. 대학교 GeoDataFrame의 Point 개체가 유럽 데이터 프레임의 다각형 개체와 교차하는 경우, 해당 행이 결합되어 유럽_대학 데이터 프레임의 단일 행으로 추가됩니다. 그렇지 않으면 일치하는 대학이 없는 국가(및 일치하는 국가가 없는 대학)는 결과에서 생략됩니다.</p>
+<p><code>gpd.sjoin()</code> 메서드는 <code>how</code> 및 <code>op</code> 인수를 통해 다양한 조인 유형에 맞게 사용자 지정할 수 있습니다. 예를 들어, how=‘left’(또는 how=‘right’)를 설정하여 SQL LEFT(또는 RIGHT) 조인과 동등한 작업을 수행할 수 있습니다.</p>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
+<p>You are a Starbucks big data analyst (that’s a real job!) looking to find the next store into a Starbucks Reserve Roastery. These roasteries are much larger than a typical Starbucks store and have several additional features, including various food and wine options, along with upscale lounge areas. You’ll investigate the demographics of various counties in the state of California, to determine potentially suitable locations.</p>
+</section>
+<section id="geocode-the-missing-locations." class="level3">
+<h3 class="anchored" data-anchor-id="geocode-the-missing-locations.">Geocode the missing locations.</h3>
+<p>Run the next code cell to create a DataFrame starbucks containing Starbucks locations in the state of California.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>starbucks <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/starbucks_locations.csv"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>starbucks.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Store Number               Store Name  ... Longitude Latitude
+0  10429-100710       Palmdale &amp; Hwy 395  ...   -117.40    34.51
+1       635-352    Kanan &amp; Thousand Oaks  ...   -118.76    34.16
+2   74510-27669  Vons-Agoura Hills #2001  ...   -118.76    34.15
+3  29839-255026    Target Anaheim T-0677  ...   -117.75    33.87
+4  23463-230284   Safeway - Alameda 3281  ...   -122.28    37.79
+
+[5 rows x 6 columns]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many rows in each column have missing values?</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(starbucks.isnull().<span class="bu">sum</span>())</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View rows with missing locations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Store Number    0
+Store Name      0
+Address         0
+City            0
+Longitude       5
+Latitude        5
+dtype: int64</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>rows_with_missing <span class="op">=</span> starbucks[starbucks[<span class="st">"City"</span>]<span class="op">==</span><span class="st">"Berkeley"</span>]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>rows_with_missing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Store Number                Store Name  ... Longitude Latitude
+153      5406-945  2224 Shattuck - Berkeley  ...       NaN      NaN
+154       570-512                Solano Ave  ...       NaN      NaN
+155  17877-164526   Safeway - Berkeley #691  ...       NaN      NaN
+156  19864-202264         Telegraph &amp; Ashby  ...       NaN      NaN
+157     9217-9253           2128 Oxford St.  ...       NaN      NaN
+
+[5 rows x 6 columns]</code></pre>
+</div>
+</div>
+<p>Use the code cell below to fill in these values with the Nominatim geocoder.</p>
+<p>Note that in the tutorial, we used Nominatim() (from geopy.geocoders) to geocode values, and this is what you can use in your own projects outside of this course.</p>
+<p>In this exercise, you will use a slightly different function Nominatim() (from learntools.geospatial.tools). This function was imported at the top of the notebook and works identically to the function from GeoPandas.</p>
+<p>So, in other words, as long as:</p>
+<p>you don’t change the import statements at the top of the notebook, and you call the geocoding function as geocode() in the code cell below, your code will work as intended!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"kaggle_learn"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_geocoder(row):</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    point <span class="op">=</span> geolocator.geocode(row).point</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.Series({<span class="st">'Latitude'</span>: point.latitude, <span class="st">'Longitude'</span>: point.longitude})</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>berkeley_locations <span class="op">=</span> rows_with_missing.<span class="bu">apply</span>(<span class="kw">lambda</span> x: my_geocoder(x[<span class="st">'Address'</span>]), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>starbucks.update(berkeley_locations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="view-berkeley-locations" class="level3">
+<h3 class="anchored" data-anchor-id="view-berkeley-locations">View Berkeley locations</h3>
+<p>Let’s take a look at the locations you just found. Visualize the (latitude, longitude) locations in Berkeley in the OpenStreetMap style.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>m_2 <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">37.88</span>,<span class="op">-</span><span class="fl">122.26</span>], zoom_start<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a marker for each Berkeley location</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> starbucks[starbucks[<span class="st">"City"</span>]<span class="op">==</span><span class="st">'Berkeley'</span>].iterrows():</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    Marker([row[<span class="st">'Latitude'</span>], row[<span class="st">'Longitude'</span>]]).add_to(m_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;folium.map.Marker object at 0x000001C423A0EFD0&gt;
+&lt;folium.map.Marker object at 0x000001C423A76510&gt;
+&lt;folium.map.Marker object at 0x000001C41CB133D0&gt;
+&lt;folium.map.Marker object at 0x000001C41B26A9D0&gt;
+&lt;folium.map.Marker object at 0x000001C423A0EED0&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="consolidate-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="consolidate-your-data">Consolidate your data</h3>
+<p>Run the code below to load a GeoDataFrame CA_counties containing the name, area (in square kilometers), and a unique id (in the “GEOID” column) for each county in the state of California. The “geometry” column contains a polygon with county boundaries.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>CA_counties <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/CA_county_boundaries/CA_county_boundaries/CA_county_boundaries.shp"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>CA_counties.crs <span class="op">=</span> {<span class="st">'init'</span>: <span class="st">'epsg:4326'</span>}</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>CA_counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   GEOID  ...                                           geometry
+0   6091  ...  POLYGON ((-120.65560 39.69357, -120.65554 39.6...
+1   6067  ...  POLYGON ((-121.18858 38.71431, -121.18732 38.7...
+2   6083  ...  MULTIPOLYGON (((-120.58191 34.09856, -120.5822...
+3   6009  ...  POLYGON ((-120.63095 38.34111, -120.63058 38.3...
+4   6111  ...  MULTIPOLYGON (((-119.63631 33.27304, -119.6360...
+
+[5 rows x 4 columns]</code></pre>
+</div>
+</div>
+<p>Next, we create three DataFrames:</p>
+<ul>
+<li><p><code>CA_pop</code> contains an estimate of the population of each county.</p></li>
+<li><p><code>CA_high_earners</code> contains the number of households with an income of at least $150,000 per year.</p></li>
+<li><p><code>CA_median_age</code> contains the median age for each county.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>CA_pop <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/CA_county_population.csv"</span>, index_col<span class="op">=</span><span class="st">"GEOID"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>CA_high_earners <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/CA_county_high_earners.csv"</span>, index_col<span class="op">=</span><span class="st">"GEOID"</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>CA_median_age <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/CA_county_median_age.csv"</span>, index_col<span class="op">=</span><span class="st">"GEOID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use the next code cell to join the <code>CA_counties</code> GeoDataFrame with <code>CA_pop</code>, <code>CA_high_earners</code>, and <code>CA_median_age</code>.</p>
+<p>Name the resultant GeoDataFrame <code>CA_stats</code>, and make sure it has 8 columns: “GEOID”, “name”, “area_sqkm”, “geometry”, “population”, “high_earners”, and “median_age”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>cols_to_add <span class="op">=</span> CA_pop.join([CA_high_earners, CA_median_age]).reset_index()</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>CA_stats <span class="op">=</span> CA_counties.merge(cols_to_add, on<span class="op">=</span><span class="st">"GEOID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>CA_stats[<span class="st">"density"</span>] <span class="op">=</span> CA_stats[<span class="st">"population"</span>] <span class="op">/</span> CA_stats[<span class="st">"area_sqkm"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="which-counties-look-promising" class="level3">
+<h3 class="anchored" data-anchor-id="which-counties-look-promising">Which counties look promising?</h3>
+<p>Collapsing all of the information into a single GeoDataFrame also makes it much easier to select counties that meet specific criteria.</p>
+<p>Use the next code cell to create a GeoDataFrame <code>sel_counties</code> that contains a subset of the rows (and all of the columns) from the <code>CA_stats</code> GeoDataFrame. In particular, you should select counties where:</p>
+<ul>
+<li><p>there are at least 100,000 households making $150,000 per year,</p></li>
+<li><p>the median age is less than 38.5, and</p></li>
+<li><p>the density of inhabitants is at least 285 (per square kilometer).</p></li>
+</ul>
+<p>Additionally, selected counties should satisfy at least one of the following criteria:</p>
+<ul>
+<li><p>there are at least 500,000 households making $150,000 per year,</p></li>
+<li><p>the median age is less than 35.5, or</p></li>
+<li><p>the density of inhabitants is at least 1400 (per square kilometer).</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sel_counties <span class="op">=</span> CA_stats[((CA_stats.high_earners <span class="op">&gt;</span> <span class="dv">100000</span>) <span class="op">&amp;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                         (CA_stats.median_age <span class="op">&lt;</span> <span class="fl">38.5</span>) <span class="op">&amp;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                         (CA_stats.density <span class="op">&gt;</span> <span class="dv">285</span>) <span class="op">&amp;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                         ((CA_stats.median_age <span class="op">&lt;</span> <span class="fl">35.5</span>) <span class="op">|</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                         (CA_stats.density <span class="op">&gt;</span> <span class="dv">1400</span>) <span class="op">|</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>                         (CA_stats.high_earners <span class="op">&gt;</span> <span class="dv">500000</span>)))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="how-many-stores-did-you-identify" class="level3">
+<h3 class="anchored" data-anchor-id="how-many-stores-did-you-identify">How many stores did you identify?</h3>
+<p>When looking for the next Starbucks Reserve Roastery location, you’d like to consider all of the stores within the counties that you selected. So, how many stores are within the selected counties?</p>
+<p>To prepare to answer this question, run the next code cell to create a GeoDataFrame <code>starbucks_gdf</code> with all of the starbucks locations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>starbucks_gdf <span class="op">=</span> gpd.GeoDataFrame(starbucks, geometry<span class="op">=</span>gpd.points_from_xy(starbucks.Longitude, starbucks.Latitude))</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>starbucks_gdf.crs <span class="op">=</span> {<span class="st">'init'</span>: <span class="st">'epsg:4326'</span>}</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#locations_of_interest = gpd.sjoin(starbucks_gdf, sel_counties)</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#num_stores = len(locations_of_interest)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualize-the-store-locations." class="level3">
+<h3 class="anchored" data-anchor-id="visualize-the-store-locations.">Visualize the store locations.</h3>
+<p>Create a map that shows the locations of the stores that you identified in the previous question.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#m_6 = folium.Map(location=[37,-120], zoom_start=6)</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#mc = MarkerCluster()</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co">#locations_of_interest = gpd.sjoin(starbucks_gdf, sel_counties)</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#for idx, row in locations_of_interest.iterrows():</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    if not math.isnan(row['Longitude']) and not math.isnan(row['Latitude']):</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co">#        mc.add_child(folium.Marker([row['Latitude'], row['Longitude']]))</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co">#m_6.add_child(mc)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

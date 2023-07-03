@@ -10,17 +10,13 @@ title: "Sungil_Park"
 
 #### Created for publishing my projects and records about me.
 
-#### Software Environments
-
--   R 4.2.3
-
--   Python 3.11.2
-
-#### Hardware Environments
+#### Environments
 
 -   Samsung Galaxybook 2 pro 360 i7
 
 -   Desktop
+
+    -   Ubuntu 20.04 LTS
 
     -   Ryzen 5600X
 

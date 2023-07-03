@@ -1,0 +1,314 @@
+---
+title: "Manipulating Geospatial Data"
+author: "Sungil Park"
+date: "2023/03/02"
+description: "Kaggle Geospatial Analysis (4/5)"
+categories: ['Python','Kaggle tutorial']
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+
+```
+
+## Introduction
+
+이 튜토리얼에서는 Geocoding과 Table join이라는 두 가지 지리적 공간 데이터에 대한 일반적인 조작에 대해 알아봅니다.
+
+## Geocoding
+
+지오코딩은 장소 이름이나 주소를 지도상의 위치로 변환하는 프로세스입니다. 예를 들어 Google 지도, Bing 지도 등에서 랜드마크 설명을 기반으로 지리적 위치를 찾아본 적이 있다면 지오코딩을 사용해 본 적이 있을 것입니다
+
+```{python}
+import pandas as pd
+import geopandas as gpd
+import numpy as np
+import folium
+from folium import Marker
+import warnings 
+warnings.filterwarnings('ignore')
+```
+
+```{python}
+from geopy.geocoders import Nominatim
+```
+
+위의 코드 셀에서 `Nominatim`은 위치를 생성하는 데 사용되는 지오코딩 소프트웨어를 나타냅니다.
+
+지오코더를 인스턴스화하는 것으로 시작합니다. 그런 다음 이름이나 주소를 Python 문자열로 적용하기만 하면 됩니다. (이 경우, 기자의 대피라미드라고도 알려진 "쿠푸의 피라미드"를 제공합니다.)
+
+지오코딩이 성공하면 두 가지 중요한 속성이 있는 geopy.location.Location 객체를 반환합니다:
+
+-   `point` 속성에는 (위도, 경도) 위치가 포함되고
+
+-   `address` 속성은 전체 주소를 포함합니다.
+
+```{python}
+geolocator = Nominatim(user_agent="kaggle_learn")
+location = geolocator.geocode("Pyramid of Khufu")
+
+print(location.point)
+print(location.address)
+```
+
+`point` 속성의 값은 `geopy.point.Point` 객체이며, `latitude` 및 `longitude` 속성에서 각각 위도와 경도를 가져올 수 있습니다.
+
+```{python}
+point = location.point
+print("Latitude:", point.latitude)
+print("Longitude:", point.longitude)
+```
+
+다양한 주소를 지오코딩해야 하는 경우가 종종 있습니다. 예를 들어 유럽에 있는 상위 100개 대학의 위치를 파악하고 싶다고 가정해 보겠습니다.
+
+```{python}
+universities = pd.read_csv("C:/archive/top_universities.csv")
+universities.head()
+```
+
+그런 다음 람다 함수를 사용하여 데이터 프레임의 모든 행에 지오코딩을 적용할 수 있습니다.
+
+(지오코딩이 실패할 경우를 대비하여 try/except 문을 사용합니다.)
+
+```{python}
+def my_geocoder(row):
+    try:
+        point = geolocator.geocode(row).point
+        return pd.Series({'Latitude': point.latitude, 'Longitude': point.longitude})
+    except:
+        return None
+
+universities[['Latitude', 'Longitude']] = universities.apply(lambda x: my_geocoder(x['Name']), axis=1)
+
+print("{}% of addresses were geocoded!".format(
+    (1 - sum(np.isnan(universities["Latitude"])) / len(universities)) * 100))
+
+# Drop universities that were not successfully geocoded
+universities = universities.loc[~np.isnan(universities["Latitude"])]
+universities = gpd.GeoDataFrame(
+    universities, geometry=gpd.points_from_xy(universities.Longitude, universities.Latitude))
+universities.crs = {'init': 'epsg:4326'}
+universities.head()
+```
+
+다음으로 지오코더가 반환한 모든 위치를 시각화합니다. 일부 위치는 유럽이 아니기 때문에 확실히 부정확하다는 것을 알 수 있습니다!
+
+```{python}
+# Create a map
+m = folium.Map(location=[54, 15], tiles='openstreetmap', zoom_start=2)
+
+# Add points to the map
+for idx, row in universities.iterrows():
+    Marker([row['Latitude'], row['Longitude']], popup=row['Name']).add_to(m)
+
+# Display the map
+m
+```
+
+## Table joins
+
+### Attribute join
+
+여러 데이터프레임의 정보를 공유 인덱스로 결합하기 위해 `pd.DataFrame.join()`을 사용하는 방법을 이미 알고 계실 것입니다. 인덱스에서 일치하는 값을 단순화하여 데이터를 조인하는 이 방법을 특성 조인이라고 합니다.
+
+지오데이터프레임으로 특성 조인을 수행할 때는 `gpd.GeoDataFrame.merge()`를 사용하는 것이 가장 좋습니다. 이를 설명하기 위해 유럽의 모든 국가에 대한 경계가 포함된 GeoDataFrame europe_boundaries로 작업해 보겠습니다. 이 GeoDataFrame의 처음 다섯 행은 아래에 인쇄되어 있습니다.
+
+```{python}
+world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+europe = world.loc[world.continent == 'Europe'].reset_index(drop=True)
+
+europe_stats = europe[["name", "pop_est", "gdp_md_est"]]
+europe_boundaries = europe[["name", "geometry"]]
+
+europe_boundaries.head()
+```
+
+각 국가의 예상 인구와 국내총생산(GDP)을 포함하는 데이터 프레임 europe_stats와 결합합니다.
+
+```{python}
+europe_stats.head()
+```
+
+아래 코드 셀에서 Attribute join을 수행합니다. `on` 인수는 `europe_boundaries`의 행을 `europe_stats` 행에 일치시키는 데 사용되는 열 이름으로 설정됩니다.
+
+```{python}
+# Use an attribute join to merge data about countries in Europe
+europe = europe_boundaries.merge(europe_stats, on="name")
+europe.head()
+```
+
+## Spatial join
+
+또 다른 조인 유형은 spatial join입니다. spatial join을 사용하면 'geometry' 열에 있는 개체 간의 공간 관계를 기반으로 지오데이터 프레임을 결합합니다. 예를 들어, 유럽 대학의 지오코딩된 주소가 포함된 지오데이터 프레임 대학이 이미 있습니다.
+
+그런 다음 spatial join을 사용하여 각 대학을 해당 국가에 일치시킬 수 있습니다. 이 작업은 `gpd.sjoin()`을 사용하여 수행합니다.
+
+```{python}
+# Use spatial join to match universities to countries in Europe
+#european_universities = gpd.sjoin(universities, europe)
+
+# Investigate the result
+#print("We located {} universities.".format(len(universities)))
+#print("Only {} of the universities were located in Europe (in {} different countries).".format(
+    #len(european_universities), len(european_universities.name.unique())))
+
+#european_universities.head()
+```
+
+위의 spatial join은 두 지오데이터 프레임의 "geometry" 열을 살펴봅니다. 대학교 GeoDataFrame의 Point 개체가 유럽 데이터 프레임의 다각형 개체와 교차하는 경우, 해당 행이 결합되어 유럽_대학 데이터 프레임의 단일 행으로 추가됩니다. 그렇지 않으면 일치하는 대학이 없는 국가(및 일치하는 국가가 없는 대학)는 결과에서 생략됩니다.
+
+`gpd.sjoin()` 메서드는 `how` 및 `op` 인수를 통해 다양한 조인 유형에 맞게 사용자 지정할 수 있습니다. 예를 들어, how='left'(또는 how='right')를 설정하여 SQL LEFT(또는 RIGHT) 조인과 동등한 작업을 수행할 수 있습니다.
+
+## Your turn
+
+### Introduction
+
+You are a Starbucks big data analyst (that's a real job!) looking to find the next store into a Starbucks Reserve Roastery. These roasteries are much larger than a typical Starbucks store and have several additional features, including various food and wine options, along with upscale lounge areas. You'll investigate the demographics of various counties in the state of California, to determine potentially suitable locations.
+
+### Geocode the missing locations.
+
+Run the next code cell to create a DataFrame starbucks containing Starbucks locations in the state of California.
+
+```{python}
+starbucks = pd.read_csv("C:/archive/starbucks_locations.csv")
+starbucks.head()
+```
+
+```{python}
+# How many rows in each column have missing values?
+print(starbucks.isnull().sum())
+
+# View rows with missing locations
+rows_with_missing = starbucks[starbucks["City"]=="Berkeley"]
+rows_with_missing
+```
+
+Use the code cell below to fill in these values with the Nominatim geocoder.
+
+Note that in the tutorial, we used Nominatim() (from geopy.geocoders) to geocode values, and this is what you can use in your own projects outside of this course.
+
+In this exercise, you will use a slightly different function Nominatim() (from learntools.geospatial.tools). This function was imported at the top of the notebook and works identically to the function from GeoPandas.
+
+So, in other words, as long as:
+
+you don't change the import statements at the top of the notebook, and you call the geocoding function as geocode() in the code cell below, your code will work as intended!
+
+```{python}
+geolocator = Nominatim(user_agent="kaggle_learn")
+
+def my_geocoder(row):
+    point = geolocator.geocode(row).point
+    return pd.Series({'Latitude': point.latitude, 'Longitude': point.longitude})
+
+berkeley_locations = rows_with_missing.apply(lambda x: my_geocoder(x['Address']), axis=1)
+starbucks.update(berkeley_locations)
+```
+
+### View Berkeley locations
+
+Let's take a look at the locations you just found. Visualize the (latitude, longitude) locations in Berkeley in the OpenStreetMap style.
+
+```{python}
+m_2 = folium.Map(location=[37.88,-122.26], zoom_start=13)
+# Add a marker for each Berkeley location
+for idx, row in starbucks[starbucks["City"]=='Berkeley'].iterrows():
+    Marker([row['Latitude'], row['Longitude']]).add_to(m_2)
+```
+
+### Consolidate your data
+
+Run the code below to load a GeoDataFrame CA_counties containing the name, area (in square kilometers), and a unique id (in the "GEOID" column) for each county in the state of California. The "geometry" column contains a polygon with county boundaries.
+
+```{python}
+CA_counties = gpd.read_file("C:/archive/CA_county_boundaries/CA_county_boundaries/CA_county_boundaries.shp")
+CA_counties.crs = {'init': 'epsg:4326'}
+CA_counties.head()
+```
+
+Next, we create three DataFrames:
+
+-   `CA_pop` contains an estimate of the population of each county.
+
+-   `CA_high_earners` contains the number of households with an income of at least \$150,000 per year.
+
+-   `CA_median_age` contains the median age for each county.
+
+```{python}
+CA_pop = pd.read_csv("C:/archive/CA_county_population.csv", index_col="GEOID")
+CA_high_earners = pd.read_csv("C:/archive/CA_county_high_earners.csv", index_col="GEOID")
+CA_median_age = pd.read_csv("C:/archive/CA_county_median_age.csv", index_col="GEOID")
+```
+
+Use the next code cell to join the `CA_counties` GeoDataFrame with `CA_pop`, `CA_high_earners`, and `CA_median_age`.
+
+Name the resultant GeoDataFrame `CA_stats`, and make sure it has 8 columns: "GEOID", "name", "area_sqkm", "geometry", "population", "high_earners", and "median_age".
+
+```{python}
+cols_to_add = CA_pop.join([CA_high_earners, CA_median_age]).reset_index()
+CA_stats = CA_counties.merge(cols_to_add, on="GEOID")
+```
+
+```{python}
+CA_stats["density"] = CA_stats["population"] / CA_stats["area_sqkm"]
+```
+
+### Which counties look promising?
+
+Collapsing all of the information into a single GeoDataFrame also makes it much easier to select counties that meet specific criteria.
+
+Use the next code cell to create a GeoDataFrame `sel_counties` that contains a subset of the rows (and all of the columns) from the `CA_stats` GeoDataFrame. In particular, you should select counties where:
+
+-   there are at least 100,000 households making \$150,000 per year,
+
+-   the median age is less than 38.5, and
+
+-   the density of inhabitants is at least 285 (per square kilometer).
+
+Additionally, selected counties should satisfy at least one of the following criteria:
+
+-   there are at least 500,000 households making \$150,000 per year,
+
+-   the median age is less than 35.5, or
+
+-   the density of inhabitants is at least 1400 (per square kilometer).
+
+```{python}
+sel_counties = CA_stats[((CA_stats.high_earners > 100000) &
+                         (CA_stats.median_age < 38.5) &
+                         (CA_stats.density > 285) &
+                         ((CA_stats.median_age < 35.5) |
+                         (CA_stats.density > 1400) |
+                         (CA_stats.high_earners > 500000)))]
+```
+
+### How many stores did you identify?
+
+When looking for the next Starbucks Reserve Roastery location, you'd like to consider all of the stores within the counties that you selected. So, how many stores are within the selected counties?
+
+To prepare to answer this question, run the next code cell to create a GeoDataFrame `starbucks_gdf` with all of the starbucks locations.
+
+```{python}
+starbucks_gdf = gpd.GeoDataFrame(starbucks, geometry=gpd.points_from_xy(starbucks.Longitude, starbucks.Latitude))
+starbucks_gdf.crs = {'init': 'epsg:4326'}
+
+#locations_of_interest = gpd.sjoin(starbucks_gdf, sel_counties)
+#num_stores = len(locations_of_interest)
+```
+
+### Visualize the store locations.
+
+Create a map that shows the locations of the stores that you identified in the previous question.
+
+```{python}
+#m_6 = folium.Map(location=[37,-120], zoom_start=6)
+
+#mc = MarkerCluster()
+
+#locations_of_interest = gpd.sjoin(starbucks_gdf, sel_counties)
+#for idx, row in locations_of_interest.iterrows():
+#    if not math.isnan(row['Longitude']) and not math.isnan(row['Latitude']):
+#        mc.add_child(folium.Marker([row['Latitude'], row['Longitude']]))
+
+#m_6.add_child(mc)
+```

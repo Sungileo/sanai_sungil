@@ -2,35 +2,34 @@
   {
     "listing": "/kaggle_geo.html",
     "items": [
-      "/kaggle_geos/pydeck_training.html",
-      "/kaggle_geos/geocomputation_apply.html",
-      "/kaggle_geos/kaggle_geo_1.html",
-      "/kaggle_geos/kaggle_geo_2.html",
-      "/kaggle_geos/kaggle_geo_3.html",
-      "/kaggle_geos/kaggle_geo_4.html",
-      "/kaggle_geos/kaggle_geo_5.html",
-      "/kaggle_geos/Geocomputation.html",
-      "/kaggle_geos/vis_geo.html"
+      "/basics_example/pydeck_training.html",
+      "/basics_example/Plotly.html",
+      "/basics_example/Statistic.html",
+      "/basics_example/R basic.html",
+      "/basics_example/week_1a_numpy.html",
+      "/basics_example/week_1b_pandas.html",
+      "/basics_example/Geocomputation.html",
+      "/basics_example/penguin.html",
+      "/basics_example/vis.html",
+      "/basics_example/vis_geo.html",
+      "/basics_example/kaggle_geo_1.html",
+      "/basics_example/kaggle_geo_2.html",
+      "/basics_example/kaggle_geo_3.html",
+      "/basics_example/kaggle_geo_4.html",
+      "/basics_example/kaggle_geo_5.html"
     ]
   },
   {
     "listing": "/projects.html",
     "items": [
-      "/posts/tashu_2020/tashu_2020.html",
-      "/posts/vis_final/data_visualizing_final.html",
-      "/posts/Linear_model/Linear_model.html",
-      "/posts/Plotly/Plotly.html",
-      "/posts/Statistic/Statistic.html",
-      "/posts/R basic/R basic.html",
-      "/posts/SQL/SQL.html",
-      "/posts/week_1a_numpy/week_1a_numpy.html",
-      "/posts/week_1b_pandas/week_1b_pandas.html",
-      "/posts/python_playground/pyhton_playground.html",
-      "/posts/penguin/penguin.html",
-      "/posts/vis/vis.html",
-      "/posts/pizza/pizza.html",
-      "/posts/tests/Issue_report.html",
-      "/posts/detect_line/detect_line.html"
+      "/posts/tashu_2020.html",
+      "/posts/data_visualizing_final.html",
+      "/posts/geocomputation_apply.html",
+      "/posts/Linear_model.html",
+      "/posts/SQL.html",
+      "/posts/pyhton_playground.html",
+      "/posts/pizza.html",
+      "/posts/detect_line.html"
     ]
   },
   {

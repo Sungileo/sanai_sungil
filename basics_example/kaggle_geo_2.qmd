@@ -1,0 +1,230 @@
+---
+title: "Coordinate Reference Systems"
+author: "Sungil Park"
+date: "2023/03/05"
+description: "Kaggle Geospatial Analysis (2/5)"
+categories: ['Python','Kaggle tutorial']
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+
+```
+
+## Introduction
+
+이 강좌에서 만드는 지도는 지구 표면을 2차원으로 묘사합니다. 하지만 아시다시피 세계는 실제로 3차원의 지구입니다. 따라서 지도 투영이라는 방법을 사용하여 평평한 표면으로 렌더링해야 합니다.
+
+투영된 점이 지구상의 실제 위치와 어떻게 일치하는지 보여주기 위해 좌표 참조 시스템(CRS)을 사용합니다.
+
+이 튜토리얼에서는 좌표 참조계에 대해 자세히 알아보고 Geopandas에서 좌표 참조계를 사용하는 방법을 알아봅니다.
+
+```{python}
+import geopandas as gpd
+import pandas as pd
+```
+
+## Setting the CRS
+
+When we create a GeoDataFrame from a shapefile, the CRS is already imported for us.
+
+```{python}
+regions = gpd.read_file("C:/archive/ghana/ghana/Regions/Map_of_Regions_in_Ghana.shp")
+print(regions.crs)
+```
+
+좌표 참조 시스템은 유럽 석유 측량 그룹(EPSG) 코드에 의해 참조됩니다.
+
+이 지리데이터 프레임은 일반적으로 "메르카토르" 투영법이라고 더 많이 불리는 EPSG 32630을 사용합니다. 이 투영법은 각도를 보존하고 면적을 약간 왜곡합니다.
+
+그러나 CSV 파일에서 GeoDataFrame을 만들 때는 CRS를 설정해야 합니다. EPSG 4326은 위도 및 경도 좌표에 해당합니다.
+
+```{python}
+# Create a DataFrame with health facilities in Ghana
+facilities_df = pd.read_csv("C:/archive/ghana/ghana/health_facilities.csv")
+
+# Convert the DataFrame to a GeoDataFrame
+facilities = gpd.GeoDataFrame(facilities_df, geometry=gpd.points_from_xy(facilities_df.Longitude, facilities_df.Latitude))
+
+# Set the coordinate reference system (CRS) to EPSG 4326
+facilities.crs = {'init': 'epsg:4326'}
+
+# View the first five rows of the GeoDataFrame
+facilities.head()
+```
+
+위의 코드 셀에서 CSV 파일에서 GeoDataFrame을 만들려면 Pandas와 GeoPandas를 모두 사용해야 했습니다:
+
+-   먼저 위도 및 경도 좌표가 포함된 열을 포함하는 데이터 프레임을 만듭니다.
+
+-   이를 지오데이터프레임으로 변환하기 위해 `gpd.GeoDataFrame()`을 사용합니다.
+
+-   `gpd.points_from_xy()` 함수는 위도 및 경도 열에서 포인트 객체를 생성합니다.
+
+## Re-projecting
+
+재투영은 CRS를 변경하는 프로세스를 말합니다. 이 작업은 GeoPandas에서 `to_crs()` 메서드를 사용하여 수행됩니다.
+
+```{python}
+ax = regions.plot(figsize=(8,8), color='whitesmoke', linestyle=':', edgecolor='black')
+facilities.to_crs(epsg=32630).plot(markersize=1, ax=ax)
+```
+
+`to_crs()` 메서드는 "geometry" 열만 수정하고 다른 모든 열은 그대로 유지합니다.
+
+GeoPandas에서 EPSG 코드를 사용할 수 없는 경우, CRS의 "proj4 string"이라고 알려진 것을 사용하여 CRS를 변경할 수 있습니다.
+
+예를 들어 위도/경도 좌표로 변환하는 proj4 문자열은 다음과 같습니다:
+
+```{python}
+regions.to_crs("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs").head()
+```
+
+## Attributes of geometric objects
+
+첫 번째 튜토리얼에서 배운 것처럼 임의의 GeoDataFrame의 경우 'geometry' 열의 유형은 표시하려는 대상에 따라 달라집니다.
+
+지진의 진원지를 나타내는 `Point`, 거리의 경우 `LineString`, 또는 `Polygon`을 사용하여 국가 경계를 표시할 수 있습니다. 세 가지 유형의 기하학적 개체 모두 데이터 집합을 빠르게 분석하는 데 사용할 수 있는 기본 속성이 있습니다.
+
+예를 들어, x 및 y 속성에서 각각 점의 x 및 y 좌표를 가져올 수 있습니다.
+
+```{python}
+# Get the x-coordinate of each point
+facilities.geometry.head().x
+```
+
+-   또한 길이 속성에서 `LineString`의 길이를 구할 수 있습니다.
+
+-   또는 면적 속성에서 `Polygon`의 면적을 구할 수 있습니다.
+
+```{python}
+# Calculate the area (in square meters) of each polygon in the GeoDataFrame 
+regions.loc[:, "AREA"] = regions.geometry.area / 10**6
+
+print("Area of Ghana: {} square kilometers".format(regions.AREA.sum()))
+print("CRS:", regions.crs)
+regions.head()
+```
+
+위의 코드 셀에서 GeoDataFrame 지역의 CRS가 "메르카토르" 투영법인 EPSG 32630으로 설정되어 있기 때문에 면적 계산이 "아프리카 알버스 등면적 원뿔" 같은 등면적 투영법을 사용한 경우보다 약간 덜 정확합니다.
+
+하지만 이렇게 하면 가나의 면적은 약 239585제곱킬로미터로 계산되어 정답과 크게 다르지 않습니다.
+
+## Your turn
+
+### Introduction
+
+You are a bird conservation expert and want to understand migration patterns of purple martins. In your research, you discover that these birds typically spend the summer breeding season in the eastern United States, and then migrate to South America for the winter. But since this bird is under threat of endangerment, you'd like to take a closer look at the locations that these birds are more likely to visit.
+
+There are several protected areas in South America, which operate under special regulations to ensure that species that migrate (or live) there have the best opportunity to thrive. You'd like to know if purple martins tend to visit these areas. To answer this question, you'll use some recently collected data that tracks the year-round location of eleven different birds.
+
+```{python}
+from shapely.geometry import LineString
+```
+
+### Load data
+
+```{python}
+# Load the data and print the first 5 rows
+birds_df = pd.read_csv("C:/archive/purple_martin.csv", parse_dates=['timestamp'])
+print("There are {} different birds in the dataset.".format(birds_df["tag-local-identifier"].nunique()))
+birds_df.head()
+```
+
+```{python}
+#Create the GeoDataFrame
+birds = gpd.GeoDataFrame(birds_df, geometry=gpd.points_from_xy(birds_df["location-long"], birds_df["location-lat"]))
+
+# Set the CRS to {'init': 'epsg:4326'}
+birds.crs = {'init' :'epsg:4326'}
+```
+
+### Plot the data
+
+GeoPandas에서 'naturalearth_lowres' 데이터 집합을 로드하고, 아메리카 대륙의 모든 국가(북미와 남미 모두)의 경계를 포함하는 GeoDataFrame에 americas를 설정합니다.
+
+```{python}
+world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+americas = world.loc[world['continent'].isin(['North America', 'South America'])]
+americas.head()
+```
+
+```{python}
+ax = americas.plot(figsize=(10,10), color='white', linestyle=':', edgecolor='gray')
+birds.plot(ax=ax, markersize=10)
+```
+
+### Where does each bird start and end its journey? (Part 1)
+
+```{python}
+# GeoDataFrame showing path for each bird
+path_df = birds.groupby("tag-local-identifier")['geometry'].apply(list).apply(lambda x: LineString(x)).reset_index()
+path_gdf = gpd.GeoDataFrame(path_df, geometry=path_df.geometry)
+path_gdf.crs = {'init' :'epsg:4326'}
+
+# GeoDataFrame showing starting point for each bird
+start_df = birds.groupby("tag-local-identifier")['geometry'].apply(list).apply(lambda x: x[0]).reset_index()
+start_gdf = gpd.GeoDataFrame(start_df, geometry=start_df.geometry)
+start_gdf.crs = {'init' :'epsg:4326'}
+
+# Show first five rows of GeoDataFrame
+start_gdf.head()
+```
+
+```{python}
+end_df = birds.groupby("tag-local-identifier")['geometry'].apply(list).apply(lambda x: x[-1]).reset_index()
+end_gdf = gpd.GeoDataFrame(end_df, geometry=end_df.geometry)
+end_gdf.crs = {'init': 'epsg:4326'}
+```
+
+### Where does each bird start and end its journey? (Part 2)
+
+```{python}
+ax = americas.plot(figsize=(10, 10), color='white', linestyle=':', edgecolor='gray')
+
+start_gdf.plot(ax=ax, color='red',  markersize=30)
+path_gdf.plot(ax=ax, cmap='tab20b', linestyle='-', linewidth=1, zorder=1)
+end_gdf.plot(ax=ax, color='black', markersize=30)
+```
+
+### Where are the protected areas in South America? (Part 1)
+
+```{python}
+protected_areas = gpd.read_file("C:/archive/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile-polygons.shp")
+```
+
+### Where are the protected areas in South America? (Part 2)
+
+```{python}
+south_america = americas.loc[americas['continent']=='South America']
+
+ax = south_america.plot(figsize=(10,10), color='white', edgecolor='gray')
+protected_areas.plot(ax=ax, alpha=0.4)
+```
+
+### What percentage of South America is protected?
+
+```{python}
+P_Area = sum(protected_areas['REP_AREA']-protected_areas['REP_M_AREA'])
+print("South America has {} square kilometers of protected areas.".format(P_Area))
+```
+
+```{python}
+south_america.head()
+totalArea = sum(south_america.geometry.to_crs(epsg=3035).area) / 10**6
+```
+
+```{python}
+#What percentage of South America is protected?
+percentage_protected = P_Area/totalArea
+print('Approximately {}% of South America is protected.'.format(round(percentage_protected*100, 2)))
+```
+
+### Where are the birds in South America?
+
+```{python}
+ax = south_america.plot(figsize=(10,10), color='white', edgecolor='gray')
+protected_areas[protected_areas['MARINE']!='2'].plot(ax=ax, alpha=0.4, zorder=1)
+birds[birds.geometry.y < 0].plot(ax=ax, color='red', alpha=0.6, markersize=10, zorder=2)
+```

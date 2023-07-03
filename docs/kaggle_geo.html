@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sungil_Park - Geospatial Analysis</title>
+<title>Sungil_Park - Basics example</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,7 +71,8 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
+      page: 10,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
@@ -119,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./kaggle_geo.html" rel="" target="" aria-current="page">
- <span class="menu-text">Geospatial Analysis</span></a>
+ <span class="menu-text">Basics example</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./recordings.html" rel="" target="">
@@ -160,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Geospatial Analysis</h1>
+      <h1 class="title">Basics example</h1>
                       </div>
   </div>
     
@@ -178,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="Kaggle tutorial">Kaggle tutorial <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(5)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(15)</span></div><div class="category" data-category="Kaggle tutorial">Kaggle tutorial <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Lecture">Lecture <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(8)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(6)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -191,14 +192,14 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="python" data-listing-date-sort="1684249200000" data-listing-file-modified-sort="1684390461340" data-listing-date-modified-sort="1684249200000" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="0" data-categories="python" data-listing-date-sort="1684249200000" data-listing-file-modified-sort="1688348923728" data-listing-date-modified-sort="1684249200000" data-listing-reading-time-sort="1">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/pydeck_training.html"> <img src="./kaggle_geos/pydeck.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/pydeck_training.html"> <img src="./basics_example/pydeck.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/pydeck_training.html">
+<a href="./basics_example/pydeck_training.html">
 <h3 class="no-anchor listing-title">
-test pydeck
+Pydeck example
 </h3>
 <div class="listing-subtitle">
 
@@ -209,14 +210,14 @@ test pydeck
 python
 </div>
 </div>
-<a href="./kaggle_geos/pydeck_training.html">
+<a href="./basics_example/pydeck_training.html">
 <div class="listing-description">
 <p>Interactive map</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/pydeck_training.html">
+<a href="./basics_example/pydeck_training.html">
 <div class="listing-date">
 May 17, 2023
 </div>
@@ -226,14 +227,14 @@ Sungil Park
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="R" data-listing-date-sort="1682694000000" data-listing-file-modified-sort="1686380960944" data-listing-date-modified-sort="1682694000000" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="1" data-categories="R" data-listing-date-sort="1682521200000" data-listing-file-modified-sort="1688348980418" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/geocomputation_apply.html"> <img src="./img/shark_left.jpg" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/Plotly.html"> <img src="./img/plotly_boy.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/geocomputation_apply.html">
+<a href="./basics_example/Plotly.html">
 <h3 class="no-anchor listing-title">
-Geocomputation Apply
+Plotly example
 </h3>
 <div class="listing-subtitle">
 
@@ -244,16 +245,232 @@ Geocomputation Apply
 R
 </div>
 </div>
-<a href="./kaggle_geos/geocomputation_apply.html">
+<a href="./basics_example/Plotly.html">
 <div class="listing-description">
-<p>Geocomputation</p>
+<p>Interactive Plot Basic</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/geocomputation_apply.html">
+<a href="./basics_example/Plotly.html">
 <div class="listing-date">
-Apr 29, 2023
+Apr 27, 2023
+</div>
+<div class="listing-author">
+Sungil Park
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="R" data-listing-date-sort="1681398000000" data-listing-file-modified-sort="1688349046387" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./basics_example/Statistic.html"> <img src="./img/rguy.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/Statistic.html">
+<h3 class="no-anchor listing-title">
+Linear Regression with R
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="./basics_example/Statistic.html">
+<div class="listing-description">
+<p>R basics</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/Statistic.html">
+<div class="listing-date">
+Apr 14, 2023
+</div>
+<div class="listing-author">
+Sungil Park
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="R" data-listing-date-sort="1681138800000" data-listing-file-modified-sort="1688349083942" data-listing-date-modified-sort="1683903600000" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./basics_example/R basic.html"> <img src="./img/rkid.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/R basic.html">
+<h3 class="no-anchor listing-title">
+Statistical Analysis with R
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="./basics_example/R basic.html">
+<div class="listing-description">
+<p>Examples of performing Statistical analysis</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/R basic.html">
+<div class="listing-date">
+Apr 11, 2023
+</div>
+<div class="listing-author">
+Sungil Park
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="Python,Lecture" data-listing-date-sort="1680706800000" data-listing-file-modified-sort="1682227148834" data-listing-date-modified-sort="1680706800000" data-listing-reading-time-sort="18">
+<div class="thumbnail">
+<p><a href="./basics_example/week_1a_numpy.html"> <img src="./img/numpy.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/week_1a_numpy.html">
+<h3 class="no-anchor listing-title">
+week_1a_numpy
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Lecture'); return false;">
+Lecture
+</div>
+</div>
+<a href="./basics_example/week_1a_numpy.html">
+<div class="listing-description">
+<p>Python Basics</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/week_1a_numpy.html">
+<div class="listing-date">
+Apr 6, 2023
+</div>
+<div class="listing-author">
+Jiho Yeo
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="Python,Lecture" data-listing-date-sort="1680706800000" data-listing-file-modified-sort="1681803524741" data-listing-date-modified-sort="1680706800000" data-listing-reading-time-sort="23">
+<div class="thumbnail">
+<p><a href="./basics_example/week_1b_pandas.html"> <img src="./img/pandas.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/week_1b_pandas.html">
+<h3 class="no-anchor listing-title">
+week_1b_pandas
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Lecture'); return false;">
+Lecture
+</div>
+</div>
+<a href="./basics_example/week_1b_pandas.html">
+<div class="listing-description">
+<p>Python Basics</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/week_1b_pandas.html">
+<div class="listing-date">
+Apr 6, 2023
+</div>
+<div class="listing-author">
+Jiho Yeo
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="R" data-listing-date-sort="1679410800000" data-listing-file-modified-sort="1688346964044" data-listing-date-modified-sort="1682089200000" data-listing-reading-time-sort="19">
+<div class="thumbnail">
+<p><a href="./basics_example/Geocomputation.html"> <img src="./basics_example/geo.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/Geocomputation.html">
+<h3 class="no-anchor listing-title">
+Geocomputation with R
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="./basics_example/Geocomputation.html">
+<div class="listing-description">
+<p>Creative &amp; Experimental geography</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/Geocomputation.html">
+<div class="listing-date">
+Mar 22, 2023
+</div>
+<div class="listing-author">
+Sungil Park
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="Python" data-listing-date-sort="1679324400000" data-listing-file-modified-sort="1688349402459" data-listing-date-modified-sort="1679324400000" data-listing-reading-time-sort="3">
+<div class="thumbnail">
+<p><a href="./basics_example/penguin.html"> <img src="./basics_example/tf.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/penguin.html">
+<h3 class="no-anchor listing-title">
+Tensorflow Regression example
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+</div>
+<a href="./basics_example/penguin.html">
+<div class="listing-description">
+<p>Create a DNN model to predict penguin weight</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/penguin.html">
+<div class="listing-date">
+Mar 21, 2023
 </div>
 <div class="listing-author">
 sungil_park
@@ -261,12 +478,82 @@ sungil_park
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1682521200000" data-listing-file-modified-sort="1683428456815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="8" data-categories="R" data-listing-date-sort="1678806000000" data-listing-file-modified-sort="1688349458130" data-listing-date-modified-sort="1679238000000" data-listing-reading-time-sort="56">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/kaggle_geo_1.html"> <img src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/vis.html"> <img src="./basics_example/vis.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/kaggle_geo_1.html">
+<a href="./basics_example/vis.html">
+<h3 class="no-anchor listing-title">
+ggplot example
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="./basics_example/vis.html">
+<div class="listing-description">
+<p>Data Visualization with ggplot</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/vis.html">
+<div class="listing-date">
+Mar 15, 2023
+</div>
+<div class="listing-author">
+sungil_park
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="R" data-listing-date-sort="1678806000000" data-listing-file-modified-sort="1688349511226" data-listing-date-modified-sort="1679238000000" data-listing-reading-time-sort="15">
+<div class="thumbnail">
+<p><a href="./basics_example/vis_geo.html"> <img src="./basics_example/vis.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/vis_geo.html">
+<h3 class="no-anchor listing-title">
+ggplot geospatial example
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="./basics_example/vis_geo.html">
+<div class="listing-description">
+<p>Geospartial Data Visualization with ggplot</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./basics_example/vis_geo.html">
+<div class="listing-date">
+Mar 15, 2023
+</div>
+<div class="listing-author">
+sungil_park
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1677942000000" data-listing-file-modified-sort="1688349625082" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="thumbnail">
+<p><a href="./basics_example/kaggle_geo_1.html"> <img data-src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./basics_example/kaggle_geo_1.html">
 <h3 class="no-anchor listing-title">
 Your first map
 </h3>
@@ -282,16 +569,16 @@ Python
 Kaggle tutorial
 </div>
 </div>
-<a href="./kaggle_geos/kaggle_geo_1.html">
+<a href="./basics_example/kaggle_geo_1.html">
 <div class="listing-description">
 <p>Kaggle Geospatial Analysis (1/5)</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/kaggle_geo_1.html">
+<a href="./basics_example/kaggle_geo_1.html">
 <div class="listing-date">
-Apr 27, 2023
+Mar 5, 2023
 </div>
 <div class="listing-author">
 Sungil Park
@@ -299,12 +586,12 @@ Sungil Park
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1682434800000" data-listing-file-modified-sort="1683428454601" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="11" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1677942000000" data-listing-file-modified-sort="1688349615659" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/kaggle_geo_2.html"> <img src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/kaggle_geo_2.html"> <img data-src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/kaggle_geo_2.html">
+<a href="./basics_example/kaggle_geo_2.html">
 <h3 class="no-anchor listing-title">
 Coordinate Reference Systems
 </h3>
@@ -320,16 +607,16 @@ Python
 Kaggle tutorial
 </div>
 </div>
-<a href="./kaggle_geos/kaggle_geo_2.html">
+<a href="./basics_example/kaggle_geo_2.html">
 <div class="listing-description">
 <p>Kaggle Geospatial Analysis (2/5)</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/kaggle_geo_2.html">
+<a href="./basics_example/kaggle_geo_2.html">
 <div class="listing-date">
-Apr 26, 2023
+Mar 5, 2023
 </div>
 <div class="listing-author">
 Sungil Park
@@ -337,12 +624,12 @@ Sungil Park
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1682348400000" data-listing-file-modified-sort="1683431494137" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="quarto-post image-right" data-index="12" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1677769200000" data-listing-file-modified-sort="1688349609849" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/kaggle_geo_3.html"> <img src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/kaggle_geo_3.html"> <img data-src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/kaggle_geo_3.html">
+<a href="./basics_example/kaggle_geo_3.html">
 <h3 class="no-anchor listing-title">
 Interactive Maps
 </h3>
@@ -358,16 +645,16 @@ Python
 Kaggle tutorial
 </div>
 </div>
-<a href="./kaggle_geos/kaggle_geo_3.html">
+<a href="./basics_example/kaggle_geo_3.html">
 <div class="listing-description">
 <p>Kaggle Geospatial Analysis (3/5)</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/kaggle_geo_3.html">
+<a href="./basics_example/kaggle_geo_3.html">
 <div class="listing-date">
-Apr 25, 2023
+Mar 3, 2023
 </div>
 <div class="listing-author">
 Sungil Park
@@ -375,12 +662,12 @@ Sungil Park
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1682262000000" data-listing-file-modified-sort="1683434924994" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="quarto-post image-right" data-index="13" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1677682800000" data-listing-file-modified-sort="1688349599242" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/kaggle_geo_4.html"> <img src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/kaggle_geo_4.html"> <img data-src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/kaggle_geo_4.html">
+<a href="./basics_example/kaggle_geo_4.html">
 <h3 class="no-anchor listing-title">
 Manipulating Geospatial Data
 </h3>
@@ -396,16 +683,16 @@ Python
 Kaggle tutorial
 </div>
 </div>
-<a href="./kaggle_geos/kaggle_geo_4.html">
+<a href="./basics_example/kaggle_geo_4.html">
 <div class="listing-description">
 <p>Kaggle Geospatial Analysis (4/5)</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/kaggle_geo_4.html">
+<a href="./basics_example/kaggle_geo_4.html">
 <div class="listing-date">
-Apr 24, 2023
+Mar 2, 2023
 </div>
 <div class="listing-author">
 Sungil Park
@@ -413,12 +700,12 @@ Sungil Park
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1682175600000" data-listing-file-modified-sort="1683437323561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="14" data-categories="Python,Kaggle tutorial" data-listing-date-sort="1677596400000" data-listing-file-modified-sort="1688349580032" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
 <div class="thumbnail">
-<p><a href="./kaggle_geos/kaggle_geo_5.html"> <img src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
+<p><a href="./basics_example/kaggle_geo_5.html"> <img data-src="img/kaggleimg.png" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
 <div class="body">
-<a href="./kaggle_geos/kaggle_geo_5.html">
+<a href="./basics_example/kaggle_geo_5.html">
 <h3 class="no-anchor listing-title">
 Proximity Analysis
 </h3>
@@ -434,89 +721,19 @@ Python
 Kaggle tutorial
 </div>
 </div>
-<a href="./kaggle_geos/kaggle_geo_5.html">
+<a href="./basics_example/kaggle_geo_5.html">
 <div class="listing-description">
 <p>Kaggle Geospatial Analysis (5/5)</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./kaggle_geos/kaggle_geo_5.html">
+<a href="./basics_example/kaggle_geo_5.html">
 <div class="listing-date">
-Apr 23, 2023
+Mar 1, 2023
 </div>
 <div class="listing-author">
 Sungil Park
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="R" data-listing-date-sort="1679410800000" data-listing-file-modified-sort="1686571929964" data-listing-date-modified-sort="1682089200000" data-listing-reading-time-sort="19">
-<div class="thumbnail">
-<p><a href="./kaggle_geos/Geocomputation.html"> <img src="./kaggle_geos/geo.png" class="thumbnail-image" style="height: 130px;"> </a></p>
-</div>
-<div class="body">
-<a href="./kaggle_geos/Geocomputation.html">
-<h3 class="no-anchor listing-title">
-Geocomputation with R
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<a href="./kaggle_geos/Geocomputation.html">
-<div class="listing-description">
-<p>Creative &amp; Experimental geography</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./kaggle_geos/Geocomputation.html">
-<div class="listing-date">
-Mar 22, 2023
-</div>
-<div class="listing-author">
-Sungil Park
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="R" data-listing-date-sort="1678806000000" data-listing-file-modified-sort="1686571078516" data-listing-date-modified-sort="1679238000000" data-listing-reading-time-sort="15">
-<div class="thumbnail">
-<p><a href="./kaggle_geos/vis_geo.html"> <img src="./kaggle_geos/vis.png" class="thumbnail-image" style="height: 130px;"> </a></p>
-</div>
-<div class="body">
-<a href="./kaggle_geos/vis_geo.html">
-<h3 class="no-anchor listing-title">
-ggplot, geospatial
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<a href="./kaggle_geos/vis_geo.html">
-<div class="listing-description">
-<p>Data Visualization</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./kaggle_geos/vis_geo.html">
-<div class="listing-date">
-Mar 15, 2023
-</div>
-<div class="listing-author">
-sungil_park
 </div>
 </a>
 </div>
@@ -525,6 +742,9 @@ sungil_park
 <div class="listing-no-matching d-none">
 No matching items
 </div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
