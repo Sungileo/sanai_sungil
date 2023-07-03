@@ -1,0 +1,1177 @@
+---
+title: "천안시 아파트 가격 분석"
+author: "Sungil Park"
+date: "2023/06/17"
+description: "아파트 실거래가, 네이버부동산, api활용 및 웹크롤링"
+---
+
+```{r}
+
+```
+
+## 배경 & 목적
+
+### 배경
+
+-   인구 감소, 부모님 세대의 은퇴로 인한 주택 가격 변동
+
+-   주택 가격 변동에 따른 예측의 중요성
+
+### 목적
+
+-   아파트 가격에 변동을 주는 요인 분석
+
+-   아파트 가격 예측 모델 제작
+
+-   데이터 수집의 다양한 방법 학습
+
+## 데이터
+
+### 메인 데이터
+
+데이터는 [**국토교통부 아파트 매매 실거래가정보 API**](https://www.data.go.kr/data/15057511/openapi.do)를 활용하여 `PublicDataReader`을 통해 불러온 2018년 3월 부터 2023년 4월 까지의 천안시 아파트 거래내역 62614 건을 사용한다.
+
+[**천안시_아파트매매_실거래_2018_2023**](https://github.com/Sungileo/trainsets_2/blob/main/%EC%B2%9C%EC%95%88%EC%8B%9C_%EC%95%84%ED%8C%8C%ED%8A%B8_%EB%A7%A4%EB%A7%A4_2018_2023.csv)
+
+```{python, eval=FALSE}
+!pip install PublicDataReader
+
+import PublicDataReader as pdr
+import pandas as pd
+pdr.__version__
+
+service_key = "-my api-"
+
+from PublicDataReader import TransactionPrice
+api = TransactionPrice(service_key)
+
+import PublicDataReader as pdr
+sigungu_name = "천안시"
+code = pdr.code_bdong()
+code.loc[(code['시군구명'].str.contains(sigungu_name)) &
+         (code['읍면동명']=='')]
+
+cheonan_seobuk = api.get_data(
+    property_type="아파트",
+    trade_type="매매",
+    sigungu_code="44133",
+    start_year_month="201803",
+    end_year_month="202304",
+    )
+    
+cheonan_dongnam = api.get_data(
+    property_type="아파트",
+    trade_type="매매",
+    sigungu_code="44131",
+    start_year_month="201803",
+    end_year_month="202304",
+    )
+
+cheonan = pd.concat([cheonan_dongnam,cheonan_seobuk])
+```
+
+### 학교 데이터
+
+학군 정보를 수집하기 위해 [천안시청 학교현황](https://www.cheonan.go.kr/prog/eduInfo/kor/sub05_07_02_01/1/list.do?pageIndex=5)을 통해 얻어낸 학교데이터를 구글 스프레드시트 지오코딩을 통해 지리데이터로 변환하였다.
+
+
+[초등학교](https://github.com/Sungileo/trainsets_2/blob/main/%EC%B4%88%EB%93%B1%ED%95%99%EA%B5%90%20%EC%9C%84%EA%B2%BD%EB%8F%84.csv)
+
+[중학교](https://github.com/Sungileo/trainsets_2/blob/main/%EC%A4%91%ED%95%99%EA%B5%90_%EC%9C%84%EA%B2%BD%EB%8F%84.csv)
+
+[고등학교](https://github.com/Sungileo/trainsets_2/blob/main/%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90_%EC%9C%84%EA%B2%BD%EB%8F%84.csv)
+
+### 부동산 정보 데이터
+
+아파트의 주차장, 용적률, 건폐율등 부동산 정보 수집을 위해 네이버 부동산 웹크롤링 하였다.
+
+[참고자료](https://leesunkyu94.github.io/data%20%EB%A7%8C%EB%93%A4%EA%B8%B0/naver-real-estate/#)
+
+```{python, eval=FALSE}
+import pandas as pd
+import requests
+import json
+```
+
+시도코드의 수집 과정
+
+```{python,eval=FALSE}
+def get_sido_info():
+    down_url = 'https://new.land.naver.com/api/regions/list?cortarNo=0000000000'
+    r = requests.get(down_url,data={"sameAddressGroup":"false"},headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/...",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    })
+    r.encoding = "utf-8-sig"
+    temp=json.loads(r.text)
+    temp=list(pd.DataFrame(temp["regionList"])["cortarNo"])
+    return temp
+def get_gungu_info(sido_code):
+    down_url = 'https://new.land.naver.com/api/regions/list?cortarNo='+sido_code
+    r = requests.get(down_url,data={"sameAddressGroup":"false"},headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/...",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    })
+    r.encoding = "utf-8-sig"
+    temp=json.loads(r.text)
+    temp=list(pd.DataFrame(temp['regionList'])["cortarNo"])
+    return temp
+def get_dong_info(gungu_code):
+    down_url = 'https://new.land.naver.com/api/regions/list?cortarNo='+gungu_code
+    r = requests.get(down_url,data={"sameAddressGroup":"false"},headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/...",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    })
+    r.encoding = "utf-8-sig"
+    temp=json.loads(r.text)
+    temp=list(pd.DataFrame(temp['regionList'])["cortarNo"])
+    return temp
+def get_apt_list(dong_code):
+    down_url = 'https://new.land.naver.com/api/regions/complexes?cortarNo='+dong_code+'&realEstateType=APT&order='
+    r = requests.get(down_url,data={"sameAddressGroup":"false"},headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/...",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    })
+    r.encoding = "utf-8-sig"
+    temp=json.loads(r.text)
+    try:
+        temp=list(pd.DataFrame(temp['complexList'])["complexNo"])
+    except:
+        temp=[]
+    return temp
+```
+
+```{python,eval=FALSE}
+sido_list=get_sido_info() 
+gungu_list=get_gungu_info(sido_list[0])
+dong_list=get_dong_info(gungu_list[0])
+get_apt_list(dong_list[0])[0]
+```
+
+```{python,eval=FALSE}
+def get_apt_info(apt_code):
+    down_url = 'https://new.land.naver.com/api/complexes/'+apt_code+'?sameAddressGroup=false'
+    r = requests.get(down_url,data={"sameAddressGroup":"false"},headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/complexes/"+apt_code+"?ms=37.482968,127.0634,16&a=APT&b=A1&e=RETAIL",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"})
+    r.encoding = "utf-8-sig"
+    temp=json.loads(r.text)
+    return temp
+```
+
+```{python,eval=FALSE}
+def get_school_info(apt_code):
+    down_url = 'https://new.land.naver.com/api/complexes/'+apt_code+'/schools'
+    r = requests.get(down_url,headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/complexes/"+apt_code+"?ms=37.482968,127.0634,16&a=APT&b=A1&e=RETAIL",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"})
+    r.encoding = "utf-8-sig"
+    temp_school=json.loads(r.text)
+    return temp_school
+
+##################가격정보
+def apt_price(apt_code,index):
+    p_num=temp["complexPyeongDetailList"][index]["pyeongNo"]
+    down_url = 'https://new.land.naver.com/api/complexes/'+apt_code+'/prices?complexNo='+apt_code+'&tradeType=A1&year=5&priceChartChange=true&areaNo='+p_num+'&areaChange=true&type=table'
+
+    r = requests.get(down_url,headers={
+        "Accept-Encoding": "gzip, deflate, br",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJFQUxFU1RBVEUiLCJpYXQiOjE2NTk5MzcxNTIsImV4cCI6MTY1OTk0Nzk1Mn0.PD7SqZO7z8f97uGQpfSKYMPbrLy6YtRl9XYHWaHiVVE",
+        "Host": "new.land.naver.com",
+        "Referer": "https://new.land.naver.com/complexes/"+apt_code+"?ms=37.482968,127.0634,16&a=APT&b=A1&e=RETAIL",
+        "sec-ch-ua": "\".Not\/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "macOS",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"})
+    r.encoding = "utf-8-sig"
+    temp_price=json.loads(r.text)
+    return temp_price
+```
+
+```{python,eval=FALSE}
+sido_list=['4400000000']
+gungu_list=get_gungu_info(sido_list[0])
+gungu_list
+
+# '4413100000'  동남구
+# '4413300000'  서북구
+```
+
+```{python,eval=FALSE}
+sido_list=['4400000000']
+for m in range(len(sido_list)):
+    gungu_list=['4413300000']
+    gungu_apt_list=[0]*len(gungu_list)
+    for j in range(len(gungu_list)):#구 마다 하나씩 저장
+        dong_list=get_dong_info(gungu_list[j])
+        dong_apt_list=[0]*len(dong_list)
+        for k in range(len(dong_list)):#동마다 하나씩 저장
+            apt_list=get_apt_list(dong_list[k])
+            apt_list_data=[0]*len(apt_list)
+            for n in range(len(apt_list)):#아파트 마다 하나씩 저장
+                temp=get_apt_info(apt_list[n])
+                try:
+                    area_list=temp["complexDetail"]["pyoengNames"].split(", ")
+                    ex_flag=1
+                except KeyError:   
+                    ex_flag=0
+                    temp_data=pd.DataFrame(columns=temp_data.columns)
+                if ex_flag==1:
+                    temp_school=get_school_info(apt_list[n])
+                    temp_data=pd.DataFrame(index=range(len(area_list)))
+                    for i in range(len(area_list)):
+                        print(temp["complexDetail"]["address"],temp["complexDetail"]["complexName"])
+                        temp_data.loc[i,"아파트명"]=temp["complexDetail"]["complexName"]
+                        temp_data.loc[i,"면적"]=area_list[i]
+                        temp_data.loc[i,"법정동주소"]=temp["complexDetail"]["address"]+" "+temp["complexDetail"]["detailAddress"]
+                        try:
+                            temp_data.loc[i,"도로명주소"]=temp["complexDetail"]["roadAddressPrefix"]+" "+temp["complexDetail"]["roadAddress"]
+                        except KeyError:
+                            temp_data.loc[i,"도로명주소"]=temp["complexDetail"]["roadAddressPrefix"]
+                        temp_data.loc[i,"latitude"]=temp["complexDetail"]["latitude"]
+                        temp_data.loc[i,"longitude"]=temp["complexDetail"]["longitude"]
+                        temp_data.loc[i,"세대수"]=temp["complexDetail"]["totalHouseholdCount"]
+                        temp_data.loc[i,"임대세대수"]=temp["complexDetail"]["totalLeaseHouseholdCount"]
+                        temp_data.loc[i,"최고층"]=temp["complexDetail"]["highFloor"]
+                        temp_data.loc[i,"최저층"]=temp["complexDetail"]["lowFloor"]
+                        try:
+                            temp_data.loc[i,"용적률"]=temp["complexDetail"]["batlRatio"]
+                        except KeyError:
+                            temp_data.loc[i,"용적률"]=""
+                        try:
+                            temp_data.loc[i,"건폐율"]=temp["complexDetail"]["btlRatio"]
+                        except KeyError:
+                            temp_data.loc[i,"건폐율"]=""
+                        try:
+                            temp_data.loc[i,"주차대수"]=temp["complexDetail"]["parkingPossibleCount"]
+                        except KeyError:
+                            temp_data.loc[i,"주차대수"]=""
+                        try:
+                            temp_data.loc[i,"건설사"]=temp["complexDetail"]["constructionCompanyName"]
+                        except KeyError:   
+                            temp_data.loc[i,"건설사"]=""
+                        try:
+                            temp_data.loc[i,"난방"]=temp["complexDetail"]["heatMethodTypeCode"]
+                        except KeyError:   
+                            temp_data.loc[i,"난방"]=""
+                        try:
+                            temp_data.loc[i,"공급면적"]=temp["complexPyeongDetailList"][i]["supplyArea"]
+                        except KeyError:   
+                            temp_data.loc[i,"공급면적"]=""
+                        try:
+                            temp_data.loc[i,"전용면적"]=temp["complexPyeongDetailList"][i]["exclusiveArea"]
+                        except KeyError:   
+                            temp_data.loc[i,"전용면적"]=""
+                        try:
+                            temp_data.loc[i,"전용율"]=temp["complexPyeongDetailList"][i]["exclusiveRate"]
+                        except KeyError:   
+                            temp_data.loc[i,"전용율"]=""
+                        try:
+                            temp_data.loc[i,"방수"]=temp["complexPyeongDetailList"][i]["roomCnt"]
+                        except KeyError:   
+                            temp_data.loc[i,"방수"]=""
+                        try:
+                            temp_data.loc[i,"욕실수"]=temp["complexPyeongDetailList"][i]["bathroomCnt"]
+                        except KeyError:   
+                            temp_data.loc[i,"욕실수"]=""
+                        try:
+                            temp_data.loc[i,"해당면적_세대수"]=temp["complexPyeongDetailList"][i]["householdCountByPyeong"]
+                        except KeyError:   
+                            temp_data.loc[i,"해당면적_세대수"]=""
+                        try:
+                            temp_data.loc[i,"현관구조"]=temp["complexPyeongDetailList"][i]["entranceType"]
+                        except KeyError:   
+                            temp_data.loc[i,"현관구조"]=""
+                        
+
+                    #time.sleep(1)
+                apt_list_data[n]=temp_data
+            if apt_list_data==[]:
+                dong_apt_list[k]=pd.DataFrame(columns=temp_data.columns)
+            else:
+                dong_apt_list[k]=pd.concat(apt_list_data)
+        gungu_apt_list[j]=pd.concat(dong_apt_list)
+        gungu_apt_list[j].to_csv(temp["complexDetail"]["roadAddressPrefix"]+".csv",encoding="CP949")
+    final_data=pd.concat(gungu_apt_list)
+    final_data.to_csv(temp["complexDetail"]["roadAddressPrefix"].split()[0]+".csv",encoding="CP949")
+```
+
+## 데이터 병합
+
+```{python}
+import pandas as pd
+import geopandas as gpd
+import numpy as np
+import folium
+from folium import Marker,GeoJson,Choropleth,Circle
+import warnings 
+warnings.filterwarnings('ignore')
+from geopy.geocoders import Nominatim
+```
+
+### 데이터 단위 변경
+
+```{python}
+data_path = "https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%B2%9C%EC%95%88%EC%8B%9C_%EC%95%84%ED%8C%8C%ED%8A%B8_%EB%A7%A4%EB%A7%A4_2018_2023.csv"
+data_raw = pd.read_csv(data_path,index_col=0)
+```
+
+```{python}
+data_use = data_raw.iloc[:,2:12]
+data_use["전용면적_평"] = data_use["전용면적"]*0.3025
+data_use["평당거래액_만원"] = data_use["거래금액"]/data_use["전용면적_평"]
+
+data_use.head()
+```
+
+```{python}
+data_use.describe()
+```
+
+### 아파트별 데이터
+
+아파트별 특징 추가를 위해 실거래가 데이터에서 아파트명, 주소, 위경도 데이터만 추출 (440개 아파트)
+
+```{python}
+apt_path = "https://raw.githubusercontent.com/Sungileo/trainsets_2/main/apartment_latlon.csv"
+
+apt_raw = pd.read_csv(apt_path)
+apt_latlon = apt_raw.iloc[:,2:5]
+
+apt_latlon_gdf = gpd.GeoDataFrame(apt_latlon, geometry=gpd.points_from_xy(apt_latlon['lon'], apt_latlon['lat']))
+apt_latlon_gdf.head()
+```
+
+```{python}
+data_join = pd.merge(data_use,apt_latlon,on="아파트",how="left")
+```
+
+```{python, include = FALSE}
+m = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+
+for idx, row in apt_latlon_gdf.iterrows():
+    Marker(location = [row['lat'], row['lon']],
+           popup=row["아파트"]).add_to(m)
+```
+
+```{python, eval = FALSE}
+m = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+
+for idx, row in apt_latlon_gdf.iterrows():
+    Marker(location = [row['lat'], row['lon']],
+           popup=row["아파트"]).add_to(m)
+```
+
+```{python}
+m
+```
+
+### 학군 정보
+
+아파트별로 1000m 내의 초,중,고등학교의 개수를 추가
+
+```{python}
+elm_school = pd.read_csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%B4%88%EB%93%B1%ED%95%99%EA%B5%90%20%EC%9C%84%EA%B2%BD%EB%8F%84.csv")
+mid_school = pd.read_csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%A4%91%ED%95%99%EA%B5%90_%EC%9C%84%EA%B2%BD%EB%8F%84.csv")
+hi_school = pd.read_csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90_%EC%9C%84%EA%B2%BD%EB%8F%84.csv")
+
+elm_school = gpd.GeoDataFrame(elm_school, geometry=gpd.points_from_xy(elm_school['Longitude'], elm_school['Latitude']))
+mid_school = gpd.GeoDataFrame(mid_school, geometry=gpd.points_from_xy(mid_school['Longitude'], mid_school['Latitude']))
+hi_school = gpd.GeoDataFrame(hi_school, geometry=gpd.points_from_xy(hi_school['Longitude'], hi_school['Latitude']))
+
+elm_school.crs = 'EPSG:4326'
+mid_school.crs = 'EPSG:4326'
+hi_school.crs = 'EPSG:4326'
+
+elm_school = elm_school.to_crs('EPSG:3857')
+mid_school = mid_school.to_crs('EPSG:3857')
+hi_school = hi_school.to_crs('EPSG:3857')
+
+hi_school.head()
+```
+
+```{python, include = FALSE}
+m_1 = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+
+for idx, row in elm_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=40,
+           tooltip=row["초등학교"],
+           color = "red").add_to(m_1)
+
+for idx, row in mid_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=50,
+           tooltip=row["중학"],
+           color = "blue").add_to(m_1)
+    
+for idx, row in hi_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=60,
+           tooltip=row["고등학교"],
+           color = "green").add_to(m_1)
+```
+
+```{python, eval = FALSE}
+m_1 = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+
+for idx, row in elm_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=40,
+           tooltip=row["초등학교"],
+           color = "red").add_to(m_1)
+
+for idx, row in mid_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=50,
+           tooltip=row["중학"],
+           color = "blue").add_to(m_1)
+    
+for idx, row in hi_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=60,
+           tooltip=row["고등학교"],
+           color = "green").add_to(m_1)
+```
+
+```{python}
+m_1
+```
+
+red = 초등학교, blue = 중학교, green = 고등학교
+
+```{python}
+apt_latlon_gdf.crs = 'EPSG:4326'
+apt_latlon_gdf_3857 = apt_latlon_gdf.to_crs('EPSG:3857')
+
+
+buffer_3 = apt_latlon_gdf_3857.geometry.buffer(1000)
+```
+
+```{python, include = FALSE}
+m_2 = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+
+for idx, row in apt_latlon.iterrows():
+    Marker(location = [row['lat'], row['lon']],
+           tooltip=row["아파트"]).add_to(m_2)
+    
+
+for idx, row in elm_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=40,
+           tooltip=row["초등학교"],
+           color = "red").add_to(m_2)
+
+for idx, row in mid_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=50,
+           tooltip=row["중학"],
+           color = "blue").add_to(m_2)
+    
+for idx, row in hi_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=60,
+           tooltip=row["고등학교"],
+           color = "green").add_to(m_2)
+
+GeoJson(buffer_3,style_function=lambda x: {
+    'fillColor': 'blue',
+    'fillOpacity': 0.03, 
+    'color': 'blue',
+    'weight': 0.5
+}).add_to(m_2)
+```
+
+```{python,eval = FALSE}
+m_2 = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+
+for idx, row in apt_latlon.iterrows():
+    Marker(location = [row['lat'], row['lon']],
+           tooltip=row["아파트"]).add_to(m_2)
+    
+
+for idx, row in elm_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=40,
+           tooltip=row["초등학교"],
+           color = "red").add_to(m_2)
+
+for idx, row in mid_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=50,
+           tooltip=row["중학"],
+           color = "blue").add_to(m_2)
+    
+for idx, row in hi_school.iterrows():
+    Circle(location = [row['Latitude'], row['Longitude']],
+           radius=60,
+           tooltip=row["고등학교"],
+           color = "green").add_to(m_2)
+
+GeoJson(buffer_3,style_function=lambda x: {
+    'fillColor': 'blue',
+    'fillOpacity': 0.03, 
+    'color': 'blue',
+    'weight': 0.5
+}).add_to(m_2)
+```
+
+```{python}
+m_2
+```
+
+아파트별 buffer map
+
+```{python}
+buffer_gdf = gpd.GeoDataFrame(geometry=buffer_3)
+
+elm_sjoin = gpd.sjoin(buffer_gdf, elm_school, how="left", op="intersects")
+elm_count = elm_sjoin.groupby(elm_sjoin.index).count()["index_right"]
+
+mid_sjoin = gpd.sjoin(buffer_gdf, mid_school, how="left", op="intersects")
+mid_count = mid_sjoin.groupby(mid_sjoin.index).count()["index_right"]
+
+hi_sjoin = gpd.sjoin(buffer_gdf, hi_school, how="left", op="intersects")
+hi_count = hi_sjoin.groupby(hi_sjoin.index).count()["index_right"]
+```
+
+```{python}
+school_added = pd.concat([apt_latlon,elm_count,mid_count,hi_count],axis=1)
+school_added.columns = ["lon","lat","아파트","geometry",'1000m_초등학교','1000m_중학교','1000m_고등학교']
+school_added.head()
+```
+
+### 부동산 정보
+
+아파트별 데이터에 부동산 정보 데이터 병합
+
+```{python}
+seobuk_raw = pd.read_csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%B6%A9%EC%B2%AD%EB%82%A8%EB%8F%84%20%EC%B2%9C%EC%95%88%EC%8B%9C%20%EC%84%9C%EB%B6%81%EA%B5%AC.csv",index_col=0)
+dongnam_raw = pd.read_csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%B6%A9%EC%B2%AD%EB%82%A8%EB%8F%84%20%EC%B2%9C%EC%95%88%EC%8B%9C%20%EB%8F%99%EB%82%A8%EA%B5%AC.csv")
+apt_info_raw = pd.concat([seobuk_raw,dongnam_raw],axis = 0)
+```
+
+사용 컬럼만 추출
+
+```{python}
+
+apt_info = apt_info_raw.iloc[:,0:22]
+apt_info = apt_info.drop(["면적","도로명주소","임대세대수","건설사","전용면적","전용율","공급면적","방수","욕실수","해당면적_세대수"],axis=1)
+apt_info
+```
+
+```{python}
+join_test = apt_info.groupby("아파트명").first().reset_index()
+join_test.columns = ['아파트','법정동주소',"latitude","longitude",'세대수','최고층','최저층','용적률','건폐율','주차대수','난방','현관구조']
+join_test
+```
+
+### 병합시 문제점
+
+데이터 병합시 아파트별 데이터와, 부동산 정보 데이터의 `아파트명` 컬럼으로 조인을 진행하였지만 아파트명이 영문으로 쓰여있거나, 단지 표기법의 불일치, 아파트명의 변화로 인해, 440건 중 일부는 지도를 참고하여 수동 조인 진행
+
+```{python, include = FALSE}
+m_2 = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+Marker(location=[36.809672,127.161427]).add_to(m_2)
+
+for idx, row in join_test.iterrows():
+    Marker(location = [row['latitude'], row['longitude']],
+           tooltip=row["아파트"]).add_to(m_2)
+    
+for idx, row in apt_latlon.iterrows():
+    Circle(location = [row['lat'], row['lon']],
+           tooltip=row["아파트"]).add_to(m_2)
+```
+
+```{python, eval = FALSE}
+m_2 = folium.Map(location=[36.807438,127.144504], zoom_start=13)
+Marker(location=[36.809672,127.161427]).add_to(m_2)
+
+for idx, row in join_test.iterrows():
+    Marker(location = [row['latitude'], row['longitude']],
+           tooltip=row["아파트"]).add_to(m_2)
+    
+for idx, row in apt_latlon.iterrows():
+    Circle(location = [row['lat'], row['lon']],
+           tooltip=row["아파트"]).add_to(m_2)
+```
+
+```{python}
+m_2
+```
+
+아파트별 데이터와 부동산 정보 데이터의 위치정보 비교 지도
+
+## 사용 데이터
+
+병합된 데이터중 부동산 정보 데이터가 매칭되지 않은 16개 아파트가 삭제된 데이터
+
+```{python}
+data_raw = pd.read_csv("C:/Users/sungi/OneDrive/바탕 화면/2023-1학기/데이터마이닝 최종/fulldata_test.csv",index_col=0)
+```
+
+```{python}
+data_raw.head()
+```
+
+```{python}
+data_use = data_raw.drop(["도로명","법정동","지번","아파트","전용면적","거래금액","지번주소","전용면적(평)"],axis = 1)
+data_use = data_use.dropna()
+```
+
+```{python}
+data_use.head()
+
+```
+
+## 분석
+
+### 독립변수, 종속변수 나누기
+
+예측할 종속변수는 아파트의 평당 거래액
+
+독립변수는 건축년도, 층, 거래년월일, 위경도, 1000m 내 초중고 학교 수, 세대수, 최고, 최저층, 용적률, 건폐율, 주차대수, 난방 방식, 현관 구조
+
+학습, 예측의 성능 비교를 위해 test set 분리 (20%)
+
+```{python}
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+train_set, test_set = train_test_split(data_use, test_size=0.2, random_state=42)
+
+#X, y 로 나누기
+X_train = train_set.drop('평단가', axis = 1)
+y_train = train_set['평단가']
+
+X_test = test_set.drop('평단가', axis = 1)
+y_test = test_set['평단가']
+```
+
+카테고리형 데이터 변환 & 표준화
+
+```{python}
+list_cat = ["난방","현관구조"]
+list_num = ['건축년도', '층', '년', '월', '일',  'lon', 'lat', '1000m_초등학교','1000m_중학교', '1000m_고등학교', '세대수', '최고층', '최저층', '용적률', '건폐율', '주차대수']
+```
+
+```{python}
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
+num_pipeline = Pipeline([('std_scaler', StandardScaler())])
+
+full_pipeline = ColumnTransformer([
+        ("num", num_pipeline, list_num),
+        ("cat", OneHotEncoder(), list_cat),
+    ])
+
+X_train_prepared = full_pipeline.fit_transform(X_train)
+```
+
+```{python}
+X_train_prepared[0:3]
+```
+
+```{python}
+colname =list_num+full_pipeline.named_transformers_['cat'].get_feature_names_out().tolist()
+
+X_train_df = pd.DataFrame(
+    X_train_prepared,
+    columns = colname,
+    index = X_train.index)
+```
+
+```{python}
+X_train_df.head()
+```
+
+```{python}
+X_test_prepared = full_pipeline.transform(X_test)
+```
+
+```{python}
+colname =list_num+full_pipeline.named_transformers_['cat'].get_feature_names_out().tolist()
+
+X_test_df = pd.DataFrame(
+    X_test_prepared,
+    columns = colname,
+    index = X_test.index)
+```
+
+```{python}
+X_test_df.head()
+```
+
+### 머신러닝 적용
+
+#### linear regression
+
+```{python}
+from sklearn.linear_model import LinearRegression
+
+lin_reg = LinearRegression()
+lin_reg.fit(X_train_df,y_train)
+
+lin_pred = lin_reg.predict(X_test_df)
+lin_mse = mean_squared_error(y_test,lin_pred)
+lin_mse**0.5
+```
+
+#### decision tree regression
+
+```{python}
+from sklearn.tree import DecisionTreeRegressor
+
+tree_reg = DecisionTreeRegressor(random_state=2023)
+tree_reg.fit(X_train_df,y_train)
+
+tree_pred = tree_reg.predict(X_test_df)
+tree_mse = mean_squared_error(y_test,tree_pred)
+tree_mse**0.5
+```
+
+#### randomforest regression
+
+```{python}
+from sklearn.ensemble import RandomForestRegressor
+
+forest_reg = RandomForestRegressor(n_estimators=100, random_state=2023)
+forest_reg.fit(X_train_df,y_train)
+
+forest_pred = forest_reg.predict(X_test_df)
+forest_mse = mean_squared_error(y_test,forest_pred)
+forest_mse**0.5
+```
+
+#### xgboost
+
+```{python}
+import xgboost
+
+xgb_reg = xgboost.XGBRegressor(objective='reg:squarederror',n_estimators=100,random_state = 2023)
+xgb_reg.fit(X_train_df,y_train)
+
+xgb_pred = xgb_reg.predict(X_test_df)
+xgb_mse = mean_squared_error(y_test,xgb_pred)
+xgb_mse**0.5
+```
+
+#### lightgbm
+
+```{python, include = FALSE}
+import lightgbm as lgb
+
+params = {}
+
+train_ds = lgb.Dataset(X_train_df, label = y_train) 
+test_ds = lgb.Dataset(X_test_df, label = y_test)
+
+lgb_reg = lgb.train(params, train_ds, 1000, test_ds, verbose_eval=100, early_stopping_rounds=100)
+
+lgb_pred = lgb_reg.predict(X_test_prepared)
+lgb_mse = mean_squared_error(y_test,lgb_pred)
+```
+
+```{python,eval = FALSE}
+import lightgbm as lgb
+
+params = {}
+
+train_ds = lgb.Dataset(X_train_df, label = y_train) 
+test_ds = lgb.Dataset(X_test_df, label = y_test)
+
+lgb_reg = lgb.train(params, train_ds, 1000, test_ds, verbose_eval=100, early_stopping_rounds=100)
+
+lgb_pred = lgb_reg.predict(X_test_prepared)
+lgb_mse = mean_squared_error(y_test,lgb_pred)
+```
+
+```{python}
+lgb_mse**0.5
+```
+
+#### catboost
+
+```{python, include = FALSE}
+import catboost as cb
+cb_reg = cb.CatBoostRegressor()
+cb_reg.fit(X_train_df,y_train)
+
+cb_pred = cb_reg.predict(X_test_df)
+cb_mse = mean_squared_error(y_test,cb_pred)
+```
+
+```{python, eval=FALSE}
+import catboost as cb
+cb_reg = cb.CatBoostRegressor()
+cb_reg.fit(X_train_df,y_train)
+
+cb_pred = cb_reg.predict(X_test_df)
+cb_mse = mean_squared_error(y_test,cb_pred)
+```
+
+```{python}
+cb_mse**0.5
+```
+
+### 딥러닝 적용
+
+```{python}
+import tensorflow as tf
+
+from tensorflow import keras
+from tensorflow.keras import layers
+```
+
+#### model_1
+
+```{python, eval = FALSE}
+model_1 = keras.Sequential([
+          layers.Dense(20, activation='relu'),
+        layers.Dense(40, activation='relu'),
+        layers.Dense(20, activation='relu'),
+        layers.Dense(10, activation='relu'),
+        layers.Dense(5, activation='relu'),
+        layers.Dense(1)
+      ])
+model_1.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_squared_error'])
+```
+
+```{python, eval = FALSE}
+class PrintDot(keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs):
+        if epoch % 100 == 0: print('')
+        print('.', end='')
+  
+EPOCHS = 300
+
+model_1.fit(
+    X_train_df,
+    y_train,
+    validation_split=0.2,
+    verbose=0,epochs=EPOCHS,callbacks=[PrintDot()])
+```
+
+```{python, eval = FALSE}
+mod_1_pred = model_1.predict(X_test_prepared)
+mod_1_mse = mean_squared_error(y_test,mod_1_pred)
+mod_1_mse**0.5
+```
+
+#### model_2
+
+```{python, eval = FALSE}
+model_2 = keras.Sequential([
+          layers.Dense(20, activation='relu'),
+        layers.Dense(40, activation='relu'),
+        layers.Dense(20, activation='relu'),
+        layers.Dense(10, activation='relu'),
+        layers.Dense(1)
+      ])
+model_2.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_squared_error'])
+```
+
+```{python, eval = FALSE}
+EPOCHS = 300
+
+model_2.fit(
+    X_train_df,
+    y_train,
+    validation_split=0.2,
+    verbose=0,epochs=EPOCHS)
+```
+
+```{python, eval = FALSE}
+mod_2_pred = model_2.predict(X_test_prepared)
+mod_2_mse = mean_squared_error(y_test,mod_2_pred)
+mod_2_mse**0.5
+```
+
+#### model_3
+
+```{python, eval = FALSE}
+model_3 = keras.Sequential([
+          layers.Dense(20, activation='relu'),
+        layers.Dense(10, activation='relu'),
+        layers.Dense(8, activation='relu'),
+        layers.Dense(4, activation='relu'),
+        layers.Dense(2, activation='relu'),
+        layers.Dense(1)
+      ])
+model_3.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_squared_error'])
+```
+
+```{python, eval = FALSE}
+EPOCHS = 300
+
+model_3.fit(
+    X_train_df,
+    y_train,
+    validation_split=0.2,
+    verbose=0,epochs=EPOCHS)
+```
+
+```{python, eval = FALSE}
+mod_3_pred = model_3.predict(X_test_prepared)
+mod_3_mse = mean_squared_error(y_test,mod_2_pred)
+mod_3_mse**0.5
+```
+
+#### model_4
+
+```{python, eval = FALSE}
+model_4 = keras.Sequential([
+          layers.Dense(20, activation='relu'),
+        layers.Dense(40, activation='relu'),
+        layers.Dense(20, activation='relu'),
+        layers.Dense(10, activation='relu'),
+        layers.Dense(5, activation='relu'),
+        layers.Dense(1)
+      ])
+model_4.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_squared_error'])
+```
+
+```{python, eval = FALSE}
+EPOCHS = 1000
+
+model_4.fit(
+    X_train_df,
+    y_train,
+    validation_split=0.2,
+    verbose=0,epochs=EPOCHS)
+```
+
+```{python, eval = FALSE}
+mod_4_pred = model_4.predict(X_test_prepared)
+mod_4_mse = mean_squared_error(y_test,mod_2_pred)
+mod_4_mse**0.5
+```
+
+#### model_5
+
+```{python, eval = FALSE}
+model_5 = keras.Sequential([
+          layers.Dense(20, activation='relu'),
+        layers.Dense(40, activation='relu'),
+        layers.Dense(20, activation='relu'),
+        layers.Dense(10, activation='relu'),
+        layers.Dense(5, activation='relu'),
+        layers.Dense(1)
+      ])
+model_5.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_squared_error'])
+```
+
+```{python, eval = FALSE}
+early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
+
+class PrintDot(keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs):
+        if epoch % 100 == 0: print('')
+        print('.', end='')
+  
+
+model_5.fit(
+    X_train_df,
+    y_train,epochs=EPOCHS,
+    validation_split=0.2,
+     verbose=0, callbacks=[early_stop, PrintDot()])
+```
+
+```{python, eval = FALSE}
+mod_5_pred = model_5.predict(X_test_prepared)
+mod_5_mse = mean_squared_error(y_test,mod_2_pred)
+mod_5_mse**0.5
+```
+
+#### model_6
+
+```{python, eval = FALSE}
+model_6 = keras.Sequential([
+          layers.Dense(20, activation='relu'),
+        layers.Dense(40, activation='relu'),
+        layers.Dense(20, activation='relu'),
+        layers.Dense(10, activation='relu'),
+        layers.Dense(5, activation='relu'),
+        layers.Dense(1)
+      ])
+model_6.compile(loss='mean_squared_error', optimizer='adam', metrics=['mean_squared_error'])
+```
+
+```{python, eval = FALSE}
+early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=20)
+
+class PrintDot(keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs):
+        if epoch % 100 == 0: print('')
+        print('.', end='')
+  
+
+model_6.fit(
+    X_train_df,
+    y_train,epochs=EPOCHS,
+    validation_split=0.2,
+     verbose=0, callbacks=[early_stop, PrintDot()])
+```
+
+```{python, eval = FALSE}
+mod_6_pred = model_6.predict(X_test_prepared)
+mod_6_mse = mean_squared_error(y_test,mod_2_pred)
+mod_6_mse**0.5
+```
+
+예측 성능 비교
+
+| regressor     | RMSE      |
+|---------------|-----------|
+| linear reg    | 252.00    |
+| decision tree | 95.46     |
+| randomforest  | **73.79** |
+| xgboost       | 79.17     |
+| lightgbm      | 74.42     |
+| catboost      | 78.88     |
+
+| model   | layers          | epochs | RMSE   |
+|---------|-----------------|--------|--------|
+| model_1 | 20/40/20/10/5/1 | 300    | 91.26  |
+| model_2 | 20/40/20/10/1   | 300    | 95.23  |
+| model_3 | 20/10/8/4/2/1   | 300    | 101.18 |
+| model_4 | 20/40/20/10/5/1 | 1000   | 89.54  |
+| model_5 | 20/40/20/10/5/1 | 181    | 101.18 |
+| model_6 | 20/40/20/10/5/1 | 279    | 101.22 |
+
+```{python}
+import matplotlib.pyplot as plt
+
+def visualize(pred):
+    plt.scatter(y_test,pred,alpha = 0.02)
+    plt.xlabel('True Values')
+    plt.ylabel('Predictions')
+    plt.axis('equal')
+    plt.axis('square')
+    plt.plot([-100,5000], [-100,5000])
+    
+prediction = [lin_pred, tree_pred, forest_pred, xgb_pred, lgb_pred, cb_pred] 
+titles = ['linear','tree','forest','xgb','lgb','cb']
+
+for i in range(len(prediction)):
+    plt.subplot(2,3,i+1)
+    visualize(prediction[i])
+    plt.title(titles[i])
+    plt.tight_layout()
+
+plt.show()
+```
+
+머신러닝 모델별 예측력 시각화
+
+### 해석
+
+랜덤 포레스트 모델의 성능이 좋다는 것을 알 수 있지만, 학습, 예측과정을 알 수 없으므로, 단일 트리를 통해 어떻게 값에 도출하는가를 볼 수 있다.
+
+```{python}
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+fig = plt.figure(figsize=(15, 10))
+
+forest_reg_4 = RandomForestRegressor(n_estimators=100,max_depth=6, random_state=2023)
+forest_reg_4.fit(X_train_df,y_train)
+
+
+
+plot_tree(forest_reg_4.estimators_[5],filled=True,impurity=True,rounded=True)
+plt.show()
+```
+
+### 해석 2
+
+변수 중요도를 통해 예측값 결정의 영향력을 알 수 있다.
+
+-   건축년도 변수가 영향을 많이 끼침
+
+-   난방_HT005는 지열난방 방식으로 최근에 지어진 아파트에 많이 적용됨
+
+```{python}
+import numpy as np
+plt.rc('font', family='NanumGothic')
+importance = forest_reg.feature_importances_
+indices = np.argsort(importance)[::-1]
+feature_names =X_train_df.columns
+
+plt.figure(figsize=(10, 6))
+plt.bar(range(X_train_df.shape[1]), importance[indices], align='center')
+plt.xticks(range(X_train_df.shape[1]), [feature_names[i] for i in indices], rotation=45)
+plt.xlabel('Feature')
+plt.ylabel('Importance')
+plt.title('Feature Importance')
+plt.tight_layout()
+plt.show()
+```
+
+### 보완점
+
+-   아파트 단위의 거래금액보다 좁은 범위의 평형 별 데이터 활용 필요
+
+-   다른 추가 변수(상권, 교통수단 등) 수집 필요
+
+-   모델의 파라미터 튜닝 필요
+
+-   딥러닝, 결과 해석 역량 부족
