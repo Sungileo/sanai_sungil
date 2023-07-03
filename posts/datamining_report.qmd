@@ -1,8 +1,10 @@
 ---
-title: "천안시 아파트 가격 분석"
+title: "천안시 아파트 매매가 분석"
 author: "Sungil Park"
 date: "2023/06/17"
-description: "아파트 실거래가, 네이버부동산, api활용 및 웹크롤링"
+description: "아파트 실거래가, 네이버부동산, api활용 및 웹크롤링 / 데이터마이닝 (2023-1)"
+categories: python
+image: "cn.png"
 ---
 
 ```{r}
@@ -73,7 +75,6 @@ cheonan = pd.concat([cheonan_dongnam,cheonan_seobuk])
 ### 학교 데이터
 
 학군 정보를 수집하기 위해 [천안시청 학교현황](https://www.cheonan.go.kr/prog/eduInfo/kor/sub05_07_02_01/1/list.do?pageIndex=5)을 통해 얻어낸 학교데이터를 구글 스프레드시트 지오코딩을 통해 지리데이터로 변환하였다.
-
 
 [초등학교](https://github.com/Sungileo/trainsets_2/blob/main/%EC%B4%88%EB%93%B1%ED%95%99%EA%B5%90%20%EC%9C%84%EA%B2%BD%EB%8F%84.csv)
 

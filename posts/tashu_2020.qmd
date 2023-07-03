@@ -1,9 +1,10 @@
 ---
-title: "Tashu data analysis"
+title: "타슈 데이터 분석"
 author: "sungil_park"
 date: "2023/06/26"
 date-modified: "2023/06/26"
 description: "geocomputation final test (2023-1)"
+image: "tsu.png"
 categories: r
 editor_options: 
   chunk_output_type: inline

@@ -1,5 +1,5 @@
 ---
-title: "Visualize bus stop usage data near Hannam University"
+title: "한남대학교 주변 버스정류장 이용량 시각화"
 author: "Sungil Park"
 date: "2023/06/10"
 date-modified: "2023/06/10"
