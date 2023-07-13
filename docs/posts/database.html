@@ -8,7 +8,7 @@
 
 <meta name="author" content="Sungil Park">
 <meta name="dcterms.date" content="2023-07-01">
-<meta name="description" content="라즈베리파이, MySQL, MariaDB, 원격연결 / 개인프로젝트 (2023-2)">
+<meta name="description" content="라즈베리파이, MySQL, MariaDB, 원격연결">
 
 <title>Sungil_Park - 데이터베이스 만들기</title>
 <style>
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -90,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../kaggle_geo.html" rel="" target="">
- <span class="menu-text">Basics example</span></a>
+ <span class="menu-text">Basics examples</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../recordings.html" rel="" target="">
@@ -168,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    라즈베리파이, MySQL, MariaDB, 원격연결 / 개인프로젝트 (2023-2)
+    라즈베리파이, MySQL, MariaDB, 원격연결
   </div>
 </div>
 
@@ -199,9 +233,85 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="라즈베리파이">라즈베리파이</h2>
 <section id="os-설치" class="level3">
 <h3 class="anchored" data-anchor-id="os-설치">os 설치</h3>
+<p>라즈베리파이에 os를 설치하기 위해 먼저 PC에 <a href="https://www.raspberrypi.com/software/"><strong>Raspberry Pi Imager</strong></a>를 설치한다.</p>
+<p><img src="../img/imager.png" class="img-fluid"></p>
+<p><a href="https://www.raspberrypi.com/software/operating-systems/"><strong>이미지 파일</strong></a>을 따로 다운받아서</p>
+<ul>
+<li><p>운영체제 -&gt; 사용자 정의 사용 -&gt; 다운받은 이미지 파일</p></li>
+<li><p>저장소 -&gt; 사용할 SD카드</p></li>
+</ul>
+<p>경로로 쓰기 하였다.</p>
+<p>이미지 쓰기를 완료한 후, SD카드를 라즈베리파이에 꽃아 부팅한다.</p>
 </section>
 <section id="mariadb-세팅" class="level3">
 <h3 class="anchored" data-anchor-id="mariadb-세팅">MariaDB 세팅</h3>
+<p>라즈베리파이에 인터넷 연결을 하고 MariaDB를 설치한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Terminal</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sudo apt install mariadb<span class="sc">-</span>server</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sudo apt install mariadb<span class="sc">-</span>client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>root 비밀번호 설정, 익명계정, 원격접속 허용 여부를 설정한다.</p>
+<p>실행</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Terminal</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sudo mysql <span class="sc">-</span>u root <span class="sc">-</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>root 유저로(-u) 비밀번호(-p) 인증 접속</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Terminal</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sungil<span class="sc">@</span>sungil<span class="sc">-</span>950QDB<span class="sc">:</span><span class="er">~$</span> mysql <span class="sc">-</span>u root <span class="sc">-</span>p</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Enter password<span class="sc">:</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Welcome to the MariaDB monitor.  Commands end with ; or \g.</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Your MariaDB connection id is <span class="dv">11</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Server version<span class="sc">:</span> <span class="dv">10</span>.<span class="fl">3.38</span><span class="sc">-</span>MariaDB<span class="sc">-</span>0ubuntu0.<span class="dv">20</span>.<span class="fl">04.1</span> Ubuntu <span class="fl">20.04</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Copyright</span> (c) <span class="dv">2000</span>, <span class="dv">2018</span>, Oracle, MariaDB Corporation Ab and others.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>Type <span class="st">'help;'</span> or <span class="st">'\h'</span> <span class="cf">for</span> help. Type <span class="st">'\c'</span> to clear the current input statement.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>show databases;</code> 명령어로 데이터베이스 목록을 볼 수 있다.</p>
+<p>기본 데이터베이스 3개를 확인할 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>MariaDB [(none)]<span class="sc">&gt;</span> show databases;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+--------------------+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> Database           <span class="sc">|</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+--------------------+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> information_schema <span class="sc">|</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> mysql              <span class="sc">|</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> performance_schema <span class="sc">|</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+--------------------+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> rows <span class="cf">in</span> <span class="fu">set</span> (<span class="fl">0.010</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>create database '데이터베이스 이름';</code> 명령어로 새 데이터베이스를 만들 수 있다.</p>
+<p><code>drop database '데이터베이스 이름';</code> 으로 데이터베이스를 삭제한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>MariaDB [(none)]<span class="sc">&gt;</span> create database new_db;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Query OK, <span class="dv">1</span> row <span class="fu">affected</span> (<span class="fl">0.001</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>MariaDB [(none)]<span class="sc">&gt;</span> show databases;</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+--------------------+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> Database           <span class="sc">|</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+--------------------+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> information_schema <span class="sc">|</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> mysql              <span class="sc">|</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> new_db             <span class="sc">|</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> performance_schema <span class="sc">|</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+--------------------+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> rows <span class="cf">in</span> <span class="fu">set</span> (<span class="fl">0.001</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>select host,user,plugin,authentication_string from mysql.user;</code> 명령어로 유저명과 보안방식을 볼 수 있다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>MariaDB [(none)]<span class="sc">&gt;</span> select host,user,plugin,authentication_string from mysql.user;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+-----------+------+-----------------------+-------------------------------------------+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> host      <span class="sc">|</span> user <span class="sc">|</span> plugin                <span class="sc">|</span> authentication_string                     <span class="sc">|</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+-----------+------+-----------------------+-------------------------------------------+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> localhost <span class="sc">|</span> root <span class="sc">|</span> mysql_native_password <span class="sc">|</span> <span class="er">*</span><span class="fl">3E9</span>FEA9A673179BFC73F9E1357E81FE84FDE72B6 <span class="sc">|</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="er">|</span> %         <span class="sc">|</span> root <span class="sc">|</span>                       <span class="er">|</span>                                           <span class="er">|</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+-----------+------+-----------------------+-------------------------------------------+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> rows <span class="cf">in</span> <span class="fu">set</span> (<span class="fl">0.000</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="네트워크" class="level2">
