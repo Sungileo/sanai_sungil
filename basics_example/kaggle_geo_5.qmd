@@ -32,14 +32,14 @@ import geopandas as gpd
 미국 펜실베이니아주 필라델피아에서 독성 화학물질의 배출을 추적하는 미국 환경보호청(EPA)의 데이터 세트로 작업하게 됩니다.
 
 ```{python}
-releases = gpd.read_file("C:/archive/toxic_release_pennsylvania/toxic_release_pennsylvania/toxic_release_pennsylvania.shp") 
+releases = gpd.read_file("/home/sungil/dataset/archive/toxic_release_pennsylvania/toxic_release_pennsylvania/toxic_release_pennsylvania.shp") 
 releases.head()
 ```
 
 또한 같은 도시의 대기질 모니터링 스테이션에서 측정한 수치가 포함된 데이터 세트로 작업하게 됩니다.
 
 ```{python}
-stations = gpd.read_file("C:/archive/PhillyHealth_Air_Monitoring_Stations/PhillyHealth_Air_Monitoring_Stations/PhillyHealth_Air_Monitoring_Stations.shp")
+stations = gpd.read_file("/home/sungil/dataset/archive/PhillyHealth_Air_Monitoring_Stations/PhillyHealth_Air_Monitoring_Stations/PhillyHealth_Air_Monitoring_Stations.shp")
 stations.head()
 ```
 
@@ -141,7 +141,7 @@ You are part of a crisis response team, and you want to identify how hospitals h
 Run the code cell below to load a GeoDataFrame collisions tracking major motor vehicle collisions in 2013-2018.
 
 ```{python}
-collisions = gpd.read_file("C:/archive/NYPD_Motor_Vehicle_Collisions/NYPD_Motor_Vehicle_Collisions/NYPD_Motor_Vehicle_Collisions.shp")
+collisions = gpd.read_file("/home/sungil/dataset/archive/NYPD_Motor_Vehicle_Collisions/NYPD_Motor_Vehicle_Collisions/NYPD_Motor_Vehicle_Collisions.shp")
 collisions.head()
 ```
 
@@ -156,7 +156,7 @@ HeatMap(data=collisions[['LATITUDE', 'LONGITUDE']], radius=9).add_to(m_1)
 Run the next code cell to load the hospital data.
 
 ```{python}
-hospitals = gpd.read_file("C:/archive/nyu_2451_34494/nyu_2451_34494/nyu_2451_34494.shp")
+hospitals = gpd.read_file("/home/sungil/dataset/archive/nyu_2451_34494/nyu_2451_34494/nyu_2451_34494.shp")
 hospitals.head()
 ```
 

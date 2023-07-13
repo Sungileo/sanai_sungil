@@ -181,6 +181,7 @@ mpg['hwy+displ']
 ## img
 
 ```{python}
+#!pip install opencv-python
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -199,37 +200,4 @@ plt.imshow(img_gray,"gray")
 plt.show()
 ```
 
-## Geopandas
 
-```{python}
-import geopandas as gpd
-```
-
-```{python}
-full_data = gpd.read_file("C:/archive/DEC_lands/DEC_lands/DEC_lands.shp")
-```
-
-```{python}
-type(full_data)
-```
-
-```{python}
-data = full_data.loc[:, ["CLASS", "COUNTY", "geometry"]].copy()
-data.head()
-```
-
-### How many lands of each type are there?
-
-```{python}
-data.CLASS.value_counts()
-```
-
-```{python}
-# Select lands that fall under the "WILD FOREST" or "WILDERNESS" category
-wild_lands = data.loc[data.CLASS.isin(['WILD FOREST', 'WILDERNESS'])].copy()
-wild_lands.head()
-```
-
-```{python}
-wild_lands.plot()
-```

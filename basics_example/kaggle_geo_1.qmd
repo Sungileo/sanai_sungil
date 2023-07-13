@@ -52,8 +52,7 @@ import geopandas as gpd
 
 ```{python}
 # Read in the data
-full_data = gpd.read_file("C:/archive/DEC_lands/DEC_lands/DEC_lands.shp")
-
+full_data = gpd.read_file("/home/sungil/dataset/archive/DEC_lands/DEC_lands/DEC_lands.shp")
 # View the first five rows of the data
 full_data.head()
 ```
@@ -107,17 +106,17 @@ wild_lands.plot()
 
 ```{python}
 # Campsites in New York state (Point)
-POI_data = gpd.read_file("C:/archive/DEC_pointsinterest/DEC_pointsinterest/Decptsofinterest.shp")
+POI_data = gpd.read_file("/home/sungil/dataset/archive/DEC_pointsinterest/DEC_pointsinterest/Decptsofinterest.shp")
 
 campsites = POI_data.loc[POI_data.ASSET=='PRIMITIVE CAMPSITE'].copy()
 
 # Foot trails in New York state (LineString)
-roads_trails = gpd.read_file("C:/archive/DEC_roadstrails/DEC_roadstrails/Decroadstrails.shp")
+roads_trails = gpd.read_file("/home/sungil/dataset/archive/DEC_roadstrails/DEC_roadstrails/Decroadstrails.shp")
 
 trails = roads_trails.loc[roads_trails.ASSET=='FOOT TRAIL'].copy()
 
 # County boundaries in New York state (Polygon)
-counties = gpd.read_file("C:/archive/NY_county_boundaries/NY_county_boundaries/NY_county_boundaries.shp")
+counties = gpd.read_file("/home/sungil/dataset/archive/NY_county_boundaries/NY_county_boundaries/NY_county_boundaries.shp")
 ```
 
 다음으로, 네 개의 지리 데이터프레임으로 맵을 만듭니다.
@@ -143,7 +142,7 @@ trails.plot(color='black', markersize=1, ax=ax)
 ### Get data
 
 ```{python}
-world_loans = gpd.read_file("C:/archive/kiva_loans/kiva_loans/kiva_loans.shp")
+world_loans = gpd.read_file("/home/sungil/dataset/archive/kiva_loans/kiva_loans/kiva_loans.shp")
 world_loans.head()
 ```
 
@@ -172,7 +171,7 @@ PHL_loans.head()
 ```{python}
 gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
-PHL = gpd.read_file("C:/archive/Philippines_AL258.kml",driver = "KML")
+PHL = gpd.read_file("/home/sungil/dataset/archive/Philippines_AL258.kml",driver = "KML")
 PHL.head()
 ```
 

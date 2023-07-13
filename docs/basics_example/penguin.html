@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,7 +92,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -255,35 +256,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>데이터 정보</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">"species"</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-Int64Index: 333 entries, 0 to 343
-Data columns (total 7 columns):
- #   Column             Non-Null Count  Dtype  
----  ------             --------------  -----  
- 0   species            333 non-null    object 
- 1   island             333 non-null    object 
- 2   bill_length_mm     333 non-null    float64
- 3   bill_depth_mm      333 non-null    float64
- 4   flipper_length_mm  333 non-null    float64
- 5   body_mass_g        333 non-null    float64
- 6   sex                333 non-null    object 
-dtypes: float64(4), object(3)
-memory usage: 20.8+ KB</code></pre>
+<pre><code>array(['Adelie', 'Chinstrap', 'Gentoo'], dtype=object)</code></pre>
 </div>
 </div>
 <p><code>species</code> 별 평균치</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins.groupby(<span class="st">'species'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins.groupby(<span class="st">'species'</span>).mean(numeric_only<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g
 species                                                                 
 Adelie          38.823973      18.347260         190.102740  3706.164384
 Chinstrap       48.833824      18.420588         195.823529  3733.088235
-Gentoo          47.568067      14.996639         217.235294  5092.436975
-
-&lt;string&gt;:1: FutureWarning: The default value of numeric_only in DataFrameGroupBy.mean is deprecated. In a future version, numeric_only will default to False. Either specify numeric_only or select only columns which should be valid for the function.</code></pre>
+Gentoo          47.568067      14.996639         217.235294  5092.436975</code></pre>
 </div>
 </div>
 <p><code>tensorflow</code> 설치 &amp; 임포트</p>
@@ -299,7 +285,7 @@ Gentoo          47.568067      14.996639         217.235294  5092.436975
 <h2 class="anchored" data-anchor-id="전처리">전처리</h2>
 <p>카테고리형 변수인 <code>species</code>, <code>island</code>, <code>sex</code> 를 더미 변수화를 통해 0,1로 변환</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins_cat <span class="op">=</span> pd.get_dummies(penguins,columns<span class="op">=</span>[<span class="st">'species'</span>,<span class="st">'island'</span>,<span class="st">'sex'</span>])</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>penguins_cat <span class="op">=</span> pd.get_dummies(penguins,columns<span class="op">=</span>[<span class="st">'species'</span>,<span class="st">'island'</span>,<span class="st">'sex'</span>],dtype <span class="op">=</span> <span class="bu">int</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>penguins_cat.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   bill_length_mm  bill_depth_mm  ...  sex_Female  sex_Male
@@ -402,8 +388,8 @@ Normalized: [[ 0.26 -1.85  0.93 -0.89 -0.52  1.38  1.05 -0.8  -0.4   1.03 -1.03]
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
- normalization (Normalizatio  (None, 11)               23        
- n)                                                              
+ normalization (Normalizati  (None, 11)                23        
+ on)                                                             
                                                                  
  dense (Dense)               (None, 64)                768       
                                                                  
@@ -416,9 +402,9 @@ _________________________________________________________________
  dense_4 (Dense)             (None, 1)                 9         
                                                                  
 =================================================================
-Total params: 3,544
-Trainable params: 3,521
-Non-trainable params: 23
+Total params: 3544 (13.85 KB)
+Trainable params: 3521 (13.75 KB)
+Non-trainable params: 23 (96.00 Byte)
 _________________________________________________________________</code></pre>
 </div>
 </div>
@@ -462,11 +448,11 @@ _________________________________________________________________</code></pre>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>hist.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           loss         mae           mse  ...     val_mae        val_mse  epoch
-995  190.184067  190.184067  67425.281250  ...  253.265350   99205.835938    995
-996  190.214340  190.214340  68492.273438  ...  256.937439  101602.390625    996
-997  190.021362  190.021362  68327.445312  ...  255.675980  101125.812500    997
-998  190.237137  190.237137  68325.460938  ...  254.178970   99429.500000    998
-999  190.792786  190.792786  67949.664062  ...  249.835861   98201.281250    999
+995  193.820023  193.820023  69173.773438  ...  258.948395  102586.812500    995
+996  193.780334  193.780334  70137.265625  ...  253.879974  102460.656250    996
+997  190.886429  190.886429  68592.234375  ...  261.483246  105265.492188    997
+998  191.024918  191.024918  68689.812500  ...  259.399963  105421.070312    998
+999  190.767319  190.767319  68442.976562  ...  258.862946  104615.492188    999
 
 [5 rows x 7 columns]</code></pre>
 </div>
@@ -505,7 +491,8 @@ _________________________________________________________________</code></pre>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                    validation_split <span class="op">=</span> <span class="fl">0.2</span>, verbose<span class="op">=</span><span class="dv">0</span>, callbacks<span class="op">=</span>[early_stop, PrintDot()])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-..........................................................................................</code></pre>
+....................................................................................................
+.....................................................................</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plot_history(history)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

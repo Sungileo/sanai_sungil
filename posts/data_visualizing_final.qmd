@@ -21,7 +21,7 @@ library(tidyverse)
 ```{r, include=FALSE}
 daejeon_bus <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/daejeon_bus_2.csv",sep = "|")
 
-st_2 <- read.csv("C:/trainsets_2/station-info_4.txt",sep = "|")
+st_2 <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/station-info_4.txt",sep = "|")
 
 st_2 <- st_2 %>% select(BUS_NODE_ID,BUS_NODE_NM)
 names(st_2)[1] <- "BUS_STTN_ID"

@@ -235,43 +235,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>투영된 점이 지구상의 실제 위치와 어떻게 일치하는지 보여주기 위해 좌표 참조 시스템(CRS)을 사용합니다.</p>
 <p>이 튜토리얼에서는 좌표 참조계에 대해 자세히 알아보고 Geopandas에서 좌표 참조계를 사용하는 방법을 알아봅니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\geopandas\_compat.py:123: UserWarning: The Shapely GEOS version (3.10.1-CAPI-1.16.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
-  warnings.warn(</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="setting-the-crs" class="level2">
 <h2 class="anchored" data-anchor-id="setting-the-crs">Setting the CRS</h2>
 <p>When we create a GeoDataFrame from a shapefile, the CRS is already imported for us.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>regions <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/ghana/ghana/Regions/Map_of_Regions_in_Ghana.shp"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regions.crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>regions <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/ghana/ghana/Regions/Map_of_Regions_in_Ghana.shp"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regions.crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>epsg:32630</code></pre>
+<pre><code>EPSG:32630</code></pre>
 </div>
 </div>
 <p>좌표 참조 시스템은 유럽 석유 측량 그룹(EPSG) 코드에 의해 참조됩니다.</p>
 <p>이 지리데이터 프레임은 일반적으로 “메르카토르” 투영법이라고 더 많이 불리는 EPSG 32630을 사용합니다. 이 투영법은 각도를 보존하고 면적을 약간 왜곡합니다.</p>
 <p>그러나 CSV 파일에서 GeoDataFrame을 만들 때는 CRS를 설정해야 합니다. EPSG 4326은 위도 및 경도 좌표에 해당합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame with health facilities in Ghana</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>facilities_df <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/ghana/ghana/health_facilities.csv"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the DataFrame to a GeoDataFrame</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>facilities <span class="op">=</span> gpd.GeoDataFrame(facilities_df, geometry<span class="op">=</span>gpd.points_from_xy(facilities_df.Longitude, facilities_df.Latitude))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the coordinate reference system (CRS) to EPSG 4326</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>facilities.crs <span class="op">=</span> {<span class="st">'init'</span>: <span class="st">'epsg:4326'</span>}</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first five rows of the GeoDataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame with health facilities in Ghana</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>facilities_df <span class="op">=</span> pd.read_csv(<span class="st">"/home/sungil/dataset/archive/ghana/ghana/health_facilities.csv"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the DataFrame to a GeoDataFrame</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>facilities <span class="op">=</span> gpd.GeoDataFrame(facilities_df, geometry<span class="op">=</span>gpd.points_from_xy(facilities_df.Longitude, facilities_df.Latitude))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the coordinate reference system (CRS) to EPSG 4326</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>facilities.crs <span class="op">=</span> {<span class="st">'init'</span>: <span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\pyproj\crs\crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+<pre><code>/home/sungil/.local/lib/python3.8/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
   in_crs_string = _prepare_from_proj_string(in_crs_string)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>facilities.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first five rows of the GeoDataFrame</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>facilities.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Region          District  ... Longitude                  geometry
 0  Ashanti     Offinso North  ...  -1.96317  POINT (-1.96317 7.40801)
@@ -294,8 +289,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="re-projecting">Re-projecting</h2>
 <p>재투영은 CRS를 변경하는 프로세스를 말합니다. 이 작업은 GeoPandas에서 <code>to_crs()</code> 메서드를 사용하여 수행됩니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> regions.plot(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>), color<span class="op">=</span><span class="st">'whitesmoke'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>facilities.to_crs(epsg<span class="op">=</span><span class="dv">32630</span>).plot(markersize<span class="op">=</span><span class="dv">1</span>, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> regions.plot(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>), color<span class="op">=</span><span class="st">'whitesmoke'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>facilities.to_crs(epsg<span class="op">=</span><span class="dv">32630</span>).plot(markersize<span class="op">=</span><span class="dv">1</span>, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kaggle_geo_2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -304,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>GeoPandas에서 EPSG 코드를 사용할 수 없는 경우, CRS의 “proj4 string”이라고 알려진 것을 사용하여 CRS를 변경할 수 있습니다.</p>
 <p>예를 들어 위도/경도 좌표로 변환하는 proj4 문자열은 다음과 같습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>regions.to_crs(<span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>regions.to_crs(<span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"</span>).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Region                                           geometry
 0        Ashanti  POLYGON ((-1.30985 7.62302, -1.30786 7.62198, ...
@@ -321,8 +316,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>지진의 진원지를 나타내는 <code>Point</code>, 거리의 경우 <code>LineString</code>, 또는 <code>Polygon</code>을 사용하여 국가 경계를 표시할 수 있습니다. 세 가지 유형의 기하학적 개체 모두 데이터 집합을 빠르게 분석하는 데 사용할 수 있는 기본 속성이 있습니다.</p>
 <p>예를 들어, x 및 y 속성에서 각각 점의 x 및 y 좌표를 가져올 수 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the x-coordinate of each point</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>facilities.geometry.head().x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the x-coordinate of each point</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>facilities.geometry.head().x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0   -1.96317
 1   -1.58592
@@ -337,18 +332,18 @@ dtype: float64</code></pre>
 <li><p>또는 면적 속성에서 <code>Polygon</code>의 면적을 구할 수 있습니다.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the area (in square meters) of each polygon in the GeoDataFrame </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>regions.loc[:, <span class="st">"AREA"</span>] <span class="op">=</span> regions.geometry.area <span class="op">/</span> <span class="dv">10</span><span class="op">**</span><span class="dv">6</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Area of Ghana: </span><span class="sc">{}</span><span class="st"> square kilometers"</span>.<span class="bu">format</span>(regions.AREA.<span class="bu">sum</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the area (in square meters) of each polygon in the GeoDataFrame </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>regions.loc[:, <span class="st">"AREA"</span>] <span class="op">=</span> regions.geometry.area <span class="op">/</span> <span class="dv">10</span><span class="op">**</span><span class="dv">6</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Area of Ghana: </span><span class="sc">{}</span><span class="st"> square kilometers"</span>.<span class="bu">format</span>(regions.AREA.<span class="bu">sum</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Area of Ghana: 239584.5760055668 square kilometers</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CRS:"</span>, regions.crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CRS:"</span>, regions.crs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CRS: epsg:32630</code></pre>
+<pre><code>CRS: EPSG:32630</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>regions.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>regions.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          Region  ...          AREA
 0        Ashanti  ...  24379.017777
@@ -370,19 +365,19 @@ dtype: float64</code></pre>
 <p>You are a bird conservation expert and want to understand migration patterns of purple martins. In your research, you discover that these birds typically spend the summer breeding season in the eastern United States, and then migrate to South America for the winter. But since this bird is under threat of endangerment, you’d like to take a closer look at the locations that these birds are more likely to visit.</p>
 <p>There are several protected areas in South America, which operate under special regulations to ensure that species that migrate (or live) there have the best opportunity to thrive. You’d like to know if purple martins tend to visit these areas. To answer this question, you’ll use some recently collected data that tracks the year-round location of eleven different birds.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> LineString</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> LineString</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-data">Load data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data and print the first 5 rows</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>birds_df <span class="op">=</span> pd.read_csv(<span class="st">"C:/archive/purple_martin.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">'timestamp'</span>])</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"There are </span><span class="sc">{}</span><span class="st"> different birds in the dataset."</span>.<span class="bu">format</span>(birds_df[<span class="st">"tag-local-identifier"</span>].nunique()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data and print the first 5 rows</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>birds_df <span class="op">=</span> pd.read_csv(<span class="st">"/home/sungil/dataset/archive/purple_martin.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">'timestamp'</span>])</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"There are </span><span class="sc">{}</span><span class="st"> different birds in the dataset."</span>.<span class="bu">format</span>(birds_df[<span class="st">"tag-local-identifier"</span>].nunique()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 11 different birds in the dataset.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>birds_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>birds_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            timestamp  location-long  location-lat  tag-local-identifier
 0 2014-08-15 05:56:00     -88.146014     17.513049                 30448
@@ -393,13 +388,13 @@ dtype: float64</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create the GeoDataFrame</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>birds <span class="op">=</span> gpd.GeoDataFrame(birds_df, geometry<span class="op">=</span>gpd.points_from_xy(birds_df[<span class="st">"location-long"</span>], birds_df[<span class="st">"location-lat"</span>]))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the CRS to {'init': 'epsg:4326'}</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>birds.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create the GeoDataFrame</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>birds <span class="op">=</span> gpd.GeoDataFrame(birds_df, geometry<span class="op">=</span>gpd.points_from_xy(birds_df[<span class="st">"location-long"</span>], birds_df[<span class="st">"location-lat"</span>]))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the CRS to {'init': 'epsg:4326'}</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>birds.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\pyproj\crs\crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+<pre><code>/home/sungil/.local/lib/python3.8/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
   in_crs_string = _prepare_from_proj_string(in_crs_string)</code></pre>
 </div>
 </div>
@@ -408,9 +403,12 @@ dtype: float64</code></pre>
 <h3 class="anchored" data-anchor-id="plot-the-data">Plot the data</h3>
 <p>GeoPandas에서 ‘naturalearth_lowres’ 데이터 집합을 로드하고, 아메리카 대륙의 모든 국가(북미와 남미 모두)의 경계를 포함하는 GeoDataFrame에 americas를 설정합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>americas <span class="op">=</span> world.loc[world[<span class="st">'continent'</span>].isin([<span class="st">'North America'</span>, <span class="st">'South America'</span>])]</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>americas.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;string&gt;:1: FutureWarning: The geopandas.dataset module is deprecated and will be removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>americas <span class="op">=</span> world.loc[world[<span class="st">'continent'</span>].isin([<span class="st">'North America'</span>, <span class="st">'South America'</span>])]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>americas.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        pop_est  ...                                           geometry
 3    37589262.0  ...  MULTIPOLYGON (((-122.84000 49.00000, -122.9742...
@@ -436,23 +434,21 @@ dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GeoDataFrame showing path for each bird</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>path_df <span class="op">=</span> birds.groupby(<span class="st">"tag-local-identifier"</span>)[<span class="st">'geometry'</span>].<span class="bu">apply</span>(<span class="bu">list</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: LineString(x)).reset_index()</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>path_gdf <span class="op">=</span> gpd.GeoDataFrame(path_df, geometry<span class="op">=</span>path_df.geometry)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>path_gdf.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># GeoDataFrame showing starting point for each bird</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>path_gdf.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\pyproj\crs\crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+<pre><code>/home/sungil/.local/lib/python3.8/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
   in_crs_string = _prepare_from_proj_string(in_crs_string)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>start_df <span class="op">=</span> birds.groupby(<span class="st">"tag-local-identifier"</span>)[<span class="st">'geometry'</span>].<span class="bu">apply</span>(<span class="bu">list</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]).reset_index()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>start_gdf <span class="op">=</span> gpd.GeoDataFrame(start_df, geometry<span class="op">=</span>start_df.geometry)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>start_gdf.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Show first five rows of GeoDataFrame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GeoDataFrame showing starting point for each bird</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>start_df <span class="op">=</span> birds.groupby(<span class="st">"tag-local-identifier"</span>)[<span class="st">'geometry'</span>].<span class="bu">apply</span>(<span class="bu">list</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x[<span class="dv">0</span>]).reset_index()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>start_gdf <span class="op">=</span> gpd.GeoDataFrame(start_df, geometry<span class="op">=</span>start_df.geometry)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>start_gdf.crs <span class="op">=</span> {<span class="st">'init'</span> :<span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\pyproj\crs\crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+<pre><code>/home/sungil/.local/lib/python3.8/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
   in_crs_string = _prepare_from_proj_string(in_crs_string)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>start_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show first five rows of GeoDataFrame</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>start_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   tag-local-identifier                    geometry
 0                 30048  POINT (-90.12992 20.73242)
@@ -467,7 +463,7 @@ dtype: float64</code></pre>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>end_gdf <span class="op">=</span> gpd.GeoDataFrame(end_df, geometry<span class="op">=</span>end_df.geometry)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>end_gdf.crs <span class="op">=</span> {<span class="st">'init'</span>: <span class="st">'epsg:4326'</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\pyproj\crs\crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+<pre><code>/home/sungil/.local/lib/python3.8/site-packages/pyproj/crs/crs.py:141: FutureWarning: '+init=&lt;authority&gt;:&lt;code&gt;' syntax is deprecated. '&lt;authority&gt;:&lt;code&gt;' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
   in_crs_string = _prepare_from_proj_string(in_crs_string)</code></pre>
 </div>
 </div>
@@ -488,7 +484,7 @@ dtype: float64</code></pre>
 <section id="where-are-the-protected-areas-in-south-america-part-1" class="level3">
 <h3 class="anchored" data-anchor-id="where-are-the-protected-areas-in-south-america-part-1">Where are the protected areas in South America? (Part 1)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>protected_areas <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile-polygons.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>protected_areas <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile-polygons.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="where-are-the-protected-areas-in-south-america-part-2" class="level3">

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,7 +92,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -313,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pd.__version__</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'1.5.3'</code></pre>
+<pre><code>'2.0.3'</code></pre>
 </div>
 </div>
 </section>
@@ -734,7 +735,7 @@ Freq: H, dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>temp_series_freq_2H <span class="op">=</span> temp_series.resample(<span class="st">"2H"</span>)</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>temp_series_freq_2H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x000001EB690BF150&gt;</code></pre>
+<pre><code>&lt;pandas.core.resample.DatetimeIndexResampler object at 0x7f977c890b20&gt;</code></pre>
 </div>
 </div>
 <p>리샘플링 연산은 사실 지연된 연산입니다. (<a href="https://ko.wikipedia.org/wiki/%EB%8A%90%EA%B8%8B%ED%95%9C_%EA%B3%84%EC%82%B0%EB%B2%95" class="uri">https://ko.wikipedia.org/wiki/%EB%8A%90%EA%B8%8B%ED%95%9C_%EA%B3%84%EC%82%B0%EB%B2%95</a>) 그래서 <code>Series</code> 객체 대신 <code>DatetimeIndexResampler</code> 객체가 반환됩니다. 실제 리샘플링 연산을 수행하려면 <code>mean()</code> 같은 메서드를 호출할 수 있습니다. 이 메서드는 연속적인 시간 쌍에 대해 평균을 계산합니다:</p>
@@ -1510,18 +1511,18 @@ Data Reshaping!</p>
 <div class="sourceCode cell-code" id="cb183"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value
-0  2000-01-03        A -1.062761
-1  2000-01-04        A  0.788114
-2  2000-01-05        A -0.123874
-3  2000-01-03        B  0.285830
-4  2000-01-04        B -0.026516
-5  2000-01-05        B  0.957603
-6  2000-01-03        C -0.972739
-7  2000-01-04        C -0.492528
-8  2000-01-05        C -0.833670
-9  2000-01-03        D  0.195837
-10 2000-01-04        D -0.543653
-11 2000-01-05        D -2.066368</code></pre>
+0  2000-01-03        A  0.866326
+1  2000-01-04        A  0.357317
+2  2000-01-05        A -0.190643
+3  2000-01-03        B -0.823278
+4  2000-01-04        B -1.839878
+5  2000-01-05        B  0.026374
+6  2000-01-03        C -1.362282
+7  2000-01-04        C  0.569045
+8  2000-01-05        C  1.219017
+9  2000-01-03        D  1.357457
+10 2000-01-04        D -0.807961
+11 2000-01-05        D -1.655508</code></pre>
 </div>
 </div>
 <p>To select out everything for variable A we could do:</p>
@@ -1530,9 +1531,9 @@ Data Reshaping!</p>
 <span id="cb185-2"><a href="#cb185-2" aria-hidden="true" tabindex="-1"></a>filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        date variable     value
-0 2000-01-03        A -1.062761
-1 2000-01-04        A  0.788114
-2 2000-01-05        A -0.123874</code></pre>
+0 2000-01-03        A  0.866326
+1 2000-01-04        A  0.357317
+2 2000-01-05        A -0.190643</code></pre>
 </div>
 </div>
 <p>But suppose we wish to do time series operations with the variables. A better representation would be where the columns are the unique variables and an index of dates identifies individual observations. To reshape the data into this form, we use the DataFrame.pivot() method (also implemented as a top level function pivot()):</p>
@@ -1543,9 +1544,9 @@ Data Reshaping!</p>
 <div class="cell-output cell-output-stdout">
 <pre><code>variable           A         B         C         D
 date                                              
-2000-01-03 -1.062761  0.285830 -0.972739  0.195837
-2000-01-04  0.788114 -0.026516 -0.492528 -0.543653
-2000-01-05 -0.123874  0.957603 -0.833670 -2.066368</code></pre>
+2000-01-03  0.866326 -0.823278 -1.362282  1.357457
+2000-01-04  0.357317 -1.839878  0.569045 -0.807961
+2000-01-05 -0.190643  0.026374  1.219017 -1.655508</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1568,18 +1569,18 @@ date
 <div class="sourceCode cell-code" id="cb194"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb194-1"><a href="#cb194-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value    value2
-0  2000-01-03        A -1.062761 -2.125522
-1  2000-01-04        A  0.788114  1.576229
-2  2000-01-05        A -0.123874 -0.247749
-3  2000-01-03        B  0.285830  0.571659
-4  2000-01-04        B -0.026516 -0.053032
-5  2000-01-05        B  0.957603  1.915205
-6  2000-01-03        C -0.972739 -1.945478
-7  2000-01-04        C -0.492528 -0.985057
-8  2000-01-05        C -0.833670 -1.667340
-9  2000-01-03        D  0.195837  0.391675
-10 2000-01-04        D -0.543653 -1.087307
-11 2000-01-05        D -2.066368 -4.132735</code></pre>
+0  2000-01-03        A  0.866326  1.732653
+1  2000-01-04        A  0.357317  0.714634
+2  2000-01-05        A -0.190643 -0.381287
+3  2000-01-03        B -0.823278 -1.646557
+4  2000-01-04        B -1.839878 -3.679757
+5  2000-01-05        B  0.026374  0.052747
+6  2000-01-03        C -1.362282 -2.724564
+7  2000-01-04        C  0.569045  1.138091
+8  2000-01-05        C  1.219017  2.438034
+9  2000-01-03        D  1.357457  2.714914
+10 2000-01-04        D -0.807961 -1.615923
+11 2000-01-05        D -1.655508 -3.311015</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1590,9 +1591,9 @@ date
 <pre><code>               value                      ...    value2                    
 variable           A         B         C  ...         B         C         D
 date                                      ...                              
-2000-01-03 -1.062761  0.285830 -0.972739  ...  0.571659 -1.945478  0.391675
-2000-01-04  0.788114 -0.026516 -0.492528  ... -0.053032 -0.985057 -1.087307
-2000-01-05 -0.123874  0.957603 -0.833670  ...  1.915205 -1.667340 -4.132735
+2000-01-03  0.866326 -0.823278 -1.362282  ... -1.646557 -2.724564  2.714914
+2000-01-04  0.357317 -1.839878  0.569045  ... -3.679757  1.138091 -1.615923
+2000-01-05 -0.190643  0.026374  1.219017  ...  0.052747  2.438034 -3.311015
 
 [3 rows x 8 columns]</code></pre>
 </div>
@@ -1616,9 +1617,9 @@ date                                      ...
 <div class="cell-output cell-output-stdout">
 <pre><code>variable           A         B         C         D
 date                                              
-2000-01-03 -1.062761  0.285830 -0.972739  0.195837
-2000-01-04  0.788114 -0.026516 -0.492528 -0.543653
-2000-01-05 -0.123874  0.957603 -0.833670 -2.066368</code></pre>
+2000-01-03  0.866326 -0.823278 -1.362282  1.357457
+2000-01-04  0.357317 -1.839878  0.569045 -0.807961
+2000-01-05 -0.190643  0.026374  1.219017 -1.655508</code></pre>
 </div>
 </div>
 </section>
@@ -2111,17 +2112,17 @@ bob       38        25.335002     181  ...      False   0.0      83
 <div class="sourceCode cell-code" id="cb291"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb291-1"><a href="#cb291-1" aria-hidden="true" tabindex="-1"></a>df4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            a         b         c
-0    0.625049 -0.131608 -1.367211
-1    0.339755  1.191525 -0.459348
-2    1.401318  0.061036 -0.667878
-3    2.058581 -0.782425 -0.100712
-4    1.421194 -0.176204 -0.886214
+0    2.307458 -0.153314 -1.784932
+1    1.857095 -0.406834 -0.665887
+2    2.167068  0.092159 -1.429169
+3    1.132628  1.215167 -2.056829
+4   -0.616990  0.008980 -0.120035
 ..        ...       ...       ...
-995  1.318478 -0.068498 -1.973883
-996  1.497911  1.059761 -0.143487
-997  2.067109  0.627006 -0.411874
-998 -0.311464  0.243659  0.435023
-999  0.487166 -0.007104 -1.073217
+995  1.322489 -1.043479 -0.224398
+996  0.625292 -0.663831 -1.464375
+997  1.656502  0.201592 -0.833644
+998 -0.582094 -0.394580 -1.555145
+999  1.394229 -0.709931 -0.659293
 
 [1000 rows x 3 columns]</code></pre>
 </div>
@@ -2147,18 +2148,18 @@ bob       38        25.335002     181  ...      False   0.0      83
 <div class="sourceCode cell-code" id="cb295"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb295-1"><a href="#cb295-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         date variable     value    value2
-0  2000-01-03        A -1.062761 -2.125522
-1  2000-01-04        A  0.788114  1.576229
-2  2000-01-05        A -0.123874 -0.247749
-3  2000-01-03        B  0.285830  0.571659
-4  2000-01-04        B -0.026516 -0.053032
-5  2000-01-05        B  0.957603  1.915205
-6  2000-01-03        C -0.972739 -1.945478
-7  2000-01-04        C -0.492528 -0.985057
-8  2000-01-05        C -0.833670 -1.667340
-9  2000-01-03        D  0.195837  0.391675
-10 2000-01-04        D -0.543653 -1.087307
-11 2000-01-05        D -2.066368 -4.132735</code></pre>
+0  2000-01-03        A  0.866326  1.732653
+1  2000-01-04        A  0.357317  0.714634
+2  2000-01-05        A -0.190643 -0.381287
+3  2000-01-03        B -0.823278 -1.646557
+4  2000-01-04        B -1.839878 -3.679757
+5  2000-01-05        B  0.026374  0.052747
+6  2000-01-03        C -1.362282 -2.724564
+7  2000-01-04        C  0.569045  1.138091
+8  2000-01-05        C  1.219017  2.438034
+9  2000-01-03        D  1.357457  2.714914
+10 2000-01-04        D -0.807961 -1.615923
+11 2000-01-05        D -1.655508 -3.311015</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2174,16 +2175,16 @@ bob       38        25.335002     181  ...      False   0.0      83
 <span id="cb298-5"><a href="#cb298-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Col1      Col2  X
-0  0.096087  0.253823  A
-1  0.758375  0.401260  A
-2  0.382996  0.544091  A
-3  0.566472  0.175029  A
-4  0.181837  0.281871  A
-5  0.207103  0.594657  B
-6  0.357010  0.159546  B
-7  0.799588  0.337688  B
-8  0.380752  0.675674  B
-9  0.554051  0.826503  B</code></pre>
+0  0.188320  0.913984  A
+1  0.384646  0.514076  A
+2  0.191578  0.135656  A
+3  0.357584  0.508986  A
+4  0.190420  0.293678  A
+5  0.081283  0.103177  B
+6  0.982770  0.200028  B
+7  0.513722  0.606448  B
+8  0.331886  0.724690  B
+9  0.675636  0.297988  B</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2553,7 +2554,7 @@ darwin    9.0  10.0  11.0  NaN   Biking</code></pre>
 <div class="sourceCode cell-code" id="cb361"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb361-1"><a href="#cb361-1" aria-hidden="true" tabindex="-1"></a>grouped_grades <span class="op">=</span> final_grades.groupby(<span class="st">"hobby"</span>)</span>
 <span id="cb361-2"><a href="#cb361-2" aria-hidden="true" tabindex="-1"></a>grouped_grades</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x000001EB6BDC9390&gt;</code></pre>
+<pre><code>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f975a421e80&gt;</code></pre>
 </div>
 </div>
 <p>이제 hobby마다 평균 점수를 계산할 수 있습니다:</p>
@@ -2619,21 +2620,11 @@ Dancing  10.0  9.0  10.0  NaN</code></pre>
 </div>
 <p>이제 이 <code>DataFrame</code>에 대해 <code>pd.pivot_table()</code> 함수를 호출하고 <code>name</code> 열로 그룹핑합니다. 기본적으로 <code>pivot_table()</code>은 수치 열의 평균을 계산합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb371"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb371-1"><a href="#cb371-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span><span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            bonus      grade
-name                        
-alice         NaN   8.333333
-bob      1.000000   9.666667
-charles  2.000000   6.666667
-darwin   0.333333  10.000000
-
-&lt;string&gt;:1: FutureWarning: pivot_table dropped a column because it failed to aggregate. This behavior is deprecated and will raise in a future version of pandas. Select only the columns that can be aggregated.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb371"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb371-1"><a href="#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pd.pivot_table(more_grades, index="name")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>집계 함수를 <code>aggfunc</code> 매개변수로 바꿀 수 있습니다. 또한 집계 대상의 열을 리스트로 지정할 수 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb373"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb373-1"><a href="#cb373-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span><span class="st">"name"</span>, values<span class="op">=</span>[<span class="st">"grade"</span>,<span class="st">"bonus"</span>], aggfunc<span class="op">=</span>np.<span class="bu">max</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb372"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb372-1"><a href="#cb372-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span><span class="st">"name"</span>, values<span class="op">=</span>[<span class="st">"grade"</span>,<span class="st">"bonus"</span>], aggfunc<span class="op">=</span>np.<span class="bu">max</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         bonus  grade
 name                 
@@ -2645,7 +2636,7 @@ darwin     1.0   11.0</code></pre>
 </div>
 <p><code>columns</code> 매개변수를 지정하여 수평으로 집계할 수 있고 <code>margins=True</code>로 설정해 각 행과 열에 대해 전체 합을 계산할 수 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb375"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb375-1"><a href="#cb375-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span><span class="st">"name"</span>, values<span class="op">=</span><span class="st">"grade"</span>, columns<span class="op">=</span><span class="st">"month"</span>, margins<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb374"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb374-1"><a href="#cb374-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span><span class="st">"name"</span>, values<span class="op">=</span><span class="st">"grade"</span>, columns<span class="op">=</span><span class="st">"month"</span>, margins<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>month      nov   oct    sep        All
 name                                  
@@ -2658,7 +2649,7 @@ All       8.75   9.5   7.75   8.666667</code></pre>
 </div>
 <p>마지막으로 여러 개의 인덱스나 열 이름을 지정하면 판다스가 다중 레벨 인덱스를 만듭니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb377"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb377-1"><a href="#cb377-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span>(<span class="st">"name"</span>, <span class="st">"month"</span>), margins<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb376"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb376-1"><a href="#cb376-1" aria-hidden="true" tabindex="-1"></a>pd.pivot_table(more_grades, index<span class="op">=</span>(<span class="st">"name"</span>, <span class="st">"month"</span>), margins<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               bonus  grade
 name    month              
@@ -2682,11 +2673,11 @@ All            1.125   8.75</code></pre>
 <h2 class="anchored" data-anchor-id="함수">함수</h2>
 <p>큰 <code>DataFrame</code>을 다룰 때 내용을 간단히 요약하는 것이 도움이 됩니다. 판다스는 이를 위한 몇 가지 함수를 제공합니다. 먼저 수치 값, 누락된 값, 텍스트 값이 섞인 큰 <code>DataFrame</code>을 만들어 보죠. 주피터 노트북은 이 <code>DataFrame</code>의 일부만 보여줍니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb379"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb379-1"><a href="#cb379-1" aria-hidden="true" tabindex="-1"></a>much_data <span class="op">=</span> np.fromfunction(<span class="kw">lambda</span> x,y: (x<span class="op">+</span>y<span class="op">*</span>y)<span class="op">%</span><span class="dv">17</span><span class="op">*</span><span class="dv">11</span>, (<span class="dv">10000</span>, <span class="dv">26</span>))</span>
-<span id="cb379-2"><a href="#cb379-2" aria-hidden="true" tabindex="-1"></a>large_df <span class="op">=</span> pd.DataFrame(much_data, columns<span class="op">=</span><span class="bu">list</span>(<span class="st">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>))</span>
-<span id="cb379-3"><a href="#cb379-3" aria-hidden="true" tabindex="-1"></a>large_df[large_df <span class="op">%</span> <span class="dv">16</span> <span class="op">==</span> <span class="dv">0</span>] <span class="op">=</span> np.nan</span>
-<span id="cb379-4"><a href="#cb379-4" aria-hidden="true" tabindex="-1"></a>large_df.insert(<span class="dv">3</span>,<span class="st">"some_text"</span>, <span class="st">"Blabla"</span>)</span>
-<span id="cb379-5"><a href="#cb379-5" aria-hidden="true" tabindex="-1"></a>large_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb378"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb378-1"><a href="#cb378-1" aria-hidden="true" tabindex="-1"></a>much_data <span class="op">=</span> np.fromfunction(<span class="kw">lambda</span> x,y: (x<span class="op">+</span>y<span class="op">*</span>y)<span class="op">%</span><span class="dv">17</span><span class="op">*</span><span class="dv">11</span>, (<span class="dv">10000</span>, <span class="dv">26</span>))</span>
+<span id="cb378-2"><a href="#cb378-2" aria-hidden="true" tabindex="-1"></a>large_df <span class="op">=</span> pd.DataFrame(much_data, columns<span class="op">=</span><span class="bu">list</span>(<span class="st">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>))</span>
+<span id="cb378-3"><a href="#cb378-3" aria-hidden="true" tabindex="-1"></a>large_df[large_df <span class="op">%</span> <span class="dv">16</span> <span class="op">==</span> <span class="dv">0</span>] <span class="op">=</span> np.nan</span>
+<span id="cb378-4"><a href="#cb378-4" aria-hidden="true" tabindex="-1"></a>large_df.insert(<span class="dv">3</span>,<span class="st">"some_text"</span>, <span class="st">"Blabla"</span>)</span>
+<span id="cb378-5"><a href="#cb378-5" aria-hidden="true" tabindex="-1"></a>large_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         A     B     C some_text      D  ...      V      W     X      Y      Z
 0      NaN  11.0  44.0    Blabla   99.0  ...    NaN   88.0  22.0  165.0  143.0
@@ -2706,7 +2697,7 @@ All            1.125   8.75</code></pre>
 </div>
 <p><code>head()</code> 메서드는 처음 5개 행을 반환합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb381"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb381-1"><a href="#cb381-1" aria-hidden="true" tabindex="-1"></a>large_df.head(n<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb380"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb380-1"><a href="#cb380-1" aria-hidden="true" tabindex="-1"></a>large_df.head(n<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      A      B      C some_text      D  ...     V      W      X      Y      Z
 0   NaN   11.0   44.0    Blabla   99.0  ...   NaN   88.0   22.0  165.0  143.0
@@ -2725,7 +2716,7 @@ All            1.125   8.75</code></pre>
 </div>
 <p>마지막 5개 행을 반환하는 <code>tail()</code> 함수도 있습니다. 원하는 행 개수를 전달할 수도 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb383"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb383-1"><a href="#cb383-1" aria-hidden="true" tabindex="-1"></a>large_df.tail(n<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb382"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb382-1"><a href="#cb382-1" aria-hidden="true" tabindex="-1"></a>large_df.tail(n<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         A     B     C some_text      D  ...     V      W     X     Y      Z
 9998  22.0  33.0  66.0    Blabla  121.0  ...  11.0  110.0  44.0   NaN  165.0
@@ -2736,7 +2727,7 @@ All            1.125   8.75</code></pre>
 </div>
 <p><code>info()</code> 메서드는 각 열의 내용을 요약하여 출력합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb385"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb385-1"><a href="#cb385-1" aria-hidden="true" tabindex="-1"></a>large_df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb384"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb384-1"><a href="#cb384-1" aria-hidden="true" tabindex="-1"></a>large_df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 10000 entries, 0 to 9999
@@ -2777,7 +2768,7 @@ memory usage: 2.1+ MB</code></pre>
 <p>마지막으로 <code>describe()</code> 메서드는 각 열에 대한 주요 집계 연산을 수행한 결과를 보여줍니다:</p>
 <p>Finally, the <code>describe()</code> method gives a nice overview of the main aggregated values over each column: * <code>count</code>: null(NaN)이 아닌 값의 개수 * <code>mean</code>: null이 아닌 값의 평균 * <code>std</code>: null이 아닌 값의 <a href="https://ko.wikipedia.org/wiki/%ED%91%9C%EC%A4%80_%ED%8E%B8%EC%B0%A8">표준 편차</a> * <code>min</code>: null이 아닌 값의 최솟값 * <code>25%</code>, <code>50%</code>, <code>75%</code>: null이 아닌 값의 25번째, 50번째, 75번째 <a href="https://ko.wikipedia.org/wiki/%EB%B0%B1%EB%B6%84%EC%9C%84%EC%88%98">백분위수</a> * <code>max</code>: null이 아닌 값의 최댓값</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb387"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb387-1"><a href="#cb387-1" aria-hidden="true" tabindex="-1"></a>large_df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb386"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb386-1"><a href="#cb386-1" aria-hidden="true" tabindex="-1"></a>large_df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 A            B  ...            Y            Z
 count  8823.000000  8824.000000  ...  8822.000000  8823.000000
@@ -2798,12 +2789,12 @@ max     165.000000   165.000000  ...   165.000000   165.000000
 <h1>저장 &amp; 로딩</h1>
 <p>판다스는 <code>DataFrame</code>를 여러 가지 포맷으로 저장할 수 있습니다. CSV, Excel, JSON, HTML, HDF5, SQL 데이터베이스 같은 포맷이 가능합니다. 예제를 위해 <code>DataFrame</code>을 하나 만들어 보겠습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb389"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb389-1"><a href="#cb389-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb389-2"><a href="#cb389-2" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"Biking"</span>, <span class="fl">68.5</span>, <span class="dv">1985</span>, np.nan], [<span class="st">"Dancing"</span>, <span class="fl">83.1</span>, <span class="dv">1984</span>, <span class="dv">3</span>]], </span>
-<span id="cb389-3"><a href="#cb389-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"hobby"</span>,<span class="st">"weight"</span>,<span class="st">"birthyear"</span>,<span class="st">"children"</span>],</span>
-<span id="cb389-4"><a href="#cb389-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">"alice"</span>, <span class="st">"bob"</span>]</span>
-<span id="cb389-5"><a href="#cb389-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb389-6"><a href="#cb389-6" aria-hidden="true" tabindex="-1"></a>my_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb388"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb388-1"><a href="#cb388-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb388-2"><a href="#cb388-2" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"Biking"</span>, <span class="fl">68.5</span>, <span class="dv">1985</span>, np.nan], [<span class="st">"Dancing"</span>, <span class="fl">83.1</span>, <span class="dv">1984</span>, <span class="dv">3</span>]], </span>
+<span id="cb388-3"><a href="#cb388-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"hobby"</span>,<span class="st">"weight"</span>,<span class="st">"birthyear"</span>,<span class="st">"children"</span>],</span>
+<span id="cb388-4"><a href="#cb388-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">"alice"</span>, <span class="st">"bob"</span>]</span>
+<span id="cb388-5"><a href="#cb388-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb388-6"><a href="#cb388-6" aria-hidden="true" tabindex="-1"></a>my_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         hobby  weight  birthyear  children
 alice   Biking    68.5       1985       NaN
@@ -2814,25 +2805,25 @@ bob    Dancing    83.1       1984       3.0</code></pre>
 <h2 class="anchored" data-anchor-id="저장">저장</h2>
 <p>CSV, HTML, JSON로 저장해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb391"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb391-1"><a href="#cb391-1" aria-hidden="true" tabindex="-1"></a>my_df.to_csv(<span class="st">"my_df.csv"</span>)</span>
-<span id="cb391-2"><a href="#cb391-2" aria-hidden="true" tabindex="-1"></a><span class="co">#my_df.to_html("my_df.html")</span></span>
-<span id="cb391-3"><a href="#cb391-3" aria-hidden="true" tabindex="-1"></a><span class="co">#my_df.to_json("my_df.json")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb390"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb390-1"><a href="#cb390-1" aria-hidden="true" tabindex="-1"></a>my_df.to_csv(<span class="st">"my_df.csv"</span>)</span>
+<span id="cb390-2"><a href="#cb390-2" aria-hidden="true" tabindex="-1"></a><span class="co">#my_df.to_html("my_df.html")</span></span>
+<span id="cb390-3"><a href="#cb390-3" aria-hidden="true" tabindex="-1"></a><span class="co">#my_df.to_json("my_df.json")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>저장된 내용을 확인해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb392"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb392-1"><a href="#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for filename in ("my_df.csv", "my_df.html", "my_df.json"):</span></span>
-<span id="cb392-2"><a href="#cb392-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    print("#", filename)</span></span>
-<span id="cb392-3"><a href="#cb392-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    with open(filename, "rt") as f:</span></span>
-<span id="cb392-4"><a href="#cb392-4" aria-hidden="true" tabindex="-1"></a><span class="co">#        print(f.read())</span></span>
-<span id="cb392-5"><a href="#cb392-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb391"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb391-1"><a href="#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for filename in ("my_df.csv", "my_df.html", "my_df.json"):</span></span>
+<span id="cb391-2"><a href="#cb391-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    print("#", filename)</span></span>
+<span id="cb391-3"><a href="#cb391-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    with open(filename, "rt") as f:</span></span>
+<span id="cb391-4"><a href="#cb391-4" aria-hidden="true" tabindex="-1"></a><span class="co">#        print(f.read())</span></span>
+<span id="cb391-5"><a href="#cb391-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>인덱스는 (이름 없이) CSV 파일의 첫 번째 열에 저장되었습니다. HTML에서는 <code>&lt;th&gt;</code> 태그와 JSON에서는 키로 저장되었습니다.</p>
 <p>다른 포맷으로 저장하는 것도 비슷합니다. 하지만 일부 포맷은 추가적인 라이브러리 설치가 필요합니다. 예를 들어, 엑셀로 저장하려면 openpyxl 라이브러리가 필요합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb393"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb393-1"><a href="#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb393-2"><a href="#cb393-2" aria-hidden="true" tabindex="-1"></a>    my_df.to_excel(<span class="st">"my_df.xlsx"</span>, sheet_name<span class="op">=</span><span class="st">'People'</span>)</span>
-<span id="cb393-3"><a href="#cb393-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span> <span class="im">as</span> e:</span>
-<span id="cb393-4"><a href="#cb393-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb392"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb392-1"><a href="#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb392-2"><a href="#cb392-2" aria-hidden="true" tabindex="-1"></a>    my_df.to_excel(<span class="st">"my_df.xlsx"</span>, sheet_name<span class="op">=</span><span class="st">'People'</span>)</span>
+<span id="cb392-3"><a href="#cb392-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span> <span class="im">as</span> e:</span>
+<span id="cb392-4"><a href="#cb392-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No module named 'openpyxl'</code></pre>
 </div>
@@ -2842,8 +2833,8 @@ bob    Dancing    83.1       1984       3.0</code></pre>
 <h2 class="anchored" data-anchor-id="로딩">로딩</h2>
 <p>CSV 파일을 <code>DataFrame</code>으로 로드해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb395"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb395-1"><a href="#cb395-1" aria-hidden="true" tabindex="-1"></a>my_df_loaded <span class="op">=</span> pd.read_csv(<span class="st">"my_df.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb395-2"><a href="#cb395-2" aria-hidden="true" tabindex="-1"></a>my_df_loaded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb394"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb394-1"><a href="#cb394-1" aria-hidden="true" tabindex="-1"></a>my_df_loaded <span class="op">=</span> pd.read_csv(<span class="st">"my_df.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb394-2"><a href="#cb394-2" aria-hidden="true" tabindex="-1"></a>my_df_loaded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         hobby  weight  birthyear  children
 alice   Biking    68.5       1985       NaN
@@ -2852,14 +2843,14 @@ bob    Dancing    83.1       1984       3.0</code></pre>
 </div>
 <p>예상할 수 있듯이 <code>read_json</code>, <code>read_html</code>, <code>read_excel</code> 함수도 있습니다. 인터넷에서 데이터를 바로 읽을 수도 있습니다. 예를 들어 깃허브에서 1,000개의 U.S. 도시를 로드해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb397"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb397-1"><a href="#cb397-1" aria-hidden="true" tabindex="-1"></a>us_cities <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb397-2"><a href="#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb397-3"><a href="#cb397-3" aria-hidden="true" tabindex="-1"></a>    csv_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv"</span></span>
-<span id="cb397-4"><a href="#cb397-4" aria-hidden="true" tabindex="-1"></a>    us_cities <span class="op">=</span> pd.read_csv(csv_url, index_col<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb397-5"><a href="#cb397-5" aria-hidden="true" tabindex="-1"></a>    us_cities <span class="op">=</span> us_cities.head()</span>
-<span id="cb397-6"><a href="#cb397-6" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">IOError</span> <span class="im">as</span> e:</span>
-<span id="cb397-7"><a href="#cb397-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span>
-<span id="cb397-8"><a href="#cb397-8" aria-hidden="true" tabindex="-1"></a>us_cities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb396"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb396-1"><a href="#cb396-1" aria-hidden="true" tabindex="-1"></a>us_cities <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb396-2"><a href="#cb396-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb396-3"><a href="#cb396-3" aria-hidden="true" tabindex="-1"></a>    csv_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv"</span></span>
+<span id="cb396-4"><a href="#cb396-4" aria-hidden="true" tabindex="-1"></a>    us_cities <span class="op">=</span> pd.read_csv(csv_url, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb396-5"><a href="#cb396-5" aria-hidden="true" tabindex="-1"></a>    us_cities <span class="op">=</span> us_cities.head()</span>
+<span id="cb396-6"><a href="#cb396-6" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">IOError</span> <span class="im">as</span> e:</span>
+<span id="cb396-7"><a href="#cb396-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span>
+<span id="cb396-8"><a href="#cb396-8" aria-hidden="true" tabindex="-1"></a>us_cities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     State  Population        lat         lon
 City                                                         
@@ -2879,15 +2870,15 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 <h2 class="anchored" data-anchor-id="sql-조인">SQL 조인</h2>
 <p>판다스의 강력한 기능 중 하나는 <code>DataFrame</code>에 대해 SQL 같은 조인(join)을 수행할 수 있는 것입니다. 여러 종류의 조인이 지원됩니다. 이너 조인(inner join), 레프트/라이트 아우터 조인(left/right outer join), 풀 조인(full join)입니다. 이에 대해 알아 보기 위해 간단한 <code>DataFrame</code>을 만들어 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb399"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb399-1"><a href="#cb399-1" aria-hidden="true" tabindex="-1"></a>city_loc <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb399-2"><a href="#cb399-2" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb399-3"><a href="#cb399-3" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"CA"</span>, <span class="st">"San Francisco"</span>, <span class="fl">37.781334</span>, <span class="op">-</span><span class="fl">122.416728</span>],</span>
-<span id="cb399-4"><a href="#cb399-4" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"NY"</span>, <span class="st">"New York"</span>, <span class="fl">40.705649</span>, <span class="op">-</span><span class="fl">74.008344</span>],</span>
-<span id="cb399-5"><a href="#cb399-5" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"FL"</span>, <span class="st">"Miami"</span>, <span class="fl">25.791100</span>, <span class="op">-</span><span class="fl">80.320733</span>],</span>
-<span id="cb399-6"><a href="#cb399-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"OH"</span>, <span class="st">"Cleveland"</span>, <span class="fl">41.473508</span>, <span class="op">-</span><span class="fl">81.739791</span>],</span>
-<span id="cb399-7"><a href="#cb399-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"UT"</span>, <span class="st">"Salt Lake City"</span>, <span class="fl">40.755851</span>, <span class="op">-</span><span class="fl">111.896657</span>]</span>
-<span id="cb399-8"><a href="#cb399-8" aria-hidden="true" tabindex="-1"></a>    ], columns<span class="op">=</span>[<span class="st">"state"</span>, <span class="st">"city"</span>, <span class="st">"lat"</span>, <span class="st">"lng"</span>])</span>
-<span id="cb399-9"><a href="#cb399-9" aria-hidden="true" tabindex="-1"></a>city_loc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb398"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb398-1"><a href="#cb398-1" aria-hidden="true" tabindex="-1"></a>city_loc <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb398-2"><a href="#cb398-2" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb398-3"><a href="#cb398-3" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"CA"</span>, <span class="st">"San Francisco"</span>, <span class="fl">37.781334</span>, <span class="op">-</span><span class="fl">122.416728</span>],</span>
+<span id="cb398-4"><a href="#cb398-4" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"NY"</span>, <span class="st">"New York"</span>, <span class="fl">40.705649</span>, <span class="op">-</span><span class="fl">74.008344</span>],</span>
+<span id="cb398-5"><a href="#cb398-5" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"FL"</span>, <span class="st">"Miami"</span>, <span class="fl">25.791100</span>, <span class="op">-</span><span class="fl">80.320733</span>],</span>
+<span id="cb398-6"><a href="#cb398-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"OH"</span>, <span class="st">"Cleveland"</span>, <span class="fl">41.473508</span>, <span class="op">-</span><span class="fl">81.739791</span>],</span>
+<span id="cb398-7"><a href="#cb398-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"UT"</span>, <span class="st">"Salt Lake City"</span>, <span class="fl">40.755851</span>, <span class="op">-</span><span class="fl">111.896657</span>]</span>
+<span id="cb398-8"><a href="#cb398-8" aria-hidden="true" tabindex="-1"></a>    ], columns<span class="op">=</span>[<span class="st">"state"</span>, <span class="st">"city"</span>, <span class="st">"lat"</span>, <span class="st">"lng"</span>])</span>
+<span id="cb398-9"><a href="#cb398-9" aria-hidden="true" tabindex="-1"></a>city_loc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state            city        lat         lng
 0    CA   San Francisco  37.781334 -122.416728
@@ -2898,14 +2889,14 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb401"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb401-1"><a href="#cb401-1" aria-hidden="true" tabindex="-1"></a>city_pop <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb401-2"><a href="#cb401-2" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb401-3"><a href="#cb401-3" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">808976</span>, <span class="st">"San Francisco"</span>, <span class="st">"California"</span>],</span>
-<span id="cb401-4"><a href="#cb401-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">8363710</span>, <span class="st">"New York"</span>, <span class="st">"New-York"</span>],</span>
-<span id="cb401-5"><a href="#cb401-5" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">413201</span>, <span class="st">"Miami"</span>, <span class="st">"Florida"</span>],</span>
-<span id="cb401-6"><a href="#cb401-6" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">2242193</span>, <span class="st">"Houston"</span>, <span class="st">"Texas"</span>]</span>
-<span id="cb401-7"><a href="#cb401-7" aria-hidden="true" tabindex="-1"></a>    ], index<span class="op">=</span>[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>], columns<span class="op">=</span>[<span class="st">"population"</span>, <span class="st">"city"</span>, <span class="st">"state"</span>])</span>
-<span id="cb401-8"><a href="#cb401-8" aria-hidden="true" tabindex="-1"></a>city_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb400"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb400-1"><a href="#cb400-1" aria-hidden="true" tabindex="-1"></a>city_pop <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb400-2"><a href="#cb400-2" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb400-3"><a href="#cb400-3" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">808976</span>, <span class="st">"San Francisco"</span>, <span class="st">"California"</span>],</span>
+<span id="cb400-4"><a href="#cb400-4" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">8363710</span>, <span class="st">"New York"</span>, <span class="st">"New-York"</span>],</span>
+<span id="cb400-5"><a href="#cb400-5" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">413201</span>, <span class="st">"Miami"</span>, <span class="st">"Florida"</span>],</span>
+<span id="cb400-6"><a href="#cb400-6" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">2242193</span>, <span class="st">"Houston"</span>, <span class="st">"Texas"</span>]</span>
+<span id="cb400-7"><a href="#cb400-7" aria-hidden="true" tabindex="-1"></a>    ], index<span class="op">=</span>[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>], columns<span class="op">=</span>[<span class="st">"population"</span>, <span class="st">"city"</span>, <span class="st">"state"</span>])</span>
+<span id="cb400-8"><a href="#cb400-8" aria-hidden="true" tabindex="-1"></a>city_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   population           city       state
 3      808976  San Francisco  California
@@ -2916,7 +2907,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>이제 <code>merge()</code> 함수를 사용해 이 <code>DataFrame</code>을 조인해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb403"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb403-1"><a href="#cb403-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop, on<span class="op">=</span><span class="st">"city"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb402"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb402-1"><a href="#cb402-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop, on<span class="op">=</span><span class="st">"city"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state_x           city        lat         lng  population     state_y
 0      CA  San Francisco  37.781334 -122.416728      808976  California
@@ -2927,8 +2918,8 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 <p>두 <code>DataFrame</code>은 <code>state</code>란 이름의 열을 가지고 있으므로 <code>state_x</code>와 <code>state_y</code>로 이름이 바뀌었습니다.</p>
 <p>또한 Cleveland, Salt Lake City, Houston은 두 <code>DataFrame</code>에 모두 존재하지 않기 때문에 삭제되었습니다. SQL의 <code>INNER JOIN</code>과 동일합니다. 도시를 삭제하지 않고 <code>NaN</code>으로 채우는 <code>FULL OUTER JOIN</code>을 원하면 <code>how="outer"</code>로 지정합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb405"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb405-1"><a href="#cb405-1" aria-hidden="true" tabindex="-1"></a>all_cities <span class="op">=</span> pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop, on<span class="op">=</span><span class="st">"city"</span>, how<span class="op">=</span><span class="st">"outer"</span>)</span>
-<span id="cb405-2"><a href="#cb405-2" aria-hidden="true" tabindex="-1"></a>all_cities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb404"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb404-1"><a href="#cb404-1" aria-hidden="true" tabindex="-1"></a>all_cities <span class="op">=</span> pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop, on<span class="op">=</span><span class="st">"city"</span>, how<span class="op">=</span><span class="st">"outer"</span>)</span>
+<span id="cb404-2"><a href="#cb404-2" aria-hidden="true" tabindex="-1"></a>all_cities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state_x            city        lat         lng  population     state_y
 0      CA   San Francisco  37.781334 -122.416728    808976.0  California
@@ -2941,7 +2932,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>물론 <code>LEFT OUTER JOIN</code>은 <code>how="left"</code>로 지정할 수 있습니다. 왼쪽의 <code>DataFrame</code>에 있는 도시만 남습니다. 비슷하게 <code>how="right"</code>는 오른쪽 <code>DataFrame</code>에 있는 도시만 결과에 남습니다. 예를 들면:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb407"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb407-1"><a href="#cb407-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop, on<span class="op">=</span><span class="st">"city"</span>, how<span class="op">=</span><span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb406"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb406-1"><a href="#cb406-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop, on<span class="op">=</span><span class="st">"city"</span>, how<span class="op">=</span><span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state_x           city        lat         lng  population     state_y
 0      CA  San Francisco  37.781334 -122.416728      808976  California
@@ -2952,9 +2943,9 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>조인할 키가 <code>DataFrame</code> 인덱스라면 <code>left_index=True</code>나 <code>right_index=True</code>로 지정해야 합니다. 키 열의 이름이 다르면 <code>left_on</code>과 <code>right_on</code>을 사용합니다. 예를 들어:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb409"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb409-1"><a href="#cb409-1" aria-hidden="true" tabindex="-1"></a>city_pop2 <span class="op">=</span> city_pop.copy()</span>
-<span id="cb409-2"><a href="#cb409-2" aria-hidden="true" tabindex="-1"></a>city_pop2.columns <span class="op">=</span> [<span class="st">"population"</span>, <span class="st">"name"</span>, <span class="st">"state"</span>]</span>
-<span id="cb409-3"><a href="#cb409-3" aria-hidden="true" tabindex="-1"></a>city_pop2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb408"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb408-1"><a href="#cb408-1" aria-hidden="true" tabindex="-1"></a>city_pop2 <span class="op">=</span> city_pop.copy()</span>
+<span id="cb408-2"><a href="#cb408-2" aria-hidden="true" tabindex="-1"></a>city_pop2.columns <span class="op">=</span> [<span class="st">"population"</span>, <span class="st">"name"</span>, <span class="st">"state"</span>]</span>
+<span id="cb408-3"><a href="#cb408-3" aria-hidden="true" tabindex="-1"></a>city_pop2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   population           name       state
 3      808976  San Francisco  California
@@ -2964,7 +2955,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb411"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb411-1"><a href="#cb411-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop2, left_on<span class="op">=</span><span class="st">"city"</span>, right_on<span class="op">=</span><span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb410"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb410-1"><a href="#cb410-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left<span class="op">=</span>city_loc, right<span class="op">=</span>city_pop2, left_on<span class="op">=</span><span class="st">"city"</span>, right_on<span class="op">=</span><span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state_x           city        lat  ...  population           name     state_y
 0      CA  San Francisco  37.781334  ...      808976  San Francisco  California
@@ -2979,7 +2970,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 <h2 class="anchored" data-anchor-id="연결">연결</h2>
 <p><code>DataFrame</code>을 조인하는 대신 그냥 연결할 수도 있습니다. <code>concat()</code> 함수가 하는 일입니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb413"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb413-1"><a href="#cb413-1" aria-hidden="true" tabindex="-1"></a>city_loc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb412"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb412-1"><a href="#cb412-1" aria-hidden="true" tabindex="-1"></a>city_loc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state            city        lat         lng
 0    CA   San Francisco  37.781334 -122.416728
@@ -2990,7 +2981,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb415"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb415-1"><a href="#cb415-1" aria-hidden="true" tabindex="-1"></a>city_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb414"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb414-1"><a href="#cb414-1" aria-hidden="true" tabindex="-1"></a>city_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   population           city       state
 3      808976  San Francisco  California
@@ -3000,8 +2991,8 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb417"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb417-1"><a href="#cb417-1" aria-hidden="true" tabindex="-1"></a>result_concat <span class="op">=</span> pd.concat([city_loc, city_pop])</span>
-<span id="cb417-2"><a href="#cb417-2" aria-hidden="true" tabindex="-1"></a>result_concat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb416"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb416-1"><a href="#cb416-1" aria-hidden="true" tabindex="-1"></a>result_concat <span class="op">=</span> pd.concat([city_loc, city_pop])</span>
+<span id="cb416-2"><a href="#cb416-2" aria-hidden="true" tabindex="-1"></a>result_concat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        state            city        lat         lng  population
 0          CA   San Francisco  37.781334 -122.416728         NaN
@@ -3017,7 +3008,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>이 연산은 (행을 따라) 수직적으로 데이터를 연결하고 (열을 따라) 수평으로 연결하지 않습니다. 이 예에서 동일한 인덱스를 가진 행이 있습니다(예를 들면 3). 판다스는 이를 우아하게 처리합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb419"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb419-1"><a href="#cb419-1" aria-hidden="true" tabindex="-1"></a>result_concat.loc[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb418"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb418-1"><a href="#cb418-1" aria-hidden="true" tabindex="-1"></a>result_concat.loc[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        state           city        lat        lng  population
 3          OH      Cleveland  41.473508 -81.739791         NaN
@@ -3026,7 +3017,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>또는 인덱스를 무시하도록 설정할 수 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb421"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb421-1"><a href="#cb421-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc, city_pop], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb420"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb420-1"><a href="#cb420-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc, city_pop], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        state            city        lat         lng  population
 0          CA   San Francisco  37.781334 -122.416728         NaN
@@ -3042,7 +3033,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>한 <code>DataFrame</code>에 열이 없을 때 <code>NaN</code>이 채워져 있는 것처럼 동작합니다. <code>join="inner"</code>로 설정하면 <em>양쪽</em>의 <code>DataFrame</code>에 존재하는 열만 반환됩니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb423"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb423-1"><a href="#cb423-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc, city_pop], join<span class="op">=</span><span class="st">"inner"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb422"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb422-1"><a href="#cb422-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc, city_pop], join<span class="op">=</span><span class="st">"inner"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        state            city
 0          CA   San Francisco
@@ -3058,7 +3049,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p><code>axis=1</code>로 설정하면 <code>DataFrame</code>을 수직이 아니라 수평으로 연결할 수 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb425"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb425-1"><a href="#cb425-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc, city_pop], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb424"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb424-1"><a href="#cb424-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc, city_pop], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  state            city        lat  ...  population           city       state
 0    CA   San Francisco  37.781334  ...         NaN            NaN         NaN
@@ -3074,7 +3065,7 @@ Columbia    South Carolina      133358  34.000710  -81.034814</code></pre>
 </div>
 <p>이 경우 인덱스가 잘 정렬되지 않기 때문에 의미가 없습니다(예를 들어 Cleveland와 San Francisco의 인덱스 레이블이 <code>3</code>이기 때문에 동일한 행에 놓여 있습니다). 이 <code>DataFrame</code>을 연결하기 전에 도시로 인덱스를 재설정해 보죠:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb427"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb427-1"><a href="#cb427-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc.set_index(<span class="st">"city"</span>), city_pop.set_index(<span class="st">"city"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb426"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb426-1"><a href="#cb426-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc.set_index(<span class="st">"city"</span>), city_pop.set_index(<span class="st">"city"</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               state        lat         lng  population       state
 city                                                               
@@ -3089,24 +3080,10 @@ Houston          NaN        NaN         NaN   2242193.0       Texas</code></pre>
 <p><code>FULL OUTER JOIN</code>을 수행한 것과 비슷합니다. 하지만 <code>state</code> 열이 <code>state_x</code>와 <code>state_y</code>로 바뀌지 않았고 <code>city</code> 열이 인덱스가 되었습니다.</p>
 <p><code>append()</code> 메서드는 <code>DataFrame</code>을 수직으로 연결하는 단축 메서드입니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb429"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb429-1"><a href="#cb429-1" aria-hidden="true" tabindex="-1"></a>city_loc.append(city_pop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        state            city        lat         lng  population
-0          CA   San Francisco  37.781334 -122.416728         NaN
-1          NY        New York  40.705649  -74.008344         NaN
-2          FL           Miami  25.791100  -80.320733         NaN
-3          OH       Cleveland  41.473508  -81.739791         NaN
-4          UT  Salt Lake City  40.755851 -111.896657         NaN
-3  California   San Francisco        NaN         NaN    808976.0
-4    New-York        New York        NaN         NaN   8363710.0
-5     Florida           Miami        NaN         NaN    413201.0
-6       Texas         Houston        NaN         NaN   2242193.0
-
-&lt;string&gt;:1: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb428"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb428-1"><a href="#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="co">#city_loc.append(city_pop)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb431"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb431-1"><a href="#cb431-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc,city_pop])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb429"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb429-1"><a href="#cb429-1" aria-hidden="true" tabindex="-1"></a>pd.concat([city_loc,city_pop])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        state            city        lat         lng  population
 0          CA   San Francisco  37.781334 -122.416728         NaN
@@ -3127,7 +3104,7 @@ Houston          NaN        NaN         NaN   2242193.0       Texas</code></pre>
 <h1>범주</h1>
 <p>범주로 표현된 값을 가진 경우가 흔합니다. 예를 들어 <code>1</code>은 여성, <code>2</code>는 남성이거나 <code>"A"</code>는 좋은 것, <code>"B"</code>는 평균, <code>"C"</code>는 나쁜 것 등입니다. 범주형 값을 읽기 힘들고 다루기 번거롭습니다. 하지만 판다스에서는 간단합니다. 예를 들기 위해 앞서 만든 <code>city_pop</code> <code>DataFrame</code>에 범주를 표현하는 열을 추가해 보겠습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb433"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb433-1"><a href="#cb433-1" aria-hidden="true" tabindex="-1"></a>city_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb431"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb431-1"><a href="#cb431-1" aria-hidden="true" tabindex="-1"></a>city_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   population           city       state
 3      808976  San Francisco  California
@@ -3137,10 +3114,10 @@ Houston          NaN        NaN         NaN   2242193.0       Texas</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb435"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb435-1"><a href="#cb435-1" aria-hidden="true" tabindex="-1"></a>city_pop.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb433"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb433-1"><a href="#cb433-1" aria-hidden="true" tabindex="-1"></a>city_pop.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-Int64Index: 4 entries, 3 to 6
+Index: 4 entries, 3 to 6
 Data columns (total 3 columns):
  #   Column      Non-Null Count  Dtype 
 ---  ------      --------------  ----- 
@@ -3152,9 +3129,9 @@ memory usage: 300.0+ bytes</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb437"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb437-1"><a href="#cb437-1" aria-hidden="true" tabindex="-1"></a>city_eco <span class="op">=</span> city_pop.copy()</span>
-<span id="cb437-2"><a href="#cb437-2" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"eco_code"</span>] <span class="op">=</span> [<span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">34</span>, <span class="dv">20</span>]</span>
-<span id="cb437-3"><a href="#cb437-3" aria-hidden="true" tabindex="-1"></a>city_eco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb435"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb435-1"><a href="#cb435-1" aria-hidden="true" tabindex="-1"></a>city_eco <span class="op">=</span> city_pop.copy()</span>
+<span id="cb435-2"><a href="#cb435-2" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"eco_code"</span>] <span class="op">=</span> [<span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">34</span>, <span class="dv">20</span>]</span>
+<span id="cb435-3"><a href="#cb435-3" aria-hidden="true" tabindex="-1"></a>city_eco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   population           city       state  eco_code
 3      808976  San Francisco  California        17
@@ -3165,8 +3142,8 @@ memory usage: 300.0+ bytes</code></pre>
 </div>
 <p>이제 <code>eco_code</code>열은 의미없는 코드입니다. 이를 바꿔 보죠. 먼저 <code>eco_code</code>를 기반으로 새로운 범주형 열을 만듭니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb439"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb439-1"><a href="#cb439-1" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"economy"</span>] <span class="op">=</span> city_eco[<span class="st">"eco_code"</span>].astype(<span class="st">'category'</span>)</span>
-<span id="cb439-2"><a href="#cb439-2" aria-hidden="true" tabindex="-1"></a>city_eco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb437"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb437-1"><a href="#cb437-1" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"economy"</span>] <span class="op">=</span> city_eco[<span class="st">"eco_code"</span>].astype(<span class="st">'category'</span>)</span>
+<span id="cb437-2"><a href="#cb437-2" aria-hidden="true" tabindex="-1"></a>city_eco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   population           city       state  eco_code economy
 3      808976  San Francisco  California        17      17
@@ -3176,10 +3153,10 @@ memory usage: 300.0+ bytes</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb441"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb441-1"><a href="#cb441-1" aria-hidden="true" tabindex="-1"></a>city_eco.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb439"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb439-1"><a href="#cb439-1" aria-hidden="true" tabindex="-1"></a>city_eco.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-Int64Index: 4 entries, 3 to 6
+Index: 4 entries, 3 to 6
 Data columns (total 5 columns):
  #   Column      Non-Null Count  Dtype   
 ---  ------      --------------  -----   
@@ -3193,35 +3170,32 @@ memory usage: 468.0+ bytes</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb443"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb443-1"><a href="#cb443-1" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"economy"</span>].cat.categories</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb441"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb441-1"><a href="#cb441-1" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"economy"</span>].cat.categories</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Int64Index([17, 20, 34], dtype='int64')</code></pre>
+<pre><code>Index([17, 20, 34], dtype='int64')</code></pre>
 </div>
 </div>
 <p>의미있는 이름을 가진 범주를 지정할 수 있습니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb445"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb445-1"><a href="#cb445-1" aria-hidden="true" tabindex="-1"></a>city_eco[<span class="st">"economy"</span>].cat.categories <span class="op">=</span> [<span class="st">"Finance"</span>, <span class="st">"Energy"</span>, <span class="st">"Tourism"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb443"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb443-1"><a href="#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="co">#city_eco["economy"].cat.categories = ["Finance", "Energy", "Tourism"]</span></span>
+<span id="cb443-2"><a href="#cb443-2" aria-hidden="true" tabindex="-1"></a>city_eco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;string&gt;:1: FutureWarning: Setting categories in-place is deprecated and will raise in a future version. Use rename_categories instead.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb447"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb447-1"><a href="#cb447-1" aria-hidden="true" tabindex="-1"></a>city_eco</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   population           city       state  eco_code  economy
-3      808976  San Francisco  California        17  Finance
-4     8363710       New York    New-York        17  Finance
-5      413201          Miami     Florida        34  Tourism
-6     2242193        Houston       Texas        20   Energy</code></pre>
+<pre><code>   population           city       state  eco_code economy
+3      808976  San Francisco  California        17      17
+4     8363710       New York    New-York        17      17
+5      413201          Miami     Florida        34      34
+6     2242193        Houston       Texas        20      20</code></pre>
 </div>
 </div>
 <p>범주형 값은 알파벳 순서가 아니라 범주형 순서로 정렬합니다:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb449"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb449-1"><a href="#cb449-1" aria-hidden="true" tabindex="-1"></a>city_eco.sort_values(by<span class="op">=</span><span class="st">"economy"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb445"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb445-1"><a href="#cb445-1" aria-hidden="true" tabindex="-1"></a>city_eco.sort_values(by<span class="op">=</span><span class="st">"economy"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   population           city       state  eco_code  economy
-5      413201          Miami     Florida        34  Tourism
-6     2242193        Houston       Texas        20   Energy
-3      808976  San Francisco  California        17  Finance
-4     8363710       New York    New-York        17  Finance</code></pre>
+<pre><code>   population           city       state  eco_code economy
+5      413201          Miami     Florida        34      34
+6     2242193        Houston       Texas        20      20
+3      808976  San Francisco  California        17      17
+4     8363710       New York    New-York        17      17</code></pre>
 </div>
 </div>
 </section>

@@ -35,8 +35,8 @@ daejeon_area = 지리데이터
 
 ```{r, warning=FALSE}
 tashu_station = read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/tasu_station.csv") ## github을 통해 utf8로 변환
-tashu_2020 = read.csv("C:/Sungil_LAB/data_geom_final/data/tasu_2020.csv",encoding = "cp949")
-daejeon_area = readOGR("C:/Sungil_LAB/data_geom_final/data/LSMD_ADM_SECT_UMD_30.shp",encoding = "euc-kr")
+tashu_2020 = read.csv("~/dataset/2020.csv")
+daejeon_area = readOGR("~/dataset/LSMD_ADM_SECT_UMD_30.shp",encoding = "euc-kr")
 ```
 
 ### 1. 데이터 구조, 변수정보 확인 & 변수명 변환
@@ -47,7 +47,7 @@ tashu_2020 %>% str()
 tashu_station %>% str()
 
 names(tashu_station) <- c("번호", "대여소명", "거치대", "주소")
-names(tashu_2020) <- c("대여스테이션", "대여일시", "반납스테이션", "반납일시", "이동거리")
+names(tashu_2020) <- c("대여스테이션", "대여일시", "반납스테이션", "반납일시", "이동거리","회원구분")
 ```
 
 ### 2. Google API 활용
@@ -74,6 +74,7 @@ tashu_station <- ggmap::mutate_geocode(data = tashu_station, location = `주소`
 
 ```{r}
 dj_map <- get_map("daejeon",zoom=12)
+
 ggmap(dj_map) + geom_point(data = tashu_station,
                            aes(x=lon,y=lat),
                            size=2,

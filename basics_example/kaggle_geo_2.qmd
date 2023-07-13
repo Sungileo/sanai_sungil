@@ -30,7 +30,7 @@ import pandas as pd
 When we create a GeoDataFrame from a shapefile, the CRS is already imported for us.
 
 ```{python}
-regions = gpd.read_file("C:/archive/ghana/ghana/Regions/Map_of_Regions_in_Ghana.shp")
+regions = gpd.read_file("/home/sungil/dataset/archive/ghana/ghana/Regions/Map_of_Regions_in_Ghana.shp")
 print(regions.crs)
 ```
 
@@ -42,7 +42,7 @@ print(regions.crs)
 
 ```{python}
 # Create a DataFrame with health facilities in Ghana
-facilities_df = pd.read_csv("C:/archive/ghana/ghana/health_facilities.csv")
+facilities_df = pd.read_csv("/home/sungil/dataset/archive/ghana/ghana/health_facilities.csv")
 
 # Convert the DataFrame to a GeoDataFrame
 facilities = gpd.GeoDataFrame(facilities_df, geometry=gpd.points_from_xy(facilities_df.Longitude, facilities_df.Latitude))
@@ -127,7 +127,7 @@ from shapely.geometry import LineString
 
 ```{python}
 # Load the data and print the first 5 rows
-birds_df = pd.read_csv("C:/archive/purple_martin.csv", parse_dates=['timestamp'])
+birds_df = pd.read_csv("/home/sungil/dataset/archive/purple_martin.csv", parse_dates=['timestamp'])
 print("There are {} different birds in the dataset.".format(birds_df["tag-local-identifier"].nunique()))
 birds_df.head()
 ```
@@ -191,7 +191,7 @@ end_gdf.plot(ax=ax, color='black', markersize=30)
 ### Where are the protected areas in South America? (Part 1)
 
 ```{python}
-protected_areas = gpd.read_file("C:/archive/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile-polygons.shp")
+protected_areas = gpd.read_file("/home/sungil/dataset/archive/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile/SAPA_Aug2019-shapefile-polygons.shp")
 ```
 
 ### Where are the protected areas in South America? (Part 2)

@@ -1,9 +1,16 @@
 [
   {
+    "listing": "/recordings.html",
+    "items": [
+      "/records/running.html",
+      "/records/Swimming.html",
+      "/records/gallery.html"
+    ]
+  },
+  {
     "listing": "/kaggle_geo.html",
     "items": [
       "/basics_example/pydeck_training.html",
-      "/basics_example/Plotly.html",
       "/basics_example/Statistic.html",
       "/basics_example/R basic.html",
       "/basics_example/week_1a_numpy.html",
@@ -22,6 +29,7 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/database.html",
       "/posts/tashu_2020.html",
       "/posts/datamining_report.html",
       "/posts/data_visualizing_final.html",
@@ -31,14 +39,6 @@
       "/posts/pyhton_playground.html",
       "/posts/pizza.html",
       "/posts/detect_line.html"
-    ]
-  },
-  {
-    "listing": "/recordings.html",
-    "items": [
-      "/records/running.html",
-      "/records/Swimming.html",
-      "/records/gallery.html"
     ]
   }
 ]

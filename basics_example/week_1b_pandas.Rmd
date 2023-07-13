@@ -1375,7 +1375,7 @@ more_grades
 이제 이 `DataFrame`에 대해 `pd.pivot_table()` 함수를 호출하고 `name` 열로 그룹핑합니다. 기본적으로 `pivot_table()`은 수치 열의 평균을 계산합니다:
 
 ```{python}
-pd.pivot_table(more_grades, index="name")
+#pd.pivot_table(more_grades, index="name")
 ```
 
 집계 함수를 `aggfunc` 매개변수로 바꿀 수 있습니다. 또한 집계 대상의 열을 리스트로 지정할 수 있습니다:
@@ -1616,7 +1616,7 @@ pd.concat([city_loc.set_index("city"), city_pop.set_index("city")], axis=1)
 `append()` 메서드는 `DataFrame`을 수직으로 연결하는 단축 메서드입니다:
 
 ```{python}
-city_loc.append(city_pop)
+#city_loc.append(city_pop)
 ```
 
 ```{python}
@@ -1661,7 +1661,7 @@ city_eco["economy"].cat.categories
 의미있는 이름을 가진 범주를 지정할 수 있습니다:
 
 ```{python}
-city_eco["economy"].cat.categories = ["Finance", "Energy", "Tourism"]
+#city_eco["economy"].cat.categories = ["Finance", "Energy", "Tourism"]
 city_eco
 ```
 

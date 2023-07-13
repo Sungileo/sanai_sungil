@@ -33,13 +33,13 @@ penguins.head()
 데이터 정보
 
 ```{python}
-penguins.info()
+penguins["species"].unique()
 ```
 
 `species` 별 평균치
 
 ```{python}
-penguins.groupby('species').mean()
+penguins.groupby('species').mean(numeric_only=True)
 ```
 
 `tensorflow` 설치 & 임포트
@@ -57,7 +57,7 @@ from tensorflow.keras import layers
 카테고리형 변수인 `species`, `island`, `sex` 를 더미 변수화를 통해 0,1로 변환
 
 ```{python}
-penguins_cat = pd.get_dummies(penguins,columns=['species','island','sex'])
+penguins_cat = pd.get_dummies(penguins,columns=['species','island','sex'],dtype = int)
 penguins_cat.head()
 ```
 
@@ -91,7 +91,6 @@ normalizer = tf.keras.layers.Normalization(axis=-1)
 normalizer.adapt(np.array(X_train))
 
 print(normalizer.mean.numpy())
-
 ```
 
 첫번째 행 데이터와 정규화된 데이터 비교

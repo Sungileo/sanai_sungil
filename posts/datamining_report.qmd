@@ -593,7 +593,7 @@ hi_sjoin = gpd.sjoin(buffer_gdf, hi_school, how="left", op="intersects")
 hi_count = hi_sjoin.groupby(hi_sjoin.index).count()["index_right"]
 ```
 
-```{python}
+```{python,eval = FALSE}
 school_added = pd.concat([apt_latlon,elm_count,mid_count,hi_count],axis=1)
 school_added.columns = ["lon","lat","아파트","geometry",'1000m_초등학교','1000m_중학교','1000m_고등학교']
 school_added.head()
@@ -665,7 +665,7 @@ m_2
 병합된 데이터중 부동산 정보 데이터가 매칭되지 않은 16개 아파트가 삭제된 데이터
 
 ```{python}
-data_raw = pd.read_csv("C:/Users/sungi/OneDrive/바탕 화면/2023-1학기/데이터마이닝 최종/fulldata_test.csv",index_col=0)
+data_raw = pd.read_csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/fulldata_test.csv",index_col=0)
 ```
 
 ```{python}

@@ -585,9 +585,7 @@ ggmap(Houstonmap) + geom_point(data=crime3, aes(x=lon, y=lat)) +
 ```{r}
 library(sf)
 library(dplyr)
-#install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/", type = "source")
 library(spDataLarge)
-#install.packages("stplanr")
 library(stplanr)      # geographic transport data package
 library(tmap)         # visualization package (see Chapter 8)
 

@@ -244,10 +244,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>첫 번째 단계는 지리공간 데이터를 읽어오는 것입니다! 이를 위해 GeoPandas 라이브러리를 사용합니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>C:\Users\sungi\PYTHON~1\Lib\site-packages\geopandas\_compat.py:123: UserWarning: The Shapely GEOS version (3.10.1-CAPI-1.16.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
-  warnings.warn(</code></pre>
-</div>
 </div>
 <p><code>SHAPELY_GEOS_VERSION</code>, <code>GEOS_CAPI_VERSION_STRING</code>, <code>shapefile</code>, <code>GeoJSON</code>, <code>KML</code>, <code>GPKG</code> 등 다양한 지리공간 파일 형식이 있습니다. 이 강좌에서는 그 차이점에 대해서는 다루지 않겠지만, 언급하는 것이 중요합니다:</p>
 <ul>
@@ -256,11 +252,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>다음 코드 셀은 뉴욕주 환경보전국에서 관리하는 숲, 야생지대 및 기타 토지에 대한 정보가 포함된 모양 파일을 로드합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>full_data <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/DEC_lands/DEC_lands/DEC_lands.shp"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first five rows of the data</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>full_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>full_data <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/DEC_lands/DEC_lands/DEC_lands.shp"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first five rows of the data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>full_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   OBJECTID  ...                                           geometry
 0         1  ...  POLYGON ((486093.245 4635308.586, 486787.235 4...
@@ -279,20 +274,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
 <p>데이터의 처음 다섯 행을 보기 위해 <code>head()</code> 메서드를 사용했습니다. 이 메서드는 판다스 데이터프레임을 미리 볼 때도 사용한다는 것을 기억하실 것입니다. 사실, 데이터프레임에 사용할 수 있는 모든 명령은 데이터와 함께 작동합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(full_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(full_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;</code></pre>
 </div>
 </div>
 <p>예를 들어, 모든 열을 사용하지 않으려는 경우 열의 하위 집합을 선택할 수 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> full_data.loc[:,[<span class="st">"CLASS"</span>,<span class="st">"COUNTY"</span>,<span class="st">"geometry"</span>]].copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> full_data.loc[:,[<span class="st">"CLASS"</span>,<span class="st">"COUNTY"</span>,<span class="st">"geometry"</span>]].copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>value_counts()</code> 메서드를 사용하여 다양한 토지 유형 목록과 해당 유형이 데이터 집합에 나타나는 횟수를 확인합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"CLASS"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"CLASS"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>WILD FOREST                   965
+<pre><code>CLASS
+WILD FOREST                   965
 INTENSIVE USE                 108
 PRIMITIVE                      60
 WILDERNESS                     52
@@ -301,15 +297,15 @@ UNCLASSIFIED                    7
 HISTORIC                        5
 PRIMITIVE BICYCLE CORRIDOR      4
 CANOE AREA                      1
-Name: CLASS, dtype: int64</code></pre>
+Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p><code>loc</code>(및 <code>iloc</code>) 및 <code>isin</code>을 사용하여 데이터의 하위 집합을 선택할 수도 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select lands that fall under the "WILD FOREST" or "WILDERNESS" category</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>wild_lands <span class="op">=</span> data.loc[data.CLASS.isin([<span class="st">'WILD FOREST'</span>, <span class="st">'WILDERNESS'</span>])].copy()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>wild_lands.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select lands that fall under the "WILD FOREST" or "WILDERNESS" category</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>wild_lands <span class="op">=</span> data.loc[data.CLASS.isin([<span class="st">'WILD FOREST'</span>, <span class="st">'WILDERNESS'</span>])].copy()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>wild_lands.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         CLASS    COUNTY                                           geometry
 0  WILD FOREST  DELAWARE  POLYGON ((486093.245 4635308.586, 486787.235 4...
@@ -324,7 +320,7 @@ Name: CLASS, dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="create-your-first-map">Create your first map!</h2>
 <p><code>plot()</code> 메서드를 사용하여 데이터를 빠르게 시각화할 수 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>wild_lands.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wild_lands.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kaggle_geo_1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -333,29 +329,29 @@ Name: CLASS, dtype: int64</code></pre>
 <p>이 열에는 다양한 데이터 유형이 포함될 수 있지만, 각 항목은 일반적으로 <code>Point</code>, <code>LineString</code>, 또는 <code>Polygon</code>입니다.</p>
 <p>데이터의 ‘geometry’ 열에는 2983개의 서로 다른 폴리곤 개체가 포함되어 있으며, 각 개체는 위 플롯에서 서로 다른 모양에 해당합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Campsites in New York state (Point)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>POI_data <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/DEC_pointsinterest/DEC_pointsinterest/Decptsofinterest.shp"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>campsites <span class="op">=</span> POI_data.loc[POI_data.ASSET<span class="op">==</span><span class="st">'PRIMITIVE CAMPSITE'</span>].copy()</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Foot trails in New York state (LineString)</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>roads_trails <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/DEC_roadstrails/DEC_roadstrails/Decroadstrails.shp"</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>trails <span class="op">=</span> roads_trails.loc[roads_trails.ASSET<span class="op">==</span><span class="st">'FOOT TRAIL'</span>].copy()</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># County boundaries in New York state (Polygon)</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>counties <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/NY_county_boundaries/NY_county_boundaries/NY_county_boundaries.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Campsites in New York state (Point)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>POI_data <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/DEC_pointsinterest/DEC_pointsinterest/Decptsofinterest.shp"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>campsites <span class="op">=</span> POI_data.loc[POI_data.ASSET<span class="op">==</span><span class="st">'PRIMITIVE CAMPSITE'</span>].copy()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Foot trails in New York state (LineString)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>roads_trails <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/DEC_roadstrails/DEC_roadstrails/Decroadstrails.shp"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>trails <span class="op">=</span> roads_trails.loc[roads_trails.ASSET<span class="op">==</span><span class="st">'FOOT TRAIL'</span>].copy()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># County boundaries in New York state (Polygon)</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>counties <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/NY_county_boundaries/NY_county_boundaries/NY_county_boundaries.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>다음으로, 네 개의 지리 데이터프레임으로 맵을 만듭니다.</p>
 <p><code>plot()</code> 메서드는 모양을 사용자 지정하는 데 사용할 수 있는 몇 가지 매개 변수를 (optional) 입력으로 받습니다. 가장 중요한 것은 <code>ax</code> 값을 설정하면 모든 정보가 동일한 맵에 그려진다는 것입니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a base map with county boundaries</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> counties.plot(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>), color<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'gainsboro'</span>, zorder<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add wild lands, campsites, and foot trails to the base map</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>wild_lands.plot(color<span class="op">=</span><span class="st">'lightgreen'</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>campsites.plot(color<span class="op">=</span><span class="st">'maroon'</span>, markersize<span class="op">=</span><span class="dv">2</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>trails.plot(color<span class="op">=</span><span class="st">'black'</span>, markersize<span class="op">=</span><span class="dv">1</span>, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a base map with county boundaries</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> counties.plot(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>), color<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'gainsboro'</span>, zorder<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add wild lands, campsites, and foot trails to the base map</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>wild_lands.plot(color<span class="op">=</span><span class="st">'lightgreen'</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>campsites.plot(color<span class="op">=</span><span class="st">'maroon'</span>, markersize<span class="op">=</span><span class="dv">2</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>trails.plot(color<span class="op">=</span><span class="st">'black'</span>, markersize<span class="op">=</span><span class="dv">1</span>, ax<span class="op">=</span>ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kaggle_geo_1_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid" width="960"></p>
 </div>
@@ -368,8 +364,8 @@ Name: CLASS, dtype: int64</code></pre>
 <section id="get-data" class="level3">
 <h3 class="anchored" data-anchor-id="get-data">Get data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>world_loans <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/kiva_loans/kiva_loans/kiva_loans.shp"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>world_loans.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>world_loans <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/kiva_loans/kiva_loans/kiva_loans.shp"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>world_loans.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Partner ID  ...                    geometry
 0           9  ...  POINT (102.89751 13.66726)
@@ -385,9 +381,12 @@ Name: CLASS, dtype: int64</code></pre>
 <section id="plot-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="plot-the-data">Plot the data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>world_filepath <span class="op">=</span> gpd.datasets.get_path(<span class="st">"naturalearth_lowres"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> gpd.read_file(world_filepath)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>world.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>world_filepath <span class="op">=</span> gpd.datasets.get_path(<span class="st">"naturalearth_lowres"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;string&gt;:1: FutureWarning: The geopandas.dataset module is deprecated and will be removed in GeoPandas 1.0. You can get the original 'naturalearth_lowres' data from https://www.naturalearthdata.com/downloads/110m-cultural-vectors/.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> gpd.read_file(world_filepath)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>world.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       pop_est  ...                                           geometry
 0     889953.0  ...  MULTIPOLYGON (((180.00000 -16.06713, 180.00000...
@@ -400,8 +399,8 @@ Name: CLASS, dtype: int64</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> world.plot(figsize <span class="op">=</span> (<span class="dv">20</span>,<span class="dv">20</span>),color <span class="op">=</span> <span class="st">"whitesmoke"</span>,linestyle<span class="op">=</span><span class="st">":"</span>,edgecolor <span class="op">=</span> <span class="st">"black"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>world_loans.plot(ax<span class="op">=</span>ax, markersize<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> world.plot(figsize <span class="op">=</span> (<span class="dv">20</span>,<span class="dv">20</span>),color <span class="op">=</span> <span class="st">"whitesmoke"</span>,linestyle<span class="op">=</span><span class="st">":"</span>,edgecolor <span class="op">=</span> <span class="st">"black"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>world_loans.plot(ax<span class="op">=</span>ax, markersize<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kaggle_geo_1_files/figure-html/unnamed-chunk-13-5.png" class="img-fluid" width="1920"></p>
 </div>
@@ -410,8 +409,8 @@ Name: CLASS, dtype: int64</code></pre>
 <section id="selct-loans-based-in-the-philippines" class="level3">
 <h3 class="anchored" data-anchor-id="selct-loans-based-in-the-philippines">Selct loans based in the philippines</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>PHL_loans <span class="op">=</span> world_loans.loc[world_loans[<span class="st">"country"</span>]<span class="op">==</span><span class="st">"Philippines"</span>]</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>PHL_loans.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>PHL_loans <span class="op">=</span> world_loans.loc[world_loans[<span class="st">"country"</span>]<span class="op">==</span><span class="st">"Philippines"</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>PHL_loans.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Partner ID  ...                    geometry
 2859         123  ...  POINT (121.73961 17.64228)
@@ -427,10 +426,10 @@ Name: CLASS, dtype: int64</code></pre>
 <section id="understand-loans-in-the-philippines" class="level3">
 <h3 class="anchored" data-anchor-id="understand-loans-in-the-philippines">Understand loans in the Philippines</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gpd.io.<span class="bu">file</span>.fiona.drvsupport.supported_drivers[<span class="st">"KML"</span>] <span class="op">=</span> <span class="st">"rw"</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>PHL <span class="op">=</span> gpd.read_file(<span class="st">"C:/archive/Philippines_AL258.kml"</span>,driver <span class="op">=</span> <span class="st">"KML"</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>PHL.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gpd.io.<span class="bu">file</span>.fiona.drvsupport.supported_drivers[<span class="st">"KML"</span>] <span class="op">=</span> <span class="st">"rw"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>PHL <span class="op">=</span> gpd.read_file(<span class="st">"/home/sungil/dataset/archive/Philippines_AL258.kml"</span>,driver <span class="op">=</span> <span class="st">"KML"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>PHL.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                   Name  ...                                           geometry
 0  Autonomous Region in Muslim Mindanao  ...  MULTIPOLYGON (((119.46690 4.58718, 119.46653 4...
@@ -443,8 +442,8 @@ Name: CLASS, dtype: int64</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> PHL.plot(figsize <span class="op">=</span> (<span class="dv">20</span>,<span class="dv">20</span>),color <span class="op">=</span> <span class="st">"whitesmoke"</span>,linestyle<span class="op">=</span><span class="st">":"</span>,edgecolor <span class="op">=</span> <span class="st">"lightgray"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>PHL_loans.plot(ax<span class="op">=</span>ax, markersize <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> PHL.plot(figsize <span class="op">=</span> (<span class="dv">20</span>,<span class="dv">20</span>),color <span class="op">=</span> <span class="st">"whitesmoke"</span>,linestyle<span class="op">=</span><span class="st">":"</span>,edgecolor <span class="op">=</span> <span class="st">"lightgray"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>PHL_loans.plot(ax<span class="op">=</span>ax, markersize <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="kaggle_geo_1_files/figure-html/unnamed-chunk-16-7.png" class="img-fluid" width="1920"></p>
 </div>

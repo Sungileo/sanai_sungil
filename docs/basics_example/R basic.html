@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,7 +92,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
@@ -251,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.0     ✔ readr     2.1.4
+✔ dplyr     1.1.2     ✔ readr     2.1.4
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
 ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
 ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
@@ -343,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 ~ 10 중에 2개 추출</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  9 10</code></pre>
+<pre><code>[1] 5 3</code></pre>
 </div>
 </div>
 <p>층화 임의 추출</p>
@@ -357,15 +358,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">strata</span>(<span class="fu">c</span>(<span class="st">"Species"</span>), <span class="at">size =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>), <span class="at">method =</span> <span class="st">"srswor"</span>, <span class="at">data=</span>iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Species ID_unit Prob Stratum
-7       setosa       7 0.06       1
-17      setosa      17 0.06       1
-25      setosa      25 0.06       1
-55  versicolor      55 0.06       2
-78  versicolor      78 0.06       2
-85  versicolor      85 0.06       2
-125  virginica     125 0.06       3
-126  virginica     126 0.06       3
-131  virginica     131 0.06       3</code></pre>
+20      setosa      20 0.06       1
+26      setosa      26 0.06       1
+41      setosa      41 0.06       1
+59  versicolor      59 0.06       2
+72  versicolor      72 0.06       2
+96  versicolor      96 0.06       2
+105  virginica     105 0.06       3
+122  virginica     122 0.06       3
+126  virginica     126 0.06       3</code></pre>
 </div>
 </div>
 </section>
@@ -448,7 +449,7 @@ doll       1      3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(toy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in chisq.test(toy): Chi-squared approximation may be incorrect</code></pre>
+<pre><code>Warning in chisq.test(toy): 카이제곱 approximation은 정확하지 않을수도 있습니다</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -527,7 +528,7 @@ X-squared = 14.459, df = 2, p-value = 0.0007251</code></pre>
     Exact two-sample Kolmogorov-Smirnov test
 
 data:  x and y
-D = 0.5, p-value = 9.065e-05
+D = 0.56, p-value = 6.303e-06
 alternative hypothesis: two-sided</code></pre>
 </div>
 </div>
@@ -549,7 +550,7 @@ alternative hypothesis: two-sided</code></pre>
     Shapiro-Wilk normality test
 
 data:  .
-W = 0.99452, p-value = 0.9607</code></pre>
+W = 0.98781, p-value = 0.494</code></pre>
 </div>
 </div>
 <ul>

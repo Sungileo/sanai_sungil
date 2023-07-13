@@ -48,7 +48,7 @@ m_1
 이제 지도에 범죄 데이터를 추가하겠습니다.
 
 ```{python}
-crimes = pd.read_csv("C:/archive/crimes-in-boston/crimes-in-boston/crime.csv", encoding='latin-1')
+crimes = pd.read_csv("/home/sungil/dataset/archive/crimes-in-boston/crimes-in-boston/crime.csv", encoding='latin-1')
 
 # Drop rows with missing locations
 crimes.dropna(subset=['Lat', 'Long', 'DISTRICT'], inplace=True)
@@ -178,7 +178,7 @@ m_5
 
 ```{python}
 # GeoDataFrame with geographical boundaries of Boston police districts
-districts_full = gpd.read_file("C:/archive/Police_Districts/Police_Districts/Police_Districts.shp")
+districts_full = gpd.read_file("/home/sungil/dataset/archive/Police_Districts/Police_Districts/Police_Districts.shp")
 districts = districts_full[["DISTRICT", "geometry"]].set_index("DISTRICT")
 districts.head()
 ```
@@ -234,7 +234,7 @@ m_6
 ### Do earthquakes coincide with plate boundaries?
 
 ```{python}
-plate_boundaries = gpd.read_file("C:/archive/Plate_Boundaries/Plate_Boundaries/Plate_Boundaries.shp")
+plate_boundaries = gpd.read_file("/home/sungil/dataset/archive/Plate_Boundaries/Plate_Boundaries/Plate_Boundaries.shp")
 
 plate_boundaries['coordinates'] = plate_boundaries.apply(lambda x: [(b,a) for (a,b) in list(x.geometry.coords)], axis='columns')
 
@@ -245,7 +245,7 @@ plate_boundaries.head()
 
 ```{python}
 # Load the data and print the first 5 rows
-earthquakes = pd.read_csv("C:/archive/earthquakes1970-2014.csv", parse_dates=["DateTime"])
+earthquakes = pd.read_csv("/home/sungil/dataset/archive/earthquakes1970-2014.csv", parse_dates=["DateTime"])
 earthquakes.head()
 ```
 
@@ -289,14 +289,14 @@ m_2
 
 ```{python}
 # GeoDataFrame with prefecture boundaries
-prefectures = gpd.read_file("C:/archive/japan-prefecture-boundaries/japan-prefecture-boundaries/japan-prefecture-boundaries.shp")
+prefectures = gpd.read_file("/home/sungil/dataset/archive/japan-prefecture-boundaries/japan-prefecture-boundaries/japan-prefecture-boundaries.shp")
 prefectures.set_index('prefecture', inplace=True)
 prefectures.head()
 ```
 
 ```{python}
 # DataFrame containing population of each prefecture
-population = pd.read_csv("C:/archive/japan-prefecture-population.csv")
+population = pd.read_csv("/home/sungil/dataset/archive/japan-prefecture-population.csv")
 population.set_index('prefecture', inplace=True)
 
 # Calculate area (in square kilometers) of each prefecture

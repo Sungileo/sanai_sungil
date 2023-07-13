@@ -41,7 +41,7 @@ http://data.nsdi.go.kr/dataset/15145
 Convert data type (`sp` -\> `sf`)
 
 ```{r}
-data_sp <- readOGR("C:/trainsets_2/LSMD_ADM_SECT_UMD_/LSMD_ADM_SECT_UMD_44.shp",encoding = "euc-kr")
+data_sp <- readOGR("~/dataset/LSMD_ADM_SECT_UMD_44.shp",encoding = "euc-kr")
 
 data_sf = st_as_sf(data_sp)
 data_sf %>% head()
@@ -84,7 +84,7 @@ chsb <- cheonan_seobuk %>% ggplot(aes(fill=EMD_NM))+
   theme_minimal()+
   scale_fill_discrete(name = "읍면동")
 
-chsb %>% ggplotly()
+chsb
 ```
 
 ```{r}
@@ -95,13 +95,13 @@ chdn <- cheonan_dongnam %>% ggplot(aes(fill=EMD_NM))+
   theme_minimal()+
   scale_fill_discrete(name = "읍면동")
 
-chdn %>% ggplotly()
+chdn
 ```
 
 ## 건축년도
 
 ```{r}
-data <- read.csv("C:/trainsets_2/GEOCOMPS.csv")
+data <- read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/GEOCOMPS.csv")
 data_sf <- data %>% 
   mutate(평단가 = (거래금액/전용면적) %>% as.integer()) %>% 
   st_as_sf(coords = c("Longitude","Latitude"))
@@ -119,15 +119,16 @@ gn <- ggplot()+
   scale_color_gradient(low = "blue", high = "red")+
   theme_minimal()
 
-gn %>% ggplotly()
+gn
 ```
 
 ## 아파트별 평단가
 
 ### ggplotly
 
-```{r}
-data_nm_raw <- read.csv("C:/Users/sungi/Documents/linear_model_dataset_R.csv")
+```{r,eval = FALSE}
+library(readxl)
+data_nm_raw <- read_excel("~/Sungil_LAB/linear_model_dataset.xlsx")
 data_nm_raw <- data_nm_raw %>% mutate(평단가 = 거래금액/전용면적)
 
 data_nm <- data_nm_raw %>% 
@@ -150,12 +151,12 @@ gn <- ggplot()+
   theme_minimal()+
   theme(legend.position = "none")
 
-gn %>% ggplotly()
+gn
 ```
 
 ### Tmap library
 
-```{r}
+```{r,eval=FALSE}
 tmap_mode("view")
 tmap_options(check.and.fix = TRUE)
 
@@ -170,10 +171,10 @@ tm_shape(cheonan["EMD_NM"])+
 ```{r}
 rm(list = ls())
 
-data = read.csv("C:/trainsets_2/천안시_아파트_매매_2018_2023.csv")
+data = read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/%EC%B2%9C%EC%95%88%EC%8B%9C_%EC%95%84%ED%8C%8C%ED%8A%B8_%EB%A7%A4%EB%A7%A4_2018_2023.csv")
 ```
 
-```{r}
+```{r,eval = FALSE}
 
 data_use <- data %>% 
   filter(법정동 %in% c("백석동","불당동")) %>% 

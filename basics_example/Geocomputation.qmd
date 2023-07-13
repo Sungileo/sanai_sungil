@@ -18,7 +18,6 @@ image: "geo.png"
 library(sf)
 library(raster)
 library(spData)
-library(spDataLarge)
 library(tmap)
 library(mapview)
 library(tidyverse)
@@ -203,6 +202,7 @@ lnd_sf
 ```{r}
 #install.packages("rgdal") 
 library(rgdal)
+library(spDataLarge)
 
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge") 
 new_raster = raster(raster_filepath)
@@ -1202,5 +1202,3 @@ mapdeck(style = ms,
 ## more interactive map examples
 
 [**Geospatial Visualization**](https://sungileo.github.io/sanai_sungil/basics_example/vis_geo.html#mapdeck)
-
-

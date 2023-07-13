@@ -1,0 +1,29 @@
+---
+title: "데이터베이스 만들기"
+author: "Sungil Park"
+date: "2023/07/01"
+description: "라즈베리파이, MySQL, MariaDB, 원격연결 / 개인프로젝트 (2023-2)"
+categories: [SQL, LINUX]
+---
+
+## 라즈베리파이
+
+### os 설치
+
+### MariaDB 세팅
+
+## 네트워크
+
+### 포트포워딩
+
+### DDNS
+
+## 연결
+
+### 동일 네트워크
+
+### 원격 연결
+
+
+
+

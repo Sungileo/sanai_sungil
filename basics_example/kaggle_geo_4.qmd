@@ -63,7 +63,7 @@ print("Longitude:", point.longitude)
 다양한 주소를 지오코딩해야 하는 경우가 종종 있습니다. 예를 들어 유럽에 있는 상위 100개 대학의 위치를 파악하고 싶다고 가정해 보겠습니다.
 
 ```{python}
-universities = pd.read_csv("C:/archive/top_universities.csv")
+universities = pd.read_csv("/home/sungil/dataset/archive/top_universities.csv")
 universities.head()
 ```
 
@@ -171,7 +171,7 @@ You are a Starbucks big data analyst (that's a real job!) looking to find the ne
 Run the next code cell to create a DataFrame starbucks containing Starbucks locations in the state of California.
 
 ```{python}
-starbucks = pd.read_csv("C:/archive/starbucks_locations.csv")
+starbucks = pd.read_csv("/home/sungil/dataset/archive/starbucks_locations.csv")
 starbucks.head()
 ```
 
@@ -221,7 +221,7 @@ for idx, row in starbucks[starbucks["City"]=='Berkeley'].iterrows():
 Run the code below to load a GeoDataFrame CA_counties containing the name, area (in square kilometers), and a unique id (in the "GEOID" column) for each county in the state of California. The "geometry" column contains a polygon with county boundaries.
 
 ```{python}
-CA_counties = gpd.read_file("C:/archive/CA_county_boundaries/CA_county_boundaries/CA_county_boundaries.shp")
+CA_counties = gpd.read_file("/home/sungil/dataset/archive/CA_county_boundaries/CA_county_boundaries/CA_county_boundaries.shp")
 CA_counties.crs = {'init': 'epsg:4326'}
 CA_counties.head()
 ```
@@ -235,9 +235,9 @@ Next, we create three DataFrames:
 -   `CA_median_age` contains the median age for each county.
 
 ```{python}
-CA_pop = pd.read_csv("C:/archive/CA_county_population.csv", index_col="GEOID")
-CA_high_earners = pd.read_csv("C:/archive/CA_county_high_earners.csv", index_col="GEOID")
-CA_median_age = pd.read_csv("C:/archive/CA_county_median_age.csv", index_col="GEOID")
+CA_pop = pd.read_csv("/home/sungil/dataset/archive/CA_county_population.csv", index_col="GEOID")
+CA_high_earners = pd.read_csv("/home/sungil/dataset/archive/CA_county_high_earners.csv", index_col="GEOID")
+CA_median_age = pd.read_csv("/home/sungil/dataset/archive/CA_county_median_age.csv", index_col="GEOID")
 ```
 
 Use the next code cell to join the `CA_counties` GeoDataFrame with `CA_pop`, `CA_high_earners`, and `CA_median_age`.
