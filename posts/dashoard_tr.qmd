@@ -1,0 +1,21 @@
+---
+title: "대시보드 창고"
+author: "Sungil Park"
+date: "2023/0714"
+description: "Flexdashboard 연습"
+categories: [R, Python, HTML, Markdown]
+editor_options: 
+  chunk_output_type: inline
+---
+
+ - ## [**천안시 아파트**](https://sungileo.github.io/any/)
+
+-
+
+-
+
+-
+
+
+
+

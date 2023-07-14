@@ -72,7 +72,8 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
+      page: 10,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
@@ -179,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="LINUX">LINUX <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="SQL">SQL <span class="quarto-category-count">(2)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="r">r <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(11)</span></div><div class="category" data-category="HTML">HTML <span class="quarto-category-count">(1)</span></div><div class="category" data-category="LINUX">LINUX <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Markdown">Markdown <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="SQL">SQL <span class="quarto-category-count">(2)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="r">r <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -192,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="SQL,LINUX" data-listing-date-sort="1688137200000" data-listing-file-modified-sort="1689222763538" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="0" data-categories="SQL,LINUX" data-listing-date-sort="1688137200000" data-listing-file-modified-sort="1689222858469" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
 <div class="thumbnail">
 <p><a href="./posts/database.html"> <img src="img/shark_left.jpg" class="thumbnail-image" style="height: 130px;"> </a></p>
 </div>
@@ -538,10 +539,57 @@ sungil_park
 </a>
 </div>
 </div>
+<div class="quarto-post image-right" data-index="10" data-categories="R,Python,HTML,Markdown" data-listing-date-sort="NaN" data-listing-file-modified-sort="1689318200497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="./posts/dashoard_tr.html"> <img data-src="img/shark_left.jpg" class="thumbnail-image" style="height: 130px;"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/dashoard_tr.html">
+<h3 class="no-anchor listing-title">
+대시보드 창고
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('HTML'); return false;">
+HTML
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Markdown'); return false;">
+Markdown
+</div>
+</div>
+<a href="./posts/dashoard_tr.html">
+<div class="listing-description">
+<p>Flexdashboard 연습</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/dashoard_tr.html">
+<div class="listing-date">
+Invalid Date
+</div>
+<div class="listing-author">
+Sungil Park
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
