@@ -1,7 +1,7 @@
 ---
 title: "대시보드 창고"
 author: "Sungil Park"
-date: "2023/0714"
+date: "2023/07/14"
 description: "Flexdashboard 연습"
 categories: [R, Python, HTML, Markdown]
 editor_options: 
