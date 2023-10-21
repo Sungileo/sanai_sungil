@@ -10,6 +10,7 @@
   {
     "listing": "/kaggle_geo.html",
     "items": [
+      "/basics_example/back_propagation.html",
       "/basics_example/pydeck_training.html",
       "/basics_example/Statistic.html",
       "/basics_example/R basic.html",
