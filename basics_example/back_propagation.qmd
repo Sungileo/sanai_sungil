@@ -7,7 +7,7 @@ description: "Basics of Deep learning"
 image: "DL.jpg"
 categories: R
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r, include=FALSE}
@@ -51,9 +51,10 @@ sigmoid_derivative <- function(x){
 
 ```{r}
 mse_loss <- function(y_true,y_pred){
-  ((y_true - y_pred)**2) %>% mean()
+  mean((y_true - y_pred)**2)
 }
 ```
+
 ```{r, echo=FALSE}
 x <-seq(-10,10,0.001)
 
@@ -175,8 +176,186 @@ ggplot(data = loss_data, aes(x = epoch, y = loss)) +
   theme_minimal()
 ```
 
+## Example 2
+
+```{r}
+set.seed(2023)
+
+X <- matrix(c(0, 0, 0, 1, 1, 0, 1, 1), ncol = 2, byrow = TRUE) # XOR 연산의 입력값
+y <- matrix(c(0, 1, 1, 0), ncol = 1) # XOR 연산의 출력값
+
+input_size = 2
+hidden_size = 3
+output_size = 1
+
+W1 <- matrix(rnorm(input_size * hidden_size), nrow = input_size, ncol = hidden_size)
+b1 <- matrix(0, nrow = 4, ncol = hidden_size)
+W2 <- matrix(rnorm(hidden_size * output_size), nrow = hidden_size, ncol = output_size)
+b2 <- matrix(0, nrow = 4, ncol = output_size)
+
+learning_rate = 0.1
+epochs = 500
+
+# 초기화
+loss_2 <- numeric()  # 빈 벡터로 손실을 저장
+
+# 학습 시작
+for (epoch in 1:epochs) {
+  # Forward Pass
+  z1 <- X %*% W1 + b1
+  a1 <- sigmoid(z1)
+
+  z2 <- a1 %*% W2 + b2
+  a2 <- sigmoid(z2)
+
+    # 손실 계산
+  loss <- mse_loss(y, a2)
+
+  
+  da2 <- a2 - cbind(y,y,y)
+  dz2 <- da2 * sigmoid_derivative(a2)
+  dW2 <- t(a1) %*% dz2
+  db2 <- colSums(dz2)
+  
+  da1 <- dz2 - cbind(y,y)
+  dz1 <- da1 * sigmoid_derivative(a1)
+  dW1 <- t(X) %*% dz1
+  db1 <- colSums(dz1)
+
+  # 가중치 업데이트
+  W2 <- W2 - learning_rate * dW2
+  b2 <- b2 - learning_rate * db2
+  W1 <- W1 - learning_rate * dW1
+  b1 <- b1 - learning_rate * db1
+
+  loss_2 <- c(loss_2, loss)
+}
+```
 
 
+### Output & Plot
+
+#### Predicted Output:
+
+```{r, echo=FALSE}
+print(a2)
+```
+
+#### Loss plot:
+
+```{r}
+loss_data <- data.frame(epoch = 1:length(loss_2), loss = loss_2)
+
+ggplot(data = loss_data, aes(x = epoch, y = loss)) +
+  geom_line() +
+  labs(x = "epoch", y = "loss") +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Example 3
+
+히든 레이어의 수가 2개이고, 각 레이어의 뉴런의 수가 3개인 뉴럴네트워크를 같은 형태로 구현해봅시다
+
+```{r}
+set.seed(2023)
+
+X <- matrix(c(0, 0, 0, 1, 1, 0, 1, 1), ncol = 2, byrow = TRUE) # XOR 연산의 입력값
+y <- matrix(c(0, 1, 1, 0), ncol = 1) # XOR 연산의 출력값
+
+input_size = 2
+hidden_size = 3
+hidden_2_size = 3
+output_size = 1
+
+W1 <- matrix(rnorm(input_size * hidden_size), nrow = input_size, ncol = hidden_size)
+b1 <- matrix(0, nrow = 4, ncol = hidden_size)
+W2 <- matrix(rnorm(hidden_size * hidden_2_size), nrow = hidden_size, ncol = hidden_2_size)
+b2 <- matrix(0, nrow = 4, ncol = hidden_2_size)
+W3 <- matrix(rnorm(hidden_2_size * output_size), nrow = hidden_2_size, ncol = output_size)
+b3 <- matrix(0, nrow = 4, ncol = output_size)
+
+learning_rate = 0.1
+epochs = 2000
+
+# 초기화
+loss_2 <- numeric()  # 빈 벡터로 손실을 저장
+
+# 학습 시작
+for (epoch in 1:epochs) {
+  # Forward Pass
+  z1 <- X %*% W1 + b1
+  a1 <- sigmoid(z1)
+
+  z2 <- a1 %*% W2 + b2
+  a2 <- sigmoid(z2)
+  
+  z3 <- a2 %*% W3 + b3
+  a3 <- sigmoid(z3)
+  # 손실 계산
+  loss <- mse_loss(y, a3)
+
+  # Backward Pass
+  da3 <- a3 - y
+  dz3 <- da3 * sigmoid_derivative(a3)
+  dW3 <- t(a2) %*% dz3
+  db3 <- sum(dz3)
+  
+  da2 <- a2 - cbind(y,y,y)
+  dz2 <- da2 * sigmoid_derivative(a2)
+  dW2 <- t(a1) %*% dz2
+  db2 <- colSums(dz2)
+  
+  da1 <- dz2 - cbind(y,y,y)
+  dz1 <- da1 * sigmoid_derivative(a1)
+  dW1 <- t(X) %*% dz1
+  db1 <- colSums(dz1)
+
+  # 가중치 업데이트
+  W3 <- W3 - learning_rate * dW3
+  b3 <- b3 - learning_rate * db3
+  W2 <- W2 - learning_rate * dW2
+  b2 <- b2 - learning_rate * db2
+  W1 <- W1 - learning_rate * dW1
+  b1 <- b1 - learning_rate * db1
+  
+
+  loss_2 <- c(loss_2, loss)
+}
+```
+
+### Output & Plot
+
+#### Predicted Output:
+
+```{r, echo=FALSE}
+print(a3)
+```
+
+#### Loss plot:
+
+```{r}
+loss_data <- data.frame(epoch = 1:length(loss_2), loss = loss_2)
+
+ggplot(data = loss_data, aes(x = epoch, y = loss)) +
+  geom_line() +
+  labs(x = "epoch", y = "loss") +
+  theme_minimal()
+```
 
 
 

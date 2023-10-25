@@ -178,6 +178,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#필요-함수-정의" id="toc-필요-함수-정의" class="nav-link" data-scroll-target="#필요-함수-정의">필요 함수 정의</a></li>
   <li><a href="#모델-구조" id="toc-모델-구조" class="nav-link" data-scroll-target="#모델-구조">모델 구조</a></li>
   <li><a href="#output-plot" id="toc-output-plot" class="nav-link" data-scroll-target="#output-plot">Output &amp; Plot</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a>
+  <ul class="collapse">
+  <li><a href="#output-plot-1" id="toc-output-plot-1" class="nav-link" data-scroll-target="#output-plot-1">Output &amp; Plot</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mse_loss <span class="ot">&lt;-</span> <span class="cf">function</span>(y_true,y_pred){</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  ((y_true <span class="sc">-</span> y_pred)<span class="sc">**</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">mean</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>((y_true <span class="sc">-</span> y_pred)<span class="sc">**</span><span class="dv">2</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -370,8 +374,102 @@ b_1 = b_1 - \text{learning\_rate} \times \frac{\partial L}{\partial b_1}
 <p><img src="back_propagation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+</section>
+<section id="example-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-2">Example 2</h2>
+<p>히든 레이어의 수가 2개이고, 각 레이어의 뉴런의 수가 3개인 뉴럴네트워크를 같은 형태로 구현해봅시다</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>) <span class="co"># XOR 연산의 입력값</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">ncol =</span> <span class="dv">1</span>) <span class="co"># XOR 연산의 출력값</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>input_size <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>hidden_size <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>hidden_2_size <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>output_size <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>W1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(input_size <span class="sc">*</span> hidden_size), <span class="at">nrow =</span> input_size, <span class="at">ncol =</span> hidden_size)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> hidden_size)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>W2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(hidden_size <span class="sc">*</span> hidden_2_size), <span class="at">nrow =</span> hidden_size, <span class="at">ncol =</span> hidden_2_size)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> hidden_2_size)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>W3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(hidden_2_size <span class="sc">*</span> output_size), <span class="at">nrow =</span> hidden_2_size, <span class="at">ncol =</span> output_size)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> output_size)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>learning_rate <span class="ot">=</span> <span class="fl">0.1</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 초기화</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>loss_2 <span class="ot">&lt;-</span> <span class="fu">numeric</span>()  <span class="co"># 빈 벡터로 손실을 저장</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 학습 시작</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (epoch <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>epochs) {</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Forward Pass</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  z1 <span class="ot">&lt;-</span> X <span class="sc">%*%</span> W1 <span class="sc">+</span> b1</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">&lt;-</span> <span class="fu">sigmoid</span>(z1)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  z2 <span class="ot">&lt;-</span> a1 <span class="sc">%*%</span> W2 <span class="sc">+</span> b2</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">&lt;-</span> <span class="fu">sigmoid</span>(z2)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  z3 <span class="ot">&lt;-</span> a2 <span class="sc">%*%</span> W3 <span class="sc">+</span> b3</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  a3 <span class="ot">&lt;-</span> <span class="fu">sigmoid</span>(z3)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 손실 계산</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  loss <span class="ot">&lt;-</span> <span class="fu">mse_loss</span>(y, a3)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Backward Pass</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  da3 <span class="ot">&lt;-</span> a3 <span class="sc">-</span> y</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  dz3 <span class="ot">&lt;-</span> da3 <span class="sc">*</span> <span class="fu">sigmoid_derivative</span>(a3)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  dW3 <span class="ot">&lt;-</span> <span class="fu">t</span>(a2) <span class="sc">%*%</span> dz3</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  db3 <span class="ot">&lt;-</span> <span class="fu">sum</span>(dz3)</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  da2 <span class="ot">&lt;-</span> a2 <span class="sc">-</span> <span class="fu">cbind</span>(y,y,y)</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  dz2 <span class="ot">&lt;-</span> da2 <span class="sc">*</span> <span class="fu">sigmoid_derivative</span>(a2)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>  dW2 <span class="ot">&lt;-</span> <span class="fu">t</span>(a1) <span class="sc">%*%</span> dz2</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>  db2 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(dz2)</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>  da1 <span class="ot">&lt;-</span> dz2 <span class="sc">-</span> <span class="fu">cbind</span>(y,y,y)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>  dz1 <span class="ot">&lt;-</span> da1 <span class="sc">*</span> <span class="fu">sigmoid_derivative</span>(a1)</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>  dW1 <span class="ot">&lt;-</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> dz1</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>  db1 <span class="ot">&lt;-</span> <span class="fu">colSums</span>(dz1)</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 가중치 업데이트</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>  W1 <span class="ot">&lt;-</span> W1 <span class="sc">-</span> learning_rate <span class="sc">*</span> dW1</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>  b1 <span class="ot">&lt;-</span> b1 <span class="sc">-</span> learning_rate <span class="sc">*</span> db1</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>  loss_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(loss_2, loss)</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="output-plot-1" class="level3">
+<h3 class="anchored" data-anchor-id="output-plot-1">Output &amp; Plot</h3>
+<section id="predicted-output-1" class="level4">
+<h4 class="anchored" data-anchor-id="predicted-output-1">Predicted Output:</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.6914565
+[2,] 0.6914565
+[3,] 0.6914565
+[4,] 0.6914565</code></pre>
+</div>
+</div>
+</section>
+<section id="loss-plot-1" class="level4">
+<h4 class="anchored" data-anchor-id="loss-plot-1">Loss plot:</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>loss_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">epoch =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(loss_2), <span class="at">loss =</span> loss_2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> loss_data, <span class="fu">aes</span>(<span class="at">x =</span> epoch, <span class="at">y =</span> loss)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"epoch"</span>, <span class="at">y =</span> <span class="st">"loss"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="back_propagation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 </section>
 </section>
