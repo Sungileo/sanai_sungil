@@ -30,6 +30,7 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/posts/competition_full.html",
       "/posts/competiton_visualize.html",
       "/posts/dashoard_tr.html",
       "/posts/database.html",
