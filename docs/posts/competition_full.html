@@ -170,7 +170,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#packages" id="toc-packages" class="nav-link active" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#envirionments" id="toc-envirionments" class="nav-link active" data-scroll-target="#envirionments">Envirionments</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a>
   <ul class="collapse">
   <li><a href="#load-datasets" id="toc-load-datasets" class="nav-link" data-scroll-target="#load-datasets">Load Datasets</a></li>
@@ -231,8 +232,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="envirionments" class="level2">
+<h2 class="anchored" data-anchor-id="envirionments">Envirionments</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hardware</th>
+<th style="text-align: left;">Name / Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">CPU</td>
+<td style="text-align: left;">Ryzen 5800x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RAM</td>
+<td style="text-align: left;">8G 25600 * 2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GPU</td>
+<td style="text-align: left;">Radeon RX 570</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OS</td>
+<td style="text-align: left;">UBUNTU 22.04 LTS</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Software</th>
+<th style="text-align: left;">Name / Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Python</td>
+<td style="text-align: left;">3.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sckit-Learn</td>
+<td style="text-align: left;">1.2.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tensorflow</td>
+<td style="text-align: left;">2.15.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Keras</td>
+<td style="text-align: left;">2.15.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">XGBoost</td>
+<td style="text-align: left;">1.7.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LightGBM</td>
+<td style="text-align: left;">3.3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CatBoost</td>
+<td style="text-align: left;">1.2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AutoGluon</td>
+<td style="text-align: left;">0.8.2</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.base <span class="im">import</span> BaseEstimator, TransformerMixin</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> autogluon.tabular <span class="im">import</span> TabularDataset, TabularPredictor</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="datasets" class="level2">
 <h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
@@ -242,14 +331,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Add <code>DATETIME</code> datetime type</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/train_data_modified.csv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/test_data_modified.csv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'TIME'</span>] <span class="op">=</span> train[<span class="st">'TIME'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">str</span>(x).zfill(<span class="dv">2</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'DATETIME'</span>] <span class="op">=</span> pd.to_datetime(train[<span class="st">'DATE'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> train[<span class="st">'TIME'</span>].astype(<span class="bu">str</span>), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>test[<span class="st">'TIME'</span>] <span class="op">=</span> test[<span class="st">'TIME'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">str</span>(x).zfill(<span class="dv">2</span>))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>test[<span class="st">'DATETIME'</span>] <span class="op">=</span> pd.to_datetime(test[<span class="st">'DATE'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> test[<span class="st">'TIME'</span>].astype(<span class="bu">str</span>), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/train_data_modified.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/test_data_modified.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'TIME'</span>] <span class="op">=</span> train[<span class="st">'TIME'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">str</span>(x).zfill(<span class="dv">2</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>train[<span class="st">'DATETIME'</span>] <span class="op">=</span> pd.to_datetime(train[<span class="st">'DATE'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> train[<span class="st">'TIME'</span>].astype(<span class="bu">str</span>), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>test[<span class="st">'TIME'</span>] <span class="op">=</span> test[<span class="st">'TIME'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">str</span>(x).zfill(<span class="dv">2</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>test[<span class="st">'DATETIME'</span>] <span class="op">=</span> pd.to_datetime(test[<span class="st">'DATE'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> test[<span class="st">'TIME'</span>].astype(<span class="bu">str</span>), <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-additional-datasets" class="level3">
@@ -262,14 +351,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Add <code>centroid</code> as numeric value</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> gpd.read_file(<span class="st">"competition_data/nlsp_020001001.shp"</span>, encoding <span class="op">=</span> <span class="st">"utf-8"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> tile.iloc[:,[<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">3</span>]]</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>tile.fillna(<span class="dv">0</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> gpd.GeoDataFrame(tile, geometry<span class="op">=</span><span class="st">'geometry'</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> tile.to_crs(epsg<span class="op">=</span><span class="dv">4326</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tile[[<span class="st">'longitude'</span>, <span class="st">'latitude'</span>]] <span class="op">=</span> tile[<span class="st">"geometry"</span>].centroid.astype(<span class="bu">str</span>).<span class="bu">str</span>.extract(<span class="vs">r'POINT \(([^ ]+) ([^ ]+)\)'</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>tile[<span class="st">"latitude"</span>] ,tile[<span class="st">"longitude"</span>] <span class="op">=</span> tile[<span class="st">"latitude"</span>].astype(<span class="bu">float</span>),tile[<span class="st">"longitude"</span>].astype(<span class="bu">float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> gpd.read_file(<span class="st">"competition_data/nlsp_020001001.shp"</span>, encoding <span class="op">=</span> <span class="st">"utf-8"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> tile.iloc[:,[<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">3</span>]]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>tile.fillna(<span class="dv">0</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> gpd.GeoDataFrame(tile, geometry<span class="op">=</span><span class="st">'geometry'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> tile.to_crs(epsg<span class="op">=</span><span class="dv">4326</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>tile[[<span class="st">'longitude'</span>, <span class="st">'latitude'</span>]] <span class="op">=</span> tile[<span class="st">"geometry"</span>].centroid.astype(<span class="bu">str</span>).<span class="bu">str</span>.extract(<span class="vs">r'POINT \(([^ ]+) ([^ ]+)\)'</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>tile[<span class="st">"latitude"</span>] ,tile[<span class="st">"longitude"</span>] <span class="op">=</span> tile[<span class="st">"latitude"</span>].astype(<span class="bu">float</span>),tile[<span class="st">"longitude"</span>].astype(<span class="bu">float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bus-station-location-data" class="level4">
@@ -280,19 +369,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Merge data with <code>tile</code> data for <code>bus stop count</code> per tile</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>busstop_loc <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/getStaionByRouteAll.txt"</span>, delimiter<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>busstop_loc.columns <span class="op">=</span> [<span class="st">'BUSSTOP_NM'</span>, <span class="st">'BUS_STOP_ID'</span>, <span class="st">'lat'</span>, <span class="st">'lon'</span>]</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>busstop_loc[<span class="st">'geometry'</span>] <span class="op">=</span> [Point(lon, lat) <span class="cf">for</span> lon, lat <span class="kw">in</span> <span class="bu">zip</span>(busstop_loc[<span class="st">'lon'</span>], busstop_loc[<span class="st">'lat'</span>])]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>busstop_loc <span class="op">=</span> gpd.GeoDataFrame(busstop_loc, geometry<span class="op">=</span><span class="st">"geometry"</span>, crs<span class="op">=</span><span class="st">'EPSG:4326'</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>busstop_loc <span class="op">=</span> busstop_loc[(busstop_loc[<span class="st">"lon"</span>] <span class="op">&gt;</span> tile[<span class="st">"longitude"</span>].<span class="bu">min</span>()) <span class="op">&amp;</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                          (busstop_loc[<span class="st">"lon"</span>] <span class="op">&lt;</span> tile[<span class="st">"longitude"</span>].<span class="bu">max</span>()) <span class="op">&amp;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                          (busstop_loc[<span class="st">"lat"</span>] <span class="op">&gt;</span> tile[<span class="st">"latitude"</span>].<span class="bu">min</span>()) <span class="op">&amp;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                          (busstop_loc[<span class="st">"lat"</span>] <span class="op">&lt;</span> tile[<span class="st">"latitude"</span>].<span class="bu">max</span>())]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>busstop_loc[<span class="st">"busstop_cnt"</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> gpd.sjoin(tile,busstop_loc,how<span class="op">=</span><span class="st">"left"</span>).groupby(<span class="st">"gid"</span>).<span class="bu">sum</span>().reset_index()[[<span class="st">"gid"</span>,<span class="st">"busstop_cnt"</span>]]</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> pd.merge(tile,a,how<span class="op">=</span><span class="st">"left"</span>,on<span class="op">=</span><span class="st">"gid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>busstop_loc <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/getStaionByRouteAll.txt"</span>, delimiter<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>busstop_loc.columns <span class="op">=</span> [<span class="st">'BUSSTOP_NM'</span>, <span class="st">'BUS_STOP_ID'</span>, <span class="st">'lat'</span>, <span class="st">'lon'</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>busstop_loc[<span class="st">'geometry'</span>] <span class="op">=</span> [Point(lon, lat) <span class="cf">for</span> lon, lat <span class="kw">in</span> <span class="bu">zip</span>(busstop_loc[<span class="st">'lon'</span>], busstop_loc[<span class="st">'lat'</span>])]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>busstop_loc <span class="op">=</span> gpd.GeoDataFrame(busstop_loc, geometry<span class="op">=</span><span class="st">"geometry"</span>, crs<span class="op">=</span><span class="st">'EPSG:4326'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>busstop_loc <span class="op">=</span> busstop_loc[(busstop_loc[<span class="st">"lon"</span>] <span class="op">&gt;</span> tile[<span class="st">"longitude"</span>].<span class="bu">min</span>()) <span class="op">&amp;</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                          (busstop_loc[<span class="st">"lon"</span>] <span class="op">&lt;</span> tile[<span class="st">"longitude"</span>].<span class="bu">max</span>()) <span class="op">&amp;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                          (busstop_loc[<span class="st">"lat"</span>] <span class="op">&gt;</span> tile[<span class="st">"latitude"</span>].<span class="bu">min</span>()) <span class="op">&amp;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                          (busstop_loc[<span class="st">"lat"</span>] <span class="op">&lt;</span> tile[<span class="st">"latitude"</span>].<span class="bu">max</span>())]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>busstop_loc[<span class="st">"busstop_cnt"</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> gpd.sjoin(tile,busstop_loc,how<span class="op">=</span><span class="st">"left"</span>).groupby(<span class="st">"gid"</span>).<span class="bu">sum</span>().reset_index()[[<span class="st">"gid"</span>,<span class="st">"busstop_cnt"</span>]]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> pd.merge(tile,a,how<span class="op">=</span><span class="st">"left"</span>,on<span class="op">=</span><span class="st">"gid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <iframe src="competition_data/busstop_cnt.html" width="800" height="600">
 </iframe>
@@ -306,18 +395,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Split a week in July and August into test data (8:2 ratio)</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>test_set <span class="op">=</span> pd.concat([train[(train[<span class="st">"DATETIME"</span>] <span class="op">&gt;=</span> <span class="st">"2023-07-17 00:00:00"</span>) <span class="op">&amp;</span> (train[<span class="st">"DATETIME"</span>] <span class="op">&lt;=</span> <span class="st">"2023-07-23 23:00:00"</span>)],</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     train[(train[<span class="st">"DATETIME"</span>] <span class="op">&gt;=</span> <span class="st">"2023-08-18 00:00:00"</span>) <span class="op">&amp;</span> (train[<span class="st">"DATETIME"</span>] <span class="op">&lt;=</span> <span class="st">"2023-08-24 23:00:00"</span>)]])</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>train_set <span class="op">=</span> train.drop(test_set.index)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_set.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_set[[<span class="st">"RIDE_DEMAND"</span>]]</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_set.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test_set[[<span class="st">"RIDE_DEMAND"</span>]]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>X_train.shape, X_test.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>test_set <span class="op">=</span> pd.concat([train[(train[<span class="st">"DATETIME"</span>] <span class="op">&gt;=</span> <span class="st">"2023-07-17 00:00:00"</span>) <span class="op">&amp;</span> (train[<span class="st">"DATETIME"</span>] <span class="op">&lt;=</span> <span class="st">"2023-07-23 23:00:00"</span>)],</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                     train[(train[<span class="st">"DATETIME"</span>] <span class="op">&gt;=</span> <span class="st">"2023-08-18 00:00:00"</span>) <span class="op">&amp;</span> (train[<span class="st">"DATETIME"</span>] <span class="op">&lt;=</span> <span class="st">"2023-08-24 23:00:00"</span>)]])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>train_set <span class="op">=</span> train.drop(test_set.index)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_set.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train_set[[<span class="st">"RIDE_DEMAND"</span>]]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_set.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test_set[[<span class="st">"RIDE_DEMAND"</span>]]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>X_train.shape, X_test.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>((431592, 5), (107898, 5))</code></pre>
 </div>
@@ -332,39 +421,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Add <code>YEAR</code>,<code>MONTH</code>, <code>DATE</code>, <code>DAY_OF_WEEK</code></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Transformer(BaseEstimator, TransformerMixin):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> transform(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> pd.merge(X, tile, on<span class="op">=</span><span class="st">'gid'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME_sin"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">abs</span>(np.sin(x<span class="op">*</span>(np.pi<span class="op">/</span><span class="dv">23</span>))))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"YEAR"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.year</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"MONTH"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.month</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"DATE"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.day        </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">'DAY_OF_WEEK'</span>] <span class="op">=</span> X[<span class="st">'DATETIME'</span>].dt.day_name()</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>list_cat <span class="op">=</span> [<span class="st">'gid'</span>, <span class="st">'DAY_OF_WEEK'</span>]</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>list_num <span class="op">=</span> [<span class="st">'TIME'</span>, <span class="st">'ALIGHT_DEMAND'</span>, <span class="st">'MONTH'</span>, <span class="st">'busstop_cnt'</span>, <span class="st">'DATE'</span>, <span class="st">'val'</span>]</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>transformer <span class="op">=</span> Transformer()</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> ColumnTransformer(</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    transformers<span class="op">=</span>[</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"num"</span>, StandardScaler(), list_num),</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"cat"</span>, OneHotEncoder(), list_cat),</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'transformer'</span>, transformer),</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'preprocessor'</span>, preprocessor),</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>X_train_prep_matrix <span class="op">=</span> pipeline.fit_transform(X_train)</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>X_test_prep_matrix <span class="op">=</span> pipeline.fit_transform(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Transformer(BaseEstimator, TransformerMixin):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> transform(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> pd.merge(X, tile, on<span class="op">=</span><span class="st">'gid'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME_sin"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">abs</span>(np.sin(x<span class="op">*</span>(np.pi<span class="op">/</span><span class="dv">23</span>))))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"YEAR"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.year</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"MONTH"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.month</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"DATE"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.day        </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">'DAY_OF_WEEK'</span>] <span class="op">=</span> X[<span class="st">'DATETIME'</span>].dt.day_name()</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>list_cat <span class="op">=</span> [<span class="st">'gid'</span>, <span class="st">'DAY_OF_WEEK'</span>]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>list_num <span class="op">=</span> [<span class="st">'TIME'</span>, <span class="st">'ALIGHT_DEMAND'</span>, <span class="st">'MONTH'</span>, <span class="st">'busstop_cnt'</span>, <span class="st">'DATE'</span>, <span class="st">'val'</span>]</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>transformer <span class="op">=</span> Transformer()</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    transformers<span class="op">=</span>[</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"num"</span>, StandardScaler(), list_num),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"cat"</span>, OneHotEncoder(), list_cat),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'transformer'</span>, transformer),</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'preprocessor'</span>, preprocessor),</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>X_train_prep_matrix <span class="op">=</span> pipeline.fit_transform(X_train)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>X_test_prep_matrix <span class="op">=</span> pipeline.fit_transform(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="convert-output-type" class="level2">
@@ -374,12 +463,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>CSR Matrix -&gt; DataFrame</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> preprocessor.get_feature_names_out()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X_train_prep_df <span class="op">=</span> pd.DataFrame(X_train_prep_matrix.toarray(), columns<span class="op">=</span>feature_names)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>X_test_prep_df <span class="op">=</span> pd.DataFrame(X_test_prep_matrix.toarray(), columns<span class="op">=</span>feature_names)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>X_train_prep_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> preprocessor.get_feature_names_out()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X_train_prep_df <span class="op">=</span> pd.DataFrame(X_train_prep_matrix.toarray(), columns<span class="op">=</span>feature_names)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>X_test_prep_df <span class="op">=</span> pd.DataFrame(X_test_prep_matrix.toarray(), columns<span class="op">=</span>feature_names)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>X_train_prep_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   num__TIME  ...  cat__DAY_OF_WEEK_Wednesday
 0  -1.178190  ...                         0.0
@@ -399,52 +488,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="randomforest" class="level4">
 <h4 class="anchored" data-anchor-id="randomforest">Randomforest</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>forest_reg <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>forest_reg.fit(X_train_prep_df,y_train)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>forest_pred <span class="op">=</span> forest_reg.predict(X_test_prep_df)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>forest_mae <span class="op">=</span> mean_absolute_error(y_test,forest_pred)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>forest_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>forest_reg <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>forest_reg.fit(X_train_prep_df,y_train)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>forest_pred <span class="op">=</span> forest_reg.predict(X_test_prep_df)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>forest_mae <span class="op">=</span> mean_absolute_error(y_test,forest_pred)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>forest_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="xgboost" class="level4">
 <h4 class="anchored" data-anchor-id="xgboost">XGBoost</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>xgb_reg <span class="op">=</span> xgboost.XGBRegressor(objective<span class="op">=</span><span class="st">'reg:squarederror'</span>,n_estimators<span class="op">=</span><span class="dv">100</span>,random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>xgb_reg.fit(X_train_prep_df,y_train)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>xgb_pred <span class="op">=</span> xgb_reg.predict(X_test_prep_df)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>xgb_mae <span class="op">=</span> mean_absolute_error(y_test,xgb_pred)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>xgb_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>xgb_reg <span class="op">=</span> xgboost.XGBRegressor(objective<span class="op">=</span><span class="st">'reg:squarederror'</span>,n_estimators<span class="op">=</span><span class="dv">100</span>,random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>xgb_reg.fit(X_train_prep_df,y_train)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>xgb_pred <span class="op">=</span> xgb_reg.predict(X_test_prep_df)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>xgb_mae <span class="op">=</span> mean_absolute_error(y_test,xgb_pred)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>xgb_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="lightgbm" class="level4">
 <h4 class="anchored" data-anchor-id="lightgbm">LightGBM</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMRegressor</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>lgb_reg <span class="op">=</span> LGBMRegressor()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>lgb_reg.fit(X_train_prep_df, y_train)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>lgb_pred <span class="op">=</span> lgb_reg.predict(X_test_prep_df)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>lgb_mae <span class="op">=</span> mean_absolute_error(y_test,lgb_pred)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>lgb_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lightgbm <span class="im">import</span> LGBMRegressor</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>lgb_reg <span class="op">=</span> LGBMRegressor()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>lgb_reg.fit(X_train_prep_df, y_train)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>lgb_pred <span class="op">=</span> lgb_reg.predict(X_test_prep_df)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>lgb_mae <span class="op">=</span> mean_absolute_error(y_test,lgb_pred)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>lgb_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="catboost" class="level4">
 <h4 class="anchored" data-anchor-id="catboost">CatBoost</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> catboost <span class="im">as</span> cb</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cb_reg <span class="op">=</span> cb.CatBoostRegressor()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>cb_reg.fit(X_train_prep_df,y_train)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>cb_pred <span class="op">=</span> cb_reg.predict(X_test_prep_df)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>cb_mae <span class="op">=</span> mean_absolute_error(y_test,cb_pred)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>cb_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> catboost <span class="im">as</span> cb</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cb_reg <span class="op">=</span> cb.CatBoostRegressor()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>cb_reg.fit(X_train_prep_df,y_train)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>cb_pred <span class="op">=</span> cb_reg.predict(X_test_prep_df)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>cb_mae <span class="op">=</span> mean_absolute_error(y_test,cb_pred)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>cb_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -453,101 +542,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="packages-1" class="level4">
 <h4 class="anchored" data-anchor-id="packages-1">Packages</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow <span class="im">import</span> keras</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow <span class="im">import</span> keras</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="model_1-4-layer-30-neurons" class="level4">
 <h4 class="anchored" data-anchor-id="model_1-4-layer-30-neurons">Model_1 (4 Layer * 30 Neurons)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tf.keras.backend.clear_session()</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>tf.random.set_seed(<span class="dv">42</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>normalization_layer <span class="op">=</span> tf.keras.layers.Normalization()</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>layer1 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>layer2 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>layer3 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>layer4 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>output_layer <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">1</span>)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>input_ <span class="op">=</span> tf.keras.layers.Input(shape<span class="op">=</span>X_train_prep_df.shape[<span class="dv">1</span>:])</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>normalized <span class="op">=</span> normalization_layer(input_)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>hidden1 <span class="op">=</span> layer1(normalized)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>hidden2 <span class="op">=</span> layer2(hidden1)</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>hidden3 <span class="op">=</span> layer3(hidden2)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>hidden4 <span class="op">=</span> layer4(hidden3)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> output_layer(hidden4)</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>model_1 <span class="op">=</span> tf.keras.Model(inputs<span class="op">=</span>[input_], outputs<span class="op">=</span>[output])</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>model_1.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tf.keras.backend.clear_session()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tf.random.set_seed(<span class="dv">42</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>normalization_layer <span class="op">=</span> tf.keras.layers.Normalization()</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>layer1 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>layer2 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>layer3 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>layer4 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">30</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>output_layer <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">1</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>input_ <span class="op">=</span> tf.keras.layers.Input(shape<span class="op">=</span>X_train_prep_df.shape[<span class="dv">1</span>:])</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>normalized <span class="op">=</span> normalization_layer(input_)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>hidden1 <span class="op">=</span> layer1(normalized)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>hidden2 <span class="op">=</span> layer2(hidden1)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>hidden3 <span class="op">=</span> layer3(hidden2)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>hidden4 <span class="op">=</span> layer4(hidden3)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> output_layer(hidden4)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>model_1 <span class="op">=</span> tf.keras.Model(inputs<span class="op">=</span>[input_], outputs<span class="op">=</span>[output])</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>model_1.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> tf.keras.optimizers.Adam(learning_rate<span class="op">=</span><span class="fl">1e-3</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>model_1.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">"mae"</span>, optimizer<span class="op">=</span>optimizer, metrics<span class="op">=</span>[<span class="st">"RootMeanSquaredError"</span>])</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>normalization_layer.adapt(X_train_prep_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> tf.keras.optimizers.Adam(learning_rate<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>model_1.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">"mae"</span>, optimizer<span class="op">=</span>optimizer, metrics<span class="op">=</span>[<span class="st">"RootMeanSquaredError"</span>])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>normalization_layer.adapt(X_train_prep_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>history_1 <span class="op">=</span> model_1.fit(X_train_prep_df, y_train, epochs<span class="op">=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>history_1 <span class="op">=</span> model_1.fit(X_train_prep_df, y_train, epochs<span class="op">=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mod_1_pred <span class="op">=</span> model_1.predict(X_test_prep_df)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mod_1_mae <span class="op">=</span> mean_absolute_error(y_test,mod_1_pred)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mod_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mod_1_pred <span class="op">=</span> model_1.predict(X_test_prep_df)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mod_1_mae <span class="op">=</span> mean_absolute_error(y_test,mod_1_pred)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>mod_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="model_2-40---40---20---10" class="level4">
 <h4 class="anchored" data-anchor-id="model_2-40---40---20---10">Model_2 (40 - 40 - 20 - 10)</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tf.keras.backend.clear_session()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tf.random.set_seed(<span class="dv">42</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>normalization_layer <span class="op">=</span> tf.keras.layers.Normalization()</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>layer1 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">40</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>layer2 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">40</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>layer3 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">20</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>layer4 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">10</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>output_layer <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">1</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>input_ <span class="op">=</span> tf.keras.layers.Input(shape<span class="op">=</span>X_train_prep_df.shape[<span class="dv">1</span>:])</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>normalized <span class="op">=</span> normalization_layer(input_)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>hidden1 <span class="op">=</span> layer1(normalized)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>hidden2 <span class="op">=</span> layer2(hidden1)</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>hidden3 <span class="op">=</span> layer3(hidden2)</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>hidden4 <span class="op">=</span> layer4(hidden3)</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> output_layer(hidden4)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>model_2 <span class="op">=</span> tf.keras.Model(inputs<span class="op">=</span>[input_], outputs<span class="op">=</span>[output])</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>model_2.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tf.keras.backend.clear_session()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tf.random.set_seed(<span class="dv">42</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>normalization_layer <span class="op">=</span> tf.keras.layers.Normalization()</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>layer1 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">40</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>layer2 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">40</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>layer3 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">20</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>layer4 <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">10</span>, activation<span class="op">=</span><span class="st">"relu"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>output_layer <span class="op">=</span> tf.keras.layers.Dense(<span class="dv">1</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>input_ <span class="op">=</span> tf.keras.layers.Input(shape<span class="op">=</span>X_train_prep_df.shape[<span class="dv">1</span>:])</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>normalized <span class="op">=</span> normalization_layer(input_)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>hidden1 <span class="op">=</span> layer1(normalized)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>hidden2 <span class="op">=</span> layer2(hidden1)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>hidden3 <span class="op">=</span> layer3(hidden2)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>hidden4 <span class="op">=</span> layer4(hidden3)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> output_layer(hidden4)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>model_2 <span class="op">=</span> tf.keras.Model(inputs<span class="op">=</span>[input_], outputs<span class="op">=</span>[output])</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>model_2.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> tf.keras.optimizers.Adam(learning_rate<span class="op">=</span><span class="fl">1e-3</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>model_2.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">"mae"</span>, optimizer<span class="op">=</span>optimizer, metrics<span class="op">=</span>[<span class="st">"RootMeanSquaredError"</span>])</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>normalization_layer.adapt(X_train_prep_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> tf.keras.optimizers.Adam(learning_rate<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>model_2.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">"mae"</span>, optimizer<span class="op">=</span>optimizer, metrics<span class="op">=</span>[<span class="st">"RootMeanSquaredError"</span>])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>normalization_layer.adapt(X_train_prep_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>history_2 <span class="op">=</span> model_2.fit(X_train_prep_df, y_train, epochs<span class="op">=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>history_2 <span class="op">=</span> model_2.fit(X_train_prep_df, y_train, epochs<span class="op">=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mod_2_pred <span class="op">=</span> model_2.predict(X_test_prep_df)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mod_2_mae <span class="op">=</span> mean_absolute_error(y_test,mod_2_pred)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mod_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mod_2_pred <span class="op">=</span> model_2.predict(X_test_prep_df)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mod_2_mae <span class="op">=</span> mean_absolute_error(y_test,mod_2_pred)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>mod_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -556,170 +645,182 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preprocessing-for-autogluon" class="level4">
 <h4 class="anchored" data-anchor-id="preprocessing-for-autogluon">Preprocessing for AutoGluon</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Transformer_ag(BaseEstimator, TransformerMixin):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> transform(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> pd.merge(X, tile, on<span class="op">=</span><span class="st">'gid'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME_sin"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">abs</span>(np.sin(x<span class="op">*</span>(np.pi<span class="op">/</span><span class="dv">23</span>))))</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"YEAR"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.year</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"MONTH"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.month</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"DATE"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.day        </span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">'DAY_OF_WEEK'</span>] <span class="op">=</span> X[<span class="st">'DATETIME'</span>].dt.day_name()</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>transformer_ag <span class="op">=</span> Transformer_ag()</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>train_set_ag <span class="op">=</span> transformer_ag.fit_transform(train_set)</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>test_set_ag <span class="op">=</span> transformer_ag.fit_transform(test_set)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>X_train_ag <span class="op">=</span> train_set_ag.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>y_train_ag <span class="op">=</span> train_set_ag[[<span class="st">"RIDE_DEMAND"</span>]]</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>X_test_ag <span class="op">=</span> test_set_ag.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>y_test_ag <span class="op">=</span> test_set_ag[[<span class="st">"RIDE_DEMAND"</span>]]</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>train_set_ag.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Transformer_ag(BaseEstimator, TransformerMixin):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> transform(<span class="va">self</span>, X, y<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> pd.merge(X, tile, on<span class="op">=</span><span class="st">'gid'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"TIME_sin"</span>] <span class="op">=</span> X[<span class="st">"TIME"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">abs</span>(np.sin(x<span class="op">*</span>(np.pi<span class="op">/</span><span class="dv">23</span>))))</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"YEAR"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.year</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"MONTH"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.month</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">"DATE"</span>] <span class="op">=</span> X[<span class="st">"DATETIME"</span>].dt.day        </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        X[<span class="st">'DAY_OF_WEEK'</span>] <span class="op">=</span> X[<span class="st">'DATETIME'</span>].dt.day_name()</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>transformer_ag <span class="op">=</span> Transformer_ag()</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>train_set_ag <span class="op">=</span> transformer_ag.fit_transform(train_set)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>test_set_ag <span class="op">=</span> transformer_ag.fit_transform(test_set)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>X_train_ag <span class="op">=</span> train_set_ag.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>y_train_ag <span class="op">=</span> train_set_ag[[<span class="st">"RIDE_DEMAND"</span>]]</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>X_test_ag <span class="op">=</span> test_set_ag.drop([<span class="st">"RIDE_DEMAND"</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>y_test_ag <span class="op">=</span> test_set_ag[[<span class="st">"RIDE_DEMAND"</span>]]</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>train_set_ag.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="default-parameters" class="level4">
 <h4 class="anchored" data-anchor-id="default-parameters">Default parameters</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ag_reg_default <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_default'</span>) </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>ag_reg_default.fit(train_data <span class="op">=</span> train_set_ag, verbosity <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ag_default_pred <span class="op">=</span> ag_reg_default.predict(X_test_ag)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ag_default_mae <span class="op">=</span> mean_absolute_error(y_test, ag_default_pred)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>ag_default_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ag_reg_default <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_default'</span>) </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ag_reg_default.fit(train_data <span class="op">=</span> train_set_ag, verbosity <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ag_default_pred <span class="op">=</span> ag_reg_default.predict(X_test_ag)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>ag_default_mae <span class="op">=</span> mean_absolute_error(y_test, ag_default_pred)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>ag_default_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="presets-best_quality-autostack-true" class="level4">
+<h4 class="anchored" data-anchor-id="presets-best_quality-autostack-true">presets = “best_quality”, autostack = True</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ag_reg_best <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_best'</span>) </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ag_reg_best.fit(train_data <span class="op">=</span> train_set_ag, verbosity <span class="op">=</span> <span class="dv">2</span>, preset <span class="op">=</span> , autostack <span class="op">=</span> )</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ag_best_pred <span class="op">=</span> ag_reg_best.predict(X_test_ag)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>ag_best_mae <span class="op">=</span> mean_absolute_error(y_test, ag_best_pred)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ag_best_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_5-stack_1" class="level4">
 <h4 class="anchored" data-anchor-id="bag_5-stack_1">bag_5 stack_1</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ag_reg_5_1 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_5_1'</span>) </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ag_reg_5_1.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">5</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>ag_5_1 <span class="op">=</span> ag_reg_5_1.predict(X_test_ag)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>ag_5_1_mae <span class="op">=</span> mean_absolute_error(y_test, ag_5_1)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>ag_5_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ag_reg_5_1 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_5_1'</span>) </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ag_reg_5_1.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">5</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>ag_5_1 <span class="op">=</span> ag_reg_5_1.predict(X_test_ag)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>ag_5_1_mae <span class="op">=</span> mean_absolute_error(y_test, ag_5_1)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>ag_5_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_7-stack_1" class="level4">
 <h4 class="anchored" data-anchor-id="bag_7-stack_1">bag_7 stack_1</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ag_reg_7_1 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_7_1'</span>) </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ag_reg_7_1.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">7</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>ag_7_1 <span class="op">=</span> ag_reg_7_1.predict(X_test_ag)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>ag_7_1_mae <span class="op">=</span> mean_absolute_error(y_test, ag_7_1)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ag_7_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ag_reg_7_1 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_7_1'</span>) </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ag_reg_7_1.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">7</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>ag_7_1 <span class="op">=</span> ag_reg_7_1.predict(X_test_ag)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>ag_7_1_mae <span class="op">=</span> mean_absolute_error(y_test, ag_7_1)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>ag_7_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_10-stack_1" class="level4">
 <h4 class="anchored" data-anchor-id="bag_10-stack_1">bag_10 stack_1</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ag_reg_10_1 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_10_1'</span>) </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ag_reg_10_1.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">10</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>ag_10_1 <span class="op">=</span> ag_reg_10_1.predict(X_test_ag)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>ag_10_1_mae <span class="op">=</span> mean_absolute_error(y_test, ag_10_1)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>ag_10_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ag_reg_10_1 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_10_1'</span>) </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>ag_reg_10_1.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">10</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>ag_10_1 <span class="op">=</span> ag_reg_10_1.predict(X_test_ag)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>ag_10_1_mae <span class="op">=</span> mean_absolute_error(y_test, ag_10_1)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>ag_10_1_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_5-stack_2" class="level4">
 <h4 class="anchored" data-anchor-id="bag_5-stack_2">bag_5 stack_2</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ag_reg_5_2 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_5_2'</span>) </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ag_reg_5_2.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">5</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>ag_5_2 <span class="op">=</span> ag_reg_5_2.predict(X_test_ag)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>ag_5_2_mae <span class="op">=</span> mean_absolute_error(y_test, ag_5_2)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>ag_5_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ag_reg_5_2 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_5_2'</span>) </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ag_reg_5_2.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">5</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>ag_5_2 <span class="op">=</span> ag_reg_5_2.predict(X_test_ag)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>ag_5_2_mae <span class="op">=</span> mean_absolute_error(y_test, ag_5_2)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>ag_5_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_7-stack_2" class="level4">
 <h4 class="anchored" data-anchor-id="bag_7-stack_2">bag_7 stack_2</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ag_reg_7_2 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_7_2'</span>) </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>ag_reg_7_2.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">7</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>ag_7_2 <span class="op">=</span> ag_reg_7_2.predict(X_test_ag)</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>ag_7_2_mae <span class="op">=</span> mean_absolute_error(y_test, ag_7_2)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>ag_7_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ag_reg_7_2 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_7_2'</span>) </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>ag_reg_7_2.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">7</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>ag_7_2 <span class="op">=</span> ag_reg_7_2.predict(X_test_ag)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>ag_7_2_mae <span class="op">=</span> mean_absolute_error(y_test, ag_7_2)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>ag_7_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_10-stack_2" class="level4">
 <h4 class="anchored" data-anchor-id="bag_10-stack_2">bag_10 stack_2</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ag_reg_10_2 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_10_2'</span>) </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ag_reg_10_2.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">10</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>ag_10_2 <span class="op">=</span> ag_reg_10_2.predict(X_test_ag)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>ag_10_2_mae <span class="op">=</span> mean_absolute_error(y_test, ag_10_2)</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>ag_10_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ag_reg_10_2 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_10_2'</span>) </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ag_reg_10_2.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">10</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>ag_10_2 <span class="op">=</span> ag_reg_10_2.predict(X_test_ag)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>ag_10_2_mae <span class="op">=</span> mean_absolute_error(y_test, ag_10_2)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>ag_10_2_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_5-stack_3" class="level4">
 <h4 class="anchored" data-anchor-id="bag_5-stack_3">bag_5 stack_3</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ag_reg_5_3 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_5_3'</span>) </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>ag_reg_5_3.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">5</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>ag_5_3 <span class="op">=</span> ag_reg_5_3.predict(X_test_ag)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>ag_5_3_mae <span class="op">=</span> mean_absolute_error(y_test, ag_5_3)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>ag_5_3_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ag_reg_5_3 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_5_3'</span>) </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>ag_reg_5_3.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">5</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>ag_5_3 <span class="op">=</span> ag_reg_5_3.predict(X_test_ag)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>ag_5_3_mae <span class="op">=</span> mean_absolute_error(y_test, ag_5_3)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>ag_5_3_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_7-stack_3" class="level4">
 <h4 class="anchored" data-anchor-id="bag_7-stack_3">bag_7 stack_3</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ag_reg_7_3 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_7_3'</span>) </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ag_reg_7_3.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">7</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>ag_7_3 <span class="op">=</span> ag_reg_7_3.predict(X_test_ag)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>ag_7_3_mae <span class="op">=</span> mean_absolute_error(y_test, ag_7_3)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>ag_7_3_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ag_reg_7_3 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_7_3'</span>) </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ag_reg_7_3.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">7</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>ag_7_3 <span class="op">=</span> ag_reg_7_3.predict(X_test_ag)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>ag_7_3_mae <span class="op">=</span> mean_absolute_error(y_test, ag_7_3)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>ag_7_3_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bag_10-stack_3" class="level4">
 <h4 class="anchored" data-anchor-id="bag_10-stack_3">bag_10 stack_3</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ag_reg_10_3 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_10_3'</span>) </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>ag_reg_10_3.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">10</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>ag_10_3 <span class="op">=</span> ag_reg_10_3.predict(X_test_ag)</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>ag_10_3_mae <span class="op">=</span> mean_absolute_error(y_test, ag_10_3)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>ag_10_3_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ag_reg_10_3 <span class="op">=</span> TabularPredictor(label <span class="op">=</span> <span class="st">'RIDE_DEMAND'</span>, problem_type <span class="op">=</span> <span class="st">'regression'</span>, eval_metric <span class="op">=</span> <span class="st">'mae'</span>, path <span class="op">=</span> <span class="st">'./ag_reg_10_3'</span>) </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>ag_reg_10_3.fit(train_data <span class="op">=</span> train_set_ag, presets <span class="op">=</span> <span class="st">'best_quality'</span>, auto_stack <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>              fit_weighted_ensemble <span class="op">=</span> <span class="va">True</span>, verbosity <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>              num_bag_folds <span class="op">=</span> <span class="dv">10</span>, num_bag_sets <span class="op">=</span> <span class="dv">1</span>, num_stack_levels <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>ag_10_3 <span class="op">=</span> ag_reg_10_3.predict(X_test_ag)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>ag_10_3_mae <span class="op">=</span> mean_absolute_error(y_test, ag_10_3)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>ag_10_3_mae</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -771,48 +872,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">20m ~</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">AG_best_quality</td>
+<td style="text-align: left;">3.9</td>
+<td style="text-align: right;">5H ~</td>
+</tr>
+<tr class="odd">
 <td style="text-align: center;">AG_5_1</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.284</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;">AG_7_1</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.2481</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;">AG_10_1</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.27</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;">AG_5_2</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.284</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: center;">AG_7_2</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.2309</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: center;">AG_10_2</td>
-<td style="text-align: left;">#</td>
-<td style="text-align: right;">5H ~</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">AG_5_3</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.27</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">AG_7_3</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: center;">AG_5_3</td>
+<td style="text-align: left;">5.284</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
 <tr class="even">
+<td style="text-align: center;">AG_7_3</td>
+<td style="text-align: left;">5.27</td>
+<td style="text-align: right;">5H ~</td>
+</tr>
+<tr class="odd">
 <td style="text-align: center;">AG_10_3</td>
-<td style="text-align: left;">#</td>
+<td style="text-align: left;">5.27</td>
 <td style="text-align: right;">5H ~</td>
 </tr>
 </tbody>
@@ -823,19 +929,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="predict" class="level3">
 <h3 class="anchored" data-anchor-id="predict">Predict</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>X_sub <span class="op">=</span> transformer_ag.transform(test)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sub_model <span class="op">=</span> TabularPredictor.load(<span class="st">"model_path"</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>y_sub <span class="op">=</span> sub_model.predict(X_sub)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>X_sub <span class="op">=</span> transformer_ag.transform(test)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>sub_model <span class="op">=</span> TabularPredictor.load(<span class="st">"model_path"</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>y_sub <span class="op">=</span> sub_model.predict(X_sub)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="submission" class="level3">
 <h3 class="anchored" data-anchor-id="submission">Submission</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>submission <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/test_data_modified.csv"</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>submission[<span class="st">"RIDE_DEMAND"</span>] <span class="op">=</span> y_sub</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>submission.to_csv(<span class="st">"test_data_modified_submi.csv"</span>,index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>submission <span class="op">=</span> pd.read_csv(<span class="st">"competition_data/test_data_modified.csv"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>submission[<span class="st">"RIDE_DEMAND"</span>] <span class="op">=</span> y_sub</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>submission.to_csv(<span class="st">"test_data_modified_submi.csv"</span>,index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

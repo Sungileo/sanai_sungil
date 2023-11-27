@@ -8,15 +8,55 @@ editor_options:
 toc: true
 ---
 
-```{r}
+```{r} 
 
 ```
+
+
+## Envirionments
+
+| Hardware | Name / Version | 
+|:------|:-----|
+| CPU      | Ryzen 5800x |
+| RAM      | 8G 25600 * 2 |
+| GPU      | Radeon RX 570 |
+| OS   | UBUNTU 22.04 LTS |
+
+| Software | Name / Version | 
+|:------|:-----|
+| Python      | 3.10 |
+| Sckit-Learn | 1.2.2 |
+| Tensorflow | 2.15.0 |
+| Keras | 2.15.0 |
+| XGBoost | 1.7.6 |
+| LightGBM | 3.3.5 |
+| CatBoost | 1.2.2 |
+| AutoGluon | 0.8.2 |
+
 
 
 
 ## Packages
 
 ```{python, include = FALSE} 
+import numpy as np
+import pandas as pd
+import geopandas as gpd
+from shapely.geometry import Point
+
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer 
+
+from autogluon.tabular import TabularDataset, TabularPredictor
+from sklearn.metrics import mean_absolute_error
+
+import warnings
+warnings.filterwarnings("ignore")
+```
+
+```{python, eval = FALSE} 
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -394,6 +434,18 @@ ag_default_mae = mean_absolute_error(y_test, ag_default_pred)
 ag_default_mae
 ```
 
+#### presets = "best_quality", autostack = True
+
+```{python, eval = FALSE} 
+ag_reg_best = TabularPredictor(label = 'RIDE_DEMAND', problem_type = 'regression', eval_metric = 'mae', path = './ag_reg_best') 
+
+ag_reg_best.fit(train_data = train_set_ag, verbosity = 2, preset = , autostack = )
+
+ag_best_pred = ag_reg_best.predict(X_test_ag)
+ag_best_mae = mean_absolute_error(y_test, ag_best_pred)
+ag_best_mae
+```
+
 #### bag_5 stack_1
 
 ```{python, eval = FALSE} 
@@ -531,15 +583,16 @@ ag_10_3_mae
 | DL Model_1 | 5.3349  |  20m ~ |
 | DL Model_2 | 5.2322 |   20m ~ |
 | AG_Default | 5.15  |  20m ~ |
-| AG_5_1 | #  |   5H ~ |
-| AG_7_1  | #   |  5H ~ |
-| AG_10_1  | #   | 5H ~ |
-| AG_5_2  | #  |   5H ~ |
-| AG_7_2  | #    |  5H ~ |
-| AG_10_2 | #  |   5H ~ |
-| AG_5_3  | #    |     5H ~ |
-| AG_7_3  | # |    5H ~ |
-| AG_10_3  | #  |   5H ~ |
+| AG_best_quality | 3.9 |  5H ~ |
+| AG_5_1 | 5.284 |   5H ~ |
+| AG_7_1  | 5.2481 |  5H ~ |
+| AG_10_1  | 5.27| 5H ~ |
+| AG_5_2  |5.284 |   5H ~ |
+| AG_7_2  | 5.2309 |  5H ~ |
+| AG_10_2 |  5.27|   5H ~ |
+| AG_5_3  | 5.284 |     5H ~ |
+| AG_7_3  | 5.27|    5H ~ |
+| AG_10_3  | 5.27 |   5H ~ |
 
 ## Predict & Submission
 
