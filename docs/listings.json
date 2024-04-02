@@ -43,5 +43,25 @@
       "/posts/pizza.html",
       "/posts/detect_line.html"
     ]
+  },
+  {
+    "listing": "/basic_example.html",
+    "items": [
+      "/basics_example/back_propagation.html",
+      "/basics_example/pydeck_training.html",
+      "/basics_example/Statistic.html",
+      "/basics_example/R basic.html",
+      "/basics_example/week_1a_numpy.html",
+      "/basics_example/week_1b_pandas.html",
+      "/basics_example/Geocomputation.html",
+      "/basics_example/penguin.html",
+      "/basics_example/vis.html",
+      "/basics_example/vis_geo.html",
+      "/basics_example/kaggle_geo_1.html",
+      "/basics_example/kaggle_geo_2.html",
+      "/basics_example/kaggle_geo_3.html",
+      "/basics_example/kaggle_geo_4.html",
+      "/basics_example/kaggle_geo_5.html"
+    ]
   }
 ]

@@ -1,0 +1,151 @@
+---
+title : "할리스커피 크롤링"
+date: "2024/04/01"
+description: "전국의 할리스커피 매장을 알아보아요~ / 정적 크롤링 / 지오코딩"
+categories: python
+author: "Sungil Park"
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+library(DT)
+hollys <- read.csv("/home/sungil/PythonSimhwa/hollys.csv")
+```
+
+## Packages
+
+```{python}
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import googlemaps
+import plotly.graph_objs as go
+import folium
+from folium import CircleMarker
+```
+
+## Crawling
+
+```{python, eval = FALSE}
+hollys = []
+max_page = 51
+bar_length = 50
+
+for pageNo in range(1,max_page):
+    url_base="https://www.hollys.co.kr/store/korea/korStore2.do"
+    url_search=url_base+"?pageNo="+str(pageNo)
+
+    req = requests.get(url_search)
+    html = req.text
+    store = BeautifulSoup(html,'html.parser')
+    store_tbody = store.find_all('tbody')
+    store_tr = store_tbody[0].find_all('tr')
+
+    n_rows = len(store_tr)
+    for i in range(n_rows):
+        store_temp = store_tr[i].find_all('td')
+        loca = store_temp[0].string
+        locas = loca.split(" ")
+        hollys.append({
+            "지역":locas[0],
+            "시군구":locas[1],
+            '매장명':store_temp[1].string,	
+            '현황':store_temp[2].string,	
+            '주소':store_temp[3].string,	
+            '전화번호':store_temp[5].string
+        })
+
+    progress = (pageNo+1)/max_page
+    loaded_length = int(bar_length * progress)
+    bar = '=' * loaded_length + '-' * (bar_length - loaded_length)
+    percent = int(progress * 100)
+
+    print(f'\r[{bar}] {percent}%', end='', flush=True)
+
+print('\n완료!')
+hollys = pd.DataFrame(hollys)
+hollys
+```
+
+```{r, echo=FALSE}
+hollys[,1:6] %>% datatable()
+```
+
+## Geocode
+
+```{python, eval = FALSE}
+API_KEY = 'My_Googlemap_API'
+gmaps = googlemaps.Client(key=API_KEY)
+
+def googlegeocode(x):
+    temp = gmaps.geocode(x)
+    lat,lon = temp[0]["geometry"]["location"]["lat"],temp[0]["geometry"]["location"]["lng"]
+    return lat, lon
+
+hollys.loc[:,"lat"], hollys.loc[:,"lon"] = zip(*hollys['주소'].apply(googlegeocode))
+hollys
+```
+
+
+```{r, echo=FALSE}
+hollys %>% datatable()
+```
+
+### 지역별 매장 수
+
+```{python, eval = FALSE}
+hollys_num = hollys["지역"].value_counts().reset_index()
+hollys_num = pd.DataFrame(hollys_num)
+hollys_num.columns =["지역", "count"]
+hollys_num
+
+hollys_num = hollys_num.sort_values("count",ascending=True)
+regions = hollys_num["지역"]
+store_counts = hollys_num["count"]
+
+fig = go.Figure(data=[go.Bar(x=store_counts, y=regions, orientation='h',marker_color = "#ba000e")])
+
+fig.update_layout(
+    title='지역별 매장 수',
+    xaxis_title='매장 수',
+    yaxis_title='지역',
+    plot_bgcolor='white',
+    xaxis_showgrid = True,
+    yaxis_showgrid = True,
+    xaxis_gridcolor = "lightgray",
+    xaxis_dtick = 10
+)
+fig.update_traces(
+    hoverinfo='text',
+    hovertext=[f'<b>{count}, {region}</b>' for count, region in zip(store_counts, regions)],
+    hoverlabel_bgcolor = "black",
+)
+
+fig.show()
+```
+
+<iframe src="할리스_지역별_매장수.html" width="800" height="500">
+
+</iframe>
+
+## 전국 매장 지도
+
+```{python, eval = FALSE}
+M = folium.Map(location=[36.807438,127.144504], zoom_start=7,tiles="Cartodb Positron")
+
+for idx, row in hollys.iterrows():
+    CircleMarker(location = [row['lat'], row['lon']],
+           radius=30,
+           tooltip=row["매장명"],
+           color = "#ba000e",
+           fill = True,
+           fill_opacity=0.6,
+           opacity=1
+           ).add_to(M)
+
+M
+```
+
+<iframe src="할리스_전국매장.html" width="800" height="600">
+
+</iframe>
