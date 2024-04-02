@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Sungil_Park"
+  navbar:
+    background: '#7fcdff'
+    left:
+      - projects.qmd
+      - kaggle_geo.qmd
+      - recordings.qmd
+    
+  
+    right: 
+      - text: Contact
+        menu: 
+          - icon: github
+            href: https://github.com/Sungileo
+            text: "Github"
+          - icon: linkedin
+            href: https://kr.linkedin.com/in/sungilfromcheonankorea
+            text: "Linkedin"
+          - icon: instagram
+            href: https://www.instagram.com/da_real_sungil
+            text: "Instagram"  
+          
+          
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+
+editor: visual
+

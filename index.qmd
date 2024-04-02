@@ -1,0 +1,25 @@
+---
+title: "Sungil_Park"
+---
+
+![](./img/shark_left.jpg)
+
+#### Hello, I am Park Sung-il, majoring in Big-data application and Statistics at Hannam University in South Korea.
+
+#### This is a quarto blog created with Rstudio.
+
+#### Created for publishing my projects and records about me.
+
+#### Environments
+
+-   Samsung Galaxybook 2 pro 360 i7
+
+-   Desktop
+
+    -   Ubuntu 20.04 LTS
+
+    -   Ryzen 5600X
+
+    -   Radeon RX570
+
+    -   G.SKILL DDR4 8G 25600 CL16 \*2

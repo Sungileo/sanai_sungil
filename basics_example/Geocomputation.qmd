@@ -1,0 +1,1204 @@
+---
+title: "Geocomputation with R"
+description: Creative & Experimental geography
+categories: R
+author: "Sungil Park"
+date: 2023/03/22
+date-modified: 2023/04/22
+image: "geo.png"
+---
+
+```{r}
+#|warning: False
+```
+
+## Packages
+
+```{r}
+library(sf)
+library(raster)
+library(spData)
+library(tmap)
+library(mapview)
+library(tidyverse)
+library(grid)
+library(gifski)
+```
+
+# 벡터 데이터
+
+R class의 벡터 데이터와 다른 의미의, 공간 위치데이터의 점,선,면을 나타내는 데이터
+
+```{r}
+#vignette(package = "sf") 
+```
+
+## World dataset from spData Package
+
+```{r}
+world %>% head()
+names(world)
+plot(world)
+```
+
+sp 데이터는 `st_as_sf()`로 sf 형식으로 변환
+
+```{r}
+library(sp)
+
+world_sp = as(world, Class = "Spatial")
+
+world_sf = st_as_sf(world_sp)
+```
+
+## Plot map
+
+```{r}
+plot(world["continent"])
+```
+
+### `st_union()` 공간정보 합치기
+
+```{r}
+world_asia = world[world$continent == "Asia", ]
+asia = st_union(world_asia)
+
+plot(world["pop"], reset = FALSE)
+plot(asia, add = TRUE, col = "red")
+```
+
+### `st_centroid()`공간정보의 중심점 계산
+
+cex : symbol size = sqrt(인구수)/1000
+
+```{r}
+plot(world["continent"], reset = FALSE)
+cex = sqrt(world$pop) / 10000  
+world_cents = st_centroid(world, of_largest = TRUE)
+plot(st_geometry(world_cents), add = TRUE, cex = cex)
+```
+
+### Highlight
+
+```{r}
+india = world[world$name_long == "India", ]
+plot(st_geometry(india), expandBB = c(0.1, 0.1, 0.1, 0.1), col = "gray", lwd = 3)
+plot(world_asia[0], add = TRUE)
+```
+
+## Geometry types
+
+```{r}
+st_point(c(5, 2, 3, 1)) %>% plot()
+
+multipoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
+st_multipoint(multipoint_matrix) %>% plot()
+
+
+linestring_matrix = rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2))
+st_linestring(linestring_matrix) %>% plot()
+
+
+polygon_list = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
+st_polygon(polygon_list) %>% plot()
+
+
+polygon_border = rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))
+polygon_hole = rbind(c(2, 4), c(3, 4), c(3, 3), c(2, 3), c(2, 4))
+polygon_with_hole_list = list(polygon_border, polygon_hole)
+st_polygon(polygon_with_hole_list) %>% plot()
+
+
+multilinestring_list = list(rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2)), 
+                            rbind(c(1, 2), c(2, 4)))
+st_multilinestring((multilinestring_list)) %>% plot()
+
+
+multipolygon_list = list(list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))),
+                         list(rbind(c(0, 2), c(1, 2), c(1, 3), c(0, 3), c(0, 2))))
+st_multipolygon(multipolygon_list) %>% plot()
+
+
+gemetrycollection_list = list(st_multipoint(multipoint_matrix),
+                              st_linestring(linestring_matrix))
+st_geometrycollection(gemetrycollection_list) %>% plot()
+```
+
+## Simple feature columns (sfc)
+
+### `st_sfc()` 지리 특성을 하나의 컬럼 객체로 합침
+
+point
+
+```{r}
+point1 = st_point(c(5, 2))
+point2 = st_point(c(1, 3))
+points_sfc = st_sfc(point1, point2)
+points_sfc %>% plot()
+```
+
+polygon
+
+```{r}
+polygon_list1 = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
+polygon1 = st_polygon(polygon_list1)
+polygon_list2 = list(rbind(c(0, 2), c(1, 2), c(1, 3), c(0, 3), c(0, 2)))
+polygon2 = st_polygon(polygon_list2)
+polygon_sfc = st_sfc(polygon1, polygon2)
+polygon_sfc %>% plot()
+```
+
+multilinestring
+
+```{r}
+multilinestring_list1 = list(rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2)), 
+                             rbind(c(1, 2), c(2, 4)))
+multilinestring1 = st_multilinestring((multilinestring_list1))
+multilinestring_list2 = list(rbind(c(2, 9), c(7, 9), c(5, 6), c(4, 7), c(2, 7)), 
+                             rbind(c(1, 7), c(3, 8)))
+multilinestring2 = st_multilinestring((multilinestring_list2))
+multilinestring_sfc = st_sfc(multilinestring1, multilinestring2)
+multilinestring_sfc %>% plot()
+```
+
+geometry
+
+```{r}
+point_multilinestring_sfc = st_sfc(point1, multilinestring1)
+point_multilinestring_sfc %>% plot()
+```
+
+### sfc 객체는 CRS에 대한 정보를 추가로 저장할 수 있음
+
+CRS(coordinate reference systems, 좌표계시스템)
+
+EPSG : European Petroleum Survey Group, 지도 투영과 datums 에 대한 좌표계 정보 데이터베이스를 제공
+
+```{r}
+st_crs(points_sfc)
+
+points_sfc_wgs = st_sfc(point1, point2, crs = 4326)
+st_crs(points_sfc_wgs)
+```
+
+## 위치데이터 + 속성데이터
+
+`st_sf()` 를 이용하여 sfc와 class sf의 객체들을 하나로 통합할 수 있음
+
+```{r}
+lnd_point = st_point(c(0.1, 51.5))                 # sfg object
+lnd_geom = st_sfc(lnd_point, crs = 4326)           # sfc object
+lnd_attrib = data.frame(                           # data.frame object
+  name = "London",
+  temperature = 25,
+  date = as.Date("2017-06-21")
+)
+lnd_sf = st_sf(lnd_attrib, geometry = lnd_geom)    # sf object
+lnd_sf
+```
+
+# Raster 데이터
+
+```{r}
+#install.packages("rgdal") 
+library(rgdal)
+library(spDataLarge)
+
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge") 
+new_raster = raster(raster_filepath)
+
+new_raster
+
+plot(new_raster)
+```
+
+### RasterLayer class
+
+한개의 층
+
+Default CRS = WGS84 (resolution scale = degrees)
+
+8\*8 Raster data
+
+```{r}
+my_raster = raster(nrows = 8, ncols = 8, res = 0.5, 
+                   xmn = -2.0, xmx = 2.0, ymn = -2.0, ymx = 2.0, vals = 1:64)
+nlayers(my_raster)
+## plotting 
+plot(my_raster)
+```
+
+### RasterBrick class
+
+muliple layers
+
+단일 다중 스펙트럼 위성 파일 (a single multispectral satellite file)
+
+```{r}
+multi_raster_file = system.file("raster/landsat.tif", package = "spDataLarge")
+r_brick = brick(multi_raster_file)
+
+nlayers(r_brick)
+
+plot(r_brick)
+```
+
+### RasterStack class
+
+multiple layer
+
+메모리의 단일 다층 객체 (a single multilayer object in memory)
+
+```{r}
+raster_on_disk = raster(r_brick, layer = 1)
+raster_in_memory = raster(xmn = 301905, xmx = 335745,
+                          ymn = 4111245, ymx = 4154085, 
+                          res = 30)
+values(raster_in_memory) = sample(seq_len(ncell(raster_in_memory)))
+crs(raster_in_memory) = crs(raster_on_disk) #같은 좌표 입력
+
+r_stack = stack(raster_in_memory, raster_on_disk)
+r_stack
+
+plot(r_stack)
+```
+
+## CRS
+
+지리좌표계
+
+-   위,경도
+
+-   각도로거리 측정
+
+투영좌표계
+
+-   "평평한 표면"위의 데카르트 좌표 기반
+
+-   원점, x,y축
+
+-   m와 같은 선형 측정 단위
+
+### CRS in R
+
+-   `epsg`코드
+    -   일반적으로 짧음
+    -   잘 정의된 좌표 시스템 하나만을 참조
+-   `proj4string` 정의
+    -   투영 우형, 데이텀 및 타원체와 같은 매개변수를 지정할때 더 많은 유연성
+    -   다양한 투영 우형 지정, 기존 유형 수정 가능
+
+`st_crs()`로 좌표계 조회
+
+`st_set_crs()`로 좌표계 변경
+
+```{r}
+vector_filepath = system.file("vector/zion.gpkg", package = "spDataLarge")
+new_vector = st_read(vector_filepath)
+## st_read() : read vector dataset in R sf package
+
+st_crs(new_vector)
+```
+
+Raster 데이터에서 좌표계
+
+`projection()` 함수로 확인하거나 설정
+
+```{r}
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge") 
+new_raster = raster(raster_filepath) 
+projection(new_raster)
+```
+
+변경
+
+```{r}
+new_raster3  <-  new_raster
+projection(new_raster3) <-  "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 
+                            +units=m +no_defs"
+```
+
+## 단위
+
+sf 객체 내에 단위가 들어가있음
+
+`st_area()` \[m\^2\] 단위 같이 반환
+
+`set_units(st_object,units)` 로 반환 단위 설정
+
+```{r}
+names(world)
+luxembourg = world[world$name_long == "Luxembourg", ]
+south_korea = world[world$name_long == "Republic of Korea", ] 
+
+
+st_area(luxembourg)
+st_area(south_korea)
+```
+
+Raster는 단위에 대한 속성 정보가 없음
+
+## 벡터 속성 조작
+
+```{r}
+library(tidyr)
+library(dplyr)
+```
+
+`st_drop_geometry()` sf객체에서 속성 데이터만 가져오기
+
+```{r}
+dim(world)
+
+world_df = st_drop_geometry(world)
+class(world_df)
+dim(world_df)
+```
+
+### Base R, dplyr 구문으로 조작
+
+```{r}
+world %>% 
+  filter(continent == "Asia") %>% 
+  select(name_long) %>% 
+  plot()
+```
+
+```{r}
+world_agg1  <-  aggregate(pop ~ continent, FUN = sum, data = world, na.rm = TRUE)
+world_agg1
+str(world_agg1)
+class(world_agg1)
+```
+
+`aggregate()`함수를 사용해서 속성 데이터를 그룹별로 집계
+
+-   world\$pop 은 sf객체가 아닌 숫자형 객체, geometry 정보는 없음
+
+```{r}
+world_agg2  <-  aggregate(world["pop"], by = list(world$continent),
+                       FUN = sum, na.rm = TRUE)
+class(world_agg2)
+class(world['pop'])
+class(world$pop)
+```
+
+`group_by()` 사용
+
+```{r}
+world_agg3 <- world %>% 
+  group_by(continent) %>% 
+  summarize(pop = sum(pop,na.rm = TRUE),n_countries = n())
+
+world_agg3
+```
+
+인구 많은 3개 대륙
+
+```{r}
+world %>% 
+  group_by(continent) %>% 
+  summarize(pop = sum(pop, na.rm = TRUE), n_countries = n()) %>% 
+  top_n(n = 3, wt = pop) %>%
+  arrange(desc(pop)) %>%
+  plot()
+```
+
+### `join` 가능
+
+```{r}
+world_coffee <-  left_join(world, coffee_data)
+
+class(world_coffee)
+
+names(world_coffee)
+plot(world_coffee["coffee_production_2017"])
+```
+
+`setdiff()`로 일치하지 않는 열 식별
+
+```{r}
+setdiff(coffee_data$name_long, world$name_long)
+```
+
+stringr 패키지의 `str_subset()`
+
+```{r}
+library(stringr)
+str_subset(world$name_long, "Dem*.+Congo")
+```
+
+```{r}
+coffee_data$name_long[grepl("Congo,", coffee_data$name_long)]  <-  
+  str_subset(world$name_long, "Dem*.+Congo")
+
+world_coffee_match <- inner_join(world, coffee_data)
+
+nrow(world_coffee_match)
+```
+
+### 새로운 열 만들기
+
+base R, `mutate()`, `transmute()` 구문 사용
+
+```{r}
+world %>% transmute(pop_dens = pop / area_km2) %>% head()
+```
+
+`unite()` 사용 열 합치기
+
+`seperate()` 사용 열 분리
+
+```{r}
+world %>%
+  unite("con_reg", continent:region_un, sep = ":", remove = TRUE) %>% head()
+
+world_unite <- world %>%
+  unite("con_reg", continent:region_un, sep = ":", remove = FALSE)
+```
+
+```{r}
+world_unite %>% 
+  separate("con_reg", c("continent", "region_un"), sep = ":") %>% head()
+```
+
+`rename()`, `setNames()` 가능
+
+## Raster 속성 조작
+
+R의 레스터 객체(raster objects)는 데이터 속성으로 `숫자형(numeric)`, `정수형(integer)`, `논리형(logical)`, `요인형(factor)` 데이터 유형을 지원하며, `문자형(character)`은 지원하지 않음
+
+문자형으로 이루어진 범주형 변수 값(categorical variables' values)을 가지고 레스터 객체의 속성을 만들고 싶으면
+
+-   먼저 문자형을 요인형으로 변환 (또는 논리형으로 변환)하고
+
+-   요인형 값을 속성 값으로 해서 레스터 객체를 만듬
+
+```{r}
+elev <- raster(nrows = 6, # integer > 0. Number of rows 
+               ncols = 6, # integer > 0. Number of columns 
+               #res = 0.5, # numeric vector of length 1 or 2 to set the resolution 
+               xmn = -1.5, # minimum x coordinate (left border) 
+               xmx = 1.5, # maximum x coordinate (right border) 
+               ymn = -1.5, # minimum y coordinate (bottom border) 
+               ymx = 1.5, # maximum y coordinate (top border) 
+               vals = 1:36) # values for the new RasterLayer 
+
+elev
+
+plot(elev, main = 'raster datasets with numeric valeus')
+```
+
+`factor` 형식으로 변환
+
+```{r}
+grain_order <- c("clay", "silt", "sand")
+grain_char <- sample(grain_order, 36, replace = TRUE)
+grain_fact <- factor(grain_char, levels = grain_order)
+grain <- raster(nrows = 6, ncols = 6, res = 0.5, 
+               xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
+               vals = grain_fact)
+plot(grain)
+```
+
+`factor` 추가
+
+```{r}
+levels(grain)[[1]] <- cbind(levels(grain)[[1]], wetness = c("wet", "moist", "dry"))
+levels(grain)
+
+grain[c(1, 11, 35)]
+factorValues(grain, grain[c(1, 11, 35)])
+```
+
+## 공간 부분 집합
+
+`st_disjoint`는 sf 패키지에 포함된 함수로, 스페이스 객체끼리 겹치지 않는 부분을 반환하는 함수.
+
+따라서, `canterbury`와 공간적으로 겹치지 않는 부분에 대해서만 `nz_height` 객체에서 값을 선택
+
+```{r}
+canterbury  <-  nz %>% filter(Name == "Canterbury")
+canterbury_height <-  nz_height[canterbury, ]
+
+nz_height[canterbury, 2, op = st_disjoint]
+plot(nz_height[canterbury, 2, op = st_disjoint])
+```
+
+`st_intersects()` 를 활용한 공간 부분 집합 추출
+
+```{r}
+sel_sgbp <-  st_intersects(x = nz_height, y = canterbury)
+
+sel_logical  <-  lengths(sel_sgbp) > 0
+
+canterbury_height2 <-  nz_height[sel_logical, ]
+
+canterbury_height3  <-  nz_height %>%
+  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))
+
+class(sel_sgbp)
+
+st_intersects(x = nz_height, y = canterbury)
+```
+
+### 위상관계
+
+```{r}
+# create a polygon
+a_poly  <-  st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
+a <-   st_sfc(a_poly)
+# create a line
+l_line <-   st_linestring(x = matrix(c(-1, -1, -0.5, 1), ncol = 2))
+l <-   st_sfc(l_line)
+# create points
+p_matrix <- matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
+p_multi <- st_multipoint(x = p_matrix)
+p <- st_cast(st_sfc(p_multi), "POINT")
+
+plot(a, col = c("gray"), border = c("red"))
+plot(l,add = T)
+plot(p,add = T)
+box(col="black")
+
+axis(side = 1, at = seq(-1.0, 1.0, 0.5), tck = 0.02)
+axis(side = 2, at = seq(-1, 1, 0.5), tck = 0.02, las=1)
+text(p_matrix,pos=1)
+```
+
+polygon과 point의 겹치는 부분을 반환
+
+`st_intersects()` 겹치는 부분
+
+```{r}
+st_intersects(p, a)
+
+st_intersects(p, a,sparse = F)[,1]
+```
+
+`st_within()` 완전히 위에 있는 부분
+
+```{r}
+st_within(p, a, sparse = FALSE)[, 1]
+```
+
+`st_touches()` 테두리만 반환
+
+```{r}
+st_touches(p, a, sparse = FALSE)[, 1]
+```
+
+`st_is_within_distance()` 는 삼각형에서 주어진 거리보다 가까운 객체들을 반환
+
+```{r}
+st_is_within_distance(p, a, dist = 0.9,sparse = F)
+```
+
+## Spartial data operations
+
+OSM : OpenStreetMap
+
+cycle_hire과 cycle_hire_osm은 겹치는 포인트가 없음
+
+```{r}
+plot(st_geometry(cycle_hire), col = "blue")
+plot(st_geometry(cycle_hire_osm), add = TRUE, pch = 3, col = "red")
+
+any(st_touches(cycle_hire, cycle_hire_osm, sparse = FALSE))
+```
+
+```{r}
+tmap_mode("view")
+tm_basemap("Stamen.Terrain") +
+  tm_shape(cycle_hire) + 
+  tm_symbols(col = "red", shape = 16, size = 0.5, alpha = .5) + 
+  tm_shape(cycle_hire_osm) +
+  tm_symbols(col = "blue", shape = 16, size = 0.5, alpha = .5) + 
+  tm_tiles("Stamen.TonerLabels")
+tmap_mode("plot")
+```
+
+### `st_is_within_distance()`
+
+위경도가 아닌 투영좌표계로 변경
+
+```{r}
+cycle_hire_P <-  st_transform(cycle_hire, 27700)
+cycle_hire_osm_P <-  st_transform(cycle_hire_osm, 27700)
+sel <-  st_is_within_distance(cycle_hire_P, cycle_hire_osm_P, dist = 20)
+summary(lengths(sel) > 0)
+
+
+sum(lengths(sel) > 0)
+mean(lengths(sel) > 0)
+```
+
+```{r}
+z = st_join(cycle_hire_P, cycle_hire_osm_P,
+            join = st_is_within_distance, dist = 20)
+
+nrow(cycle_hire)
+nrow(z)
+
+z = z %>% 
+  group_by(id) %>% 
+  summarize(capacity = mean(capacity))
+
+nrow(z)
+
+
+plot(cycle_hire_osm["capacity"])
+plot(z["capacity"])
+```
+
+# 0508
+
+## `aggregate()` : group by spatial data
+
+```{r}
+nz_height
+
+
+nz_avheight  <-  aggregate(x = nz_height, by = nz, FUN = mean)
+plot(nz_avheight[2])
+
+#group_by() 와 summarize()함수 사용
+nz_avheight2  <-  nz %>%
+  st_join(nz_height) %>%
+  group_by(Name) %>%
+  summarize(elevation = mean(elevation, na.rm = TRUE))
+plot(nz_avheight2[2])
+```
+
+## Simplification
+
+### `st_simplify`
+
+```{r}
+seine_simp  <-  st_simplify(seine, dTolerance = 2000)  # 2000 m의 허용오차 값으로 단순화
+plot(seine)
+plot(seine_simp)
+
+object.size(seine)
+
+object.size(seine_simp)
+```
+
+### differnce between `st_simplify()`, `ms_simplify()`
+
+```{r}
+us_states
+us_states2163 <-  st_transform(us_states, 2163)
+us_states2163
+
+us_states_simp1 <-  st_simplify(us_states2163, dTolerance = 100000)
+plot(us_states)
+plot(us_states_simp1)
+
+# proportion of points to retain (0-1; default 0.05)
+
+us_states2163$AREA <-  as.numeric(us_states2163$AREA)
+us_states_simp2 <-  rmapshaper::ms_simplify(us_states2163, keep = 0.01,
+                                          keep_shapes = TRUE)
+plot(us_states_simp2)
+```
+
+## Centroids
+
+### `st_centroid()`
+
+지리적 개체의 중심을 식별, 때떄로 지리적 중심이 상위 개체의 경계를 벗어나는 경우가 발생(검은점)
+
+### `st_point_on_surface()`
+
+상위 개체 위에 중심이 생성(빨간점)
+
+```{r}
+nz_centroid  <-  st_centroid(nz)
+nz_pos <- st_point_on_surface(nz)
+
+plot(st_geometry(nz))
+plot(nz_centroid ,add=T, col="black")
+plot(nz_pos ,add=T, col="red")
+
+
+seine_centroid <-  st_centroid(seine)
+seine_pos <- st_point_on_surface(seine)
+
+plot(st_geometry(seine))
+plot(seine_centroid ,add=T, col="black")
+plot(seine_pos ,add=T, col="red")
+```
+
+## Buffers
+
+버퍼: 기하학적 특징의 주어진 거리 내 영역을 나타내는 다각형(입력이 점, 선 또는 다각형인지 상관없이 다각형으로 출력)
+
+```{r}
+seine_buff_5km  <-  st_buffer(seine, joinStyle = "ROUND", dist = 5000)
+seine_buff_50km <-  st_buffer(seine, dist = 20000)
+
+
+plot(seine,col="black")
+plot(seine_buff_5km,col = "red",add=T)
+
+plot(seine,col="black")
+plot(seine_buff_50km,col = "red",add=T)
+```
+
+## Affine transformations
+
+왜곡되거나 잘못 투영된 지도를 기반으로 생성된 지오메트리를 재투영하거나 개선할 때 많은 Affine 변환이 적용
+
+이동하면 맵 단위로 모든 포인트가 동일한 거리만큼 이동 모든 y 좌표를 북쪽으로 100,000미터 이동하지만 x 좌표는 그대로 유지
+
+```{r}
+nz_sfc  <-  st_geometry(nz)
+nz_shift <-  nz_sfc + c(0, 100000)
+
+plot(nz_sfc)
+plot(nz_shift,add=T,col = "red")
+```
+
+### 배율 조정
+
+개체를 요소만큼 확대하거나 축소
+
+모든 기하 도형의 토폴로지 관계를 그대로 유지하면서 원점 좌표와 관련된 모든 좌표 값을 늘리거나 줄일수 있음
+
+중심점을 기준으로 기하 도형의 차이 만큼을 늘리고 줄인 다음 다시 중심점을 더해줌
+
+```{r}
+nz_centroid_sfc <-  st_centroid(nz_sfc)
+nz_scale  <-  (nz_sfc - nz_centroid_sfc) * 0.5 + nz_centroid_sfc
+
+plot(nz_sfc)
+plot(nz_scale,col = "red", add=T)
+```
+
+## 회전 : 2차원 좌표의 회전하기 위한
+
+[회전변환 행렬](https://ko.wikipedia.org/wiki/%ED%9A%8C%EC%A0%84%EB%B3%80%ED%99%98%ED%96%89%EB%A0%AC)
+
+반시계 방향으로 회전하는 회전변환 행렬
+
+```{r}
+rotation  <-  function(a){
+  r = a * pi / 180 #degrees to radians
+  matrix(c(cos(r), sin(r), -sin(r), cos(r)), nrow = 2, ncol = 2)
+} 
+
+nz_rotate <-  (nz_sfc - nz_centroid_sfc) * rotation(30) + nz_centroid_sfc
+
+plot(nz_sfc)
+plot(nz_rotate, add=T, col="red")
+```
+
+### Clipping
+
+-   공간 클리핑은 영향을 받는 일부 형상의 지오메트리 열의 변경을 수반하는 **공간 부분 집합의 한 형태**
+
+-   클리핑은 선, 다각형 및 해당 '다중' 등점보다 복잡한 형상에만 적용
+
+-   두 개의 겹치는 원은 중심점이 서로 1 만큼 떨어져 있고 반지름은 1인 원
+
+```{r}
+b  <-  st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
+b <-  st_buffer(b, dist = 1) # convert points to circles
+plot(b, border = "grey")
+text(x = c(-0.5, 1.5), y = 1, labels = c("x", "y"), cex = 3) # add text
+```
+
+`st_intersection()`, `st_difference(x,y)`, `st_difference(y,x)`, `st_union()`, `st_sym_difference()`
+
+```{r}
+x  <-  b[1]
+y <-  b[2]
+
+x_and_y <-  st_intersection(x, y)
+plot(b, border = "grey")
+plot(x_and_y, col = "lightgrey", border = "grey", add = TRUE)
+
+x_dif_y <-  st_difference(x,y)
+plot(b, border = "grey")
+plot(x_dif_y, col = "lightgrey", border = "grey", add = TRUE) 
+
+y_dif_x <-  st_difference(y,x)
+plot(b, border = "grey")
+plot(y_dif_x, col = "lightgrey", border = "grey", add = TRUE) 
+
+x_union_y <-  st_union(x,y)
+plot(b, border = "grey")
+plot(x_union_y, col = "lightgrey", border = "grey", add = TRUE)
+
+x_sdif_y <-  st_sym_difference(x,y)
+plot(b, border = "grey")
+plot(x_sdif_y, col = "lightgrey", border = "grey", add = TRUE)
+```
+
+### Subsetting(부분집합) and clipping
+
+-   클리핑 오브젝트는 지오메트리를 변경할 수 있지만 오브젝트의 부분 집합을 지정할 수도 있으며 클리핑/하위 설정 오브젝트와 교차하는 피쳐만 반환할 수도 있음
+
+-   이 점을 설명하기 위해 아래 그림은 원 x와 y의 경계 상자를 덮는 점들을 부분집합
+
+-   **어떤 점은 원 하나 안에 있고, 어떤 점은 둘 다 안에 있고, 어떤 점은 둘 다 안에 있음**
+
+-   **st_sample() :** x와 y의 범위 내에서 점들의 간단한 무작위 분포를 생성하기 위해 아래에 사용
+
+-   그 결과 아래 그램에 표시된 출력이 나타나며, x와 y 둘 다와 교차하는 점만을 반환하기 위해 점들을 부분집합하는 방법은 무엇인가?
+
+```{r}
+bb = st_bbox(st_union(x, y))
+box = st_as_sfc(bb)
+set.seed(2017)
+p = st_sample(x = box, size = 10)
+x_and_y = st_intersection(x, y)
+
+plot(b, border = "grey")
+plot(p,add=T)
+```
+
+```{r}
+#1번째방법
+p_xy1 <-  p[x_and_y]
+plot(b, border = "grey")
+plot(p,add=T)
+plot(p_xy1,add=T,col="red")
+
+#2번째방법
+p_xy2 <-  st_intersection(p, x_and_y)
+plot(p_xy2,add=T,col="blue")
+
+#3번째방법
+sel_p_xy <-  st_intersects(p, x, sparse = FALSE)[, 1] &
+  st_intersects(p, y, sparse = FALSE)[, 1]
+p_xy3 <-  p[sel_p_xy]
+plot(p_xy3,add=T,col="green")
+```
+
+## Geometry unions
+
+### `aggregate()`
+
+```{r}
+regions  <-  aggregate(x = us_states[, "total_pop_15"], by = list(us_states$REGION),
+                    FUN = sum, na.rm = TRUE)
+plot(regions[2])
+
+us_states %>% View()
+```
+
+### `groupby()` & `summarize()`
+
+```{r}
+regions2  <-  us_states %>% 
+  group_by(REGION) %>%
+  summarize(pop = sum(total_pop_15, na.rm = TRUE))
+plot(regions2[2])
+```
+
+### `st_union()` 공간정보만 가져오기
+
+```{r}
+us_west  <-  us_states[us_states$REGION == "West", ]
+us_west_union  <-  st_union(us_west)
+plot(us_west_union)
+
+texas <-  us_states[us_states$NAME == "Texas", ]
+texas_union  <-  st_union(us_west_union, texas)
+plot(texas_union)
+```
+
+## Type transformation(유형변환)
+
+### `st_cast()` 로 구현
+
+```{r}
+multipoint <-  st_multipoint(matrix(c(1, 3, 5, 
+                                      1, 3, 1), ncol = 2))
+linestring <-  st_cast(multipoint, "LINESTRING")
+polyg <-  st_cast(multipoint, "POLYGON")
+
+plot(multipoint)
+plot(linestring)
+plot(polyg,col = "lightblue")
+
+st_length(linestring)    #길이계산
+st_area(polyg)           #면적계산
+```
+
+### `st_cast()` multilinestring to seperation of linstrings
+
+```{r}
+multilinestring_list <-  list(matrix(c(1, 4, 5, 3), ncol = 2), 
+                            matrix(c(4, 4, 4, 1), ncol = 2),
+                            matrix(c(2, 4, 2, 2), ncol = 2))
+multilinestring <- st_multilinestring((multilinestring_list))
+multilinestring_sf <-  st_sf(geom = st_sfc(multilinestring))
+multilinestring_sf
+plot(multilinestring_sf)
+
+linestring_sf2 = st_cast(multilinestring_sf, "LINESTRING")
+linestring_sf2
+
+linestring_sf2$name  <-  c("Riddle Rd", "Marshall Ave", "Foulke St")
+linestring_sf2$length <-  st_length(linestring_sf2)
+linestring_sf2
+plot(linestring_sf2[2])
+```
+
+# 0515 Cpt.9
+
+## Tmap package basics
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(nz)+
+  tm_fill()
+
+tm_shape(nz)+
+  tm_borders()
+
+tm_shape(nz)+
+  tm_borders()+
+  tm_fill()
+```
+
+### Map objects
+
+```{r}
+map_nz <- tm_shape(nz) + tm_polygons()
+
+map_nz1 <-  map_nz +
+  tm_shape(nz_elev) + 
+  tm_raster(alpha = 0.7)
+
+nz_water <- st_union(nz) %>% 
+  st_buffer(22200) %>% 
+  st_cast(to = "LINESTRING")
+
+map_nz2 <- map_nz1 +
+  tm_shape(nz_water) + 
+  tm_lines()
+
+map_nz3 <-  map_nz2 +
+  tm_shape(nz_height) + 
+  tm_dots()
+
+tmap_arrange(map_nz1, map_nz2, map_nz3)
+```
+
+### Aesthetics
+
+```{r}
+ma1 <-  tm_shape(nz) + tm_fill(col = "red")
+ma2 <-  tm_shape(nz) + tm_fill(col = "red", alpha = 0.3)
+ma3 <-  tm_shape(nz) + tm_borders(col = "blue")
+ma4 <-  tm_shape(nz) + tm_borders(lwd = 3)
+ma5 <-  tm_shape(nz) + tm_borders(lty = 2)
+ma6 <-  tm_shape(nz) + tm_fill(col = "red", alpha = 0.3) +
+  tm_borders(col = "blue", lwd = 3, lty = 2)
+tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
+```
+
+```{r}
+plot(st_geometry(nz), col = nz$Land_area)  # works
+tm_shape(nz) + tm_fill(col = "Land_area")
+```
+
+Set legend title
+
+```{r}
+map_nza  <-  tm_shape(nz) +
+  tm_fill(col = "Land_area", title = expression("Area (km"^2*")")) + 
+  tm_borders()
+
+map_nza
+```
+
+Set Legend breaks & Palette
+
+```{r}
+a <- tm_shape(nz) + tm_polygons(col = "Median_income")
+b <- tm_shape(nz) + tm_polygons(col = "Median_income", breaks = c(0, 3, 4, 5) * 10000)
+c <- tm_shape(nz) + tm_polygons(col = "Median_income", n = 10)
+d <- tm_shape(nz) + tm_polygons(col = "Median_income", palette = "BuGn")
+
+tmap_arrange(a,b,c,d)
+```
+
+-   `style = "pretty"` :기본 설정은 가능한 경우 정수로 반올림하고 간격을 균등하게 유지.
+
+-   `style = "equal"` : 입력 값을 동일한 범위의 빈으로 나누고 균일한 분포의 변수에 적합(결과 맵이 색상 다양성이 거의 없을 수 있으므로 분포가 치우친 변수에는 권장하지 않음).
+
+-   `style = "quantile"` : 동일한 수의 관찰이 각 범주에 포함되도록 함(빈 범위가 크게 다를 수 있다는 잠재적인 단점이 있음).
+
+-   `style = "jenks"` : 데이터에서 유사한 값의 그룹을 식별하고 범주 간의 차이를 최대화
+
+-   `style = "cont"` : 연속 색상 필드에 많은 색상을 표시하고 연속 래스터에 특히 적합
+
+-   `style = "cat"` : 범주 값을 나타내도록 설계되었으며 각 범주가 고유한 색상을 받도록 함
+
+```{r}
+a <- tm_shape(nz) + tm_polygons(col = "Median_income", style = "pretty")
+b <- tm_shape(nz) + tm_polygons(col = "Median_income", style = "equal")
+c <- tm_shape(nz) + tm_polygons(col = "Median_income", style = "quantile")
+d <- tm_shape(nz) + tm_polygons(col = "Median_income", style = "jenks")
+
+tmap_arrange(a,b,c,d)
+```
+
+```{r}
+tm_shape(nz) + tm_polygons("Population", palette = "Blues")
+tm_shape(nz) + tm_polygons("Population", palette = "YlOrBr")
+```
+
+### Layouts
+
+```{r}
+a <- map_nz + 
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
+
+b <- map_nz + tm_layout(title = "New Zealand")
+c <- map_nz + tm_layout(scale = 5)
+d <- map_nz + tm_layout(bg.color = "lightblue")
+e <- map_nz + tm_layout(frame = FALSE)
+
+tmap_arrange(a,b,c,d,e,nrow = 1)
+```
+
+[tm_layout()](https://rdrr.io/pkg/tmap/man/tm_layout.html) 의 다양한 옵션
+
+-   Frame width (`frame.lwd`) : 프레임 너비
+
+-   an option to allow double lines (`frame.double.line` ) : 이중선 허용 옵션
+
+-   Margin settings including `outer.margin` and `inner.margin` : 여백 설정
+
+-   Font settings controlled by `fontface` and `fontfamily` : 글꼴 설정
+
+-   `legend.show` (whether or not to show the legend) : 범례 표시 여부
+
+-   multiple choice settings such as `legend.position` :범례 위치 변경
+
+### `tm_style()`
+
+```{r}
+a <- map_nza + tm_style("bw")
+b <- map_nza + tm_style("classic")
+c <- map_nza + tm_style("cobalt")
+d <- map_nza + tm_style("col_blind")
+
+tmap_arrange(a,b,c,d)
+```
+
+### Faceted maps
+
+-   Faceted maps은 나란히 배열된 많은 맵으로 구성
+
+-   Faceted maps을 사용하면 시간과 같은 다른 변수와 관련하여 공간 관계가 어떻게 변하는지 시각화할 수 있음
+
+```{r}
+urb_1970_2030  <-  urban_agglomerations %>% 
+  filter(year %in% c(1970, 1990, 2010, 2030))
+
+tm_shape(world) +
+  tm_polygons() +
+  tm_shape(urb_1970_2030) +
+  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
+  tm_facets(by = "year", nrow = 2, free.coords = FALSE)
+```
+
+```{r}
+urb_anim  <-  tm_shape(world) + tm_polygons() + 
+  tm_shape(urban_agglomerations) + tm_dots(size = "population_millions") +
+  tm_facets(along = "year", free.coords = FALSE)
+
+tmap_animation(urb_anim, filename = "urb_anim.gif", delay = 25)
+```
+
+![](urb_anim.gif)
+
+### Inset maps
+
+-   Inset maps는 기본 지도 내부 또는 옆에 렌더링되는 더 작은 지도
+
+-   첫 번째 단계는 관심 영역을 정의하는 것인데, 이는 새로운 공간 객체를 생성하여 수행할 수 있음 `nz_region`.
+
+```{r}
+nz_region <-  st_bbox(c(xmin = 1340000, xmax = 1450000,
+                      ymin = 5130000, ymax = 5210000),
+                    crs = st_crs(nz_height)) %>%  st_as_sfc()
+```
+
+```{r}
+# 뉴질랜드의 서던 알프스 지역을 보여주는 기본 지도를 만듬
+nz_height_map  <-  tm_shape(nz_elev, bbox = nz_region) +
+  tm_raster(style = "cont", palette = "YlGn", legend.show = TRUE) +
+  tm_shape(nz_height) + 
+  tm_symbols(shape = 2, col = "red", size = 1) +
+  tm_scale_bar(position = c("left", "bottom"))
+
+# 삽입 맵 생성으로 구성
+nz_map <- tm_shape(nz) + 
+  tm_polygons() +
+  tm_shape(nz_height) + 
+  tm_symbols(shape = 2, col = "red", size = 0.1) + 
+  tm_shape(nz_region) + 
+  tm_borders(lwd = 3)
+
+#  `viewport()` 패키지의 함수를 사용하여 두 맵을 결합
+nz_height_map
+print(nz_map, vp = viewport(0.8, 0.27, width = 0.5, height = 0.5))
+```
+
+## Interactive maps
+
+-   대화형 지도는 데이터 세트를 새로운 차원으로 끌어올릴 수 있음
+
+-   '웹 지도'에 오버레이된 지리 데이터 세트의 **모든 부분을 이동하고 확대**하는 기능
+
+-   지도를 **기울이고 회전하는 기능**과 사용자가 **이동 및 확대/축소**할 때 자동으로 업데이트됨
+
+-   **tmap**, **mapview**,**mapdeck**, **leaflet** 을 가지고 대화형 지도 표현 가능
+
+```{r}
+tmap_mode("view") #interactive mode가 on상태임
+map_nz <- tm_shape(nz)+
+  tm_polygons()
+  
+map_nz
+```
+
+# mapdeck
+
+```{r}
+library(mapdeck)
+set_token("pk.eyJ1Ijoic3VuZ2lsZW8iLCJhIjoiY2xoYTRwbXEzMGR6eTNkbXBoZnluNXdyYSJ9.Id1fKIbhtvA9Mrnyo_1JQA")
+```
+
+```{r}
+crash_data = read.csv("https://git.io/geocompr-mapdeck")
+crash_data = na.omit(crash_data)
+
+ms = mapdeck_style("dark")
+
+mapdeck(style = ms, 
+        pitch = 45, 
+        location = c(0, 52), 
+        zoom = 4) %>%
+  add_grid(data = crash_data, 
+           lat = "lat", 
+           lon = "lng", 
+           cell_size = 1000,
+           elevation_scale = 50, 
+           layer_id = "grid_layer",
+           colour_range = viridisLite::plasma(6))
+```
+
+## more interactive map examples
+
+[**Geospatial Visualization**](https://sungileo.github.io/sanai_sungil/basics_example/vis_geo.html#mapdeck)

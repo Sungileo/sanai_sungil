@@ -1,0 +1,173 @@
+---
+title: "타슈 데이터 분석"
+author: "sungil_park"
+date: "2023/06/26"
+date-modified: "2023/06/26"
+description: "geocomputation final test (2023-1)"
+image: "tsu.png"
+categories: r
+editor_options: 
+  chunk_output_type: inline
+---
+
+## 타슈 데이터 분석하기
+
+대전광역시에는 시민들의 이동 편의성을 위하여 "타슈 공영자전거 시스템"을 운영 중에 있습니다.
+
+주어진 데이터로 해당 문제를 풀어 보시오.
+
+```{r, include=FALSE}
+library(tidyverse)
+library(sf)
+library(ggmap)
+Sys.getlocale()
+rm(list=ls())
+#library(rgdal)
+```
+
+### 데이터 로드
+
+tashu_station = 타슈 보관소 데이터
+
+tashu_2020 = 2020년 사용내역 데이터
+
+daejeon_area = 지리데이터
+
+```{r, warning=FALSE}
+tashu_station = read.csv("https://raw.githubusercontent.com/Sungileo/trainsets_2/main/tasu_station.csv") ## github을 통해 utf8로 변환
+tashu_2020 = read.csv("~/dataset/2020.csv")
+daejeon_area = st_read("~/dataset/LSMD_ADM_SECT_UMD_30.shp",encoding = "euc-kr")
+```
+
+### 1. 데이터 구조, 변수정보 확인 & 변수명 변환
+
+```{r}
+tashu_2020 %>% str()
+
+tashu_station %>% str()
+
+names(tashu_station) <- c("번호", "대여소명", "거치대", "주소")
+names(tashu_2020) <- c("대여스테이션", "대여일시", "반납스테이션", "반납일시", "이동거리","회원구분")
+```
+
+### 2. Google API 활용
+
+```{r,include=FALSE}
+ggmap::register_google(key = "AIzaSyA7H7oNSWsslZFrFEel2DU0TDm_GT3mJ84")
+```
+
+```{r, eval=FALSE}
+ggmap::register_google(key = "your API")
+```
+
+#### 2-1. `geocode`를 사용하여 주소에 해당하는 위경도 추출
+
+```{r,include=FALSE}
+tashu_station <- ggmap::mutate_geocode(data = tashu_station, location = `주소`, source = 'google')
+```
+
+```{r,eval=FALSE}
+tashu_station <- ggmap::mutate_geocode(data = tashu_station, location = `주소`, source = 'google')
+```
+
+#### 2-2. 타슈 보관소의 위치 시각화
+
+```{r}
+dj_map <- get_map("daejeon",zoom=12)
+
+ggmap(dj_map) + geom_point(data = tashu_station,
+                           aes(x=lon,y=lat),
+                           size=2,
+                           alpha=0.7)
+```
+
+### 3. 데이터 전처리
+
+```{r,include=FALSE}
+options(scipen = 100)
+```
+
+#### 3-1. 대여일시 열에서 대여 년월일 추출
+
+```{r}
+tashu_2020 <- tashu_2020 %>% mutate(대여년월일 = substr(tashu_2020$대여일시,1,8))
+```
+
+#### 3-2. 가장 많은 대여가 있는 9/13일 데이터 추출, 보관소 데이터 병합
+
+```{r}
+tbl_1 <- data.frame(tashu_2020$대여년월일 %>% table()) %>% arrange(-Freq) #20200913
+top1_day <- c(20200913)
+
+tashu_top1_day <- tashu_2020 %>% filter(대여년월일==top1_day)
+tashu_top1_day %>% dim()
+
+tashu_top1_day <- tashu_top1_day %>% filter(대여스테이션 != 262 | 반납스테이션 != 262)
+tashu_top1_day %>% dim()
+
+borrow_count <- tashu_top1_day %>% 
+  group_by(대여스테이션) %>% 
+  summarize(cnt = n()) %>% 
+  na.omit()
+
+names(borrow_count) <- c("번호", "cnt")
+borrow_count <- borrow_count %>% full_join(tashu_station,by = "번호") %>% filter(번호 != 262)
+borrow_count[is.na(borrow_count)] <- 0
+
+tashu_sf <- st_as_sf(borrow_count,coords = c("lon","lat"))
+st_crs(tashu_sf) <- 4326
+
+tashu_sf <- tashu_sf %>% filter(대여소명 != "읍내동우편취급국")
+
+
+tashu_sf %>% head()
+```
+
+#### 3-3. 9/13의 정류장별 대여 수
+
+```{r}
+ggmap(dj_map) + 
+  coord_sf(crs = st_crs(4326))+
+  geom_sf(data = tashu_sf,aes(size = cnt,alpha = 0.7),inherit.aes = FALSE)
+```
+
+### 4. 행정동별 대여수 시각화
+
+같은 CRS로 맟추기
+
+```{r}
+daejeon_area %>% st_crs()
+
+to_crs = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+d2 <- spTransform(daejeon_area, to_crs)
+daejeon_area_sf <- st_as_sf(d2)
+```
+
+```{r}
+daejeon_area_sf <- st_as_sf(d2)
+daejeon_area_sf <- daejeon_area_sf %>% st_make_valid()
+
+daejeon_area_sf %>% plot()
+```
+
+```{r}
+dae2 <- daejeon_area_sf["EMD_NM"]
+st_crs(dae2) <- 4326
+
+geom_joined <- dae2 %>% st_join(tashu_sf,join = st_intersects)
+
+geom_joined[is.na(geom_joined)] <- 0
+```
+
+```{r}
+dj_map2 <- get_map("daejeon", zoom=11)
+
+ggmap(dj_map2) + 
+  coord_sf(crs = st_crs(4326))+
+  geom_sf(data=geom_joined,aes(fill=cnt,alpha = 0.9),inherit.aes = FALSE)+
+  scale_fill_continuous(name = "count",
+                        labels = c(c(0,5,10,15) %>% paste()),
+                        breaks = c(0,5,10,15),
+                        limits = c(0,20))
+
+```
