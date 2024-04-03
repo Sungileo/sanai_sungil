@@ -1,0 +1,128 @@
+---
+title : "대전중앙시장 점포 크롤링"
+date: "2024/04/03"
+description: "대전중앙시장의 점포를 알아보아요~ <br> - 정적 크롤링 <br> - 지오코딩"
+categories: python
+author: "Sungil Park"
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+library(DT)
+sijang <- read.csv("/home/sungil/PythonSimhwa/대전중앙시장점포.csv")
+```
+
+## Packages
+
+```{python,eval = FALSE}
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import googlemaps
+import folium
+from folium import CircleMarker
+```
+
+## Crawling
+
+```{python, eval = FALSE}
+sijang = []
+max_page = 78
+bar_length = 50
+
+for pageNo in range(1,max_page):
+    url_base = "http://map.daejeon.go.kr/road/special.jsp?road_list=87&tour_list=&"
+    url_search=url_base+"page="+str(pageNo)+"&keyword="
+
+    req = requests.get(url_search)
+    html = req.text
+    store = BeautifulSoup(html,'html.parser')
+    store_tbody = store.find_all('tbody')
+    store_tr = store_tbody[0].find_all('tr')
+
+    n_rows = len(store_tr)
+    for i in range(n_rows):
+        store_td = store_tr[i].find_all('td')
+        sijang.append({
+        "index": store_td[0].text,
+        "name": store_td[1].text,
+        "call": store_td[2].text,
+        "address": store_td[3].text
+        })
+
+    progress = (pageNo+1)/max_page
+    loaded_length = int(bar_length * progress)
+    bar = '=' * loaded_length + '-' * (bar_length - loaded_length)
+    percent = int(progress * 100)
+
+    print(f'\r[{bar}] {percent}%', end='', flush=True)
+
+print('\n완료!')
+sijang = pd.DataFrame(sijang)
+sijang
+```
+
+```{r, echo=FALSE}
+sijang[,2:4] %>% datatable()
+```
+
+## Geocode
+
+```{python, eval = FALSE}
+API_KEY = 'My_Google_API'
+gmaps = googlemaps.Client(key=API_KEY)
+
+nrow = sijang.shape[0]
+bar_length=50
+
+def googlegeocode(x):
+    temp = gmaps.geocode(x)
+    lat,lon = temp[0]["geometry"]["location"]["lat"],temp[0]["geometry"]["location"]["lng"]
+    return lat, lon
+
+for idx,row in sijang.iterrows():
+    lat, lon = googlegeocode(row["address"])
+    sijang.at[idx, "lat"] = lat
+    sijang.at[idx, "lon"] = lon
+    
+    progress = (idx+1)/nrow
+    loaded_length = int(bar_length*progress)
+    bar = '='*loaded_length + '-'*(bar_length - loaded_length)
+    percent = int(progress*100)
+    print(f'\r[{bar}] {percent}%', end='', flush=True)
+
+print('\n완료!')
+sijang
+```
+
+```{python, echo = FALSE}
+print("[=================================================-] 100%")
+print("완료!")
+```
+
+```{r, echo=FALSE}
+sijang[,2:6] %>% datatable()
+```
+
+## 점포 지도
+
+```{python, eval = FALSE}
+M = folium.Map(location=[36.329386,	127.431855], 
+               zoom_start=17,tiles="Cartodb Positron")
+
+for idx, row in df_2.iterrows():
+    CircleMarker(location = [row['lat'], row['lon']],
+           radius=3,
+           tooltip=row["name"],
+           color = "#fb5607",
+           fill = True,
+           fill_opacity=1,
+           opacity=1
+           ).add_to(M)
+
+M
+```
+
+<iframe src="대전중앙시장점포지도.html" width="800" height="600">
+
+</iframe>

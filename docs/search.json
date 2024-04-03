@@ -403,7 +403,7 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "할리스커피 크롤링\n\n\n\n\n\n\n\npython\n\n\n\n\n전국의 할리스커피 매장을 알아보아요~ / 정적 크롤링 / 지오코딩\n\n\n\n\n\n\nApr 1, 2024\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n딥러닝 기말프로젝트 - 1\n\n\n\n\n\n\n\npython\n\n\n\n\n딥러닝을 공부해보아요. / 인공지능 (2023-2)\n\n\n\n\n\n\nNov 29, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n지역사회 문제해결형 빅데이터/AI활용 공모전\n\n\n\n\n\n대전시 대중교통 통행수요 예측\n\n\n\n\n\n\nNov 25, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\nCompetiton Data Visualization\n\n\n\n\n\n\n\npython\n\n\n\n\n타일별 버스정류장 수 / 가져다 쓰슈~\n\n\n\n\n\n\nNov 23, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n대시보드 창고\n\n\n\n\n\n\n\nR\n\n\nPython\n\n\nHTML\n\n\nMarkdown\n\n\n\n\nFlexdashboard 연습\n\n\n\n\n\n\nJul 14, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n데이터베이스 만들기\n\n\n\n\n\n\n\nSQL\n\n\nLINUX\n\n\n\n\n라즈베리파이, MySQL, MariaDB, 원격연결\n\n\n\n\n\n\nJul 1, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n천안시 아파트 매매가 분석\n\n\n\n\n\n\n\npython\n\n\n\n\n아파트 실거래가, 네이버부동산, api활용 및 웹크롤링 / 데이터마이닝 (2023-1)\n\n\n\n\n\n\nJun 17, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n천안시 아파트 매매가 회귀분석\n\n\n\n\n\n\n\nR\n\n\n\n\n선형회귀 (2023-1)\n\n\n\n\n\n\nApr 27, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\nSQL\n\n\n\n\n\n\n\nSQL\n\n\n\n\nSQL Basics\n\n\n\n\n\n\nApr 10, 2023\n\n\nsungil_park\n\n\n\n\n\n\n  \n\n\n\n\nPython playground\n\n\n\n\n\n\n\nPython\n\n\n\n\n파이썬 키보드 뚜드리기\n\n\n\n\n\n\nMar 28, 2023\n\n\nsungil_park\n\n\n\n\n\n\n  \n\n\n\n\npizza\n\n\n\n\n\n피자학개론\n\n\n\n\n\n\nMar 14, 2023\n\n\nsungil_park\n\n\n\n\n\n\n  \n\n\n\n\nTraffic line detection using CV2\n\n\n\n\n\n\n\nPython\n\n\n\n\n파이썬 cv2 활용 차선 탐지 (2022-2)\n\n\n\n\n\n\nOct 18, 2022\n\n\nsungil_park\n\n\n\n\n\n\nNo matching items"
+    "text": "대전중앙시장 점포 크롤링\n\n\n\n\n\n\n\npython\n\n\n\n\n대전중앙시장의 점포를 알아보아요~  - 정적 크롤링  - 지오코딩\n\n\n\n\n\n\nApr 3, 2024\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n할리스커피 크롤링\n\n\n\n\n\n\n\npython\n\n\n\n\n전국의 할리스커피 매장을 알아보아요~ / 정적 크롤링 / 지오코딩\n\n\n\n\n\n\nApr 1, 2024\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n딥러닝 기말프로젝트 - 1\n\n\n\n\n\n\n\npython\n\n\n\n\n딥러닝을 공부해보아요. / 인공지능 (2023-2)\n\n\n\n\n\n\nNov 29, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n지역사회 문제해결형 빅데이터/AI활용 공모전\n\n\n\n\n\n대전시 대중교통 통행수요 예측\n\n\n\n\n\n\nNov 25, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\nCompetiton Data Visualization\n\n\n\n\n\n\n\npython\n\n\n\n\n타일별 버스정류장 수 / 가져다 쓰슈~\n\n\n\n\n\n\nNov 23, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n대시보드 창고\n\n\n\n\n\n\n\nR\n\n\nPython\n\n\nHTML\n\n\nMarkdown\n\n\n\n\nFlexdashboard 연습\n\n\n\n\n\n\nJul 14, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n데이터베이스 만들기\n\n\n\n\n\n\n\nSQL\n\n\nLINUX\n\n\n\n\n라즈베리파이, MySQL, MariaDB, 원격연결\n\n\n\n\n\n\nJul 1, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n천안시 아파트 매매가 분석\n\n\n\n\n\n\n\npython\n\n\n\n\n아파트 실거래가, 네이버부동산, api활용 및 웹크롤링 / 데이터마이닝 (2023-1)\n\n\n\n\n\n\nJun 17, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\n천안시 아파트 매매가 회귀분석\n\n\n\n\n\n\n\nR\n\n\n\n\n선형회귀 (2023-1)\n\n\n\n\n\n\nApr 27, 2023\n\n\nSungil Park\n\n\n\n\n\n\n  \n\n\n\n\nSQL\n\n\n\n\n\n\n\nSQL\n\n\n\n\nSQL Basics\n\n\n\n\n\n\nApr 10, 2023\n\n\nsungil_park\n\n\n\n\n\n\n  \n\n\n\n\nPython playground\n\n\n\n\n\n\n\nPython\n\n\n\n\n파이썬 키보드 뚜드리기\n\n\n\n\n\n\nMar 28, 2023\n\n\nsungil_park\n\n\n\n\n\n\n  \n\n\n\n\npizza\n\n\n\n\n\n피자학개론\n\n\n\n\n\n\nMar 14, 2023\n\n\nsungil_park\n\n\n\n\n\n\n  \n\n\n\n\nTraffic line detection using CV2\n\n\n\n\n\n\n\nPython\n\n\n\n\n파이썬 cv2 활용 차선 탐지 (2022-2)\n\n\n\n\n\n\nOct 18, 2022\n\n\nsungil_park\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "records/Swimming.html",
@@ -670,5 +670,40 @@
     "title": "할리스커피 크롤링",
     "section": "전국 매장 지도",
     "text": "전국 매장 지도\n\nM = folium.Map(location=[36.807438,127.144504], zoom_start=7,tiles=\"Cartodb Positron\")\n\nfor idx, row in hollys.iterrows():\n    CircleMarker(location = [row['lat'], row['lon']],\n           radius=30,\n           tooltip=row[\"매장명\"],\n           color = \"#ba000e\",\n           fill = True,\n           fill_opacity=0.6,\n           opacity=1\n           ).add_to(M)\n\nM"
+  },
+  {
+    "objectID": "posts/daejensijang.html",
+    "href": "posts/daejensijang.html",
+    "title": "대전중앙시장 점포 크롤링",
+    "section": "",
+    "text": "import pandas as pd\nimport requests\nfrom bs4 import BeautifulSoup\nimport googlemaps\nimport folium\nfrom folium import CircleMarker"
+  },
+  {
+    "objectID": "posts/daejensijang.html#packages",
+    "href": "posts/daejensijang.html#packages",
+    "title": "대전중앙시장 점포 크롤링",
+    "section": "",
+    "text": "import pandas as pd\nimport requests\nfrom bs4 import BeautifulSoup\nimport googlemaps\nimport folium\nfrom folium import CircleMarker"
+  },
+  {
+    "objectID": "posts/daejensijang.html#crawling",
+    "href": "posts/daejensijang.html#crawling",
+    "title": "대전중앙시장 점포 크롤링",
+    "section": "Crawling",
+    "text": "Crawling\n\nsijang = []\nmax_page = 78\nbar_length = 50\n\nfor pageNo in range(1,max_page):\n    url_base = \"http://map.daejeon.go.kr/road/special.jsp?road_list=87&tour_list=&\"\n    url_search=url_base+\"page=\"+str(pageNo)+\"&keyword=\"\n\n    req = requests.get(url_search)\n    html = req.text\n    store = BeautifulSoup(html,'html.parser')\n    store_tbody = store.find_all('tbody')\n    store_tr = store_tbody[0].find_all('tr')\n\n    n_rows = len(store_tr)\n    for i in range(n_rows):\n        store_td = store_tr[i].find_all('td')\n        sijang.append({\n        \"index\": store_td[0].text,\n        \"name\": store_td[1].text,\n        \"call\": store_td[2].text,\n        \"address\": store_td[3].text\n        })\n\n    progress = (pageNo+1)/max_page\n    loaded_length = int(bar_length * progress)\n    bar = '=' * loaded_length + '-' * (bar_length - loaded_length)\n    percent = int(progress * 100)\n\n    print(f'\\r[{bar}] {percent}%', end='', flush=True)\n\nprint('\\n완료!')\nsijang = pd.DataFrame(sijang)\nsijang"
+  },
+  {
+    "objectID": "posts/daejensijang.html#geocode",
+    "href": "posts/daejensijang.html#geocode",
+    "title": "대전중앙시장 점포 크롤링",
+    "section": "Geocode",
+    "text": "Geocode\n\nAPI_KEY = 'My_Google_API'\ngmaps = googlemaps.Client(key=API_KEY)\n\nnrow = sijang.shape[0]\nbar_length=50\n\ndef googlegeocode(x):\n    temp = gmaps.geocode(x)\n    lat,lon = temp[0][\"geometry\"][\"location\"][\"lat\"],temp[0][\"geometry\"][\"location\"][\"lng\"]\n    return lat, lon\n\nfor idx,row in sijang.iterrows():\n    lat, lon = googlegeocode(row[\"address\"])\n    sijang.at[idx, \"lat\"] = lat\n    sijang.at[idx, \"lon\"] = lon\n    \n    progress = (idx+1)/nrow\n    loaded_length = int(bar_length*progress)\n    bar = '='*loaded_length + '-'*(bar_length - loaded_length)\n    percent = int(progress*100)\n    print(f'\\r[{bar}] {percent}%', end='', flush=True)\n\nprint('\\n완료!')\nsijang\n\n\n\n[=================================================-] 100%\n\n\n완료!"
+  },
+  {
+    "objectID": "posts/daejensijang.html#점포-지도",
+    "href": "posts/daejensijang.html#점포-지도",
+    "title": "대전중앙시장 점포 크롤링",
+    "section": "점포 지도",
+    "text": "점포 지도\n\nM = folium.Map(location=[36.329386, 127.431855], \n               zoom_start=17,tiles=\"Cartodb Positron\")\n\nfor idx, row in df_2.iterrows():\n    CircleMarker(location = [row['lat'], row['lon']],\n           radius=3,\n           tooltip=row[\"name\"],\n           color = \"#fb5607\",\n           fill = True,\n           fill_opacity=1,\n           opacity=1\n           ).add_to(M)\n\nM"
   }
 ]
